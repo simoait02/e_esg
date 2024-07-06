@@ -18,11 +18,11 @@ class CustomSliverAppBar extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     double iconButtonSize = screenWidth * 0.10;
     double sectionPadding = screenWidth * 0.04;
-    double titleFontSize = screenWidth * 0.06 ;
+    double titleFontSize = screenWidth * 0.06-6 ;
 
     return SliverAppBar(
-      bottom: const PreferredSize(
-        preferredSize: Size.fromHeight(5.0),
+      bottom: PreferredSize(
+        preferredSize: Size.fromHeight( iconButtonSize-30),
         child: Text(''),
       ),
       floating: true,
@@ -58,7 +58,7 @@ class CustomSliverAppBar extends StatelessWidget {
                     style: TextStyle(
                       fontFamily: 'Poppins',
                       fontWeight: FontWeight.w600,
-                      fontSize: titleFontSize - 8,
+                      fontSize: titleFontSize ,
                       color: Color(0xFF2E37A4),
                     ),
                   ),
@@ -67,7 +67,7 @@ class CustomSliverAppBar extends StatelessWidget {
                     style: TextStyle(
                       fontFamily: 'Poppins',
                       fontWeight: FontWeight.w600,
-                      fontSize: titleFontSize - 8,
+                      fontSize: titleFontSize ,
                       color: Color(0xFFABAFDB),
                     ),
                   ),
@@ -76,8 +76,8 @@ class CustomSliverAppBar extends StatelessWidget {
 
             IconButton(
               icon: Container(
-                width: iconButtonSize,
-                height: 2 * (titleFontSize - 8) + 16,
+                width: 2 * titleFontSize  + 16,
+                height: 2 * titleFontSize  + 16,
                 decoration: BoxDecoration(
                   color: Colors.brown,
                   borderRadius: const BorderRadius.all(Radius.circular(10)),
