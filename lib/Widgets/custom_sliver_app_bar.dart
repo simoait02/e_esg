@@ -28,7 +28,6 @@ class CustomSliverAppBar extends StatelessWidget {
       floating: true,
       snap: true,
       backgroundColor: Colors.white,
-      expandedHeight:kToolbarHeight ,
       flexibleSpace: FlexibleSpaceBar(
         titlePadding: EdgeInsets.symmetric(horizontal: sectionPadding),
         title: Row(
