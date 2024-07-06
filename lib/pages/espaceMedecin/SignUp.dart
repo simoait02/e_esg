@@ -122,12 +122,26 @@ class _SignupState extends State<Signup> {
                     margin: const EdgeInsets.only(left: 10, top: 10),
                     decoration: const BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage("assets/logoEsj.png"),
+                        image: AssetImage("assets/images/logoEsj.png"),
                       ),
                     ),
                   ),
                 ),
-      
+                Container(
+                  margin: EdgeInsets.only(left:30),
+                  child: const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Sign up",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 30,
+                          fontFamily: "poppins"
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20,),
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 20),
                   child: Row(

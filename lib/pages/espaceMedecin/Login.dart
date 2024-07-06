@@ -1,3 +1,4 @@
+import 'package:e_esg/pages/IES/calendrier.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -45,7 +46,7 @@ class _LoginState extends State<Login> {
         alignment: Alignment.centerLeft,
         child: Text(
           label,
-          style: const TextStyle(fontFamily: "Inter"),
+          style: const TextStyle(fontFamily: "Inter",fontSize: 15),
         ),
       ),
     );
@@ -79,16 +80,31 @@ class _LoginState extends State<Login> {
             Align(
               alignment: Alignment.centerLeft,
               child: Container(
-                height: 80,
+                height: 70,
                 width: 160,
                 margin: const EdgeInsets.only(left: 10, top: 10),
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage("assets/logoEsj.png"),
+                    image: AssetImage("assets/images/logoEsj.png"),
                   ),
                 ),
               ),
             ),
+            Container(
+              margin: EdgeInsets.only(left:30),
+              child: const Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                    "Login",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30,
+                    fontFamily: "poppins"
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 5,),
             buildLabel("Identifiant"),
             const SizedBox(height: 5,),
             buildTextField(width, "E-mail, CIN", _emailFocusNode, _emailHasFocus),
@@ -111,7 +127,9 @@ class _LoginState extends State<Login> {
                       "Login",
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     )),
-                onPressed: () {}),
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const Calendrier()));
+                }),
             const SizedBox(height: 10,),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
