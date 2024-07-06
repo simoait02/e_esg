@@ -18,7 +18,7 @@ class CustomSliverAppBar extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     double iconButtonSize = screenWidth * 0.10;
     double sectionPadding = screenWidth * 0.04;
-    double titleFontSize = screenWidth * 0.06 -8; // Adjust this as needed
+    double titleFontSize = screenWidth * 0.06 ;
 
     return SliverAppBar(
       floating: true,
