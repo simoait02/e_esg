@@ -75,6 +75,7 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return  SingleChildScrollView(
+
       child: Column(
           children: [
             Align(

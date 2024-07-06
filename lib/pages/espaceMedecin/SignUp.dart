@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'Card.dart';
+
 class Signup extends StatefulWidget {
   final Function(double, double) onSigninTapped;
+  final Function() onContinueTapped;
 
-  Signup({super.key, required this.onSigninTapped});
+  Signup({super.key, required this.onSigninTapped,required this.onContinueTapped});
 
   @override
   State<Signup> createState() => _SignupState();
@@ -212,11 +215,11 @@ class _SignupState extends State<Signup> {
                 const SizedBox(height: 10,),
                 Align(alignment: Alignment.centerLeft ,child: Container(margin: EdgeInsets.only(left:30) ,child: const Text("E-mail"))),
                 buildTextField(width, "", _emailFocusNode, _emailHasFocus),
-      
+
                 const SizedBox(height: 10,),
                 Align(alignment: Alignment.centerLeft ,child: Container(margin: EdgeInsets.only(left:30) ,child: const Text("Numéro de téléphone"))),
                 buildTextField(width, "", _numTeleFocusNode, _numTeleHasFocus),
-      
+
                 const SizedBox(height: 10,),
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 20),
@@ -261,7 +264,7 @@ class _SignupState extends State<Signup> {
                           )
                         ],
                       ),
-      
+
                     ],
                   ),
                 ),
@@ -309,18 +312,18 @@ class _SignupState extends State<Signup> {
                           )
                         ],
                       ),
-      
+
                     ],
                   ),
                 ),
                 const SizedBox(height: 10,),
-      
+
                 yes2? Align(alignment: Alignment.centerLeft ,child: Container(margin: EdgeInsets.only(left:30) ,child: const Text("Specialitée"))):Container(),
                 yes2? buildTextField(width, "", _specialiteFocusNode, _specialiteHasFocus):const SizedBox(height: 70,),
-      
+
               ],
             ),
-      
+
             Column(
               children: [
                 CupertinoButton(
@@ -336,7 +339,11 @@ class _SignupState extends State<Signup> {
                           "Suivant",
                           style: TextStyle(color: Colors.white, fontSize: 20),
                         )),
-                    onPressed: () {}),
+                    onPressed: () {
+                      Cardi.q = 0.45;
+                      Cardi.top = 0.25;
+                      widget.onContinueTapped();
+                    }),
                 const SizedBox(height: 10,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -363,7 +370,7 @@ class _SignupState extends State<Signup> {
                 const SizedBox(height: 10,),
               ],
             ),
-      
+
           ],
         ),
     );

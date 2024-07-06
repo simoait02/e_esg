@@ -4,10 +4,12 @@ import 'package:flutter/services.dart';
 
 import 'Login.dart';
 import 'SignUp.dart';
+import 'Password.dart';
 
 class Cardi extends StatefulWidget {
   static double q = 0.45;
   static double top = 0.25;
+  static bool isContinueTapped = false;
 
   Cardi({super.key});
 
@@ -28,6 +30,18 @@ class _CardiState extends State<Cardi> {
   void toggleLoginSignUp() {
     setState(() {
       showLogin = !showLogin;
+    });
+  }
+
+  void navigateToPassword() {
+    setState(() {
+      Cardi.isContinueTapped = true;
+    });
+  }
+
+  void navigateToSignup() {
+    setState(() {
+      Cardi.isContinueTapped = false;
     });
   }
 
@@ -61,16 +75,25 @@ class _CardiState extends State<Cardi> {
               ),
               margin: EdgeInsets.only(left: 20, right: 20, top: height * Cardi.top),
               child: AnimatedSwitcher(
-                duration: Duration(seconds: 1),
+                duration: const Duration(seconds: 1),
                 child: showLogin
                     ? Login(onSignUpTapped: (newQ, newTop) {
                   updateContainerSize(newQ, newTop);
                   toggleLoginSignUp();
                 })
-                    : Signup(onSigninTapped: (newQ, newTop) {
+                    : Cardi.isContinueTapped
+                    ? Password(onBackTapped: (newQ,newTop) {
                   updateContainerSize(newQ, newTop);
-                  toggleLoginSignUp();
-                }),
+                  navigateToSignup();
+                })
+                    : Signup(
+                    onSigninTapped: (newQ, newTop) {
+                      updateContainerSize(newQ, newTop);
+                      toggleLoginSignUp();
+                    },
+                    onContinueTapped: () {
+                      navigateToPassword();
+                    }),
               ),
             ),
           ),
