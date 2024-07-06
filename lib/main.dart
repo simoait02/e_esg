@@ -1,8 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'espaceMedcin/Login.dart';
+import 'espaceMedcin/Card.dart';
+
 
 void main(){
-  runApp(Login());
+  runApp(Cardi());
 }

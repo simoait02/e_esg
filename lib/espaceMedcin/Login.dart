@@ -1,37 +1,142 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-void main(){
-  runApp(Login());
-}
 class Login extends StatefulWidget {
-  const Login({super.key});
+  final Function(double, double) onSignUpTapped;
+
+  Login({super.key, required this.onSignUpTapped});
 
   @override
   State<Login> createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
+  final FocusNode _emailFocusNode = FocusNode();
+  final FocusNode _passwordFocusNode = FocusNode();
+  bool _emailHasFocus = false;
+  bool _passwordHasFocus = false;
+
   @override
-  Widget build(BuildContext context) {
-    double height=MediaQuery.of(context).size.height;
-    double width=MediaQuery.of(context).size.width;
-    return CupertinoApp(
-      home: CupertinoPageScaffold(
-        child: Container(
-            decoration: const BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/backgroundLogin.png"),
-                    fit: BoxFit.fill
-                )
-            ),
-            child: Column(
-              children: [
-                Card()
-              ],
-            )
+  void initState() {
+    super.initState();
+    _emailFocusNode.addListener(() {
+      setState(() {
+        _emailHasFocus = _emailFocusNode.hasFocus;
+      });
+    });
+    _passwordFocusNode.addListener(() {
+      setState(() {
+        _passwordHasFocus = _passwordFocusNode.hasFocus;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _emailFocusNode.dispose();
+    _passwordFocusNode.dispose();
+    super.dispose();
+  }
+
+  Widget buildLabel(String label) {
+    return Container(
+      margin: const EdgeInsets.only(left: 40, top: 20),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Text(
+          label,
+          style: const TextStyle(fontFamily: "Inter"),
         ),
       ),
+    );
+  }
+
+  Widget buildTextField(double width, String placeholder, FocusNode focusNode, bool hasFocus) {
+    return Container(
+      width: width * 0.8,
+      height: 50,
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: hasFocus ? CupertinoColors.activeBlue : CupertinoColors.inactiveGray,
+          width: 2.0,
+        ),
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+      child: CupertinoTextField(
+        focusNode: focusNode,
+        placeholder: placeholder,
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    return  SingleChildScrollView(
+      child: Column(
+          children: [
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Container(
+                height: 80,
+                width: 160,
+                margin: const EdgeInsets.only(left: 10, top: 10),
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("assets/logoEsj.png"),
+                  ),
+                ),
+              ),
+            ),
+            buildLabel("Identifiant"),
+            const SizedBox(height: 5,),
+            buildTextField(width, "E-mail, CIN", _emailFocusNode, _emailHasFocus),
+            const SizedBox(height: 10,),
+            buildLabel("Password"),
+            const SizedBox(height: 5,),
+            buildTextField(width, "Password", _passwordFocusNode, _passwordHasFocus),
+            const SizedBox(height: 10,),
+        
+            CupertinoButton(
+                child: Container(
+                    width: width * 0.4,
+                    height: 50,
+                    decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                            colors: [Color(0xff0b40ff), Color(0xff0c40a4)]),
+                        borderRadius: BorderRadius.circular(40)),
+                    alignment: Alignment.center,
+                    child: const Text(
+                      "Login",
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    )),
+                onPressed: () {}),
+            const SizedBox(height: 10,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const SizedBox(width: 20,),
+                const Text(
+                  "Need an account?",
+                  style: TextStyle(fontFamily: "Inter"),
+                ),
+                const SizedBox(width: 2,),
+                GestureDetector(
+                  onTap: () {
+                    widget.onSignUpTapped(0.7, 0.1);
+                  },
+                  child: const Text(
+                    "Sign Up",
+                    style: TextStyle(
+                        fontFamily: "Inter",
+                        color: Color(0xff3a01de)),
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
     );
   }
 }
