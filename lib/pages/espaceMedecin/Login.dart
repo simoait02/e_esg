@@ -46,7 +46,7 @@ class _LoginState extends State<Login> {
         alignment: Alignment.centerLeft,
         child: Text(
           label,
-          style: const TextStyle(fontFamily: "Inter"),
+          style: const TextStyle(fontFamily: "Inter",fontSize: 15),
         ),
       ),
     );
@@ -80,7 +80,7 @@ class _LoginState extends State<Login> {
             Align(
               alignment: Alignment.centerLeft,
               child: Container(
-                height: 80,
+                height: 70,
                 width: 160,
                 margin: const EdgeInsets.only(left: 10, top: 10),
                 decoration: const BoxDecoration(
@@ -90,6 +90,21 @@ class _LoginState extends State<Login> {
                 ),
               ),
             ),
+            Container(
+              margin: EdgeInsets.only(left:30),
+              child: const Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                    "Login",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30,
+                    fontFamily: "poppins"
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 5,),
             buildLabel("Identifiant"),
             const SizedBox(height: 5,),
             buildTextField(width, "E-mail, CIN", _emailFocusNode, _emailHasFocus),

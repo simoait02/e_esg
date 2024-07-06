@@ -127,7 +127,21 @@ class _SignupState extends State<Signup> {
                     ),
                   ),
                 ),
-      
+                Container(
+                  margin: EdgeInsets.only(left:30),
+                  child: const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Sign up",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 30,
+                          fontFamily: "poppins"
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20,),
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 20),
                   child: Row(

@@ -53,7 +53,7 @@ class _CardiState extends State<Cardi> {
             child: AnimatedContainer(
               duration: const Duration(seconds: 1),
               width: width * 0.9,
-              height: 960 * Cardi.q,
+              height: 1050 * Cardi.q,
               decoration: BoxDecoration(
                 color: Colors.white,
                 border: Border.all(color: Colors.black),
