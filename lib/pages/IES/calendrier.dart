@@ -83,290 +83,292 @@ class CalendrierState extends State<Calendrier> {
     double sectionPadding = screenWidth * 0.04;
     double titleFontSize = screenWidth * 0.06;
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: CustomScrollView(
-          slivers: [
-            CustomSliverAppBar(name: "Liam Michael",role: "Admin",imagePath: 'assets/images/boy.png'),
-            SliverToBoxAdapter(
-              child: Container(
-                padding: EdgeInsets.all(sectionPadding),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: screenHeight * 0.03),
-                    Center(
-                      child: Text(
-                        "Plannifier les lives",
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w700,
-                          fontSize: titleFontSize,
+    return MaterialApp(
+      home: Scaffold(
+        backgroundColor: Colors.white,
+        body: SafeArea(
+          child: CustomScrollView(
+            slivers: [
+              CustomSliverAppBar(name: "Liam Michael",role: "Admin",imagePath: 'assets/images/boy.png'),
+              SliverToBoxAdapter(
+                child: Container(
+                  padding: EdgeInsets.all(sectionPadding),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: screenHeight * 0.03),
+                      Center(
+                        child: Text(
+                          "Plannifier les lives",
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w700,
+                            fontSize: titleFontSize,
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(height: screenHeight * 0.04),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Padding(
-                        padding: EdgeInsets.only(right: screenWidth * 0.03, bottom: 20),
-                        child: SizedBox(
-                          width: screenWidth * 0.45,
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                              foregroundColor: Colors.white,
-                              backgroundColor: Color(0xFF2E37A4),
-                              padding: EdgeInsets.symmetric(vertical: 8),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
+                      SizedBox(height: screenHeight * 0.04),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Padding(
+                          padding: EdgeInsets.only(right: screenWidth * 0.03, bottom: 20),
+                          child: SizedBox(
+                            width: screenWidth * 0.45,
+                            child: ElevatedButton(
+                              onPressed: () {},
+                              style: ElevatedButton.styleFrom(
+                                foregroundColor: Colors.white,
+                                backgroundColor: Color(0xFF2E37A4),
+                                padding: EdgeInsets.symmetric(vertical: 8),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(Icons.add, color: Colors.white, size: screenWidth * 0.07),
+                                  SizedBox(width: 8),
+                                  Text(
+                                    "Ajouter un live",
+                                    style: TextStyle(
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: titleFontSize - 10,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(Icons.add, color: Colors.white, size: screenWidth * 0.07),
-                                SizedBox(width: 8),
-                                Text(
-                                  "Ajouter un live",
-                                  style: TextStyle(
-                                    fontFamily: 'Poppins',
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: titleFontSize - 10,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ],
-                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Container(
-                      height: screenHeight * 0.5,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(screenWidth * 0.04),
-                        border: Border.all(
-                          color: Color(0xFFEAEBF6),
-                          width: 2.0,
+                      Container(
+                        height: screenHeight * 0.5,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(screenWidth * 0.04),
+                          border: Border.all(
+                            color: Color(0xFFEAEBF6),
+                            width: 2.0,
+                          ),
                         ),
-                      ),
-                      padding: EdgeInsets.all(sectionPadding),
-                      child: SizedBox(
-                        height: screenHeight * 0.4,
-                        child: Scrollbar(
-                          thumbVisibility: false,
-                          controller: ScrollController(),
-                          child: SingleChildScrollView(
-                            physics: BouncingScrollPhysics(),
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    ElevatedButton(
-                                      onPressed: () {
-                                        selectView(CalendarView.month);
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: _view == CalendarView.month ? Color(0xFF00D3C7) : Color(0xFFF1F1F1),
-                                        foregroundColor: _view == CalendarView.month ? Colors.white : Color(0xFF797979),
-                                        padding: EdgeInsets.symmetric(vertical: 8),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(4),
+                        padding: EdgeInsets.all(sectionPadding),
+                        child: SizedBox(
+                          height: screenHeight * 0.4,
+                          child: Scrollbar(
+                            thumbVisibility: false,
+                            controller: ScrollController(),
+                            child: SingleChildScrollView(
+                              physics: BouncingScrollPhysics(),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          selectView(CalendarView.month);
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: _view == CalendarView.month ? Color(0xFF00D3C7) : Color(0xFFF1F1F1),
+                                          foregroundColor: _view == CalendarView.month ? Colors.white : Color(0xFF797979),
+                                          padding: EdgeInsets.symmetric(vertical: 8),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(4),
+                                          ),
                                         ),
+                                        child: Text("Mois"),
                                       ),
-                                      child: Text("Mois"),
-                                    ),
-                                    SizedBox(width: 10),
-                                    ElevatedButton(
-                                      onPressed: () {
-                                        selectView(CalendarView.week);
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: _view == CalendarView.week ? Color(0xFF00D3C7) : Color(0xFFF1F1F1),
-                                        foregroundColor: _view == CalendarView.week ? Colors.white : Color(0xFF797979),
-                                        padding: EdgeInsets.symmetric(vertical: 8),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(4),
+                                      SizedBox(width: 10),
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          selectView(CalendarView.week);
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: _view == CalendarView.week ? Color(0xFF00D3C7) : Color(0xFFF1F1F1),
+                                          foregroundColor: _view == CalendarView.week ? Colors.white : Color(0xFF797979),
+                                          padding: EdgeInsets.symmetric(vertical: 8),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(4),
+                                          ),
                                         ),
+                                        child: Text("Semaine"),
                                       ),
-                                      child: Text("Semaine"),
-                                    ),
-                                    SizedBox(width: 10),
-                                    ElevatedButton(
-                                      onPressed: () {
-                                        selectView(CalendarView.day);
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: _view == CalendarView.day ? Color(0xFF00D3C7) : Color(0xFFF1F1F1),
-                                        foregroundColor: _view == CalendarView.day ? Colors.white : Color(0xFF797979),
-                                        padding: EdgeInsets.symmetric(vertical: 8),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(4),
+                                      SizedBox(width: 10),
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          selectView(CalendarView.day);
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: _view == CalendarView.day ? Color(0xFF00D3C7) : Color(0xFFF1F1F1),
+                                          foregroundColor: _view == CalendarView.day ? Colors.white : Color(0xFF797979),
+                                          padding: EdgeInsets.symmetric(vertical: 8),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(4),
+                                          ),
                                         ),
+                                        child: Text("Jour"),
                                       ),
-                                      child: Text("Jour"),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: 20),
-                                SfCalendar(
-                                  controller: _calendarController,
-                                  view: _view,
-                                  firstDayOfWeek: 1,
-                                  dataSource: LiveDataSource(getLives()),
-                                  onTap: _view == CalendarView.month?_onCalendarTapped:null,
-                                  todayHighlightColor: Color(0xFF2E37A4),
-                                  headerStyle: CalendarHeaderStyle(
-                                    backgroundColor: Colors.white,
-                                    textStyle: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: titleFontSize - 3,
-                                      fontFamily: 'Poppins',
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                                    ],
                                   ),
-                                  monthViewSettings: MonthViewSettings(
-                                    monthCellStyle: MonthCellStyle(
+                                  SizedBox(height: 20),
+                                  SfCalendar(
+                                    controller: _calendarController,
+                                    view: _view,
+                                    firstDayOfWeek: 1,
+                                    dataSource: LiveDataSource(getLives()),
+                                    onTap: _view == CalendarView.month?_onCalendarTapped:null,
+                                    todayHighlightColor: Color(0xFF2E37A4),
+                                    headerStyle: CalendarHeaderStyle(
                                       backgroundColor: Colors.white,
-                                      trailingDatesBackgroundColor: Colors.white,
-                                      leadingDatesBackgroundColor: Colors.white,
                                       textStyle: TextStyle(
                                         color: Colors.black,
+                                        fontSize: titleFontSize - 3,
                                         fontFamily: 'Poppins',
-                                      ),
-                                      trailingDatesTextStyle: TextStyle(
-                                        color: Colors.grey,
-                                        fontFamily: 'Poppins',
-                                      ),
-                                      leadingDatesTextStyle: TextStyle(
-                                        color: Colors.grey,
-                                        fontFamily: 'Poppins',
+                                        fontWeight: FontWeight.w600,
                                       ),
                                     ),
-                                  ),
-                                  selectionDecoration: BoxDecoration(
-                                    border: Border.all(color: Color(0xFF2E37A4), width: 2.0),
-                                    borderRadius: BorderRadius.circular(3),
-                                  ),
-                                  timeSlotViewSettings: TimeSlotViewSettings(
-                                    timeTextStyle: TextStyle(
-                                      color: Colors.black,
+                                    monthViewSettings: MonthViewSettings(
+                                      monthCellStyle: MonthCellStyle(
+                                        backgroundColor: Colors.white,
+                                        trailingDatesBackgroundColor: Colors.white,
+                                        leadingDatesBackgroundColor: Colors.white,
+                                        textStyle: TextStyle(
+                                          color: Colors.black,
+                                          fontFamily: 'Poppins',
+                                        ),
+                                        trailingDatesTextStyle: TextStyle(
+                                          color: Colors.grey,
+                                          fontFamily: 'Poppins',
+                                        ),
+                                        leadingDatesTextStyle: TextStyle(
+                                          color: Colors.grey,
+                                          fontFamily: 'Poppins',
+                                        ),
+                                      ),
+                                    ),
+                                    selectionDecoration: BoxDecoration(
+                                      border: Border.all(color: Color(0xFF2E37A4), width: 2.0),
+                                      borderRadius: BorderRadius.circular(3),
+                                    ),
+                                    timeSlotViewSettings: TimeSlotViewSettings(
+                                      timeTextStyle: TextStyle(
+                                        color: Colors.black,
+                                        fontFamily: 'Poppins',
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    appointmentTextStyle: TextStyle(
+                                      fontSize: 12,
                                       fontFamily: 'Poppins',
                                       fontWeight: FontWeight.w600,
+                                      color: Colors.white,
                                     ),
                                   ),
-                                  appointmentTextStyle: TextStyle(
-                                    fontSize: 12,
-                                    fontFamily: 'Poppins',
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    SizedBox(height: screenHeight * 0.02),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(screenWidth * 0.04),
-                        border: Border.all(
-                          color: Color(0xFFEAEBF6),
-                          width: 1.0,
+                      SizedBox(height: screenHeight * 0.02),
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(screenWidth * 0.04),
+                          border: Border.all(
+                            color: Color(0xFFEAEBF6),
+                            width: 1.0,
+                          ),
+                        ),
+                        padding: EdgeInsets.all(sectionPadding),
+                        child: Row(
+                          children: [
+                            Image.asset("assets/images/propo_icon.png", width: 60, height: 80),
+                            SizedBox(width: screenWidth * 0.04),
+                            Text(
+                              'Propositions',
+                              style: TextStyle(
+                                fontSize: titleFontSize - 2,
+                                color: Colors.black,
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            Spacer(),
+                            IconButton(
+                              onPressed: () {},
+                              icon: Icon(Icons.arrow_forward_ios_outlined),
+                              color: Color(0xFFEAEBF6), // Replace with your desired color
+                            )
+                          ],
                         ),
                       ),
-                      padding: EdgeInsets.all(sectionPadding),
-                      child: Row(
-                        children: [
-                          Image.asset("assets/images/propo_icon.png", width: 60, height: 80),
-                          SizedBox(width: screenWidth * 0.04),
-                          Text(
-                            'Propositions',
-                            style: TextStyle(
-                              fontSize: titleFontSize - 2,
-                              color: Colors.black,
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.w600,
-                            ),
+                      SizedBox(height: screenHeight * 0.02),
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(screenWidth * 0.04),
+                          border: Border.all(
+                            color: Color(0xFFEAEBF6),
+                            width: 1.0,
                           ),
-                          Spacer(),
-                          IconButton(
-                            onPressed: () {},
-                            icon: Icon(Icons.arrow_forward_ios_outlined),
-                            color: Color(0xFFEAEBF6), // Replace with your desired color
-                          )
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: screenHeight * 0.02),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(screenWidth * 0.04),
-                        border: Border.all(
-                          color: Color(0xFFEAEBF6),
-                          width: 1.0,
+                        ),
+                        padding: EdgeInsets.all(sectionPadding),
+                        child: Row(
+                          children: [
+                            Image.asset("assets/images/statistique_icone.png", width: 60, height: 80),
+                            SizedBox(width: screenWidth * 0.04),
+                            Text(
+                              'Statistiques',
+                              style: TextStyle(
+                                fontSize: titleFontSize,
+                                color: Colors.black,
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            Spacer(),
+                            IconButton(
+                              onPressed: () {},
+                              icon: Icon(Icons.arrow_forward_ios_outlined),
+                              color: Color(0xFFEAEBF6), // Replace with your desired color
+                            )
+                          ],
                         ),
                       ),
-                      padding: EdgeInsets.all(sectionPadding),
-                      child: Row(
-                        children: [
-                          Image.asset("assets/images/statistique_icone.png", width: 60, height: 80),
-                          SizedBox(width: screenWidth * 0.04),
-                          Text(
-                            'Statistiques',
-                            style: TextStyle(
-                              fontSize: titleFontSize,
-                              color: Colors.black,
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.w600,
+                      SizedBox(height: screenHeight * 0.04),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(screenWidth * 0.04),
+                        ),
+                        padding: EdgeInsets.all(sectionPadding),
+                        child: Column(
+                          children: [
+                            Text(
+                              'Privacy Policy   Terms of Use',
+                              style: TextStyle(
+                                fontSize: screenWidth * 0.04,
+                                color: Color.fromARGB(255, 161, 161, 161),
+                              ),
                             ),
-                          ),
-                          Spacer(),
-                          IconButton(
-                            onPressed: () {},
-                            icon: Icon(Icons.arrow_forward_ios_outlined),
-                            color: Color(0xFFEAEBF6), // Replace with your desired color
-                          )
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: screenHeight * 0.04),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(screenWidth * 0.04),
-                      ),
-                      padding: EdgeInsets.all(sectionPadding),
-                      child: Column(
-                        children: [
-                          Text(
-                            'Privacy Policy   Terms of Use',
-                            style: TextStyle(
-                              fontSize: screenWidth * 0.04,
-                              color: Color.fromARGB(255, 161, 161, 161),
+                            SizedBox(height: screenHeight * 0.01),
+                            Text(
+                              'Copyright 2024 XRay All Rights Reserved.',
+                              style: TextStyle(
+                                fontSize: screenWidth * 0.04,
+                                color: Colors.grey.shade400,
+                              ),
                             ),
-                          ),
-                          SizedBox(height: screenHeight * 0.01),
-                          Text(
-                            'Copyright 2024 XRay All Rights Reserved.',
-                            style: TextStyle(
-                              fontSize: screenWidth * 0.04,
-                              color: Colors.grey.shade400,
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

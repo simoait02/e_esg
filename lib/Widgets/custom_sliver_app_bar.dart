@@ -14,13 +14,17 @@ class CustomSliverAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
+    final screenHeight=MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     double iconButtonSize = screenWidth * 0.10;
     double sectionPadding = screenWidth * 0.04;
     double titleFontSize = screenWidth * 0.06 ;
 
     return SliverAppBar(
+      bottom: const PreferredSize(
+        preferredSize: Size.fromHeight(5.0),
+        child: Text(''),
+      ),
       floating: true,
       snap: true,
       backgroundColor: Colors.white,
@@ -45,30 +49,31 @@ class CustomSliverAppBar extends StatelessWidget {
               ),
               onPressed: () {},
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                SizedBox(height: screenHeight*0.013),
-                Text(
-                  name,
-                  style: TextStyle(
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w600,
-                    fontSize: titleFontSize - 8,
-                    color: Color(0xFF2E37A4),
+             Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  SizedBox(height: 10),
+                  Text(
+                    name,
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w600,
+                      fontSize: titleFontSize - 8,
+                      color: Color(0xFF2E37A4),
+                    ),
                   ),
-                ),
-                Text(
-                  role,
-                  style: TextStyle(
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w600,
-                    fontSize: titleFontSize - 8,
-                    color: Color(0xFFABAFDB),
+                  Text(
+                    role,
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w600,
+                      fontSize: titleFontSize - 8,
+                      color: Color(0xFFABAFDB),
+                    ),
                   ),
-                ),
-              ],
-            ),
+                ],
+              ),
+
             IconButton(
               icon: Container(
                 width: iconButtonSize,
