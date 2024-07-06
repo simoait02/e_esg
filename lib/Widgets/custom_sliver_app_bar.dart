@@ -48,7 +48,7 @@ class CustomSliverAppBar extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                SizedBox(height: 10),
+                SizedBox(height: screenHeight*0.013),
                 Text(
                   name,
                   style: TextStyle(
