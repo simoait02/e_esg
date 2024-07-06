@@ -122,7 +122,7 @@ class _SignupState extends State<Signup> {
                     margin: const EdgeInsets.only(left: 10, top: 10),
                     decoration: const BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage("assets/logoEsj.png"),
+                        image: AssetImage("assets/images/logoEsj.png"),
                       ),
                     ),
                   ),
