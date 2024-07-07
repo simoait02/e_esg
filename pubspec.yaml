@@ -38,6 +38,7 @@ dependencies:
   table_calendar: ^3.0.0
   syncfusion_flutter_calendar: ^26.1.40
   flutter_svg: ^2.0.10
+  searchfield: ^1.0.5
 
 dev_dependencies:
   flutter_test:
@@ -70,6 +71,9 @@ flutter:
      - assets/images/boy.png
      - assets/images/propo_icon.png
      - assets/images/logoEsj.png
+     - assets/images/flèche1.png
+     - assets/images/calendar_icon.svg
+     - assets/images/clock_icon.svg
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
