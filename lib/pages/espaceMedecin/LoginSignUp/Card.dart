@@ -7,7 +7,7 @@ import 'SignUp.dart';
 import 'Password.dart';
 
 class Cardi extends StatefulWidget {
-  static double q = 0.45;
+  static double q = 0.4;
   static double top = 0.25;
   static bool isContinueTapped = false;
 

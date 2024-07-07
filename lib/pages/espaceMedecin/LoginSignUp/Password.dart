@@ -1,3 +1,4 @@
+import 'package:e_esg/Widgets/NavigationBar.dart';
 import 'package:e_esg/pages/IES/calendrier.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -52,18 +53,18 @@ class _PasswordState extends State<Password> {
     );
   }
 
-  Widget buildTextField(double width, String placeholder, FocusNode focusNode, bool hasFocus) {
+  Widget buildTextField(double width,double height, String placeholder, FocusNode focusNode, bool hasFocus) {
     return Container(
       width: width * 0.8,
-      height: 50,
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: hasFocus ? CupertinoColors.activeBlue : CupertinoColors.inactiveGray,
-          width: 2.0,
-        ),
-        borderRadius: BorderRadius.circular(8.0),
-      ),
+      height: height*0.055,
       child: CupertinoTextField(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(
+            color: CupertinoColors.black.withOpacity(0.5),
+            width: 1,
+          ),
+        ),
         focusNode: focusNode,
         placeholder: placeholder,
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -74,23 +75,11 @@ class _PasswordState extends State<Password> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
+    double height =MediaQuery.of(context).size.height;
     return SingleChildScrollView(
 
       child: Column(
         children: [
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Container(
-              height: 70,
-              width: 160,
-              margin: const EdgeInsets.only(left: 10, top: 10),
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/images/logoEsj.png"),
-                ),
-              ),
-            ),
-          ),
           Container(
             margin: EdgeInsets.only(left: 30),
             child: const Align(
@@ -107,12 +96,12 @@ class _PasswordState extends State<Password> {
           const SizedBox(height: 5,),
           buildLabel("mot de passe"),
           const SizedBox(height: 5,),
-          buildTextField(width, "", _coPasswordFocusNode, _coPasswordHasFocus),
-          const SizedBox(height: 10,),
+          buildTextField(width,height, "", _coPasswordFocusNode, _coPasswordHasFocus),
+          const SizedBox(height: 5,),
           buildLabel("confirmer mot de passe"),
           const SizedBox(height: 5,),
-          buildTextField(width, "", _passwordFocusNode, _passwordHasFocus),
-          const SizedBox(height: 10,),
+          buildTextField(width, height,"", _passwordFocusNode, _passwordHasFocus),
+          const SizedBox(height: 40,),
 
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -131,7 +120,7 @@ class _PasswordState extends State<Password> {
                       style: TextStyle(color: Colors.black, fontSize: 15),
                     )),
                 onPressed: () {
-                  widget.onBackTapped(0.7,0.1);
+                  widget.onBackTapped(0.65,0.1);
                 },
               ),
               CupertinoButton(
@@ -148,7 +137,7 @@ class _PasswordState extends State<Password> {
                       style: TextStyle(color: Colors.white, fontSize: 15),
                     )),
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const Calendrier()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const Navbar()));
                 },
               ),
             ],

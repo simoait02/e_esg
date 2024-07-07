@@ -88,18 +88,18 @@ class _SignupState extends State<Signup> {
     super.dispose();
   }
 
-  Widget buildTextField(double width, String placeholder, FocusNode focusNode, bool hasFocus) {
+  Widget buildTextField(double width,double height, String placeholder, FocusNode focusNode, bool hasFocus) {
     return Container(
       width: width * 0.8,
-      height: 50,
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: hasFocus ? CupertinoColors.activeBlue : CupertinoColors.inactiveGray,
-          width: 2.0,
-        ),
-        borderRadius: BorderRadius.circular(8.0),
-      ),
+      height: height*0.055,
       child: CupertinoTextField(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(
+            color: CupertinoColors.black.withOpacity(0.5),
+            width: 1,
+          ),
+        ),
         focusNode: focusNode,
         placeholder: placeholder,
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -110,6 +110,8 @@ class _SignupState extends State<Signup> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
+    double height =MediaQuery.of(context).size.height;
+
     return SingleChildScrollView(
 
       child: Column(
@@ -117,19 +119,6 @@ class _SignupState extends State<Signup> {
           children: [
             Column(
               children: [
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Container(
-                    height: 80,
-                    width: 160,
-                    margin: const EdgeInsets.only(left: 10, top: 10),
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage("assets/images/logoEsj.png"),
-                      ),
-                    ),
-                  ),
-                ),
                 Container(
                   margin: EdgeInsets.only(left:30),
                   child: const Align(
@@ -156,7 +145,7 @@ class _SignupState extends State<Signup> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(margin: EdgeInsets.only(left:10) ,child: const Text("Nom")),
-                            buildTextField(width * 0.5, "", _nomFocusNode, _nomHasFocus),
+                            buildTextField(width * 0.5,height, "", _nomFocusNode, _nomHasFocus),
                           ],
                         ),
                       ),
@@ -166,7 +155,7 @@ class _SignupState extends State<Signup> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(margin: EdgeInsets.only(left:10) ,child: const Text("Prénom")),
-                            buildTextField(width * 0.5, "", _prenomFocusNode, _prenomHasFocus),
+                            buildTextField(width * 0.5, height,"", _prenomFocusNode, _prenomHasFocus),
                           ],
                         ),
                       ),
@@ -185,7 +174,7 @@ class _SignupState extends State<Signup> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(margin: EdgeInsets.only(left:10) ,child: const Text("CIN")),
-                            buildTextField(width * 0.5, "", _cinFocusNode, _cinHasFocus),
+                            buildTextField(width * 0.5,height, "", _cinFocusNode, _cinHasFocus),
                           ],
                         ),
                       ),
@@ -195,7 +184,7 @@ class _SignupState extends State<Signup> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(margin: EdgeInsets.only(left:10) ,child: const Text("INPE")),
-                            buildTextField(width * 0.5, "", _inpeFocusNode, _inpeHasFocus),
+                            buildTextField(width * 0.5, height,"", _inpeFocusNode, _inpeHasFocus),
                           ],
                         ),
                       ),
@@ -205,7 +194,7 @@ class _SignupState extends State<Signup> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(margin: EdgeInsets.only(left:10) ,child: const Text("PPR")),
-                            buildTextField(width * 0.5, "", _pprFocusNode, _pprHasFocus),
+                            buildTextField(width * 0.5,height, "", _pprFocusNode, _pprHasFocus),
                           ],
                         ),
                       ),
@@ -214,11 +203,11 @@ class _SignupState extends State<Signup> {
                 ),
                 const SizedBox(height: 10,),
                 Align(alignment: Alignment.centerLeft ,child: Container(margin: EdgeInsets.only(left:30) ,child: const Text("E-mail"))),
-                buildTextField(width, "", _emailFocusNode, _emailHasFocus),
+                buildTextField(width, height,"", _emailFocusNode, _emailHasFocus),
 
                 const SizedBox(height: 10,),
                 Align(alignment: Alignment.centerLeft ,child: Container(margin: EdgeInsets.only(left:30) ,child: const Text("Numéro de téléphone"))),
-                buildTextField(width, "", _numTeleFocusNode, _numTeleHasFocus),
+                buildTextField(width,height, "", _numTeleFocusNode, _numTeleHasFocus),
 
                 const SizedBox(height: 10,),
                 Container(
@@ -226,7 +215,7 @@ class _SignupState extends State<Signup> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Align(alignment: Alignment.centerLeft ,child: Container(margin: EdgeInsets.only(left:10) ,child: const Text("Médecin au sein d’un centre ESJ?"))),
+                      Align(alignment: Alignment.centerLeft ,child: Container(margin: EdgeInsets.only(left:10) ,child: const Text("Médecin au sein\n d’un centre ESJ?"))),
                       Row(
                         children: [
                           GestureDetector(
@@ -317,9 +306,8 @@ class _SignupState extends State<Signup> {
                   ),
                 ),
                 const SizedBox(height: 10,),
-
-                yes2? Align(alignment: Alignment.centerLeft ,child: Container(margin: EdgeInsets.only(left:30) ,child: const Text("Specialitée"))):Container(),
-                yes2? buildTextField(width, "", _specialiteFocusNode, _specialiteHasFocus):const SizedBox(height: 70,),
+                yes2? Align(alignment: Alignment.centerLeft ,child: Container(margin: EdgeInsets.only(left:30) ,child: const Text("Specialitée"))):SizedBox(height: 20,),
+                yes2? buildTextField(width, height,"", _specialiteFocusNode, _specialiteHasFocus):SizedBox(height: height*0.055,),
 
               ],
             ),
@@ -340,7 +328,7 @@ class _SignupState extends State<Signup> {
                           style: TextStyle(color: Colors.white, fontSize: 20),
                         )),
                     onPressed: () {
-                      Cardi.q = 0.45;
+                      Cardi.q = 0.4;
                       Cardi.top = 0.25;
                       widget.onContinueTapped();
                     }),
@@ -356,7 +344,7 @@ class _SignupState extends State<Signup> {
                     const SizedBox(width: 2,),
                     GestureDetector(
                       onTap: () {
-                        widget.onSigninTapped(0.45, 0.25);
+                        widget.onSigninTapped(0.4, 0.25);
                       },
                       child: const Text(
                         "Sign In",

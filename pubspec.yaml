@@ -39,6 +39,7 @@ dependencies:
   syncfusion_flutter_calendar: ^26.1.40
   flutter_svg: ^2.0.10
   searchfield: ^1.0.5
+  google_fonts: ^6.2.1
 
 dev_dependencies:
   flutter_test:
@@ -74,6 +75,14 @@ flutter:
      - assets/images/flèche1.png
      - assets/images/calendar_icon.svg
      - assets/images/clock_icon.svg
+     - assets/images/patients.png
+     - assets/images/patient.png
+     - assets/images/doc.png
+     - assets/images/chatbot.png
+     - assets/images/IES.png
+     - assets/images/notifications.png
+     - assets/images/profile.png
+     - assets/images/teleExpertise.png
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

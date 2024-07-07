@@ -1,3 +1,4 @@
+import 'package:e_esg/Widgets/NavigationBar.dart';
 import 'package:e_esg/pages/IES/calendrier.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -52,18 +53,18 @@ class _LoginState extends State<Login> {
     );
   }
 
-  Widget buildTextField(double width, String placeholder, FocusNode focusNode, bool hasFocus) {
+  Widget buildTextField(double width,double height, String placeholder, FocusNode focusNode, bool hasFocus) {
     return Container(
       width: width * 0.8,
-      height: 50,
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: hasFocus ? CupertinoColors.activeBlue : CupertinoColors.inactiveGray,
-          width: 2.0,
-        ),
-        borderRadius: BorderRadius.circular(8.0),
-      ),
+      height: height*0.055,
       child: CupertinoTextField(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(
+            color: CupertinoColors.black.withOpacity(0.5),
+            width: 1,
+          ),
+        ),
         focusNode: focusNode,
         placeholder: placeholder,
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -74,23 +75,12 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
+    double height =MediaQuery.of(context).size.height;
+
     return  SingleChildScrollView(
 
       child: Column(
           children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Container(
-                height: 70,
-                width: 160,
-                margin: const EdgeInsets.only(left: 10, top: 10),
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage("assets/images/logoEsj.png"),
-                  ),
-                ),
-              ),
-            ),
             Container(
               margin: EdgeInsets.only(left:30),
               child: const Align(
@@ -108,11 +98,11 @@ class _LoginState extends State<Login> {
             const SizedBox(height: 5,),
             buildLabel("Identifiant"),
             const SizedBox(height: 5,),
-            buildTextField(width, "E-mail, CIN", _emailFocusNode, _emailHasFocus),
+            buildTextField(width,height, "E-mail, CIN", _emailFocusNode, _emailHasFocus),
             const SizedBox(height: 10,),
             buildLabel("Password"),
             const SizedBox(height: 5,),
-            buildTextField(width, "Password", _passwordFocusNode, _passwordHasFocus),
+            buildTextField(width, height,"Password", _passwordFocusNode, _passwordHasFocus),
             const SizedBox(height: 10,),
         
             CupertinoButton(
@@ -129,7 +119,7 @@ class _LoginState extends State<Login> {
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     )),
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const Calendrier()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const Navbar()));
                 }),
             const SizedBox(height: 10,),
             Row(
@@ -143,7 +133,7 @@ class _LoginState extends State<Login> {
                 const SizedBox(width: 2,),
                 GestureDetector(
                   onTap: () {
-                    widget.onSignUpTapped(0.7, 0.1);
+                    widget.onSignUpTapped(0.65, 0.1);
                   },
                   child: const Text(
                     "Sign Up",

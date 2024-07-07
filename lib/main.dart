@@ -1,6 +1,5 @@
-import 'package:e_esg/pages/IES/ajoutLive.dart';
 import 'package:e_esg/pages/IES/calendrier.dart';
-import 'package:e_esg/pages/espaceMedecin/Card.dart';
+import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Calendrier(),
+      home: Cardi(),
     );
   }
 }
