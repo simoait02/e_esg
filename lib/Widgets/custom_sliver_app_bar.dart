@@ -14,12 +14,12 @@ class CustomSliverAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight=MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     double iconButtonSize = screenWidth * 0.10;
     double sectionPadding = screenWidth * 0.04;
     double titleFontSize = screenWidth * 0.06 -6;
-
+    var brightness = MediaQuery.of(context).platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
     return SliverAppBar(
       bottom:PreferredSize(
         preferredSize: Size.fromHeight(iconButtonSize-30),
@@ -28,7 +28,7 @@ class CustomSliverAppBar extends StatelessWidget {
       automaticallyImplyLeading:false,
       floating: true,
       snap: true,
-      backgroundColor: Colors.white,
+      backgroundColor: isDarkMode?Color(0xff181a1b): Colors.white,
       flexibleSpace: FlexibleSpaceBar(
         titlePadding: EdgeInsets.symmetric(horizontal: sectionPadding),
         title: Row(
@@ -41,7 +41,7 @@ class CustomSliverAppBar extends StatelessWidget {
                 child: SvgPicture.asset('assets/images/search_icon.svg'),
               ),
             ),
-            Spacer(),
+            const Spacer(),
             IconButton(
               icon: Container(
                 width: iconButtonSize,

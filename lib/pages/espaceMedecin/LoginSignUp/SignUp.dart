@@ -111,7 +111,8 @@ class _SignupState extends State<Signup> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height =MediaQuery.of(context).size.height;
-
+    var brightness = MediaQuery.of(context).platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
     return SingleChildScrollView(
 
       child: Column(
@@ -346,11 +347,11 @@ class _SignupState extends State<Signup> {
                       onTap: () {
                         widget.onSigninTapped(0.4, 0.25);
                       },
-                      child: const Text(
+                      child: Text(
                         "Sign In",
                         style: TextStyle(
                             fontFamily: "Inter",
-                            color: Color(0xff3a01de)),
+                            color: isDarkMode? Color(0xff759cd8):Color(0xff3a01de)),
                       ),
                     ),
                   ],

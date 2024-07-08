@@ -1,4 +1,5 @@
 import 'package:e_esg/Widgets/custom_sliver_app_bar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -93,8 +94,8 @@ class _MespatientsState extends State<Mespatients> {
   @override
   Widget build(BuildContext context) {
     double width=MediaQuery.of(context).size.width;
-    return Scaffold(
-      body: SafeArea(
+    return CupertinoPageScaffold(
+      child: SafeArea(
         child: CustomScrollView(
           slivers: [
             CustomSliverAppBar(role: "Medcin",name: "simo",imagePath: "assets/images/boy.png",),

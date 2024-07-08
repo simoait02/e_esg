@@ -38,15 +38,15 @@ class _NavbarState extends State<Navbar> {
           children: [
             Image.asset(assetPath, height: 30, width: 30,
               color:_selectedItem==index?
-              isDarkMode? Color(0xff7076de) :Color(0xff2e37a4)
-                  : !isDarkMode? Color(0x96505176) :Color(0x96505176),),
+              isDarkMode? Color(0xff759cd8) :Color(0xff2e37a4)
+                  : !isDarkMode? Color(0x7f2e37a4) : Color(0x7f759cd8),),
             if (_selectedItem == index)
               Flexible(
                 child: Padding(
                   padding: const EdgeInsets.only(top: 4.0,left: 2,right: 2),
                   child: Text(
                     label,
-                    style:  TextStyle(color: !isDarkMode? Color(0xff2e37a4): Color(0xff7076de), fontSize: 12),
+                    style:  TextStyle(color: !isDarkMode? Color(0xff2e37a4): Color(0xff759cd8), fontSize: 12),
                     textAlign: TextAlign.start,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
@@ -61,6 +61,8 @@ class _NavbarState extends State<Navbar> {
 
   @override
   Widget build(BuildContext context) {
+    var brightness = MediaQuery.of(context).platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
     return MaterialApp(
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
@@ -68,11 +70,17 @@ class _NavbarState extends State<Navbar> {
       home: Scaffold(
           bottomNavigationBar: Container(
             decoration: BoxDecoration(
-                border: Border.all(width: 1, color: Colors.blueAccent),
-                borderRadius: BorderRadius.circular(20)
+                border: Border(top: BorderSide(width: 1, color: isDarkMode?Color(0x40ffffff): Color(0x3f000000))),
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20)
+                )
             ),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20)
+              ),
               child: BottomNavigationBar(
                 currentIndex: _selectedItem,
                 onTap: (index){

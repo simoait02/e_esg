@@ -76,6 +76,8 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height =MediaQuery.of(context).size.height;
+    var brightness = MediaQuery.of(context).platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
 
     return  SingleChildScrollView(
 
@@ -119,7 +121,12 @@ class _LoginState extends State<Login> {
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     )),
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const Navbar()));
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    CupertinoPageRoute(builder: (context) => Navbar()),
+                        (Route<dynamic> route) => false,
+                  );
+
                 }),
             const SizedBox(height: 10,),
             Row(
@@ -135,11 +142,11 @@ class _LoginState extends State<Login> {
                   onTap: () {
                     widget.onSignUpTapped(0.65, 0.1);
                   },
-                  child: const Text(
+                  child:  Text(
                     "Sign Up",
                     style: TextStyle(
                         fontFamily: "Inter",
-                        color: Color(0xff3a01de)),
+                        color: isDarkMode? Color(0xff759cd8):Color(0xff3a01de)),
                   ),
                 ),
               ],

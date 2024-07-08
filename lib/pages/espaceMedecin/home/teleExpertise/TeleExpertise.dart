@@ -1,5 +1,6 @@
 import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:e_esg/Widgets/custom_sliver_app_bar.dart';
+import 'package:e_esg/pages/espaceMedecin/home/teleExpertise/addMeeting.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,8 +17,8 @@ class _TeleexpertiseState extends State<TeleExpertise> {
   @override
   Widget build(BuildContext context) {
     double width=MediaQuery.of(context).size.width;
-    return Scaffold(
-      body: SafeArea(
+    return CupertinoPageScaffold(
+      child: SafeArea(
         child: CustomScrollView(
           slivers: [
             CustomSliverAppBar(role: "Medcin", name: "simo", imagePath: "assets/images/boy.png"),
@@ -27,27 +28,54 @@ class _TeleexpertiseState extends State<TeleExpertise> {
                 children: [
                   Container(
                     margin:EdgeInsets.only(left: 10),
-                    padding: EdgeInsets.all(10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    padding: EdgeInsets.only(left:10,top: 10,bottom: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(DateFormat.yMMMMd().format(DateTime.now()),
-                        style: GoogleFonts.aBeeZee(
-                          textStyle: const TextStyle(
-                            fontSize: 24,
-                            color: Color(0x5e0e1462),
-                            fontWeight: FontWeight.w500
-                          )
-                        ),
-                        ),
-                        Text("Today",
-                          style: GoogleFonts.aBeeZee(
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(DateFormat.yMMMMd().format(DateTime.now()),
+                            style: GoogleFonts.aBeeZee(
                               textStyle: const TextStyle(
-                                  fontSize: 24,
-                                fontWeight: FontWeight.bold
+                                fontSize: 24,
+                                color: Color(0x5e0e1462),
+                                fontWeight: FontWeight.w500
                               )
-                          ),
+                            ),
+                            ),
+                            Text("Today",
+                              style: GoogleFonts.aBeeZee(
+                                  textStyle: const TextStyle(
+                                      fontSize: 24,
+                                    fontWeight: FontWeight.bold
+                                  )
+                              ),
+                            ),
+                          ],
                         ),
+                        CupertinoButton(
+                            child: Container(
+                              height: 40,
+                              alignment: Alignment.center,
+                              padding: EdgeInsets.symmetric(vertical: 5,horizontal: 10),
+                              decoration: BoxDecoration(
+                                  color: Color(0xff2e37a4),
+                                  borderRadius: BorderRadius.circular(10)
+                              ),
+                              child: const Text(
+                                "Créer une discussion",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                  fontFamily: "Poppins",
+                                ),
+                              ),
+                            ),
+                            onPressed: (){
+                              Navigator.push(context, CupertinoPageRoute(builder: (context)=>AddMeeting()));
+                            })
                       ],
                     ),
                   ),

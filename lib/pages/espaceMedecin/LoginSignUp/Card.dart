@@ -53,10 +53,12 @@ class _CardiState extends State<Cardi> {
     ]);
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    return MaterialApp(
-      home: Scaffold(
+    var brightness = MediaQuery.of(context).platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
+    return CupertinoApp(
+      home: CupertinoPageScaffold(
         resizeToAvoidBottomInset: true,
-        body: Container(
+        child: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/images/backgroundLogin.png"),
@@ -69,7 +71,7 @@ class _CardiState extends State<Cardi> {
               width: width * 0.9,
               height: 1050 * Cardi.q,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: isDarkMode? Color(0xff27272d): Colors.white,
                 border: Border.all(color: Colors.black),
                 borderRadius: BorderRadius.circular(20),
               ),
