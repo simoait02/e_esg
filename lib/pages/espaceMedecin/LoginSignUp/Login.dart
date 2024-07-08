@@ -1,5 +1,5 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:e_esg/Widgets/NavigationBar.dart';
-import 'package:e_esg/pages/IES/calendrier.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -40,9 +40,9 @@ class _LoginState extends State<Login> {
     super.dispose();
   }
 
-  Widget buildLabel(String label) {
+  Widget buildLabel(String label,double height) {
     return Container(
-      margin: const EdgeInsets.only(left: 40, top: 20),
+      margin: EdgeInsets.only(left: 40,top: height),
       child: Align(
         alignment: Alignment.centerLeft,
         child: Text(
@@ -85,28 +85,29 @@ class _LoginState extends State<Login> {
           children: [
             Container(
               margin: EdgeInsets.only(left:30),
-              child: const Align(
+              child:  Align(
                 alignment: Alignment.centerLeft,
-                child: Text(
-                    "Login",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
-                    fontFamily: "poppins"
+                child: Container(
+                  height: height*0.07,
+                  width: width*0.2,
+                  child: AutoSizeText(
+                      "Login",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                      fontFamily: "poppins"
+                    ),
                   ),
                 ),
               ),
             ),
-            const SizedBox(height: 5,),
-            buildLabel("Identifiant"),
+            buildLabel("Identifiant",height*0.02),
             const SizedBox(height: 5,),
             buildTextField(width,height, "E-mail, CIN", _emailFocusNode, _emailHasFocus),
-            const SizedBox(height: 10,),
-            buildLabel("Password"),
+            buildLabel("Password",height*0.02),
             const SizedBox(height: 5,),
             buildTextField(width, height,"Password", _passwordFocusNode, _passwordHasFocus),
             const SizedBox(height: 10,),
-        
             CupertinoButton(
                 child: Container(
                     width: width * 0.4,
@@ -116,7 +117,7 @@ class _LoginState extends State<Login> {
                             colors: [Color(0xff0b40ff), Color(0xff0c40a4)]),
                         borderRadius: BorderRadius.circular(40)),
                     alignment: Alignment.center,
-                    child: const Text(
+                    child: AutoSizeText(
                       "Login",
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     )),
@@ -129,27 +130,30 @@ class _LoginState extends State<Login> {
 
                 }),
             const SizedBox(height: 10,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const SizedBox(width: 20,),
-                const Text(
-                  "Need an account?",
-                  style: TextStyle(fontFamily: "Inter"),
-                ),
-                const SizedBox(width: 2,),
-                GestureDetector(
-                  onTap: () {
-                    widget.onSignUpTapped(0.65, 0.1);
-                  },
-                  child:  Text(
-                    "Sign Up",
-                    style: TextStyle(
-                        fontFamily: "Inter",
-                        color: isDarkMode? Color(0xff759cd8):Color(0xff3a01de)),
+            Container(
+              height: height*0.04,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const SizedBox(width: 20,),
+                  const AutoSizeText(
+                    "Need an account?",
+                    style: TextStyle(fontFamily: "Inter"),
                   ),
-                ),
-              ],
+                  const SizedBox(width: 2,),
+                  GestureDetector(
+                    onTap: () {
+                      widget.onSignUpTapped(0.8, 0.1);
+                    },
+                    child:  AutoSizeText(
+                      "Sign Up",
+                      style: TextStyle(
+                          fontFamily: "Inter",
+                          color: isDarkMode? Color(0xff759cd8):Color(0xff3a01de)),
+                    ),
+                  ),
+                ],
+              ),
             )
           ],
         ),

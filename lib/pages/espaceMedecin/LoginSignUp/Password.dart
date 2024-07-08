@@ -1,5 +1,5 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:e_esg/Widgets/NavigationBar.dart';
-import 'package:e_esg/pages/IES/calendrier.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -77,39 +77,37 @@ class _PasswordState extends State<Password> {
     double width = MediaQuery.of(context).size.width;
     double height =MediaQuery.of(context).size.height;
     return SingleChildScrollView(
-
       child: Column(
         children: [
           Container(
-            margin: EdgeInsets.only(left: 30),
+            height: height*0.07,
+            width: width*0.7,
             child: const Align(
               alignment: Alignment.centerLeft,
-              child: Text(
+              child: AutoSizeText(
                 "créer un mot de passe",
-                style: TextStyle(
+                maxLines: 2,
+                  style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 30,
                     fontFamily: "poppins"),
               ),
             ),
           ),
-          const SizedBox(height: 5,),
           buildLabel("mot de passe"),
           const SizedBox(height: 5,),
           buildTextField(width,height, "", _coPasswordFocusNode, _coPasswordHasFocus),
-          const SizedBox(height: 5,),
           buildLabel("confirmer mot de passe"),
           const SizedBox(height: 5,),
           buildTextField(width, height,"", _passwordFocusNode, _passwordHasFocus),
-          const SizedBox(height: 40,),
-
+           SizedBox(height: height*0.02,),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               CupertinoButton(
                 child: Container(
                     width: width * 0.3,
-                    height: 50,
+                    height: height*0.07,
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(40),
@@ -120,13 +118,13 @@ class _PasswordState extends State<Password> {
                       style: TextStyle(color: Colors.black, fontSize: 15),
                     )),
                 onPressed: () {
-                  widget.onBackTapped(0.65,0.1);
+                  widget.onBackTapped(0.8,0.1);
                 },
               ),
               CupertinoButton(
                 child: Container(
                     width: width * 0.4,
-                    height: 50,
+                    height: height*0.07,
                     decoration: BoxDecoration(
                         gradient: const LinearGradient(
                             colors: [Color(0xff0b40ff), Color(0xff0c40a4)]),
@@ -137,12 +135,15 @@ class _PasswordState extends State<Password> {
                       style: TextStyle(color: Colors.white, fontSize: 15),
                     )),
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const Navbar()));
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    CupertinoPageRoute(builder: (context) => Navbar()),
+                        (Route<dynamic> route) => false,
+                  );
                 },
               ),
             ],
           ),
-          const SizedBox(height: 10,),
         ],
       ),
     );

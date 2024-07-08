@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -122,9 +123,10 @@ class _SignupState extends State<Signup> {
               children: [
                 Container(
                   margin: EdgeInsets.only(left:30),
+                  height: height*0.07,
                   child: const Align(
                     alignment: Alignment.centerLeft,
-                    child: Text(
+                    child: AutoSizeText(
                       "Sign up",
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -145,7 +147,10 @@ class _SignupState extends State<Signup> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Container(margin: EdgeInsets.only(left:10) ,child: const Text("Nom")),
+                            Container(
+                              height: height*0.025,
+                                margin: EdgeInsets.only(left:10) ,
+                                child: const AutoSizeText("Nom")),
                             buildTextField(width * 0.5,height, "", _nomFocusNode, _nomHasFocus),
                           ],
                         ),
@@ -155,7 +160,10 @@ class _SignupState extends State<Signup> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Container(margin: EdgeInsets.only(left:10) ,child: const Text("Prénom")),
+                            Container(
+                                height: height*0.025,
+                                margin: EdgeInsets.only(left:10) ,
+                                child: const AutoSizeText("Prénom")),
                             buildTextField(width * 0.5, height,"", _prenomFocusNode, _prenomHasFocus),
                           ],
                         ),
@@ -174,7 +182,10 @@ class _SignupState extends State<Signup> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Container(margin: EdgeInsets.only(left:10) ,child: const Text("CIN")),
+                            Container(
+                                height: height*0.025,
+                                margin: EdgeInsets.only(left:10) ,
+                                child: const AutoSizeText("CIN")),
                             buildTextField(width * 0.5,height, "", _cinFocusNode, _cinHasFocus),
                           ],
                         ),
@@ -184,7 +195,10 @@ class _SignupState extends State<Signup> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Container(margin: EdgeInsets.only(left:10) ,child: const Text("INPE")),
+                            Container(
+                                height: height*0.025,
+                                margin: EdgeInsets.only(left:10) ,
+                                child: const AutoSizeText("INPE")),
                             buildTextField(width * 0.5, height,"", _inpeFocusNode, _inpeHasFocus),
                           ],
                         ),
@@ -194,7 +208,10 @@ class _SignupState extends State<Signup> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Container(margin: EdgeInsets.only(left:10) ,child: const Text("PPR")),
+                            Container(
+                                height: height*0.025,
+                                margin: EdgeInsets.only(left:10) ,
+                                child: const AutoSizeText("PPR")),
                             buildTextField(width * 0.5,height, "", _pprFocusNode, _pprHasFocus),
                           ],
                         ),
@@ -203,11 +220,23 @@ class _SignupState extends State<Signup> {
                   ),
                 ),
                 const SizedBox(height: 10,),
-                Align(alignment: Alignment.centerLeft ,child: Container(margin: EdgeInsets.only(left:30) ,child: const Text("E-mail"))),
+                Align(alignment: Alignment.centerLeft ,
+                    child: Container(
+                        height: height*0.025,
+                        margin: EdgeInsets.only(left:30) ,
+                        child: const AutoSizeText("E-mail")
+                    )
+                ),
                 buildTextField(width, height,"", _emailFocusNode, _emailHasFocus),
 
                 const SizedBox(height: 10,),
-                Align(alignment: Alignment.centerLeft ,child: Container(margin: EdgeInsets.only(left:30) ,child: const Text("Numéro de téléphone"))),
+                Align(alignment: Alignment.centerLeft ,
+                    child: Container(
+                        height: height*0.025,
+                        margin: EdgeInsets.only(left:30) ,
+                        child: const AutoSizeText("Numéro de téléphone")
+                    )
+                ),
                 buildTextField(width,height, "", _numTeleFocusNode, _numTeleHasFocus),
 
                 const SizedBox(height: 10,),
@@ -216,7 +245,13 @@ class _SignupState extends State<Signup> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Align(alignment: Alignment.centerLeft ,child: Container(margin: EdgeInsets.only(left:10) ,child: const Text("Médecin au sein\n d’un centre ESJ?"))),
+                      Align(alignment: Alignment.centerLeft ,
+                          child: Container(
+                              height: height*0.045,
+                              margin: EdgeInsets.only(left:10) ,
+                              child: const AutoSizeText("Médecin au sein \nd’un centre ESJ?")
+                          )
+                      ),
                       Row(
                         children: [
                           GestureDetector(
@@ -228,11 +263,13 @@ class _SignupState extends State<Signup> {
                             },
                             child: Container(
                               width: width*0.09,
+                              height: height*0.025,
+                              alignment: Alignment.center,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5),
                                   border: Border.all(color:yes1?Color(0xff0b40ff) : Colors.grey)
                               ),
-                              child: Text("Oui",textAlign: TextAlign.center,style: TextStyle(color:yes1?Color(0xff0b40ff) : Colors.grey),),
+                              child: AutoSizeText("Oui",textAlign: TextAlign.center,style: TextStyle(color:yes1?Color(0xff0b40ff) : Colors.grey),),
                             ),
                           ),
                           const SizedBox(width: 5,),
@@ -245,11 +282,13 @@ class _SignupState extends State<Signup> {
                             },
                             child: Container(
                               width: width*0.09,
+                              height: height*0.025,
+                              alignment: Alignment.center,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5),
                                   border: Border.all(color:no1?Color(0xff0b40ff) : Colors.grey)
                               ),
-                              child: Text("Non",textAlign: TextAlign.center,style: TextStyle(color:no1?Color(0xff0b40ff) : Colors.grey),),
+                              child: AutoSizeText("Non",style: TextStyle(color:no1?Color(0xff0b40ff) : Colors.grey),),
                             ),
                           )
                         ],
@@ -264,7 +303,13 @@ class _SignupState extends State<Signup> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Align(alignment: Alignment.centerLeft ,child: Container(margin: EdgeInsets.only(left:10) ,child: const Text("Médecin Généraliste?"))),
+                      Align(alignment: Alignment.centerLeft ,
+                          child: Container(
+                              height: height*0.025,
+                              margin: EdgeInsets.only(left:10) ,
+                              child: const AutoSizeText("Médecin Généraliste?")
+                          )
+                      ),
                       Row(
                         children: [
                           GestureDetector(
@@ -276,11 +321,13 @@ class _SignupState extends State<Signup> {
                             },
                             child: Container(
                               width: width*0.09,
+                              height: height*0.025,
+                              alignment: Alignment.center,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5),
                                   border: Border.all(color:yes2?Color(0xff0b40ff) : Colors.grey)
                               ),
-                              child: Text("Oui",textAlign: TextAlign.center,style: TextStyle(color:yes2?Color(0xff0b40ff) : Colors.grey),),
+                              child: AutoSizeText("Oui",textAlign: TextAlign.center,style: TextStyle(color:yes2?Color(0xff0b40ff) : Colors.grey),),
                             ),
                           ),
                           const SizedBox(width: 5,),
@@ -293,11 +340,13 @@ class _SignupState extends State<Signup> {
                             },
                             child: Container(
                               width: width*0.09,
+                              height: height*0.025,
+                              alignment: Alignment.center,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5),
                                   border: Border.all(color:no2?Color(0xff0b40ff) : Colors.grey)
                               ),
-                              child: Text("Non",textAlign: TextAlign.center,style: TextStyle(color:no2?Color(0xff0b40ff) : Colors.grey),),
+                              child: AutoSizeText("Non",style: TextStyle(color:no2?Color(0xff0b40ff) : Colors.grey),),
                             ),
                           )
                         ],
@@ -307,7 +356,11 @@ class _SignupState extends State<Signup> {
                   ),
                 ),
                 const SizedBox(height: 10,),
-                yes2? Align(alignment: Alignment.centerLeft ,child: Container(margin: EdgeInsets.only(left:30) ,child: const Text("Specialitée"))):SizedBox(height: 20,),
+                yes2? Align(alignment: Alignment.centerLeft ,
+                    child: Container(
+                      height: height*0.025,
+                        margin: EdgeInsets.only(left:30) ,
+                        child: const AutoSizeText("Specialitée"))):SizedBox(height: height*0.025,),
                 yes2? buildTextField(width, height,"", _specialiteFocusNode, _specialiteHasFocus):SizedBox(height: height*0.055,),
 
               ],
@@ -317,46 +370,50 @@ class _SignupState extends State<Signup> {
               children: [
                 CupertinoButton(
                     child: Container(
-                        width: width * 0.4,
-                        height: 50,
+                        width: width * 0.3,
+                        height: height*0.05,
                         decoration: BoxDecoration(
                             gradient: const LinearGradient(
                                 colors: [Color(0xff0b40ff), Color(0xff0c40a4)]),
                             borderRadius: BorderRadius.circular(40)),
                         alignment: Alignment.center,
-                        child: const Text(
+                        child: const AutoSizeText(
                           "Suivant",
                           style: TextStyle(color: Colors.white, fontSize: 20),
                         )),
                     onPressed: () {
-                      Cardi.q = 0.4;
+                      Cardi.q = 0.45;
                       Cardi.top = 0.25;
                       widget.onContinueTapped();
                     }),
-                const SizedBox(height: 10,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     const SizedBox(width: 20,),
-                    const Text(
-                      "Already have an account?",
-                      style: TextStyle(fontFamily: "Inter"),
+                    Container(
+                      height: height*0.025,
+                      child: const AutoSizeText(
+                        "Already have an account?",
+                        style: TextStyle(fontFamily: "Inter"),
+                      ),
                     ),
                     const SizedBox(width: 2,),
                     GestureDetector(
                       onTap: () {
-                        widget.onSigninTapped(0.4, 0.25);
+                        widget.onSigninTapped(0.5, 0.25);
                       },
-                      child: Text(
-                        "Sign In",
-                        style: TextStyle(
-                            fontFamily: "Inter",
-                            color: isDarkMode? Color(0xff759cd8):Color(0xff3a01de)),
+                      child: Container(
+                        height: height*0.025,
+                        child: AutoSizeText(
+                          "Sign In",
+                          style: TextStyle(
+                              fontFamily: "Inter",
+                              color: isDarkMode? Color(0xff759cd8):Color(0xff3a01de)),
+                        ),
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 10,),
               ],
             ),
 

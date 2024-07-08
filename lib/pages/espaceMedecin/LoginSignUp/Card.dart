@@ -7,7 +7,7 @@ import 'SignUp.dart';
 import 'Password.dart';
 
 class Cardi extends StatefulWidget {
-  static double q = 0.4;
+  static double q = 0.5;
   static double top = 0.25;
   static bool isContinueTapped = false;
 
@@ -69,13 +69,13 @@ class _CardiState extends State<Cardi> {
             child: AnimatedContainer(
               duration: const Duration(seconds: 1),
               width: width * 0.9,
-              height: 1050 * Cardi.q,
+              height: height * Cardi.q,
               decoration: BoxDecoration(
                 color: isDarkMode? Color(0xff27272d): Colors.white,
                 border: Border.all(color: Colors.black),
                 borderRadius: BorderRadius.circular(20),
               ),
-              margin: EdgeInsets.only(left: 20, right: 20, top: height * Cardi.top),
+              margin: EdgeInsets.only(left: 20, right: 20,top: height*0.15,bottom: height*0.05),
               child: AnimatedSwitcher(
                 duration: const Duration(seconds: 1),
                 child: showLogin
