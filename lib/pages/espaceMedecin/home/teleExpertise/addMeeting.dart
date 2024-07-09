@@ -32,15 +32,14 @@ class _AddMeetingState extends State<AddMeeting> {
     );
   }
 
-  Widget buildTextField(
-      double height, String placeholder, FocusNode focusNode, bool hasFocus) {
+  Widget buildTextField(double height, String placeholder, FocusNode focusNode, bool hasFocus,bool isDarkMode) {
     return Container(
       height: height * 0.055,
       child: CupertinoTextField(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
-            color: CupertinoColors.black.withOpacity(0.5),
+            color:isDarkMode?CupertinoColors.white.withOpacity(0.5): CupertinoColors.black.withOpacity(0.5),
             width: 1,
           ),
         ),
@@ -69,15 +68,21 @@ class _AddMeetingState extends State<AddMeeting> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-
+    var brightness = MediaQuery.of(context).platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
     return Scaffold(
       appBar: CupertinoNavigationBar(
+        backgroundColor: isDarkMode?Color(0xff181a1b): Colors.white,
         previousPageTitle: "Back",
-        middle: const Text('Add Meeting'),
+        middle:  Text('Add Meeting',
+          style: GoogleFonts.poppins(
+            textStyle: TextStyle(
+              color:isDarkMode?Colors.white:Colors.black,
+            )
+          ),
+        ),
         trailing: GestureDetector(
-          onTap: () {
-            // Handle save action or navigate back
-          },
+          onTap: () {},
           child: Text(
             "Done",
             style: GoogleFonts.roboto(
@@ -99,7 +104,6 @@ class _AddMeetingState extends State<AddMeeting> {
                 "Create a meeting",
                 style: GoogleFonts.poppins(
                   textStyle: const TextStyle(
-                    color: CupertinoColors.black,
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
@@ -107,7 +111,7 @@ class _AddMeetingState extends State<AddMeeting> {
               ),
               const SizedBox(height: 40),
               buildLabel("Title"),
-              buildTextField(height, "", _titleFocusNode, _titleHasFocus),
+              buildTextField(height, "", _titleFocusNode, _titleHasFocus,isDarkMode),
               const SizedBox(height: 20),
               buildLabel("Date"),
               GestureDetector(
@@ -118,8 +122,8 @@ class _AddMeetingState extends State<AddMeeting> {
                     builder: (BuildContext context) {
                       return Container(
                         width: width,
-                        height: 250,
-                        color: CupertinoColors.systemBackground,
+                        height: height*0.35,
+                        color:isDarkMode?CupertinoColors.black.withOpacity(0.5): CupertinoColors.white.withOpacity(0.5),
                         child: Column(
                           children: [
                             Row(
@@ -147,14 +151,27 @@ class _AddMeetingState extends State<AddMeeting> {
                               ],
                             ),
                             Expanded(
-                              child: CupertinoDatePicker(
-                                initialDateTime: selectedDateTime,
-                                onDateTimeChanged: (DateTime newDate) {
-                                  tempSelectedDateTime = newDate;
-                                },
-                                mode: CupertinoDatePickerMode.date,
+                              child: CupertinoTheme(
+                                data:  CupertinoThemeData(
+                                  textTheme: CupertinoTextThemeData(
+                                    dateTimePickerTextStyle: GoogleFonts.poppins(
+                                      textStyle: TextStyle(
+                                        color:isDarkMode? Colors.white:Colors.black,
+                                        fontSize: 20,
+                                      ),
+                                    )
+                                  ),
+                                ),
+                                child: CupertinoDatePicker(
+                                  initialDateTime: selectedDateTime,
+                                  onDateTimeChanged: (DateTime newDate) {
+                                    tempSelectedDateTime = newDate;
+                                  },
+                                  mode: CupertinoDatePickerMode.date,
+                                ),
                               ),
                             ),
+
                           ],
                         ),
                       );
@@ -167,7 +184,7 @@ class _AddMeetingState extends State<AddMeeting> {
                   width: width,
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: CupertinoColors.black.withOpacity(0.5),
+                      color:isDarkMode?CupertinoColors.white.withOpacity(0.5): CupertinoColors.black.withOpacity(0.5),
                     ),
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -175,7 +192,7 @@ class _AddMeetingState extends State<AddMeeting> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(label),
-                      const Icon(CupertinoIcons.calendar),
+                      Icon(CupertinoIcons.calendar,color:isDarkMode?CupertinoColors.white.withOpacity(0.5): CupertinoColors.black.withOpacity(0.5),),
                     ],
                   ),
                 ),
@@ -191,7 +208,7 @@ class _AddMeetingState extends State<AddMeeting> {
                       return Container(
                         width: width,
                         height: 250,
-                        color: CupertinoColors.systemBackground,
+                        color:isDarkMode?CupertinoColors.black.withOpacity(0.5): CupertinoColors.white.withOpacity(0.5),
                         child: Column(
                           children: [
                             Row(
@@ -219,12 +236,24 @@ class _AddMeetingState extends State<AddMeeting> {
                               ],
                             ),
                             Expanded(
-                              child: CupertinoDatePicker(
-                                initialDateTime: selectedTime,
-                                onDateTimeChanged: (DateTime newTime) {
-                                  tempSelectedTime = newTime;
-                                },
-                                mode: CupertinoDatePickerMode.time,
+                              child: CupertinoTheme(
+                                data:  CupertinoThemeData(
+                                  textTheme: CupertinoTextThemeData(
+                                      dateTimePickerTextStyle: GoogleFonts.poppins(
+                                        textStyle: TextStyle(
+                                          color:isDarkMode? Colors.white:Colors.black,
+                                          fontSize: 20,
+                                        ),
+                                      )
+                                  ),
+                                ),
+                                child: CupertinoDatePicker(
+                                  initialDateTime: selectedTime,
+                                  onDateTimeChanged: (DateTime newTime) {
+                                    tempSelectedTime = newTime;
+                                  },
+                                  mode: CupertinoDatePickerMode.time,
+                                ),
                               ),
                             ),
                           ],
@@ -239,7 +268,7 @@ class _AddMeetingState extends State<AddMeeting> {
                   width: width,
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: CupertinoColors.black.withOpacity(0.5),
+                      color:isDarkMode?CupertinoColors.white.withOpacity(0.5): CupertinoColors.black.withOpacity(0.5),
                     ),
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -247,7 +276,8 @@ class _AddMeetingState extends State<AddMeeting> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(label1),
-                      const Icon(CupertinoIcons.time),
+                      Icon(CupertinoIcons.time,color:isDarkMode?CupertinoColors.white.withOpacity(0.5): CupertinoColors.black.withOpacity(0.5),
+                      ),
                     ],
                   ),
                 ),

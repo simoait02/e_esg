@@ -17,6 +17,8 @@ class _TeleexpertiseState extends State<TeleExpertise> {
   @override
   Widget build(BuildContext context) {
     double width=MediaQuery.of(context).size.width;
+    var brightness = MediaQuery.of(context).platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
     return CupertinoPageScaffold(
       child: SafeArea(
         child: CustomScrollView(
@@ -37,9 +39,9 @@ class _TeleexpertiseState extends State<TeleExpertise> {
                           children: [
                             Text(DateFormat.yMMMMd().format(DateTime.now()),
                             style: GoogleFonts.aBeeZee(
-                              textStyle: const TextStyle(
+                              textStyle:  TextStyle(
                                 fontSize: 24,
-                                color: Color(0x5e0e1462),
+                                color:isDarkMode? const Color(0x9395a6ce): const Color(0x5e0e1462),
                                 fontWeight: FontWeight.w500
                               )
                             ),
@@ -86,7 +88,7 @@ class _TeleexpertiseState extends State<TeleExpertise> {
                     calendarType:CalendarType.gregorianDate,
                     initialSelectedDate: DateTime.now(),
                     selectedTextColor: Colors.white,
-                    selectionColor: Color(0xff2e37a4),
+                    selectionColor: const Color(0xff2e37a4),
                     dateTextStyle: GoogleFonts.aBeeZee(
                       textStyle: const TextStyle(
                         fontSize: 36,
@@ -135,7 +137,7 @@ class _TeleexpertiseState extends State<TeleExpertise> {
                       textStyle:  TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w500,
-                        color: Colors.black.withOpacity(0.5),
+                        color:isDarkMode?Colors.white.withOpacity(0.5): Colors.black.withOpacity(0.5),
                       ),)
                     ),
                   ),
@@ -188,7 +190,7 @@ class _TeleexpertiseState extends State<TeleExpertise> {
                                     style: GoogleFonts.rubik(
                                         textStyle: TextStyle(
                                             fontSize: 12,
-                                            color: Color(0x96333541),
+                                            color:isDarkMode?Color(0x9395a6ce): Color(0x96333541),
                                         )
                                     ),
                                   ),
@@ -228,17 +230,17 @@ class _TeleexpertiseState extends State<TeleExpertise> {
                                             style: GoogleFonts.rubik(
                                                 textStyle: TextStyle(
                                                   fontSize: 15,
-                                                  color: Color(0x96333541),
+                                                  color: isDarkMode?Color(0x9395a6ce):Color(0x96333541),
                                                   fontWeight: FontWeight.bold
                                                 )
                                             ),
                                           ),
                                         ),
-                                        Text("AM Aujourd’hui",
+                                        Text("  Aujourd’hui",
                                           style: GoogleFonts.rubik(
                                               textStyle: TextStyle(
                                                 fontSize: 12,
-                                                color: Color(0x96333541),
+                                                color: isDarkMode?Color(0x9395a6ce):Color(0x96333541),
                                               )
                                           ),
                                         ),
