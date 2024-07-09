@@ -1,29 +1,25 @@
-import 'package:e_esg/pages/espaceMedecin/home/Chatbot.dart';
-import 'package:e_esg/pages/espaceMedecin/home/IES.dart';
-import 'package:e_esg/pages/espaceMedecin/home/MesPatients.dart';
-import 'package:e_esg/pages/espaceMedecin/home/Profile.dart';
-import 'package:e_esg/pages/espaceMedecin/home/teleExpertise/TeleExpertise.dart';
+import 'package:e_esg/pages/espacejeune/dossierMedical.dart';
+import 'package:e_esg/pages/espacejeune/ies.dart';
+import 'package:e_esg/pages/espacejeune/testpsy5.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 void main() {
-  runApp(const Navbar());
+  runApp(const NavbarYouth());
 }
 
-class Navbar extends StatefulWidget {
-  const Navbar({super.key});
+class NavbarYouth extends StatefulWidget {
+  const NavbarYouth({super.key});
 
   @override
-  State<Navbar> createState() => _NavbarState();
+  State<NavbarYouth> createState() => _NavbarYouthState();
 }
 
-class _NavbarState extends State<Navbar> {
+class _NavbarYouthState extends State<NavbarYouth> {
   List<dynamic> selected=[
-    Mespatients(),
-    TeleExpertise(),
-    Ies(),
-    Chatbot(),
-    Profile()
+    const Dossiermedical(),
+    const Ies(),
+    const Testpsy5(),
   ];
   int _selectedItem = 0;
   Widget _buildNavItem(String assetPath, String label, int index) {
@@ -38,15 +34,15 @@ class _NavbarState extends State<Navbar> {
           children: [
             Image.asset(assetPath, height: 30, width: 30,
               color:_selectedItem==index?
-              isDarkMode? Color(0xff759cd8) :Color(0xff2e37a4)
-                  : !isDarkMode? Color(0x7f2e37a4) : Color(0x7f759cd8),),
+              isDarkMode? const Color(0xff759cd8) :const Color(0xff2e37a4)
+                  : !isDarkMode? const Color(0x7f2e37a4) : const Color(0x7f759cd8),),
             if (_selectedItem == index)
               Flexible(
                 child: Padding(
                   padding: const EdgeInsets.only(top: 4.0,left: 2,right: 2),
                   child: Text(
                     label,
-                    style:  TextStyle(color: !isDarkMode? Color(0xff2e37a4): Color(0xff759cd8), fontSize: 12),
+                    style:  TextStyle(color: !isDarkMode? const Color(0xff2e37a4): const Color(0xff759cd8), fontSize: 12),
                     textAlign: TextAlign.start,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
@@ -70,14 +66,14 @@ class _NavbarState extends State<Navbar> {
       home: Scaffold(
           bottomNavigationBar: Container(
             decoration: BoxDecoration(
-                border: Border(top: BorderSide(width: 1, color: isDarkMode?Color(0x40ffffff): Color(0x3f000000))),
-                borderRadius: BorderRadius.only(
+                border: Border(top: BorderSide(width: 1, color: isDarkMode?const Color(0x40ffffff): const Color(0x3f000000))),
+                borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(20),
                     topRight: Radius.circular(20)
                 )
             ),
             child: ClipRRect(
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(20),
                   topRight: Radius.circular(20)
               ),
@@ -92,23 +88,15 @@ class _NavbarState extends State<Navbar> {
                 showUnselectedLabels: false,
                 items: [
                   BottomNavigationBarItem(
-                    icon: _buildNavItem("assets/images/patients.png", "Mes Patients", 0),
+                    icon: _buildNavItem("assets/images/dossierMedical.png", "Dossier médical", 0),
                     label: "",
                   ),
                   BottomNavigationBarItem(
-                    icon: _buildNavItem("assets/images/teleExpertise.png", "Télé-\nExpertise", 1),
+                    icon: _buildNavItem("assets/images/IES.png", "IES", 1),
                     label: "",
                   ),
                   BottomNavigationBarItem(
-                    icon: _buildNavItem("assets/images/IES.png", "IES", 2),
-                    label: "",
-                  ),
-                  BottomNavigationBarItem(
-                    icon: _buildNavItem("assets/images/chatbot.png", "Chatbot", 3),
-                    label: "",
-                  ),
-                  BottomNavigationBarItem(
-                    icon: _buildNavItem("assets/images/profile.png", "Profile", 4),
+                    icon: _buildNavItem("assets/images/testPsych.png", "Test psychologique",2),
                     label: "",
                   ),
                 ],

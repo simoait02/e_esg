@@ -92,6 +92,14 @@ flutter:
      - assets/images/profiletele.png
      - assets/images/plus.svg
      - assets/images/trash.svg
+     - assets/images/dossierMedical.png
+     - assets/images/testPsych.png
+     - assets/images/logo.png
+     - assets/images/Sedraty.png
+     - assets/images/menu.png
+     - assets/images/Image.jpeg
+     - assets/images/ROAR.png
+     - assets/images/fleche.png
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dossiermedical.dart';
 import 'ies.dart';
-import 'testpsy1.dart';
 
 class Testpsy1 extends StatefulWidget {
   const Testpsy1({Key? key}) : super(key: key);
@@ -204,37 +203,6 @@ class Testpsy1State extends State<Testpsy1> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.white,
-        currentIndex: selectedIndex,
-        onTap: onItemTapped,
-        items: [
-          BottomNavigationBarItem(
-            icon: Image.asset(
-              'assets/images/DossierMedical.png',
-              height: screenHeight * 0.04,
-              width: screenWidth * 0.1,
-            ),
-            label: 'Dossier Médical',
-          ),
-          BottomNavigationBarItem(
-            icon: Image.asset(
-              'assets/images/healthcare.png',
-              height: screenHeight * 0.04,
-              width: screenWidth * 0.1,
-            ),
-            label: 'IES',
-          ),
-          BottomNavigationBarItem(
-            icon: Image.asset(
-              'assets/images/test.png',
-              height: screenHeight * 0.04,
-              width: screenWidth * 0.1,
-            ),
-            label: 'Test Psychologique',
-          ),
-        ],
-      ),
     );
   }
 
@@ -267,7 +235,7 @@ class Testpsy1State extends State<Testpsy1> {
                       }
                     },
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(
+                      backgroundColor: WidgetStateProperty.all<Color>(
                           Colors.grey.shade400),
                     ),
                     child: Text(buttonText),

@@ -187,37 +187,6 @@ class Testpsy3State extends State<Testpsy3> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.white,
-        currentIndex: selectedIndex,
-        onTap: onItemTapped,
-        items: [
-          BottomNavigationBarItem(
-            icon: Image.asset(
-              'assets/images/DossierMedical.png',
-              height: screenHeight * 0.04,
-              width: screenWidth * 0.1,
-            ),
-            label: 'Dossier Médical',
-          ),
-          BottomNavigationBarItem(
-            icon: Image.asset(
-              'assets/images/healthcare.png',
-              height: screenHeight * 0.04,
-              width: screenWidth * 0.1,
-            ),
-            label: 'IES',
-          ),
-          BottomNavigationBarItem(
-            icon: Image.asset(
-              'assets/images/test.png',
-              height: screenHeight * 0.04,
-              width: screenWidth * 0.1,
-            ),
-            label: 'Test Psychologique',
-          ),
-        ],
-      ),
     );
   }
 }

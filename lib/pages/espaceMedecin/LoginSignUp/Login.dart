@@ -1,5 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:e_esg/Widgets/NavigationBar.dart';
+import 'package:e_esg/Widgets/NavigationBarDoctor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -124,7 +124,7 @@ class _LoginState extends State<Login> {
                 onPressed: () {
                   Navigator.pushAndRemoveUntil(
                     context,
-                    CupertinoPageRoute(builder: (context) => Navbar()),
+                    CupertinoPageRoute(builder: (context) => NavbarDoc()),
                         (Route<dynamic> route) => false,
                   );
 
