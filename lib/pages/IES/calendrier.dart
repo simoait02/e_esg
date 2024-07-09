@@ -6,6 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:flutter/cupertino.dart';
 
+import 'package:e_esg/Data/live_list.dart';
+import 'package:e_esg/models/live.dart';
+import 'live_informations_page.dart';
+
 class Calendrier extends StatefulWidget {
   const Calendrier({Key? key}) : super(key: key);
 
@@ -33,26 +37,26 @@ class CalendrierState extends State<Calendrier> {
   void _onCalendarTapped(CalendarTapDetails details) {
     setState(() {
       List<dynamic> lives = details.appointments ?? [];
-      List<String> livesAtSelectedDate = [];
+      List<Live> livesAtSelectedDate = [];
       List<Color> livescolor=[];
 
       if (lives.isNotEmpty) {
         for (var live in lives) {
-          livesAtSelectedDate.add(live.subject);
+          livesAtSelectedDate.add(live);
           livescolor.add(live.color);
         }
-        // Show popover with the menu items
+
         showCupertinoMenu(livesAtSelectedDate,livescolor);
       }
     });
   }
-  void showCupertinoMenu(List<String> items, List<Color> colors) {
+  void showCupertinoMenu(List<Live> items, List<Color> colors) {
     showCupertinoModalPopup(
       context: context,
       builder: (context) => CupertinoActionSheet(
         actions: items.asMap().entries.map((entry) {
           int index = entry.key;
-          String item = entry.value;
+          String item = entry.value.subject;
           return Container(
             color: colors[index],
             child: CupertinoActionSheetAction(
@@ -65,7 +69,7 @@ class CalendrierState extends State<Calendrier> {
                 ),
               ),
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>LiveInformationsPage(),settings: RouteSettings(arguments:  entry.value)));
               },
             ),
           );
@@ -383,38 +387,14 @@ class CalendrierState extends State<Calendrier> {
     );
   }
 }
-List<Appointment> getLives() {
-  List<Appointment> lives = <Appointment>[];
-  final DateTime today = DateTime.now();
-  final DateTime startTime = DateTime(today.year, today.month, today.day, 9, 0, 0);
-  final DateTime endTime = startTime.add(const Duration(hours: 2));
-  final DateTime startTime2 = DateTime(today.year, today.month, today.day, 7, 0, 0);
-  final DateTime endTime2 = startTime2.add(const Duration(hours: 2));
-  final DateTime startTime3=DateTime(2024,07,3,9,0,0);
-  final DateTime endTime3=startTime3.add(const Duration(hours: 2));
-  lives.add(Appointment(
-    startTime: startTime,
-    endTime: endTime,
-    subject: 'Les dangers du tabac',
-    color: Color(0xFF55CE63),
-  ));
-  lives.add(Appointment(
-    startTime: startTime3,
-    endTime: endTime3,
-    subject: 'laver vos dents',
-    color: Color(0xFF009EFB),
-  ));
-  lives.add(Appointment(
-    startTime: startTime2,
-    endTime: endTime2,
-    subject: "l'importance de la nutrition",
-    color: Color(0xFFFFBC34),
-  ));
+List<Live> getLives() {
+  List<Live> lives = <Live>[];
+  lives.addAll([live1,live2,live3]);
   return lives;
 }
 
 class LiveDataSource extends CalendarDataSource {
-  LiveDataSource(List<Appointment> source) {
+  LiveDataSource(List<Live> source) {
     appointments = source;
   }
 }

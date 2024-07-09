@@ -95,10 +95,10 @@ class _AddPropositionDialogState extends State<AddPropositionDialog> {
                 Navigator.of(context).pop();
               },
               child: Text("Annuler",style: TextStyle(
-                  fontFamily: "Poppins",
-                  fontWeight: FontWeight.w600,
-                  fontSize: titleFontSize-4,
-                  color: Color(0xFF2E37A4)
+                fontFamily: "Poppins",
+                fontWeight: FontWeight.w600,
+                fontSize: titleFontSize-4,
+                color: Color(0xFF2E37A4)
               ),),
             ),
             TextButton(

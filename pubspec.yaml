@@ -46,6 +46,7 @@ dependencies:
   super_cupertino_navigation_bar: ^2.1.2
   auto_size_text: ^3.0.0
   modal_bottom_sheet: ^3.0.0
+  url_launcher: ^6.3.0
 
 dev_dependencies:
   flutter_test:
@@ -100,6 +101,29 @@ flutter:
      - assets/images/Image.jpeg
      - assets/images/ROAR.png
      - assets/images/fleche.png
+     - assets/images/afj.jpeg
+     - assets/images/booster-au-naturel_640-640x405.jpg
+     - assets/images/Boisson-gazeuse_640.jpg
+     - assets/images/chocolates-491165_640-640x405.jpg
+     - assets/images/aa.jfif
+     - assets/images/essential-oils-1433694_640-640x405.jpg
+     - assets/images/hygiene-640x405.jpg
+     - assets/images/kyste-hydatique-768x573.jpg
+     - assets/images/o.jpg
+     - assets/images/obesite.jpg
+     - assets/images/pellicule.jpg
+     - assets/images/Proteger-son-ouie.jpg
+     - assets/images/prévention-du-suicide-ar.png
+     - assets/images/Ramadan_Reflections-780x405.jpg
+     - assets/images/School-phobie-780x405.jpg
+     - assets/images/sommeil_640-640x405.jpg
+     - assets/images/STRESS-DES-EXAMENS.jpg
+     - assets/images/suncream-1337629_1280-1024x576.jpg
+     - assets/images/Tabagisme-passif.gif
+     - assets/images/Végetarien.jpg
+     - assets/images/toxicomanie-tof-780x405.jpg
+     - assets/images/monoxyde-de-carbone.jpg
+     - assets/images/right-icon.svg
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

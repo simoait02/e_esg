@@ -9,5 +9,5 @@ class Proposition{
       this.userimage,
       this.checked,
       this.proportion
-  );
+      );
 }

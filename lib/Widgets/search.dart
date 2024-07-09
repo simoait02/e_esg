@@ -8,7 +8,7 @@ class CustomSearch extends StatefulWidget {
   CustomSearch({
     required this.hintText,
     required this.onchanged
-});
+  });
 
   @override
   State<CustomSearch> createState() => _CustomSearchState();

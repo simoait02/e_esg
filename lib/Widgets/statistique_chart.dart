@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:intl/intl.dart';
 
+
 class StatistiqueChart extends StatefulWidget {
   final String subject;
   final double proportion;
