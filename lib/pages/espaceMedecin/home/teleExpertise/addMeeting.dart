@@ -25,7 +25,7 @@ class _AddMeetingState extends State<AddMeeting> {
     return Text(
       text,
       style: GoogleFonts.inter(
-        textStyle: TextStyle(
+        textStyle: const TextStyle(
           fontSize: 15,
         ),
       ),
@@ -73,7 +73,7 @@ class _AddMeetingState extends State<AddMeeting> {
     return Scaffold(
       appBar: CupertinoNavigationBar(
         previousPageTitle: "Back",
-        middle: Text('Add Meeting'),
+        middle: const Text('Add Meeting'),
         trailing: GestureDetector(
           onTap: () {
             // Handle save action or navigate back
@@ -105,10 +105,10 @@ class _AddMeetingState extends State<AddMeeting> {
                   ),
                 ),
               ),
-              SizedBox(height: 40),
+              const SizedBox(height: 40),
               buildLabel("Title"),
               buildTextField(height, "", _titleFocusNode, _titleHasFocus),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               buildLabel("Date"),
               GestureDetector(
                 onTap: () {
@@ -126,7 +126,7 @@ class _AddMeetingState extends State<AddMeeting> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 CupertinoButton(
-                                  child: Text(
+                                  child: const Text(
                                     "Cancel",
                                     style: TextStyle(color: Colors.red),
                                   ),
@@ -135,7 +135,7 @@ class _AddMeetingState extends State<AddMeeting> {
                                   },
                                 ),
                                 CupertinoButton(
-                                  child: Text(
+                                  child: const Text(
                                     "Done",
                                     style: TextStyle(color: Colors.blue),
                                   ),
@@ -162,7 +162,7 @@ class _AddMeetingState extends State<AddMeeting> {
                   );
                 },
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
                   height: height * 0.055,
                   width: width,
                   decoration: BoxDecoration(
@@ -175,12 +175,12 @@ class _AddMeetingState extends State<AddMeeting> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(label),
-                      Icon(CupertinoIcons.calendar),
+                      const Icon(CupertinoIcons.calendar),
                     ],
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               buildLabel("Time"),
               GestureDetector(
                 onTap: () {
@@ -198,7 +198,7 @@ class _AddMeetingState extends State<AddMeeting> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 CupertinoButton(
-                                  child: Text(
+                                  child: const Text(
                                     "Cancel",
                                     style: TextStyle(color: Colors.red),
                                   ),
@@ -207,7 +207,7 @@ class _AddMeetingState extends State<AddMeeting> {
                                   },
                                 ),
                                 CupertinoButton(
-                                  child: Text(
+                                  child: const Text(
                                     "Done",
                                     style: TextStyle(color: Colors.blue),
                                   ),
@@ -234,7 +234,7 @@ class _AddMeetingState extends State<AddMeeting> {
                   );
                 },
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
                   height: height * 0.055,
                   width: width,
                   decoration: BoxDecoration(
@@ -247,19 +247,19 @@ class _AddMeetingState extends State<AddMeeting> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(label1),
-                      Icon(CupertinoIcons.time),
+                      const Icon(CupertinoIcons.time),
                     ],
                   ),
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   buildLabel("Ajouter Participant "),
                   IconButton(
                       onPressed: (){},
-                      icon: Icon(Icons.add))
+                      icon: const Icon(Icons.add))
                 ],
               )
             ],

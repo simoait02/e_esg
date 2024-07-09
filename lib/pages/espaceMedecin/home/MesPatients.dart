@@ -11,13 +11,13 @@ class Mespatients extends StatefulWidget {
 }
 
 class _MespatientsState extends State<Mespatients> {
-  Widget buildPatient({required String text}) {
+  Widget buildPatient({required String text,required bool isDarkMode}) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
       padding: EdgeInsets.all(5),
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: isDarkMode?const Color(0xff181a1b): Colors.white,
         borderRadius: BorderRadius.circular(10),
         border: Border.all(color: Color(0xff00d3c7)),
       ),
@@ -31,7 +31,7 @@ class _MespatientsState extends State<Mespatients> {
       ),
     );
   }
-  Widget patient(double width){
+  Widget patient(double width,bool isDarkMode){
     return Container(
       width: width,
       margin: EdgeInsets.only(top: 5),
@@ -64,8 +64,8 @@ class _MespatientsState extends State<Mespatients> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              buildPatient(text: "Male"),
-              buildPatient(text: "Maladie"),
+              buildPatient(text: "Male",isDarkMode: isDarkMode),
+              buildPatient(text: "Maladie",isDarkMode: isDarkMode),
               Container(
                 margin: EdgeInsets.symmetric(vertical: 10),
                 padding: EdgeInsets.all(5),
@@ -94,6 +94,8 @@ class _MespatientsState extends State<Mespatients> {
   @override
   Widget build(BuildContext context) {
     double width=MediaQuery.of(context).size.width;
+    var brightness = MediaQuery.of(context).platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
     return CupertinoPageScaffold(
       child: SafeArea(
         child: CustomScrollView(
@@ -119,21 +121,24 @@ class _MespatientsState extends State<Mespatients> {
                       ],
                     ),
                     SizedBox(height: 15,),
-                    patient(width),
-                    patient(width),
-                    patient(width),
-                    patient(width),
-                    patient(width),
-                    patient(width),
-                    patient(width),
-                    patient(width),
-                    patient(width),
-                    patient(width),
-                    patient(width),
-                    patient(width),
-                    patient(width),
-                    patient(width),
-
+                    patient(width,isDarkMode),
+                    patient(width,isDarkMode),
+                    patient(width,isDarkMode),
+                    patient(width,isDarkMode),
+                    patient(width,isDarkMode),
+                    patient(width,isDarkMode),
+                    patient(width,isDarkMode),
+                    patient(width,isDarkMode),
+                    patient(width,isDarkMode),
+                    patient(width,isDarkMode),
+                    patient(width,isDarkMode),
+                    patient(width,isDarkMode),
+                    patient(width,isDarkMode),
+                    patient(width,isDarkMode),
+                    patient(width,isDarkMode),
+                    patient(width,isDarkMode),
+                    patient(width,isDarkMode),
+                    patient(width,isDarkMode),
                   ],
                 ),
               ),

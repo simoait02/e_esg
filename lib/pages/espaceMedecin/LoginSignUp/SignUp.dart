@@ -89,7 +89,7 @@ class _SignupState extends State<Signup> {
     super.dispose();
   }
 
-  Widget buildTextField(double width,double height, String placeholder, FocusNode focusNode, bool hasFocus) {
+  Widget buildTextField(double width,double height, String placeholder, FocusNode focusNode, bool hasFocus,bool isDarkMode) {
     return Container(
       width: width * 0.8,
       height: height*0.055,
@@ -97,7 +97,7 @@ class _SignupState extends State<Signup> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
-            color: CupertinoColors.black.withOpacity(0.5),
+            color: isDarkMode? hasFocus?CupertinoColors.systemBlue: CupertinoColors.white.withOpacity(0.5):hasFocus?CupertinoColors.systemBlue:CupertinoColors.black.withOpacity(0.5),
             width: 1,
           ),
         ),
@@ -151,7 +151,7 @@ class _SignupState extends State<Signup> {
                               height: height*0.025,
                                 margin: EdgeInsets.only(left:10) ,
                                 child: const AutoSizeText("Nom")),
-                            buildTextField(width * 0.5,height, "", _nomFocusNode, _nomHasFocus),
+                            buildTextField(width * 0.5,height, "", _nomFocusNode, _nomHasFocus,isDarkMode),
                           ],
                         ),
                       ),
@@ -164,7 +164,7 @@ class _SignupState extends State<Signup> {
                                 height: height*0.025,
                                 margin: EdgeInsets.only(left:10) ,
                                 child: const AutoSizeText("Prénom")),
-                            buildTextField(width * 0.5, height,"", _prenomFocusNode, _prenomHasFocus),
+                            buildTextField(width * 0.5, height,"", _prenomFocusNode, _prenomHasFocus,isDarkMode),
                           ],
                         ),
                       ),
@@ -186,7 +186,7 @@ class _SignupState extends State<Signup> {
                                 height: height*0.025,
                                 margin: EdgeInsets.only(left:10) ,
                                 child: const AutoSizeText("CIN")),
-                            buildTextField(width * 0.5,height, "", _cinFocusNode, _cinHasFocus),
+                            buildTextField(width * 0.5,height, "", _cinFocusNode, _cinHasFocus,isDarkMode),
                           ],
                         ),
                       ),
@@ -199,7 +199,7 @@ class _SignupState extends State<Signup> {
                                 height: height*0.025,
                                 margin: EdgeInsets.only(left:10) ,
                                 child: const AutoSizeText("INPE")),
-                            buildTextField(width * 0.5, height,"", _inpeFocusNode, _inpeHasFocus),
+                            buildTextField(width * 0.5, height,"", _inpeFocusNode, _inpeHasFocus,isDarkMode),
                           ],
                         ),
                       ),
@@ -212,7 +212,7 @@ class _SignupState extends State<Signup> {
                                 height: height*0.025,
                                 margin: EdgeInsets.only(left:10) ,
                                 child: const AutoSizeText("PPR")),
-                            buildTextField(width * 0.5,height, "", _pprFocusNode, _pprHasFocus),
+                            buildTextField(width * 0.5,height, "", _pprFocusNode, _pprHasFocus,isDarkMode),
                           ],
                         ),
                       ),
@@ -227,7 +227,7 @@ class _SignupState extends State<Signup> {
                         child: const AutoSizeText("E-mail")
                     )
                 ),
-                buildTextField(width, height,"", _emailFocusNode, _emailHasFocus),
+                buildTextField(width, height,"", _emailFocusNode, _emailHasFocus,isDarkMode),
 
                 const SizedBox(height: 10,),
                 Align(alignment: Alignment.centerLeft ,
@@ -237,7 +237,7 @@ class _SignupState extends State<Signup> {
                         child: const AutoSizeText("Numéro de téléphone")
                     )
                 ),
-                buildTextField(width,height, "", _numTeleFocusNode, _numTeleHasFocus),
+                buildTextField(width,height, "", _numTeleFocusNode, _numTeleHasFocus,isDarkMode),
 
                 const SizedBox(height: 10,),
                 Container(
@@ -361,7 +361,7 @@ class _SignupState extends State<Signup> {
                       height: height*0.025,
                         margin: EdgeInsets.only(left:30) ,
                         child: const AutoSizeText("Specialitée"))):SizedBox(height: height*0.025,),
-                yes2? buildTextField(width, height,"", _specialiteFocusNode, _specialiteHasFocus):SizedBox(height: height*0.055,),
+                yes2? buildTextField(width, height,"", _specialiteFocusNode, _specialiteHasFocus,isDarkMode):SizedBox(height: height*0.055,),
 
               ],
             ),

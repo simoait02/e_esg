@@ -53,7 +53,7 @@ class _PasswordState extends State<Password> {
     );
   }
 
-  Widget buildTextField(double width,double height, String placeholder, FocusNode focusNode, bool hasFocus) {
+  Widget buildTextField(double width,double height, String placeholder, FocusNode focusNode, bool hasFocus,bool isDarkMode) {
     return Container(
       width: width * 0.8,
       height: height*0.055,
@@ -61,7 +61,7 @@ class _PasswordState extends State<Password> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
-            color: CupertinoColors.black.withOpacity(0.5),
+            color: isDarkMode? hasFocus?CupertinoColors.systemBlue: CupertinoColors.white.withOpacity(0.5):hasFocus?CupertinoColors.systemBlue:CupertinoColors.black.withOpacity(0.5),
             width: 1,
           ),
         ),
@@ -76,6 +76,8 @@ class _PasswordState extends State<Password> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height =MediaQuery.of(context).size.height;
+    var brightness = MediaQuery.of(context).platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -96,10 +98,10 @@ class _PasswordState extends State<Password> {
           ),
           buildLabel("mot de passe"),
           const SizedBox(height: 5,),
-          buildTextField(width,height, "", _coPasswordFocusNode, _coPasswordHasFocus),
+          buildTextField(width,height, "", _coPasswordFocusNode, _coPasswordHasFocus,isDarkMode),
           buildLabel("confirmer mot de passe"),
           const SizedBox(height: 5,),
-          buildTextField(width, height,"", _passwordFocusNode, _passwordHasFocus),
+          buildTextField(width, height,"", _passwordFocusNode, _passwordHasFocus,isDarkMode),
            SizedBox(height: height*0.02,),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

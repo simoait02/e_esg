@@ -53,7 +53,7 @@ class _LoginState extends State<Login> {
     );
   }
 
-  Widget buildTextField(double width,double height, String placeholder, FocusNode focusNode, bool hasFocus) {
+  Widget buildTextField(double width,double height, String placeholder, FocusNode focusNode, bool hasFocus,bool isDarkMode) {
     return Container(
       width: width * 0.8,
       height: height*0.055,
@@ -61,7 +61,7 @@ class _LoginState extends State<Login> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
-            color: CupertinoColors.black.withOpacity(0.5),
+            color: isDarkMode? hasFocus?CupertinoColors.systemBlue: CupertinoColors.white.withOpacity(0.5):hasFocus?CupertinoColors.systemBlue:CupertinoColors.black.withOpacity(0.5),
             width: 1,
           ),
         ),
@@ -80,7 +80,7 @@ class _LoginState extends State<Login> {
     bool isDarkMode = brightness == Brightness.dark;
 
     return  SingleChildScrollView(
-
+      physics: BouncingScrollPhysics(),
       child: Column(
           children: [
             Container(
@@ -103,10 +103,10 @@ class _LoginState extends State<Login> {
             ),
             buildLabel("Identifiant",height*0.02),
             const SizedBox(height: 5,),
-            buildTextField(width,height, "E-mail, CIN", _emailFocusNode, _emailHasFocus),
+            buildTextField(width,height, "E-mail, CIN", _emailFocusNode, _emailHasFocus,isDarkMode),
             buildLabel("Password",height*0.02),
             const SizedBox(height: 5,),
-            buildTextField(width, height,"Password", _passwordFocusNode, _passwordHasFocus),
+            buildTextField(width, height,"Password", _passwordFocusNode, _passwordHasFocus,isDarkMode),
             const SizedBox(height: 10,),
             CupertinoButton(
                 child: Container(
