@@ -1,7 +1,9 @@
 import 'package:e_esg/Widgets/custom_sliver_app_bar.dart';
+import 'package:e_esg/pages/espaceMedecin/home/teleExpertise/buttomSheetSort.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class Mespatients extends StatefulWidget {
   const Mespatients({super.key});
@@ -94,6 +96,7 @@ class _MespatientsState extends State<Mespatients> {
   @override
   Widget build(BuildContext context) {
     double width=MediaQuery.of(context).size.width;
+    double height=MediaQuery.of(context).size.height;
     var brightness = MediaQuery.of(context).platformBrightness;
     bool isDarkMode = brightness == Brightness.dark;
     return CupertinoPageScaffold(
@@ -117,7 +120,14 @@ class _MespatientsState extends State<Mespatients> {
                             fontWeight: FontWeight.bold,
                           )
                         ),),
-                        Icon(Icons.sort_rounded)
+                        IconButton(
+                          onPressed: (){
+                            showBarModalBottomSheet(
+                                context: context, builder: (BuildContext context){
+                              return SortAndFilter(height: height*0.5,isDarkMode: isDarkMode,width: width,);
+                            });
+                          },
+                          icon: Icon(Icons.sort_rounded))
                       ],
                     ),
                     SizedBox(height: 15,),

@@ -129,7 +129,7 @@ class _TeleexpertiseState extends State<TeleExpertise> {
                     height: 160,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black.withOpacity(0.5)),
+                      border: Border.all(color:!isDarkMode?CupertinoColors.black.withOpacity(0.5): CupertinoColors.white.withOpacity(0.5),),
                       borderRadius: BorderRadius.circular(10)
                     ),
                     child: Text("pas de discussion ce jour-là",
@@ -159,7 +159,7 @@ class _TeleexpertiseState extends State<TeleExpertise> {
                     width: width,
                     height: 160,
                     decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black.withOpacity(0.5)),
+                        border: Border.all(color:!isDarkMode?CupertinoColors.black.withOpacity(0.5): CupertinoColors.white.withOpacity(0.5),),
                         borderRadius: BorderRadius.circular(10)
                     ),
                     child: Column(
