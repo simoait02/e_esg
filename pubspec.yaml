@@ -89,7 +89,8 @@ flutter:
      - assets/images/profile.png
      - assets/images/teleExpertise.png
      - assets/images/profiletele.png
-     - assets/images/
+     - assets/images/plus.svg
+     - assets/images/trash.svg
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

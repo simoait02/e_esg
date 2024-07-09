@@ -4,14 +4,9 @@ import 'dart:ui';
 import 'package:searchfield/searchfield.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../Widgets/custom_sliver_app_bar.dart';
-import '../../Widgets/text_field.dart';
-
-class Doctor {
-  final String name;
-
-  Doctor(this.name);
-}
+import 'package:e_esg/Widgets/custom_sliver_app_bar.dart';
+import 'package:e_esg/Widgets/text_field.dart';
+import 'package:e_esg/models/doctor.dart';
 
 class Ajoutlive extends StatefulWidget {
   const Ajoutlive({Key? key}) : super(key: key);
@@ -316,7 +311,7 @@ class _AjoutliveState extends State<Ajoutlive> {
                           width: iconButtonSize,
                           height: iconButtonSize,
                           child: SvgPicture.asset(
-                            'assets/images/clock_icon.svg'),
+                              'assets/images/clock_icon.svg'),
                         ),
                       ),
                     ),
@@ -328,24 +323,26 @@ class _AjoutliveState extends State<Ajoutlive> {
                         children: [
                           Spacer(),
                           ElevatedButton(
-                              onPressed:(){},
-                              child: Text(
-                                "Annuler",
-                                style:TextStyle(
-                                    fontFamily: 'Poppins',
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: titleFontSize-5) ,
-                              ),
-                              style: ElevatedButton.styleFrom(
-                                foregroundColor: Color(0xFF2E37A4),
-                                backgroundColor: Colors.white,
-                                padding: EdgeInsets.all(15),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                  side: BorderSide(
-                                    color: Color(0xFF2E37A4),
-                                    width: 2.0,
-                                  ),
+                            onPressed:(){
+                              Navigator.of(context).pop();
+                            },
+                            child: Text(
+                              "Annuler",
+                              style:TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: titleFontSize-5) ,
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              foregroundColor: Color(0xFF2E37A4),
+                              backgroundColor: Colors.white,
+                              padding: EdgeInsets.all(15),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                side: BorderSide(
+                                  color: Color(0xFF2E37A4),
+                                  width: 2.0,
+                                ),
                               ),
                             ),
                           ),

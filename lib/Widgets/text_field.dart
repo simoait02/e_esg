@@ -84,7 +84,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                       child: TextFormField(
                         focusNode: _focusNode,
                         autofocus: false,
-                        cursorColor: Colors.black38,
+                        cursorColor:Color(0xFF2E37A4),
                         controller: widget.controller,
                         decoration: InputDecoration(
                           focusedBorder: UnderlineInputBorder(

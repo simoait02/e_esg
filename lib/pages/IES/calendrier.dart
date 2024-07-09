@@ -1,10 +1,10 @@
+import 'package:e_esg/Widgets/custom_sliver_app_bar.dart';
+import 'package:e_esg/pages/IES/ajoutLive.dart';
+import 'package:e_esg/pages/IES/propositions.dart';
+import 'package:e_esg/pages/IES/statistiques.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:table_calendar/table_calendar.dart';
-
-import '../../Widgets/custom_sliver_app_bar.dart';
-import 'ajoutLive.dart';
 
 class Calendrier extends StatefulWidget {
   const Calendrier({Key? key}) : super(key: key);
@@ -277,67 +277,73 @@ class CalendrierState extends State<Calendrier> {
                       ),
                     ),
                     SizedBox(height: screenHeight * 0.02),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(screenWidth * 0.04),
-                        border: Border.all(
-                          color: Color(0xFFEAEBF6),
-                          width: 1.0,
-                        ),
-                      ),
-                      padding: EdgeInsets.all(sectionPadding),
-                      child: Row(
-                        children: [
-                          Image.asset("assets/images/propo_icon.png", width: iconButtonSize, height: 80),
-                          SizedBox(width: screenWidth * 0.04),
-                          Text(
-                            'Propositions',
-                            style: TextStyle(
-                              fontSize: titleFontSize - 2,
-                              color: Colors.black,
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.w600,
-                            ),
+                    GestureDetector(
+                      onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>Propositions()));},
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(screenWidth * 0.04),
+                          border: Border.all(
+                            color: Color(0xFFEAEBF6),
+                            width: 1.0,
                           ),
-                          Spacer(),
-                          IconButton(
-                            onPressed: () {},
-                            icon: Icon(Icons.arrow_forward_ios_outlined),
-                            color: Color(0xFFEAEBF6), // Replace with your desired color
-                          )
-                        ],
+                        ),
+                        padding: EdgeInsets.all(sectionPadding),
+                        child: Row(
+                          children: [
+                            Image.asset("assets/images/propo_icon.png", width: iconButtonSize, height: 80),
+                            SizedBox(width: screenWidth * 0.04),
+                            Text(
+                              'Propositions',
+                              style: TextStyle(
+                                fontSize: titleFontSize - 2,
+                                color: Colors.black,
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            Spacer(),
+                            IconButton(
+                              icon: Icon(Icons.arrow_forward_ios_outlined),
+                              color: Color(0xFFEAEBF6),
+                              onPressed: () { Navigator.push(context, MaterialPageRoute(builder: (context)=>Propositions())); },
+                            )
+                          ],
+                        ),
                       ),
                     ),
                     SizedBox(height: screenHeight * 0.02),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(screenWidth * 0.04),
-                        border: Border.all(
-                          color: Color(0xFFEAEBF6),
-                          width: 1.0,
-                        ),
-                      ),
-                      padding: EdgeInsets.all(sectionPadding),
-                      child: Row(
-                        children: [
-                          Image.asset("assets/images/statistique_icone.png", width: iconButtonSize, height: 80),
-                          SizedBox(width: screenWidth * 0.04),
-                          Text(
-                            'Statistiques',
-                            style: TextStyle(
-                              fontSize: titleFontSize,
-                              color: Colors.black,
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.w600,
-                            ),
+                    GestureDetector(
+                      onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>Statistiques()));},
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(screenWidth * 0.04),
+                          border: Border.all(
+                            color: Color(0xFFEAEBF6),
+                            width: 1.0,
                           ),
-                          Spacer(),
-                          IconButton(
-                            onPressed: () {},
-                            icon: Icon(Icons.arrow_forward_ios_outlined),
-                            color: Color(0xFFEAEBF6), // Replace with your desired color
-                          )
-                        ],
+                        ),
+                        padding: EdgeInsets.all(sectionPadding),
+                        child: Row(
+                          children: [
+                            Image.asset("assets/images/statistique_icone.png", width: iconButtonSize, height: 80),
+                            SizedBox(width: screenWidth * 0.04),
+                            Text(
+                              'Statistiques',
+                              style: TextStyle(
+                                fontSize: titleFontSize,
+                                color: Colors.black,
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            Spacer(),
+                            IconButton(
+                              onPressed: () {},
+                              icon: Icon(Icons.arrow_forward_ios_outlined),
+                              color: Color(0xFFEAEBF6), // Replace with your desired color
+                            )
+                          ],
+                        ),
                       ),
                     ),
                     SizedBox(height: screenHeight * 0.04),

@@ -7,6 +7,7 @@
 
 import 'package:e_esg/pages/espaceMedecin/Card.dart';
 import 'package:e_esg/pages/espaceMedecin/Login.dart';
+import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
