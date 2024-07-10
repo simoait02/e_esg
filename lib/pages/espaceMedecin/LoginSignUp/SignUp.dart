@@ -136,7 +136,7 @@ class _SignupState extends State<Signup> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 20,),
+                 SizedBox(height: height*0.01,),
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 20),
                   child: Row(
@@ -391,7 +391,7 @@ class _SignupState extends State<Signup> {
                   children: [
                     const SizedBox(width: 20,),
                     Container(
-                      height: height*0.025,
+                      height: height*0.04,
                       child: const AutoSizeText(
                         "Already have an account?",
                         style: TextStyle(fontFamily: "Inter"),
@@ -403,7 +403,7 @@ class _SignupState extends State<Signup> {
                         widget.onSigninTapped(0.5, 0.25);
                       },
                       child: Container(
-                        height: height*0.025,
+                        height: height*0.04,
                         child: AutoSizeText(
                           "Sign In",
                           style: TextStyle(
