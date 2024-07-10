@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:e_esg/Widgets/custom_sliver_app_bar.dart';
 import 'package:e_esg/Data/live_list.dart';
 import 'package:e_esg/models/live.dart';
+
 class Ies extends StatefulWidget {
   const Ies({super.key});
 
@@ -74,12 +75,16 @@ class _IesState extends State<Ies> {
                         Spacer(),
                         IconButton(
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>YourLives()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => YourLives()));
                           },
                           icon: Container(
                             width: iconButtonSize - 3,
                             height: iconButtonSize - 3,
-                            child: SvgPicture.asset("assets/images/right-icon.svg"),
+                            child: SvgPicture.asset(
+                                "assets/images/right-icon.svg"),
                           ),
                         ),
                       ],
@@ -108,12 +113,16 @@ class _IesState extends State<Ies> {
                         Spacer(),
                         IconButton(
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>Lives()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Lives()));
                           },
                           icon: Container(
                             width: iconButtonSize - 3,
                             height: iconButtonSize - 3,
-                            child: SvgPicture.asset("assets/images/right-icon.svg"),
+                            child: SvgPicture.asset(
+                                "assets/images/right-icon.svg"),
                           ),
                         ),
                       ],
@@ -141,7 +150,13 @@ class _IesState extends State<Ies> {
 
   Widget liveComponent({required Live live}) {
     return GestureDetector(
-      onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>LiveInformationsPage(),settings: RouteSettings(arguments: live))),
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => LiveInformationsPage(),
+          settings: RouteSettings(arguments: live),
+        ),
+      ),
       child: Container(
         width: 250,
         margin: EdgeInsets.only(right: 8),
@@ -172,28 +187,26 @@ class _IesState extends State<Ies> {
             ),
             Padding(
               padding: EdgeInsets.all(10),
-              child: Expanded(
-                child: Text(
-                  live.subject,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w600,
-                    fontSize: titleFontSize / 1.5,
-                  ),
+              child: Text(
+                live.subject,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w600,
+                  fontSize: titleFontSize / 1.5,
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 20,bottom: 10),
+              padding: const EdgeInsets.only(left: 20, bottom: 10),
               child: Text(
                 'By ' + live.doctor.name,
                 style: TextStyle(
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w500,
-                    fontSize: titleFontSize / 1.9,
-                    color: Color(0xFF797979)
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w500,
+                  fontSize: titleFontSize / 1.9,
+                  color: Color(0xFF797979),
                 ),
               ),
             ),
