@@ -173,17 +173,21 @@ class _IesDoctorState extends State<IesDoctor> {
             ),
             Padding(
               padding: EdgeInsets.all(10),
-              child: Expanded(
-                child: Text(
-                  live.subject,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w600,
-                    fontSize: titleFontSize / 1.5,
+              child: Column(
+                children: [
+                  Expanded(
+                    child: Text(
+                      live.subject,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w600,
+                        fontSize: titleFontSize / 1.5,
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
             ),
             Padding(
