@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
 import 'package:e_esg/pages/espaceMedecin/home/Profile/Settings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,11 +21,9 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
     return Scaffold(
       appBar: CupertinoNavigationBar(
-        backgroundColor: isDarkMode?const Color(0xff181a1b): Colors.white,
+        backgroundColor: Cardi.isDarkMode?const Color(0xff181a1b): Colors.white,
         leading: Container(
           alignment: Alignment.centerLeft,
           child: AutoSizeText(
@@ -33,7 +32,7 @@ class _ProfileState extends State<Profile> {
             style: GoogleFonts.poppins(
               textStyle: TextStyle(
                 fontSize: 20,
-                color:isDarkMode?Colors.white.withOpacity(0.9):Colors.black.withOpacity(0.9),
+                color:Cardi.isDarkMode?Colors.white.withOpacity(0.9):Colors.black.withOpacity(0.9),
               )
             ),
           ),
@@ -137,7 +136,7 @@ class _ProfileState extends State<Profile> {
                           textStyle:  TextStyle(
                               fontWeight: FontWeight.normal,
                               fontSize: 14,
-                              color: isDarkMode? Colors.white.withOpacity(0.5): Colors.black.withOpacity(0.5)
+                              color: Cardi.isDarkMode? Colors.white.withOpacity(0.5): Colors.black.withOpacity(0.5)
                           ),
                         ),
                       ),
@@ -164,7 +163,7 @@ class _ProfileState extends State<Profile> {
                           textStyle:  TextStyle(
                               fontWeight: FontWeight.normal,
                               fontSize: 14,
-                              color: isDarkMode? Colors.white.withOpacity(0.5): Colors.black.withOpacity(0.5)
+                              color: Cardi.isDarkMode? Colors.white.withOpacity(0.5): Colors.black.withOpacity(0.5)
                           ),
                         ),
                       ),
@@ -187,7 +186,7 @@ class _ProfileState extends State<Profile> {
                     textStyle:  TextStyle(
                         fontWeight: FontWeight.normal,
                         fontSize: 18,
-                        color: isDarkMode? Colors.white.withOpacity(0.5): Colors.black.withOpacity(0.5)
+                        color: Cardi.isDarkMode? Colors.white.withOpacity(0.5): Colors.black.withOpacity(0.5)
                     ),
                   ),
                 ),
@@ -198,7 +197,7 @@ class _ProfileState extends State<Profile> {
                     textStyle:  TextStyle(
                         fontWeight: FontWeight.normal,
                         fontSize: 18,
-                        color: isDarkMode? Colors.white.withOpacity(0.5): Colors.black.withOpacity(0.5)
+                        color: Cardi.isDarkMode? Colors.white.withOpacity(0.5): Colors.black.withOpacity(0.5)
                     ),
                   ),
                 ),

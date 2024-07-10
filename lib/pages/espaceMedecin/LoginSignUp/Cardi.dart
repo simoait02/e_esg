@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'Login.dart';
 import 'SignUp.dart';
@@ -10,6 +11,7 @@ class Cardi extends StatefulWidget {
   static double q = 0.5;
   static double top = 0.25;
   static bool isContinueTapped = false;
+  static bool isDarkMode=false;
 
   Cardi({super.key});
 
@@ -44,6 +46,18 @@ class _CardiState extends State<Cardi> {
       Cardi.isContinueTapped = false;
     });
   }
+  @override
+  void initState() {
+    super.initState();
+    _loadPreferences();
+  }
+
+  _loadPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      Cardi.isDarkMode = prefs.getBool('isDarkMode') ?? (MediaQuery.of(context).platformBrightness == Brightness.dark);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,8 +67,6 @@ class _CardiState extends State<Cardi> {
     ]);
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
     return CupertinoApp(
       home: CupertinoPageScaffold(
         resizeToAvoidBottomInset: true,
@@ -71,7 +83,7 @@ class _CardiState extends State<Cardi> {
               width: width * 0.9,
               height: height * Cardi.q,
               decoration: BoxDecoration(
-                color: isDarkMode? Color(0xff27272d): Colors.white,
+                color: Cardi.isDarkMode? const Color(0xff27272d): Colors.white,
                 border: Border.all(color: Colors.black),
                 borderRadius: BorderRadius.circular(20),
               ),

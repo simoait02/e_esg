@@ -1,3 +1,4 @@
+import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -115,8 +116,6 @@ class ChatbotState extends State<Chatbot> {
   @override
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -136,7 +135,7 @@ class ChatbotState extends State<Chatbot> {
               width: screenWidth * 0.95,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
-                border: Border.all(width: 1,color: isDarkMode?Colors.white.withOpacity(0.5):Colors.black.withOpacity(0.5))
+                border: Border.all(width: 1,color: Cardi.isDarkMode?Colors.white.withOpacity(0.5):Colors.black.withOpacity(0.5))
               ),
               margin: EdgeInsets.only(bottom: 10),
               padding: const EdgeInsets.only(left: 10),
@@ -150,7 +149,7 @@ class ChatbotState extends State<Chatbot> {
                     ),
                   ),
                   IconButton(
-                    icon: Icon(Icons.arrow_circle_up_outlined,color: isDarkMode?Colors.white.withOpacity(0.5):Colors.black.withOpacity(0.5)),
+                    icon: Icon(Icons.arrow_circle_up_outlined,color: Cardi.isDarkMode?Colors.white.withOpacity(0.5):Colors.black.withOpacity(0.5)),
                     onPressed: sendMessage,
                   ),
                 ],

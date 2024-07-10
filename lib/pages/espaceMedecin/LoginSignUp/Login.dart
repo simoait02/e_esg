@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:e_esg/Widgets/NavigationBarDoctor.dart';
+import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -40,14 +41,15 @@ class _LoginState extends State<Login> {
     super.dispose();
   }
 
-  Widget buildLabel(String label,double height) {
+  Widget buildLabel(String label,double height,bool isDarkMode) {
     return Container(
       margin: EdgeInsets.only(left: 40,top: height),
       child: Align(
         alignment: Alignment.centerLeft,
         child: Text(
           label,
-          style: const TextStyle(fontFamily: "Inter",fontSize: 15),
+          style: TextStyle(fontFamily: "Inter",fontSize: 15,color: isDarkMode?Colors.white:Colors.black,
+          ),
         ),
       ),
     );
@@ -67,6 +69,9 @@ class _LoginState extends State<Login> {
         ),
         focusNode: focusNode,
         placeholder: placeholder,
+        placeholderStyle: TextStyle(
+          color: isDarkMode?Colors.white.withOpacity(0.5):Colors.black.withOpacity(0.5),
+        ),
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
       ),
     );
@@ -76,9 +81,6 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height =MediaQuery.of(context).size.height;
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
-
     return  SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       child: Column(
@@ -93,6 +95,7 @@ class _LoginState extends State<Login> {
                   child: AutoSizeText(
                       "Login",
                     style: TextStyle(
+                      color: Cardi.isDarkMode?Colors.white:Colors.black,
                       fontWeight: FontWeight.bold,
                       fontSize: 30,
                       fontFamily: "poppins"
@@ -101,12 +104,12 @@ class _LoginState extends State<Login> {
                 ),
               ),
             ),
-            buildLabel("Identifiant",height*0.02),
+            buildLabel("Identifiant",height*0.02,Cardi.isDarkMode),
             const SizedBox(height: 5,),
-            buildTextField(width,height, "E-mail, CIN", _emailFocusNode, _emailHasFocus,isDarkMode),
-            buildLabel("Password",height*0.02),
+            buildTextField(width,height, "E-mail, CIN", _emailFocusNode, _emailHasFocus,Cardi.isDarkMode),
+            buildLabel("Password",height*0.02,Cardi.isDarkMode),
             const SizedBox(height: 5,),
-            buildTextField(width, height,"Password", _passwordFocusNode, _passwordHasFocus,isDarkMode),
+            buildTextField(width, height,"Password", _passwordFocusNode, _passwordHasFocus,Cardi.isDarkMode),
             const SizedBox(height: 10,),
             CupertinoButton(
                 child: Container(
@@ -136,9 +139,9 @@ class _LoginState extends State<Login> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   const SizedBox(width: 20,),
-                  const AutoSizeText(
+                  AutoSizeText(
                     "Need an account?",
-                    style: TextStyle(fontFamily: "Inter"),
+                    style: TextStyle(fontFamily: "Inter", color: Cardi.isDarkMode?Colors.white:Colors.black,),
                   ),
                   const SizedBox(width: 2,),
                   GestureDetector(
@@ -149,7 +152,7 @@ class _LoginState extends State<Login> {
                       "Sign Up",
                       style: TextStyle(
                           fontFamily: "Inter",
-                          color: isDarkMode? Color(0xff759cd8):Color(0xff3a01de)),
+                          color: Cardi.isDarkMode? Color(0xff759cd8):Color(0xff3a01de)),
                     ),
                   ),
                 ],

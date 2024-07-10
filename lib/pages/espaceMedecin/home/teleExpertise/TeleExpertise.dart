@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:e_esg/Widgets/custom_sliver_app_bar.dart';
+import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
 import 'package:e_esg/pages/espaceMedecin/home/teleExpertise/addMeeting.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,8 +19,6 @@ class _TeleexpertiseState extends State<TeleExpertise> {
   @override
   Widget build(BuildContext context) {
     double width=MediaQuery.of(context).size.width;
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
     return CupertinoPageScaffold(
       child: SafeArea(
         child: CustomScrollView(
@@ -42,7 +41,7 @@ class _TeleexpertiseState extends State<TeleExpertise> {
                             style: GoogleFonts.aBeeZee(
                               textStyle:  TextStyle(
                                 fontSize: 24,
-                                color:isDarkMode? const Color(0x9395a6ce): const Color(0x5e0e1462),
+                                color:Cardi.isDarkMode? const Color(0x9395a6ce): const Color(0x5e0e1462),
                                 fontWeight: FontWeight.w500
                               )
                             ),
@@ -131,7 +130,7 @@ class _TeleexpertiseState extends State<TeleExpertise> {
                     height: 160,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                      border: Border.all(color:!isDarkMode?CupertinoColors.black.withOpacity(0.5): CupertinoColors.white.withOpacity(0.5),),
+                      border: Border.all(color:!Cardi.isDarkMode?CupertinoColors.black.withOpacity(0.5): CupertinoColors.white.withOpacity(0.5),),
                       borderRadius: BorderRadius.circular(10)
                     ),
                     child: Text("pas de discussion ce jour-là",
@@ -139,7 +138,7 @@ class _TeleexpertiseState extends State<TeleExpertise> {
                       textStyle:  TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w500,
-                        color:isDarkMode?Colors.white.withOpacity(0.5): Colors.black.withOpacity(0.5),
+                        color:Cardi.isDarkMode?Colors.white.withOpacity(0.5): Colors.black.withOpacity(0.5),
                       ),)
                     ),
                   ),
@@ -161,7 +160,7 @@ class _TeleexpertiseState extends State<TeleExpertise> {
                     width: width,
                     height: 160,
                     decoration: BoxDecoration(
-                        border: Border.all(color:!isDarkMode?CupertinoColors.black.withOpacity(0.5): CupertinoColors.white.withOpacity(0.5),),
+                        border: Border.all(color:!Cardi.isDarkMode?CupertinoColors.black.withOpacity(0.5): CupertinoColors.white.withOpacity(0.5),),
                         borderRadius: BorderRadius.circular(10)
                     ),
                     child: Column(
@@ -192,7 +191,7 @@ class _TeleexpertiseState extends State<TeleExpertise> {
                                     style: GoogleFonts.rubik(
                                         textStyle: TextStyle(
                                             fontSize: 12,
-                                            color:isDarkMode?Color(0x9395a6ce): Color(0x96333541),
+                                            color:Cardi.isDarkMode?Color(0x9395a6ce): Color(0x96333541),
                                         )
                                     ),
                                   ),
@@ -232,7 +231,7 @@ class _TeleexpertiseState extends State<TeleExpertise> {
                                             style: GoogleFonts.rubik(
                                                 textStyle: TextStyle(
                                                   fontSize: 15,
-                                                  color: isDarkMode?Color(0x9395a6ce):Color(0x96333541),
+                                                  color: Cardi.isDarkMode?Color(0x9395a6ce):Color(0x96333541),
                                                   fontWeight: FontWeight.bold
                                                 )
                                             ),
@@ -242,7 +241,7 @@ class _TeleexpertiseState extends State<TeleExpertise> {
                                           style: GoogleFonts.rubik(
                                               textStyle: TextStyle(
                                                 fontSize: 12,
-                                                color: isDarkMode?Color(0x9395a6ce):Color(0x96333541),
+                                                color: Cardi.isDarkMode?Color(0x9395a6ce):Color(0x96333541),
                                               )
                                           ),
                                         ),

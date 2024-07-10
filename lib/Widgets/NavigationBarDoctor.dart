@@ -1,14 +1,10 @@
+import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
 import 'package:e_esg/pages/espaceMedecin/home/Chatbot.dart';
 import 'package:e_esg/pages/espaceMedecin/home/IES.dart';
-import 'package:e_esg/pages/espaceMedecin/home/MesPatients.dart';
+import 'package:e_esg/pages/espaceMedecin/home/MesPatients/MesPatients.dart';
 import 'package:e_esg/pages/espaceMedecin/home/Profile/Profile.dart';
 import 'package:e_esg/pages/espaceMedecin/home/teleExpertise/TeleExpertise.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-void main() {
-  runApp(const NavbarDoc());
-}
 
 class NavbarDoc extends StatefulWidget {
   const NavbarDoc({super.key});
@@ -27,8 +23,6 @@ class _NavbarDocState extends State<NavbarDoc> {
   ];
   int _selectedItem = 0;
   Widget _buildNavItem(String assetPath, String label, int index) {
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
     return SizedBox(
       child: Container(
         margin: const EdgeInsets.only(left: 5,right: 5),
@@ -38,15 +32,15 @@ class _NavbarDocState extends State<NavbarDoc> {
           children: [
             Image.asset(assetPath, height: 30, width: 30,
               color:_selectedItem==index?
-              isDarkMode? const Color(0xff759cd8) :const Color(0xff2e37a4)
-                  : !isDarkMode? const Color(0x7f2e37a4) : const Color(0x7f759cd8),),
+              Cardi.isDarkMode? const Color(0xff759cd8) :const Color(0xff2e37a4)
+                  : !Cardi.isDarkMode? const Color(0x7f2e37a4) : const Color(0x7f759cd8),),
             if (_selectedItem == index)
               Flexible(
                 child: Padding(
                   padding: const EdgeInsets.only(top: 4.0,left: 2,right: 2),
                   child: Text(
                     label,
-                    style:  TextStyle(color: !isDarkMode? const Color(0xff2e37a4): const Color(0xff759cd8), fontSize: 12),
+                    style:  TextStyle(color: !Cardi.isDarkMode? const Color(0xff2e37a4): const Color(0xff759cd8), fontSize: 12),
                     textAlign: TextAlign.start,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
@@ -61,16 +55,13 @@ class _NavbarDocState extends State<NavbarDoc> {
 
   @override
   Widget build(BuildContext context) {
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
     return MaterialApp(
-      theme: ThemeData.light(),
-      darkTheme: ThemeData.dark(),
       debugShowCheckedModeBanner: false,
+      theme: Cardi.isDarkMode?ThemeData.dark():ThemeData.light(),
       home: Scaffold(
           bottomNavigationBar: Container(
             decoration: BoxDecoration(
-                border: Border(top: BorderSide(width: 1, color: isDarkMode?const Color(0x40ffffff): const Color(0x3f000000))),
+                border: Border(top: BorderSide(width: 1, color: Cardi.isDarkMode?const Color(0x40ffffff): const Color(0x3f000000))),
                 borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(20),
                     topRight: Radius.circular(20)

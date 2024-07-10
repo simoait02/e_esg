@@ -2,7 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'Card.dart';
+import 'Cardi.dart';
 
 class Signup extends StatefulWidget {
   final Function(double, double) onSigninTapped;
@@ -112,10 +112,7 @@ class _SignupState extends State<Signup> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height =MediaQuery.of(context).size.height;
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
     return SingleChildScrollView(
-
       child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -124,14 +121,15 @@ class _SignupState extends State<Signup> {
                 Container(
                   margin: EdgeInsets.only(left:30),
                   height: height*0.07,
-                  child: const Align(
+                  child: Align(
                     alignment: Alignment.centerLeft,
                     child: AutoSizeText(
                       "Sign up",
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 30,
-                          fontFamily: "poppins"
+                          fontFamily: "poppins",
+                          color:Cardi.isDarkMode?Colors.white:Colors.black
                       ),
                     ),
                   ),
@@ -150,8 +148,9 @@ class _SignupState extends State<Signup> {
                             Container(
                               height: height*0.025,
                                 margin: EdgeInsets.only(left:10) ,
-                                child: const AutoSizeText("Nom")),
-                            buildTextField(width * 0.5,height, "", _nomFocusNode, _nomHasFocus,isDarkMode),
+                                child: AutoSizeText("Nom",
+                                  style: TextStyle(color: Cardi.isDarkMode?Colors.white:Colors.black),)),
+                            buildTextField(width * 0.5,height, "", _nomFocusNode, _nomHasFocus,Cardi.isDarkMode),
                           ],
                         ),
                       ),
@@ -163,8 +162,9 @@ class _SignupState extends State<Signup> {
                             Container(
                                 height: height*0.025,
                                 margin: EdgeInsets.only(left:10) ,
-                                child: const AutoSizeText("Prénom")),
-                            buildTextField(width * 0.5, height,"", _prenomFocusNode, _prenomHasFocus,isDarkMode),
+                                child:  AutoSizeText("Prénom",
+                                style: TextStyle(color: Cardi.isDarkMode?Colors.white:Colors.black),)),
+                            buildTextField(width * 0.5, height,"", _prenomFocusNode, _prenomHasFocus,Cardi.isDarkMode),
                           ],
                         ),
                       ),
@@ -185,8 +185,9 @@ class _SignupState extends State<Signup> {
                             Container(
                                 height: height*0.025,
                                 margin: EdgeInsets.only(left:10) ,
-                                child: const AutoSizeText("CIN")),
-                            buildTextField(width * 0.5,height, "", _cinFocusNode, _cinHasFocus,isDarkMode),
+                                child: AutoSizeText("CIN",
+                                  style: TextStyle(color: Cardi.isDarkMode?Colors.white:Colors.black),)),
+                            buildTextField(width * 0.5,height, "", _cinFocusNode, _cinHasFocus,Cardi.isDarkMode),
                           ],
                         ),
                       ),
@@ -198,8 +199,9 @@ class _SignupState extends State<Signup> {
                             Container(
                                 height: height*0.025,
                                 margin: EdgeInsets.only(left:10) ,
-                                child: const AutoSizeText("INPE")),
-                            buildTextField(width * 0.5, height,"", _inpeFocusNode, _inpeHasFocus,isDarkMode),
+                                child: AutoSizeText("INPE",
+                                  style: TextStyle(color: Cardi.isDarkMode?Colors.white:Colors.black),)),
+                            buildTextField(width * 0.5, height,"", _inpeFocusNode, _inpeHasFocus,Cardi.isDarkMode),
                           ],
                         ),
                       ),
@@ -211,8 +213,9 @@ class _SignupState extends State<Signup> {
                             Container(
                                 height: height*0.025,
                                 margin: EdgeInsets.only(left:10) ,
-                                child: const AutoSizeText("PPR")),
-                            buildTextField(width * 0.5,height, "", _pprFocusNode, _pprHasFocus,isDarkMode),
+                                child: AutoSizeText("PPR",
+                                  style: TextStyle(color: Cardi.isDarkMode?Colors.white:Colors.black),)),
+                            buildTextField(width * 0.5,height, "", _pprFocusNode, _pprHasFocus,Cardi.isDarkMode),
                           ],
                         ),
                       ),
@@ -224,20 +227,22 @@ class _SignupState extends State<Signup> {
                     child: Container(
                         height: height*0.025,
                         margin: EdgeInsets.only(left:30) ,
-                        child: const AutoSizeText("E-mail")
+                        child: AutoSizeText("E-mail",
+                          style: TextStyle(color: Cardi.isDarkMode?Colors.white:Colors.black),)
                     )
                 ),
-                buildTextField(width, height,"", _emailFocusNode, _emailHasFocus,isDarkMode),
+                buildTextField(width, height,"", _emailFocusNode, _emailHasFocus,Cardi.isDarkMode),
 
                 const SizedBox(height: 10,),
                 Align(alignment: Alignment.centerLeft ,
                     child: Container(
                         height: height*0.025,
                         margin: EdgeInsets.only(left:30) ,
-                        child: const AutoSizeText("Numéro de téléphone")
+                        child: AutoSizeText("Numéro de téléphone",
+                          style: TextStyle(color: Cardi.isDarkMode?Colors.white:Colors.black),)
                     )
                 ),
-                buildTextField(width,height, "", _numTeleFocusNode, _numTeleHasFocus,isDarkMode),
+                buildTextField(width,height, "", _numTeleFocusNode, _numTeleHasFocus,Cardi.isDarkMode),
 
                 const SizedBox(height: 10,),
                 Container(
@@ -249,7 +254,8 @@ class _SignupState extends State<Signup> {
                           child: Container(
                               height: height*0.045,
                               margin: EdgeInsets.only(left:10) ,
-                              child: const AutoSizeText("Médecin au sein \nd’un centre ESJ?")
+                              child: AutoSizeText("Médecin au sein \nd’un centre ESJ?",
+                                style: TextStyle(color: Cardi.isDarkMode?Colors.white:Colors.black),)
                           )
                       ),
                       Row(
@@ -307,7 +313,8 @@ class _SignupState extends State<Signup> {
                           child: Container(
                               height: height*0.025,
                               margin: EdgeInsets.only(left:10) ,
-                              child: const AutoSizeText("Médecin Généraliste?")
+                              child: AutoSizeText("Médecin Généraliste?",
+                                style: TextStyle(color: Cardi.isDarkMode?Colors.white:Colors.black),)
                           )
                       ),
                       Row(
@@ -360,8 +367,9 @@ class _SignupState extends State<Signup> {
                     child: Container(
                       height: height*0.025,
                         margin: EdgeInsets.only(left:30) ,
-                        child: const AutoSizeText("Specialitée"))):SizedBox(height: height*0.025,),
-                yes2? buildTextField(width, height,"", _specialiteFocusNode, _specialiteHasFocus,isDarkMode):SizedBox(height: height*0.055,),
+                        child: AutoSizeText("Specialitée",
+                          style: TextStyle(color: Cardi.isDarkMode?Colors.white:Colors.black),))):SizedBox(height: height*0.025,),
+                yes2? buildTextField(width, height,"", _specialiteFocusNode, _specialiteHasFocus,Cardi.isDarkMode):SizedBox(height: height*0.055,),
 
               ],
             ),
@@ -389,12 +397,13 @@ class _SignupState extends State<Signup> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    const SizedBox(width: 20,),
-                    Container(
+                     const SizedBox(width: 20,),
+                    SizedBox(
                       height: height*0.04,
-                      child: const AutoSizeText(
+                      child:  AutoSizeText(
                         "Already have an account?",
-                        style: TextStyle(fontFamily: "Inter"),
+                        style: TextStyle(fontFamily: "Inter",
+                            color: Cardi.isDarkMode?Colors.white:Colors.black),
                       ),
                     ),
                     const SizedBox(width: 2,),
@@ -408,7 +417,7 @@ class _SignupState extends State<Signup> {
                           "Sign In",
                           style: TextStyle(
                               fontFamily: "Inter",
-                              color: isDarkMode? Color(0xff759cd8):Color(0xff3a01de)),
+                              color: Cardi.isDarkMode? Color(0xff759cd8):Color(0xff3a01de)),
                         ),
                       ),
                     ),
