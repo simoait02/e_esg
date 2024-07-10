@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:e_esg/Widgets/custom_sliver_app_bar.dart';
 import 'package:e_esg/pages/espaceMedecin/home/teleExpertise/addMeeting.dart';
@@ -59,13 +60,14 @@ class _TeleexpertiseState extends State<TeleExpertise> {
                         CupertinoButton(
                             child: Container(
                               height: 40,
+                              width: width*0.4,
                               alignment: Alignment.center,
                               padding: EdgeInsets.symmetric(vertical: 5,horizontal: 10),
                               decoration: BoxDecoration(
                                   color: Color(0xff2e37a4),
                                   borderRadius: BorderRadius.circular(10)
                               ),
-                              child: const Text(
+                              child: const AutoSizeText(
                                 "Créer une discussion",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
