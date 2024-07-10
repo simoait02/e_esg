@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'dossierMedical.dart';
 class Consentement extends StatefulWidget {
   const Consentement({super.key});
 
@@ -89,7 +89,10 @@ class ConsentementState extends State<Consentement> {
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  print("Yes");
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Dossiermedical()),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color.fromARGB(255, 41, 124, 192), 
