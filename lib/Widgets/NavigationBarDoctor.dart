@@ -1,7 +1,7 @@
 import 'package:e_esg/pages/espaceMedecin/home/Chatbot.dart';
 import 'package:e_esg/pages/espaceMedecin/home/IES.dart';
 import 'package:e_esg/pages/espaceMedecin/home/MesPatients.dart';
-import 'package:e_esg/pages/espaceMedecin/home/Profile.dart';
+import 'package:e_esg/pages/espaceMedecin/home/Profile/Profile.dart';
 import 'package:e_esg/pages/espaceMedecin/home/teleExpertise/TeleExpertise.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

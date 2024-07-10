@@ -50,18 +50,19 @@ class ChatbotState extends State<Chatbot> {
           child: Container(
             alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
             margin: EdgeInsets.symmetric(vertical: 10.0),
-            padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
+            padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
             decoration: BoxDecoration(
               color:
-              isUser ? Color.fromARGB(255, 49, 146, 225) : Colors.grey[300],
+              isUser ? Color(0xff00d3c7) : Color(0xff2e37a4),
               borderRadius: BorderRadius.circular(10.0),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   messageText,
-                  style: TextStyle(color: Colors.black),
+                  style: TextStyle(color: Colors.white),
                 ),
                 if (!isUser)
                   Row(
@@ -114,46 +115,49 @@ class ChatbotState extends State<Chatbot> {
   @override
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
-
+    var brightness = MediaQuery.of(context).platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Chatbot'),
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              padding: EdgeInsets.all(8.0),
-              itemCount: messages.length,
-              itemBuilder: (context, index) {
-                return buildMessage(messages[index], screenWidth);
-              },
+      body: SafeArea(
+        child: Column(
+          children: [
+            Expanded(
+              child: ListView.builder(
+                padding: EdgeInsets.all(8.0),
+                itemCount: messages.length,
+                itemBuilder: (context, index) {
+                  return buildMessage(messages[index], screenWidth);
+                },
+              ),
             ),
-          ),
-          Container(
-            width: screenWidth * 0.9,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(16.0),
-            ),
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: controller,
-                    decoration:
-                    InputDecoration.collapsed(hintText: 'Send a message'),
+            Container(
+              alignment: Alignment.center,
+              height: 50,
+              width: screenWidth * 0.95,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30),
+                border: Border.all(width: 1,color: isDarkMode?Colors.white.withOpacity(0.5):Colors.black.withOpacity(0.5))
+              ),
+              margin: EdgeInsets.only(bottom: 10),
+              padding: const EdgeInsets.only(left: 10),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: controller,
+                      decoration:
+                      InputDecoration.collapsed(hintText: 'Send a message'),
+                    ),
                   ),
-                ),
-                IconButton(
-                  icon: Icon(Icons.arrow_circle_up_outlined,color: Colors.black.withOpacity(0.5),),
-                  onPressed: sendMessage,
-                ),
-              ],
+                  IconButton(
+                    icon: Icon(Icons.arrow_circle_up_outlined,color: isDarkMode?Colors.white.withOpacity(0.5):Colors.black.withOpacity(0.5)),
+                    onPressed: sendMessage,
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
