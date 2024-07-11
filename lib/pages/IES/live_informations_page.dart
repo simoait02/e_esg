@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:e_esg/Widgets/custom_sliver_app_bar.dart';
@@ -33,7 +34,6 @@ class _LiveInformationsPageState extends State<LiveInformationsPage> {
     sectionPadding = screenWidth * 0.04;
     titleFontSize = screenWidth * 0.06;
     return Scaffold(
-      backgroundColor: Colors.white,
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
@@ -86,7 +86,7 @@ class _LiveInformationsPageState extends State<LiveInformationsPage> {
                               ),
                               SizedBox(width: sectionPadding*4),
                               Expanded(
-                                child: Text(
+                                child: AutoSizeText(
                                   live.subject,
                                   style: TextStyle(
                                     fontFamily: "Poppins",

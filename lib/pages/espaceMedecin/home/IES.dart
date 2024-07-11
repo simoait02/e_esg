@@ -1,6 +1,8 @@
 import 'package:e_esg/pages/IES/live_informations_page.dart';
 import 'package:e_esg/pages/IES/lives.dart';
 import 'package:e_esg/pages/IES/your_lives.dart';
+import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:e_esg/Widgets/custom_sliver_app_bar.dart';
@@ -28,7 +30,6 @@ class _IesState extends State<Ies> {
     titleFontSize = screenWidth * 0.06;
 
     return Scaffold(
-      backgroundColor: Colors.white,
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
@@ -39,37 +40,43 @@ class _IesState extends State<Ies> {
             ),
             SliverToBoxAdapter(
               child: Container(
-                padding: EdgeInsets.all(sectionPadding),
+                color: Colors.transparent,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 60),
-                    Text(
-                      "Lives pour cette semaine",
-                      style: TextStyle(
-                        fontSize: titleFontSize,
-                        fontWeight: FontWeight.bold,
+                    Padding(
+                      padding: EdgeInsets.only(left: 20),
+                      child: Text(
+                        "Lives pour cette semaine",
+                        style: TextStyle(
+                          fontSize: titleFontSize,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 10),
                     SizedBox(
                       height: 290,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: thisWeekLives.length,
                         itemBuilder: (context, index) {
-                          return liveComponent(live: thisWeekLives[index]);
+                          return liveComponent(live: thisWeekLives[index],isDarkMode: Cardi.isDarkMode.value);
                         },
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 20),
                     Row(
                       children: [
-                        Text(
-                          "Vos lives",
-                          style: TextStyle(
-                            fontSize: titleFontSize,
-                            fontWeight: FontWeight.bold,
+                        Padding(
+                          padding: EdgeInsets.only(left: 20),
+                          child: Text(
+                            "Vos lives",
+                            style: TextStyle(
+                              fontSize: titleFontSize,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                         Spacer(),
@@ -89,25 +96,28 @@ class _IesState extends State<Ies> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 10),
                     SizedBox(
                       height: 290,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: yourLives.length,
                         itemBuilder: (context, index) {
-                          return liveComponent(live: yourLives[index]);
+                          return liveComponent(live: yourLives[index],isDarkMode: Cardi.isDarkMode.value);
                         },
                       ),
                     ),
-                    SizedBox(height: 10),
+                    SizedBox(height: 20),
                     Row(
                       children: [
-                        Text(
-                          "Lives",
-                          style: TextStyle(
-                            fontSize: titleFontSize,
-                            fontWeight: FontWeight.bold,
+                        Padding(
+                          padding: EdgeInsets.only(left: 20),
+                          child: Text(
+                            "Lives",
+                            style: TextStyle(
+                              fontSize: titleFontSize,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                         Spacer(),
@@ -127,14 +137,14 @@ class _IesState extends State<Ies> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 10),
                     SizedBox(
                       height: 290,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: allLives.length,
                         itemBuilder: (context, index) {
-                          return liveComponent(live: allLives[index]);
+                          return liveComponent(live: allLives[index],isDarkMode: Cardi.isDarkMode.value);
                         },
                       ),
                     ),
@@ -148,7 +158,7 @@ class _IesState extends State<Ies> {
     );
   }
 
-  Widget liveComponent({required Live live}) {
+  Widget liveComponent({required Live live,required bool isDarkMode}) {
     return GestureDetector(
       onTap: () => Navigator.push(
         context,
@@ -161,7 +171,7 @@ class _IesState extends State<Ies> {
         width: 250,
         margin: EdgeInsets.only(right: 8),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: isDarkMode?Color(0xff181a1b): Colors.white,
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(

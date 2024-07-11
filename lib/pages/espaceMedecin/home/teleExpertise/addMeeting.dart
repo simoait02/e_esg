@@ -1,3 +1,4 @@
+import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -68,16 +69,14 @@ class _AddMeetingState extends State<AddMeeting> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
     return Scaffold(
       appBar: CupertinoNavigationBar(
-        backgroundColor: isDarkMode?Color(0xff181a1b): Colors.white,
+        backgroundColor: Cardi.isDarkMode.value?Color(0xff181a1b): Colors.white,
         previousPageTitle: "Back",
         middle:  Text('Add Meeting',
           style: GoogleFonts.poppins(
             textStyle: TextStyle(
-              color:isDarkMode?Colors.white:Colors.black,
+              color:Cardi.isDarkMode.value?Colors.white:Colors.black,
             )
           ),
         ),
@@ -111,7 +110,7 @@ class _AddMeetingState extends State<AddMeeting> {
               ),
               const SizedBox(height: 40),
               buildLabel("Title"),
-              buildTextField(height, "", _titleFocusNode, _titleHasFocus,isDarkMode),
+              buildTextField(height, "", _titleFocusNode, _titleHasFocus,Cardi.isDarkMode.value),
               const SizedBox(height: 20),
               buildLabel("Date"),
               GestureDetector(
@@ -123,7 +122,7 @@ class _AddMeetingState extends State<AddMeeting> {
                       return Container(
                         width: width,
                         height: height*0.35,
-                        color:isDarkMode?CupertinoColors.black.withOpacity(0.5): CupertinoColors.white.withOpacity(0.5),
+                        color:Cardi.isDarkMode.value?CupertinoColors.black.withOpacity(0.5): CupertinoColors.white.withOpacity(0.5),
                         child: Column(
                           children: [
                             Row(
@@ -156,7 +155,7 @@ class _AddMeetingState extends State<AddMeeting> {
                                   textTheme: CupertinoTextThemeData(
                                     dateTimePickerTextStyle: GoogleFonts.poppins(
                                       textStyle: TextStyle(
-                                        color:isDarkMode? Colors.white:Colors.black,
+                                        color:Cardi.isDarkMode.value? Colors.white:Colors.black,
                                         fontSize: 20,
                                       ),
                                     )
@@ -184,7 +183,7 @@ class _AddMeetingState extends State<AddMeeting> {
                   width: width,
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color:isDarkMode?CupertinoColors.white.withOpacity(0.5): CupertinoColors.black.withOpacity(0.5),
+                      color:Cardi.isDarkMode.value?CupertinoColors.white.withOpacity(0.5): CupertinoColors.black.withOpacity(0.5),
                     ),
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -192,7 +191,7 @@ class _AddMeetingState extends State<AddMeeting> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(label),
-                      Icon(CupertinoIcons.calendar,color:isDarkMode?CupertinoColors.white.withOpacity(0.5): CupertinoColors.black.withOpacity(0.5),),
+                      Icon(CupertinoIcons.calendar,color:Cardi.isDarkMode.value?CupertinoColors.white.withOpacity(0.5): CupertinoColors.black.withOpacity(0.5),),
                     ],
                   ),
                 ),
@@ -208,7 +207,7 @@ class _AddMeetingState extends State<AddMeeting> {
                       return Container(
                         width: width,
                         height: 250,
-                        color:isDarkMode?CupertinoColors.black.withOpacity(0.5): CupertinoColors.white.withOpacity(0.5),
+                        color:Cardi.isDarkMode.value?CupertinoColors.black.withOpacity(0.5): CupertinoColors.white.withOpacity(0.5),
                         child: Column(
                           children: [
                             Row(
@@ -241,7 +240,7 @@ class _AddMeetingState extends State<AddMeeting> {
                                   textTheme: CupertinoTextThemeData(
                                       dateTimePickerTextStyle: GoogleFonts.poppins(
                                         textStyle: TextStyle(
-                                          color:isDarkMode? Colors.white:Colors.black,
+                                          color:Cardi.isDarkMode.value? Colors.white:Colors.black,
                                           fontSize: 20,
                                         ),
                                       )
@@ -268,7 +267,7 @@ class _AddMeetingState extends State<AddMeeting> {
                   width: width,
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color:isDarkMode?CupertinoColors.white.withOpacity(0.5): CupertinoColors.black.withOpacity(0.5),
+                      color:Cardi.isDarkMode.value?CupertinoColors.white.withOpacity(0.5): CupertinoColors.black.withOpacity(0.5),
                     ),
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -276,7 +275,7 @@ class _AddMeetingState extends State<AddMeeting> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(label1),
-                      Icon(CupertinoIcons.time,color:isDarkMode?CupertinoColors.white.withOpacity(0.5): CupertinoColors.black.withOpacity(0.5),
+                      Icon(CupertinoIcons.time,color:Cardi.isDarkMode.value?CupertinoColors.white.withOpacity(0.5): CupertinoColors.black.withOpacity(0.5),
                       ),
                     ],
                   ),
