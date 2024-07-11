@@ -32,7 +32,7 @@ class _SettingsState extends State<Settings> {
       isSystemSettings = prefs.getBool('isSystemSettings') ?? true;
       isDark = prefs.getBool('isDark') ?? false;
       isLight = prefs.getBool('isLight') ?? false;
-      Cardi.isDarkMode = prefs.getBool('isDarkMode') ?? (MediaQuery.of(context).platformBrightness == Brightness.dark);
+      Cardi.isDarkMode.value = prefs.getBool('isDarkMode') ?? (MediaQuery.of(context).platformBrightness == Brightness.dark);
     });
   }
 
@@ -42,17 +42,17 @@ class _SettingsState extends State<Settings> {
     prefs.setBool('isSystemSettings', isSystemSettings);
     prefs.setBool('isDark', isDark);
     prefs.setBool('isLight', isLight);
-    prefs.setBool('isDarkMode', Cardi.isDarkMode);
+    prefs.setBool('isDarkMode', Cardi.isDarkMode.value);
   }
 
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    Color backgroundColor = Cardi.isDarkMode ? const Color(0xff181a1b) : Colors.white;
-    Color textColor = Cardi.isDarkMode ? Colors.white : Colors.black;
-    Color dividerColor = Cardi.isDarkMode ? Colors.white.withOpacity(0.2) : Colors.black.withOpacity(0.2);
-    Color iconColor = Cardi.isDarkMode ? Colors.white.withOpacity(0.5) : Colors.black.withOpacity(0.5);
+    Color backgroundColor = Cardi.isDarkMode.value ? const Color(0xff181a1b) : Colors.white;
+    Color textColor = Cardi.isDarkMode.value ? Colors.white : Colors.black;
+    Color dividerColor = Cardi.isDarkMode.value ? Colors.white.withOpacity(0.2) : Colors.black.withOpacity(0.2);
+    Color iconColor = Cardi.isDarkMode.value ? Colors.white.withOpacity(0.5) : Colors.black.withOpacity(0.5);
 
     return Scaffold(
       appBar: CupertinoNavigationBar(
@@ -186,7 +186,7 @@ class _SettingsState extends State<Settings> {
                       GestureDetector(
                         onTap: (){
                           setState(() {
-                            Cardi.isDarkMode = MediaQuery.of(context).platformBrightness == Brightness.dark;
+                            Cardi.isDarkMode.value = MediaQuery.of(context).platformBrightness == Brightness.dark;
                             isSystemSettings = true;
                             isDark = false;
                             isLight = false;
@@ -231,7 +231,7 @@ class _SettingsState extends State<Settings> {
                       GestureDetector(
                         onTap: () {
                           setState(() {
-                            Cardi.isDarkMode = true;
+                            Cardi.isDarkMode.value = true;
                             isDark = true;
                             isLight = false;
                             isSystemSettings = false;
@@ -276,7 +276,7 @@ class _SettingsState extends State<Settings> {
                       GestureDetector(
                         onTap: () {
                           setState(() {
-                            Cardi.isDarkMode = false;
+                            Cardi.isDarkMode.value = false;
                             isLight = true;
                             isSystemSettings = false;
                             isDark = false;

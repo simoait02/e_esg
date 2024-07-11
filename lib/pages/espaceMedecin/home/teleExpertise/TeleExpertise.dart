@@ -41,7 +41,7 @@ class _TeleexpertiseState extends State<TeleExpertise> {
                             style: GoogleFonts.aBeeZee(
                               textStyle:  TextStyle(
                                 fontSize: 24,
-                                color:Cardi.isDarkMode? const Color(0x9395a6ce): const Color(0x5e0e1462),
+                                color:Cardi.isDarkMode.value? const Color(0x9395a6ce): const Color(0x5e0e1462),
                                 fontWeight: FontWeight.w500
                               )
                             ),
@@ -130,7 +130,7 @@ class _TeleexpertiseState extends State<TeleExpertise> {
                     height: 160,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                      border: Border.all(color:!Cardi.isDarkMode?CupertinoColors.black.withOpacity(0.5): CupertinoColors.white.withOpacity(0.5),),
+                      border: Border.all(color:!Cardi.isDarkMode.value?CupertinoColors.black.withOpacity(0.5): CupertinoColors.white.withOpacity(0.5),),
                       borderRadius: BorderRadius.circular(10)
                     ),
                     child: Text("pas de discussion ce jour-là",
@@ -138,7 +138,7 @@ class _TeleexpertiseState extends State<TeleExpertise> {
                       textStyle:  TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w500,
-                        color:Cardi.isDarkMode?Colors.white.withOpacity(0.5): Colors.black.withOpacity(0.5),
+                        color:Cardi.isDarkMode.value?Colors.white.withOpacity(0.5): Colors.black.withOpacity(0.5),
                       ),)
                     ),
                   ),
@@ -160,7 +160,7 @@ class _TeleexpertiseState extends State<TeleExpertise> {
                     width: width,
                     height: 160,
                     decoration: BoxDecoration(
-                        border: Border.all(color:!Cardi.isDarkMode?CupertinoColors.black.withOpacity(0.5): CupertinoColors.white.withOpacity(0.5),),
+                        border: Border.all(color:!Cardi.isDarkMode.value?CupertinoColors.black.withOpacity(0.5): CupertinoColors.white.withOpacity(0.5),),
                         borderRadius: BorderRadius.circular(10)
                     ),
                     child: Column(
@@ -191,7 +191,7 @@ class _TeleexpertiseState extends State<TeleExpertise> {
                                     style: GoogleFonts.rubik(
                                         textStyle: TextStyle(
                                             fontSize: 12,
-                                            color:Cardi.isDarkMode?Color(0x9395a6ce): Color(0x96333541),
+                                            color:Cardi.isDarkMode.value?Color(0x9395a6ce): Color(0x96333541),
                                         )
                                     ),
                                   ),
@@ -231,7 +231,7 @@ class _TeleexpertiseState extends State<TeleExpertise> {
                                             style: GoogleFonts.rubik(
                                                 textStyle: TextStyle(
                                                   fontSize: 15,
-                                                  color: Cardi.isDarkMode?Color(0x9395a6ce):Color(0x96333541),
+                                                  color: Cardi.isDarkMode.value?Color(0x9395a6ce):Color(0x96333541),
                                                   fontWeight: FontWeight.bold
                                                 )
                                             ),
@@ -241,7 +241,7 @@ class _TeleexpertiseState extends State<TeleExpertise> {
                                           style: GoogleFonts.rubik(
                                               textStyle: TextStyle(
                                                 fontSize: 12,
-                                                color: Cardi.isDarkMode?Color(0x9395a6ce):Color(0x96333541),
+                                                color: Cardi.isDarkMode.value?Color(0x9395a6ce):Color(0x96333541),
                                               )
                                           ),
                                         ),

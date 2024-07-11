@@ -129,7 +129,7 @@ class _SignupState extends State<Signup> {
                           fontWeight: FontWeight.bold,
                           fontSize: 30,
                           fontFamily: "poppins",
-                          color:Cardi.isDarkMode?Colors.white:Colors.black
+                          color:Cardi.isDarkMode.value?Colors.white:Colors.black
                       ),
                     ),
                   ),
@@ -149,8 +149,8 @@ class _SignupState extends State<Signup> {
                               height: height*0.025,
                                 margin: EdgeInsets.only(left:10) ,
                                 child: AutoSizeText("Nom",
-                                  style: TextStyle(color: Cardi.isDarkMode?Colors.white:Colors.black),)),
-                            buildTextField(width * 0.5,height, "", _nomFocusNode, _nomHasFocus,Cardi.isDarkMode),
+                                  style: TextStyle(color: Cardi.isDarkMode.value?Colors.white:Colors.black),)),
+                            buildTextField(width * 0.5,height, "", _nomFocusNode, _nomHasFocus,Cardi.isDarkMode.value),
                           ],
                         ),
                       ),
@@ -163,8 +163,8 @@ class _SignupState extends State<Signup> {
                                 height: height*0.025,
                                 margin: EdgeInsets.only(left:10) ,
                                 child:  AutoSizeText("Prénom",
-                                style: TextStyle(color: Cardi.isDarkMode?Colors.white:Colors.black),)),
-                            buildTextField(width * 0.5, height,"", _prenomFocusNode, _prenomHasFocus,Cardi.isDarkMode),
+                                style: TextStyle(color: Cardi.isDarkMode.value?Colors.white:Colors.black),)),
+                            buildTextField(width * 0.5, height,"", _prenomFocusNode, _prenomHasFocus,Cardi.isDarkMode.value),
                           ],
                         ),
                       ),
@@ -186,8 +186,8 @@ class _SignupState extends State<Signup> {
                                 height: height*0.025,
                                 margin: EdgeInsets.only(left:10) ,
                                 child: AutoSizeText("CIN",
-                                  style: TextStyle(color: Cardi.isDarkMode?Colors.white:Colors.black),)),
-                            buildTextField(width * 0.5,height, "", _cinFocusNode, _cinHasFocus,Cardi.isDarkMode),
+                                  style: TextStyle(color: Cardi.isDarkMode.value?Colors.white:Colors.black),)),
+                            buildTextField(width * 0.5,height, "", _cinFocusNode, _cinHasFocus,Cardi.isDarkMode.value),
                           ],
                         ),
                       ),
@@ -200,8 +200,8 @@ class _SignupState extends State<Signup> {
                                 height: height*0.025,
                                 margin: EdgeInsets.only(left:10) ,
                                 child: AutoSizeText("INPE",
-                                  style: TextStyle(color: Cardi.isDarkMode?Colors.white:Colors.black),)),
-                            buildTextField(width * 0.5, height,"", _inpeFocusNode, _inpeHasFocus,Cardi.isDarkMode),
+                                  style: TextStyle(color: Cardi.isDarkMode.value?Colors.white:Colors.black),)),
+                            buildTextField(width * 0.5, height,"", _inpeFocusNode, _inpeHasFocus,Cardi.isDarkMode.value),
                           ],
                         ),
                       ),
@@ -214,8 +214,8 @@ class _SignupState extends State<Signup> {
                                 height: height*0.025,
                                 margin: EdgeInsets.only(left:10) ,
                                 child: AutoSizeText("PPR",
-                                  style: TextStyle(color: Cardi.isDarkMode?Colors.white:Colors.black),)),
-                            buildTextField(width * 0.5,height, "", _pprFocusNode, _pprHasFocus,Cardi.isDarkMode),
+                                  style: TextStyle(color: Cardi.isDarkMode.value?Colors.white:Colors.black),)),
+                            buildTextField(width * 0.5,height, "", _pprFocusNode, _pprHasFocus,Cardi.isDarkMode.value),
                           ],
                         ),
                       ),
@@ -228,10 +228,10 @@ class _SignupState extends State<Signup> {
                         height: height*0.025,
                         margin: EdgeInsets.only(left:30) ,
                         child: AutoSizeText("E-mail",
-                          style: TextStyle(color: Cardi.isDarkMode?Colors.white:Colors.black),)
+                          style: TextStyle(color: Cardi.isDarkMode.value?Colors.white:Colors.black),)
                     )
                 ),
-                buildTextField(width, height,"", _emailFocusNode, _emailHasFocus,Cardi.isDarkMode),
+                buildTextField(width, height,"", _emailFocusNode, _emailHasFocus,Cardi.isDarkMode.value),
 
                 const SizedBox(height: 10,),
                 Align(alignment: Alignment.centerLeft ,
@@ -239,10 +239,10 @@ class _SignupState extends State<Signup> {
                         height: height*0.025,
                         margin: EdgeInsets.only(left:30) ,
                         child: AutoSizeText("Numéro de téléphone",
-                          style: TextStyle(color: Cardi.isDarkMode?Colors.white:Colors.black),)
+                          style: TextStyle(color: Cardi.isDarkMode.value?Colors.white:Colors.black),)
                     )
                 ),
-                buildTextField(width,height, "", _numTeleFocusNode, _numTeleHasFocus,Cardi.isDarkMode),
+                buildTextField(width,height, "", _numTeleFocusNode, _numTeleHasFocus,Cardi.isDarkMode.value),
 
                 const SizedBox(height: 10,),
                 Container(
@@ -255,7 +255,7 @@ class _SignupState extends State<Signup> {
                               height: height*0.045,
                               margin: EdgeInsets.only(left:10) ,
                               child: AutoSizeText("Médecin au sein \nd’un centre ESJ?",
-                                style: TextStyle(color: Cardi.isDarkMode?Colors.white:Colors.black),)
+                                style: TextStyle(color: Cardi.isDarkMode.value?Colors.white:Colors.black),)
                           )
                       ),
                       Row(
@@ -314,7 +314,7 @@ class _SignupState extends State<Signup> {
                               height: height*0.025,
                               margin: EdgeInsets.only(left:10) ,
                               child: AutoSizeText("Médecin Généraliste?",
-                                style: TextStyle(color: Cardi.isDarkMode?Colors.white:Colors.black),)
+                                style: TextStyle(color: Cardi.isDarkMode.value?Colors.white:Colors.black),)
                           )
                       ),
                       Row(
@@ -368,8 +368,8 @@ class _SignupState extends State<Signup> {
                       height: height*0.025,
                         margin: EdgeInsets.only(left:30) ,
                         child: AutoSizeText("Specialitée",
-                          style: TextStyle(color: Cardi.isDarkMode?Colors.white:Colors.black),))):SizedBox(height: height*0.025,),
-                yes2? buildTextField(width, height,"", _specialiteFocusNode, _specialiteHasFocus,Cardi.isDarkMode):SizedBox(height: height*0.055,),
+                          style: TextStyle(color: Cardi.isDarkMode.value?Colors.white:Colors.black),))):SizedBox(height: height*0.025,),
+                yes2? buildTextField(width, height,"", _specialiteFocusNode, _specialiteHasFocus,Cardi.isDarkMode.value):SizedBox(height: height*0.055,),
 
               ],
             ),
@@ -403,7 +403,7 @@ class _SignupState extends State<Signup> {
                       child:  AutoSizeText(
                         "Already have an account?",
                         style: TextStyle(fontFamily: "Inter",
-                            color: Cardi.isDarkMode?Colors.white:Colors.black),
+                            color: Cardi.isDarkMode.value?Colors.white:Colors.black),
                       ),
                     ),
                     const SizedBox(width: 2,),
@@ -417,7 +417,7 @@ class _SignupState extends State<Signup> {
                           "Sign In",
                           style: TextStyle(
                               fontFamily: "Inter",
-                              color: Cardi.isDarkMode? Color(0xff759cd8):Color(0xff3a01de)),
+                              color: Cardi.isDarkMode.value? Color(0xff759cd8):Color(0xff3a01de)),
                         ),
                       ),
                     ),

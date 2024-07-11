@@ -99,7 +99,7 @@ class _MespatientsState extends State<Mespatients> {
     double width=MediaQuery.of(context).size.width;
     double height=MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor:  Cardi.isDarkMode ? const Color(0xff181a1b) : Colors.white,
+      backgroundColor:  Cardi.isDarkMode.value ? const Color(0xff181a1b) : Colors.white,
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
@@ -124,31 +124,31 @@ class _MespatientsState extends State<Mespatients> {
                           onPressed: (){
                             showBarModalBottomSheet(
                                 context: context, builder: (BuildContext context){
-                              return SortAndFilter(height: height*0.5,isDarkMode: Cardi.isDarkMode,width: width,);
+                              return SortAndFilter(height: height*0.5,isDarkMode: Cardi.isDarkMode.value,width: width,);
                             });
                           },
                           icon: Icon(Icons.sort_rounded))
                       ],
                     ),
                     SizedBox(height: 15,),
-                    patient(width,Cardi.isDarkMode),
-                    patient(width,Cardi.isDarkMode),
-                    patient(width,Cardi.isDarkMode),
-                    patient(width,Cardi.isDarkMode),
-                    patient(width,Cardi.isDarkMode),
-                    patient(width,Cardi.isDarkMode),
-                    patient(width,Cardi.isDarkMode),
-                    patient(width,Cardi.isDarkMode),
-                    patient(width,Cardi.isDarkMode),
-                    patient(width,Cardi.isDarkMode),
-                    patient(width,Cardi.isDarkMode),
-                    patient(width,Cardi.isDarkMode),
-                    patient(width,Cardi.isDarkMode),
-                    patient(width,Cardi.isDarkMode),
-                    patient(width,Cardi.isDarkMode),
-                    patient(width,Cardi.isDarkMode),
-                    patient(width,Cardi.isDarkMode),
-                    patient(width,Cardi.isDarkMode),
+                    patient(width,Cardi.isDarkMode.value),
+                    patient(width,Cardi.isDarkMode.value),
+                    patient(width,Cardi.isDarkMode.value),
+                    patient(width,Cardi.isDarkMode.value),
+                    patient(width,Cardi.isDarkMode.value),
+                    patient(width,Cardi.isDarkMode.value),
+                    patient(width,Cardi.isDarkMode.value),
+                    patient(width,Cardi.isDarkMode.value),
+                    patient(width,Cardi.isDarkMode.value),
+                    patient(width,Cardi.isDarkMode.value),
+                    patient(width,Cardi.isDarkMode.value),
+                    patient(width,Cardi.isDarkMode.value),
+                    patient(width,Cardi.isDarkMode.value),
+                    patient(width,Cardi.isDarkMode.value),
+                    patient(width,Cardi.isDarkMode.value),
+                    patient(width,Cardi.isDarkMode.value),
+                    patient(width,Cardi.isDarkMode.value),
+                    patient(width,Cardi.isDarkMode.value),
                   ],
                 ),
               ),

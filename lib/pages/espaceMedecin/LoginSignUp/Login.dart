@@ -95,7 +95,7 @@ class _LoginState extends State<Login> {
                   child: AutoSizeText(
                       "Login",
                     style: TextStyle(
-                      color: Cardi.isDarkMode?Colors.white:Colors.black,
+                      color: Cardi.isDarkMode.value?Colors.white:Colors.black,
                       fontWeight: FontWeight.bold,
                       fontSize: 30,
                       fontFamily: "poppins"
@@ -104,12 +104,12 @@ class _LoginState extends State<Login> {
                 ),
               ),
             ),
-            buildLabel("Identifiant",height*0.02,Cardi.isDarkMode),
+            buildLabel("Identifiant",height*0.02,Cardi.isDarkMode.value),
             const SizedBox(height: 5,),
-            buildTextField(width,height, "E-mail, CIN", _emailFocusNode, _emailHasFocus,Cardi.isDarkMode),
-            buildLabel("Password",height*0.02,Cardi.isDarkMode),
+            buildTextField(width,height, "E-mail, CIN", _emailFocusNode, _emailHasFocus,Cardi.isDarkMode.value),
+            buildLabel("Password",height*0.02,Cardi.isDarkMode.value),
             const SizedBox(height: 5,),
-            buildTextField(width, height,"Password", _passwordFocusNode, _passwordHasFocus,Cardi.isDarkMode),
+            buildTextField(width, height,"Password", _passwordFocusNode, _passwordHasFocus,Cardi.isDarkMode.value),
             const SizedBox(height: 10,),
             CupertinoButton(
                 child: Container(
@@ -141,7 +141,7 @@ class _LoginState extends State<Login> {
                   const SizedBox(width: 20,),
                   AutoSizeText(
                     "Need an account?",
-                    style: TextStyle(fontFamily: "Inter", color: Cardi.isDarkMode?Colors.white:Colors.black,),
+                    style: TextStyle(fontFamily: "Inter", color: Cardi.isDarkMode.value?Colors.white:Colors.black,),
                   ),
                   const SizedBox(width: 2,),
                   GestureDetector(
@@ -152,7 +152,7 @@ class _LoginState extends State<Login> {
                       "Sign Up",
                       style: TextStyle(
                           fontFamily: "Inter",
-                          color: Cardi.isDarkMode? Color(0xff759cd8):Color(0xff3a01de)),
+                          color: Cardi.isDarkMode.value? Color(0xff759cd8):Color(0xff3a01de)),
                     ),
                   ),
                 ],

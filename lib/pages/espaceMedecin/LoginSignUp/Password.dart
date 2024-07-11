@@ -93,17 +93,17 @@ class _PasswordState extends State<Password> {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 30,
-                      color:Cardi.isDarkMode?Colors.white:Colors.black,
+                      color:Cardi.isDarkMode.value?Colors.white:Colors.black,
                       fontFamily: "poppins"),
               ),
             ),
           ),
-          buildLabel("mot de passe",Cardi.isDarkMode),
+          buildLabel("mot de passe",Cardi.isDarkMode.value),
           const SizedBox(height: 5,),
-          buildTextField(width,height, "", _coPasswordFocusNode, _coPasswordHasFocus,Cardi.isDarkMode),
-          buildLabel("confirmer mot de passe",Cardi.isDarkMode),
+          buildTextField(width,height, "", _coPasswordFocusNode, _coPasswordHasFocus,Cardi.isDarkMode.value),
+          buildLabel("confirmer mot de passe",Cardi.isDarkMode.value),
           const SizedBox(height: 5,),
-          buildTextField(width, height,"", _passwordFocusNode, _passwordHasFocus,Cardi.isDarkMode),
+          buildTextField(width, height,"", _passwordFocusNode, _passwordHasFocus,Cardi.isDarkMode.value),
            SizedBox(height: height*0.02,),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -119,7 +119,7 @@ class _PasswordState extends State<Password> {
                     alignment: Alignment.center,
                     child: Text(
                       "Precedent",
-                      style: TextStyle(color:Cardi.isDarkMode?Colors.white:Colors.black, fontSize: 15),
+                      style: TextStyle(color:Cardi.isDarkMode.value?Colors.white:Colors.black, fontSize: 15),
                     )),
                 onPressed: () {
                   widget.onBackTapped(0.8,0.1);

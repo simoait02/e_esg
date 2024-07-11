@@ -11,8 +11,7 @@ class Cardi extends StatefulWidget {
   static double q = 0.5;
   static double top = 0.25;
   static bool isContinueTapped = false;
-  static bool isDarkMode=false;
-
+  static ValueNotifier<bool> isDarkMode = ValueNotifier<bool>(false);
   Cardi({super.key});
 
   @override
@@ -55,7 +54,7 @@ class _CardiState extends State<Cardi> {
   _loadPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      Cardi.isDarkMode = prefs.getBool('isDarkMode') ?? (MediaQuery.of(context).platformBrightness == Brightness.dark);
+      Cardi.isDarkMode.value = prefs.getBool('isDarkMode') ?? (MediaQuery.of(context).platformBrightness == Brightness.dark);
     });
   }
 
@@ -83,7 +82,7 @@ class _CardiState extends State<Cardi> {
               width: width * 0.9,
               height: height * Cardi.q,
               decoration: BoxDecoration(
-                color: Cardi.isDarkMode? const Color(0xff27272d): Colors.white,
+                color: Cardi.isDarkMode.value? const Color(0xff27272d): Colors.white,
                 border: Border.all(color: Colors.black),
                 borderRadius: BorderRadius.circular(20),
               ),
