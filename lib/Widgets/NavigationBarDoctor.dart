@@ -3,6 +3,7 @@ import 'package:e_esg/pages/espaceMedecin/home/Chatbot.dart';
 import 'package:e_esg/pages/espaceMedecin/home/IES.dart';
 import 'package:e_esg/pages/espaceMedecin/home/MesPatients/MesPatients.dart';
 import 'package:e_esg/pages/espaceMedecin/home/Profile/Profile.dart';
+import 'package:e_esg/pages/espaceMedecin/home/Profile/Settings.dart';
 import 'package:e_esg/pages/espaceMedecin/home/teleExpertise/TeleExpertise.dart';
 import 'package:flutter/material.dart';
 
@@ -68,6 +69,7 @@ class _NavbarDocState extends State<NavbarDoc> {
 
   @override
   Widget build(BuildContext context) {
+    Settings.isSystemSettings? Cardi.isDarkMode.value=(MediaQuery.of(context).platformBrightness == Brightness.dark):!Settings.isDark?Settings.isDark:Settings.isLight;
     return ValueListenableBuilder<bool>(
       valueListenable: Cardi.isDarkMode,
       builder: (context, isDarkMode, child) {

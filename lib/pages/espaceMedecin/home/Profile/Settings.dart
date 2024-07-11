@@ -1,5 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
+import 'package:e_esg/pages/espaceMedecin/home/Profile/InfosPersonal.dart';
+import 'package:e_esg/pages/espaceMedecin/home/Profile/Language.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +9,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Settings extends StatefulWidget {
+  static bool themePressed = false;
+  static bool isSystemSettings = true;
+  static bool isDark = false;
+  static bool isLight = false;
   const Settings({super.key});
 
   @override
@@ -14,10 +20,6 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
-  bool themePressed = false;
-  bool isSystemSettings = true;
-  bool isDark = false;
-  bool isLight = false;
 
   @override
   void initState() {
@@ -28,25 +30,26 @@ class _SettingsState extends State<Settings> {
   _loadPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      themePressed = prefs.getBool('themePressed') ?? false;
-      isSystemSettings = prefs.getBool('isSystemSettings') ?? true;
-      isDark = prefs.getBool('isDark') ?? false;
-      isLight = prefs.getBool('isLight') ?? false;
+      Settings.themePressed = prefs.getBool('themePressed') ?? false;
+      Settings.isSystemSettings = prefs.getBool('isSystemSettings') ?? true;
+      Settings.isDark = prefs.getBool('isDark') ?? false;
+      Settings.isLight = prefs.getBool('isLight') ?? false;
       Cardi.isDarkMode.value = prefs.getBool('isDarkMode') ?? (MediaQuery.of(context).platformBrightness == Brightness.dark);
     });
   }
 
   _savePreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool('themePressed', themePressed);
-    prefs.setBool('isSystemSettings', isSystemSettings);
-    prefs.setBool('isDark', isDark);
-    prefs.setBool('isLight', isLight);
+    prefs.setBool('themePressed', Settings.themePressed);
+    prefs.setBool('isSystemSettings', Settings.isSystemSettings);
+    prefs.setBool('isDark', Settings.isDark);
+    prefs.setBool('isLight', Settings.isLight);
     prefs.setBool('isDarkMode', Cardi.isDarkMode.value);
   }
 
   @override
   Widget build(BuildContext context) {
+    Settings.isSystemSettings? Cardi.isDarkMode.value=(MediaQuery.of(context).platformBrightness == Brightness.dark):Settings.isDark?Settings.isDark:Settings.isLight;
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     Color backgroundColor = Cardi.isDarkMode.value ? const Color(0xff181a1b) : Colors.white;
@@ -77,7 +80,7 @@ class _SettingsState extends State<Settings> {
         ),
         trailing: GestureDetector(
           onTap: () {
-            _savePreferences(); // Save preferences when done
+            _savePreferences();
           },
           child: Text(
             "Done",
@@ -96,27 +99,34 @@ class _SettingsState extends State<Settings> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: height * 0.05),
-            Row(
-              children: [
-                SizedBox(
-                  height: 35,
-                  width: 35,
-                  child: Image.asset(
-                    "assets/images/language.png",
-                    color: iconColor,
-                  ),
-                ),
-                SizedBox(width: width * 0.02),
-                AutoSizeText(
-                  "Language",
-                  style: GoogleFonts.aBeeZee(
-                    textStyle: TextStyle(
-                      fontSize: 22,
-                      color: textColor,
+            GestureDetector(
+              onTap: (){
+                Navigator.push(context, CupertinoPageRoute(builder: (context)=>Language()));
+              },
+              child: Row(
+                children: [
+                  SizedBox(
+                    height: 35,
+                    width: 35,
+                    child: Image.asset(
+                      "assets/images/language.png",
+                      color: iconColor,
                     ),
                   ),
-                ),
-              ],
+                  SizedBox(width: width * 0.02),
+                  Expanded(
+                    child: AutoSizeText(
+                      "Language",
+                      style: GoogleFonts.aBeeZee(
+                        textStyle: TextStyle(
+                          fontSize: 22,
+                          color: textColor,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
             Divider(
               color: dividerColor,
@@ -148,12 +158,12 @@ class _SettingsState extends State<Settings> {
                     child: IconButton(
                       onPressed: () {
                         setState(() {
-                          themePressed = !themePressed;
-                          _savePreferences(); // Save preferences when theme is pressed
+                          Settings.themePressed = !Settings.themePressed;
+                          _savePreferences();
                         });
                       },
                       icon: Icon(
-                        themePressed
+                        Settings.themePressed
                             ? CupertinoIcons.chevron_up
                             : CupertinoIcons.chevron_down,
                         color: iconColor,
@@ -163,7 +173,7 @@ class _SettingsState extends State<Settings> {
                 ),
               ],
             ),
-            themePressed
+            Settings.themePressed
                 ? Container(
               padding: EdgeInsets.only(left: width * 0.1),
               child: Column(
@@ -172,136 +182,136 @@ class _SettingsState extends State<Settings> {
                     color: dividerColor,
                     thickness: 1,
                   ),
-                  Row(
-                    children: [
-                      SizedBox(
-                        height: 35,
-                        width: 35,
-                        child: Image.asset(
-                          "assets/images/theme.png",
-                          color: iconColor,
-                        ),
-                      ),
-                      SizedBox(width: width * 0.02),
-                      GestureDetector(
-                        onTap: (){
-                          setState(() {
-                            Cardi.isDarkMode.value = MediaQuery.of(context).platformBrightness == Brightness.dark;
-                            isSystemSettings = true;
-                            isDark = false;
-                            isLight = false;
-                            _savePreferences(); // Save preferences when system settings is selected
-                          });
-                        },
-                        child: AutoSizeText(
-                          "System settings",
-                          style: GoogleFonts.aBeeZee(
-                            textStyle: TextStyle(
-                              fontSize: 22,
-                              color: textColor,
-                            ),
+                  GestureDetector(
+                    onTap: (){
+                      setState(() {
+                        Cardi.isDarkMode.value = MediaQuery.of(context).platformBrightness == Brightness.dark;
+                        Settings.isSystemSettings = true;
+                        Settings.isDark = false;
+                        Settings.isLight = false;
+                        _savePreferences();
+                      });
+                    },
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          height: 35,
+                          width: 35,
+                          child: Image.asset(
+                            "assets/images/theme.png",
+                            color: iconColor,
                           ),
                         ),
-                      ),
-                      isSystemSettings
-                          ? Expanded(
-                        child: Align(
-                            alignment: AlignmentDirectional.centerEnd,
-                            child: Icon(Icons.check, color: iconColor,)
-                        ),
-                      )
-                          : Container(),
-                    ],
+                        SizedBox(width: width * 0.02),
+                          Expanded(
+                            child: AutoSizeText(
+                              "System settings",
+                              style: GoogleFonts.aBeeZee(
+                                textStyle: TextStyle(
+                                  fontSize: 22,
+                                  color: textColor,
+                                ),
+                              ),
+                            ),
+                          ),
+                        Settings.isSystemSettings
+                            ? Align(
+                              alignment: AlignmentDirectional.centerEnd,
+                              child: Icon(Icons.check, color: iconColor,)
+                        )
+                            : Container(),
+                      ],
+                    ),
                   ),
                   Divider(
                     color: dividerColor,
                     thickness: 1,
                   ),
-                  Row(
-                    children: [
-                      SizedBox(
-                        height: 35,
-                        width: 35,
-                        child: Image.asset(
-                          "assets/images/darkMode.png",
-                          color: iconColor,
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        Cardi.isDarkMode.value = true;
+                        Settings.isDark = true;
+                        Settings.isLight = false;
+                        Settings.isSystemSettings = false;
+                        _savePreferences();
+                      });
+                    },
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          height: 35,
+                          width: 35,
+                          child: Image.asset(
+                            "assets/images/darkMode.png",
+                            color: iconColor,
+                          ),
                         ),
-                      ),
-                      SizedBox(width: width * 0.02),
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            Cardi.isDarkMode.value = true;
-                            isDark = true;
-                            isLight = false;
-                            isSystemSettings = false;
-                            _savePreferences(); // Save preferences when dark mode is selected
-                          });
-                        },
-                        child: AutoSizeText(
-                          "Dark mode",
-                          style: GoogleFonts.aBeeZee(
-                            textStyle: TextStyle(
-                              fontSize: 22,
-                              color: textColor,
+                        SizedBox(width: width * 0.02),
+                        Expanded(
+                          child: AutoSizeText(
+                            "Dark mode",
+                            style: GoogleFonts.aBeeZee(
+                              textStyle: TextStyle(
+                                fontSize: 22,
+                                color: textColor,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      isDark
-                          ? Expanded(
-                        child: Align(
-                            alignment: AlignmentDirectional.centerEnd,
-                            child: Icon(Icons.check, color: iconColor,)
-                        ),
-                      )
-                          : Container(),
-                    ],
+                        Settings.isDark
+                            ? Align(
+                              alignment: AlignmentDirectional.centerEnd,
+                              child: Icon(Icons.check, color: iconColor,)
+                        )
+                            : Container(),
+                      ],
+                    ),
                   ),
                   Divider(
                     color: dividerColor,
                     thickness: 1,
                   ),
-                  Row(
-                    children: [
-                      SizedBox(
-                        height: 35,
-                        width: 35,
-                        child: Image.asset(
-                          "assets/images/lightMode.png",
-                          color: iconColor,
-                        ),
-                      ),
-                      SizedBox(width: width * 0.02),
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            Cardi.isDarkMode.value = false;
-                            isLight = true;
-                            isSystemSettings = false;
-                            isDark = false;
-                            _savePreferences(); // Save preferences when light mode is selected
-                          });
-                        },
-                        child: AutoSizeText(
-                          "Light mode",
-                          style: GoogleFonts.aBeeZee(
-                            textStyle: TextStyle(
-                              fontSize: 22,
-                              color: textColor,
-                            ),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        Cardi.isDarkMode.value = false;
+                        Settings.isLight = true;
+                        Settings.isSystemSettings = false;
+                        Settings.isDark = false;
+                        _savePreferences();
+                      });
+                    },
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          height: 35,
+                          width: 35,
+                          child: Image.asset(
+                            "assets/images/lightMode.png",
+                            color: iconColor,
                           ),
                         ),
-                      ),
-                      isLight
-                          ? Expanded(
-                        child: Align(
-                            alignment: AlignmentDirectional.centerEnd,
-                            child: Icon(Icons.check, color: iconColor,)
+                        SizedBox(width: width * 0.02),
+                        Expanded(
+                          child: AutoSizeText(
+                              "Light mode",
+                              style: GoogleFonts.aBeeZee(
+                                textStyle: TextStyle(
+                                  fontSize: 22,
+                                  color: textColor,
+                                ),
+                              ),
+                            ),
                         ),
-                      )
-                          : Container(),
-                    ],
+                        Settings.isLight
+                            ? Align(
+                              alignment: AlignmentDirectional.centerEnd,
+                              child: Icon(Icons.check, color: iconColor,)
+                        )
+                            : Container(),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -311,27 +321,34 @@ class _SettingsState extends State<Settings> {
               color: dividerColor,
               thickness: 1,
             ),
-            Row(
-              children: [
-                SizedBox(
-                  height: 35,
-                  width: 35,
-                  child: Image.asset(
-                    "assets/images/infos.png",
-                    color: iconColor,
-                  ),
-                ),
-                SizedBox(width: width * 0.02),
-                AutoSizeText(
-                  "Mes informations",
-                  style: GoogleFonts.aBeeZee(
-                    textStyle: TextStyle(
-                      fontSize: 22,
-                      color: textColor,
+            GestureDetector(
+              onTap: (){
+                Navigator.push(context, CupertinoPageRoute(builder: (context)=>Infospersonal()));
+              },
+              child: Row(
+                children: [
+                  SizedBox(
+                    height: 35,
+                    width: 35,
+                    child: Image.asset(
+                      "assets/images/infos.png",
+                      color: iconColor,
                     ),
                   ),
-                ),
-              ],
+                  SizedBox(width: width * 0.02),
+                  Expanded(
+                    child: AutoSizeText(
+                      "Mes informations",
+                      style: GoogleFonts.aBeeZee(
+                        textStyle: TextStyle(
+                          fontSize: 22,
+                          color: textColor,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
             Divider(
               color: dividerColor,

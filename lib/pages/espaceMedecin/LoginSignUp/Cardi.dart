@@ -1,3 +1,4 @@
+import 'package:e_esg/pages/espaceMedecin/home/Profile/Settings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -64,6 +65,7 @@ class _CardiState extends State<Cardi> {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
+    Settings.isSystemSettings? Cardi.isDarkMode.value=(MediaQuery.of(context).platformBrightness == Brightness.dark):!Settings.isDark?Settings.isDark:Settings.isLight;
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return CupertinoApp(
