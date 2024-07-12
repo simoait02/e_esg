@@ -1,8 +1,12 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
+import 'package:e_esg/pages/espaceMedecin/home/teleExpertise/CreateDiscussion01.dart';
+import 'package:e_esg/pages/espaceMedecin/home/teleExpertise/CreateDiscussion02.dart';
+import 'package:e_esg/pages/espaceMedecin/home/teleExpertise/CreateDiscussion03.dart';
+import 'package:e_esg/pages/espaceMedecin/home/teleExpertise/CreateDiscussion04.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 
 class AddMeeting extends StatefulWidget {
   const AddMeeting({Key? key}) : super(key: key);
@@ -12,82 +16,42 @@ class AddMeeting extends StatefulWidget {
 }
 
 class _AddMeetingState extends State<AddMeeting> {
-  final FocusNode _titleFocusNode = FocusNode();
-  bool _titleHasFocus = false;
+  bool isChecked = false;
+  int index = 0;
+  double progress = 0.25;
 
-  String label = "Select meeting date";
-  DateTime selectedDateTime = DateTime.now();
-  DateTime tempSelectedDateTime = DateTime.now();
-  String label1 = "Select meeting time";
-  DateTime selectedTime = DateTime.now();
-  DateTime tempSelectedTime = DateTime.now();
-
-  Widget buildLabel(String text) {
-    return Text(
-      text,
-      style: GoogleFonts.inter(
-        textStyle: const TextStyle(
-          fontSize: 15,
-        ),
-      ),
-    );
-  }
-
-  Widget buildTextField(double height, String placeholder, FocusNode focusNode, bool hasFocus,bool isDarkMode) {
-    return Container(
-      height: height * 0.055,
-      child: CupertinoTextField(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(
-            color:isDarkMode?CupertinoColors.white.withOpacity(0.5): CupertinoColors.black.withOpacity(0.5),
-            width: 1,
-          ),
-        ),
-        focusNode: focusNode,
-        placeholder: placeholder,
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      ),
-    );
-  }
-
-  void updateDate(DateTime newDate) {
+  void updateInfo(bool value) {
     setState(() {
-      selectedDateTime = newDate;
-      label = DateFormat.yMMMMd().format(selectedDateTime);
+      isChecked = value;
     });
   }
 
-  void updateTime(DateTime newTime) {
-    setState(() {
-      selectedTime = newTime;
-      label1 = DateFormat.Hm().format(selectedTime);
-    });
+  List<Widget> get list => [
+    Creatediscussion(),
+    Creatediscussion02(),
+    Creatediscussion03(),
+    Creatediscussion04(isChecked: isChecked, updateInfo: updateInfo),
+  ];
+
+  @override
+  void dispose() {
+    isChecked = false;
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: CupertinoNavigationBar(
-        backgroundColor: Cardi.isDarkMode.value?Color(0xff181a1b): Colors.white,
+        backgroundColor: Cardi.isDarkMode.value ? Color(0xff181a1b) : Colors.white,
         previousPageTitle: "Back",
-        middle:  Text('Add Meeting',
+        middle: Text(
+          'Create Discussion',
           style: GoogleFonts.poppins(
             textStyle: TextStyle(
-              color:Cardi.isDarkMode.value?Colors.white:Colors.black,
-            )
-          ),
-        ),
-        trailing: GestureDetector(
-          onTap: () {},
-          child: Text(
-            "Done",
-            style: GoogleFonts.roboto(
-              textStyle: const TextStyle(
-                color: CupertinoColors.activeBlue,
-              ),
+              color: Cardi.isDarkMode.value ? Colors.white : Colors.black,
             ),
           ),
         ),
@@ -97,200 +61,74 @@ class _AddMeetingState extends State<AddMeeting> {
           padding: const EdgeInsets.only(top: 15),
           margin: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "Create a meeting",
-                style: GoogleFonts.poppins(
-                  textStyle: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+              LinearProgressIndicator(
+                value: progress,
+                color: const Color(0xff65558f),
+                backgroundColor: const Color(0xff00d3c7),
+                borderRadius: BorderRadius.circular(10),
               ),
-              const SizedBox(height: 40),
-              buildLabel("Title"),
-              buildTextField(height, "", _titleFocusNode, _titleHasFocus,Cardi.isDarkMode.value),
-              const SizedBox(height: 20),
-              buildLabel("Date"),
-              GestureDetector(
-                onTap: () {
-                  tempSelectedDateTime = selectedDateTime;
-                  showCupertinoModalPopup(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return Container(
-                        width: width,
-                        height: height*0.35,
-                        color:Cardi.isDarkMode.value?CupertinoColors.black.withOpacity(0.5): CupertinoColors.white.withOpacity(0.5),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                CupertinoButton(
-                                  child: const Text(
-                                    "Cancel",
-                                    style: TextStyle(color: Colors.red),
-                                  ),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                ),
-                                CupertinoButton(
-                                  child: const Text(
-                                    "Done",
-                                    style: TextStyle(color: Colors.blue),
-                                  ),
-                                  onPressed: () {
-                                    updateDate(tempSelectedDateTime);
-                                    Navigator.pop(context);
-                                  },
-                                ),
-                              ],
-                            ),
-                            Expanded(
-                              child: CupertinoTheme(
-                                data:  CupertinoThemeData(
-                                  textTheme: CupertinoTextThemeData(
-                                    dateTimePickerTextStyle: GoogleFonts.poppins(
-                                      textStyle: TextStyle(
-                                        color:Cardi.isDarkMode.value? Colors.white:Colors.black,
-                                        fontSize: 20,
-                                      ),
-                                    )
-                                  ),
-                                ),
-                                child: CupertinoDatePicker(
-                                  initialDateTime: selectedDateTime,
-                                  onDateTimeChanged: (DateTime newDate) {
-                                    tempSelectedDateTime = newDate;
-                                  },
-                                  mode: CupertinoDatePickerMode.date,
-                                ),
-                              ),
-                            ),
-
-                          ],
-                        ),
-                      );
-                    },
-                  );
-                },
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  height: height * 0.055,
-                  width: width,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color:Cardi.isDarkMode.value?CupertinoColors.white.withOpacity(0.5): CupertinoColors.black.withOpacity(0.5),
-                    ),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(label),
-                      Icon(CupertinoIcons.calendar,color:Cardi.isDarkMode.value?CupertinoColors.white.withOpacity(0.5): CupertinoColors.black.withOpacity(0.5),),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              buildLabel("Time"),
-              GestureDetector(
-                onTap: () {
-                  tempSelectedTime = selectedTime;
-                  showCupertinoModalPopup(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return Container(
-                        width: width,
-                        height: 250,
-                        color:Cardi.isDarkMode.value?CupertinoColors.black.withOpacity(0.5): CupertinoColors.white.withOpacity(0.5),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                CupertinoButton(
-                                  child: const Text(
-                                    "Cancel",
-                                    style: TextStyle(color: Colors.red),
-                                  ),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                ),
-                                CupertinoButton(
-                                  child: const Text(
-                                    "Done",
-                                    style: TextStyle(color: Colors.blue),
-                                  ),
-                                  onPressed: () {
-                                    updateTime(tempSelectedTime);
-                                    Navigator.pop(context);
-                                  },
-                                ),
-                              ],
-                            ),
-                            Expanded(
-                              child: CupertinoTheme(
-                                data:  CupertinoThemeData(
-                                  textTheme: CupertinoTextThemeData(
-                                      dateTimePickerTextStyle: GoogleFonts.poppins(
-                                        textStyle: TextStyle(
-                                          color:Cardi.isDarkMode.value? Colors.white:Colors.black,
-                                          fontSize: 20,
-                                        ),
-                                      )
-                                  ),
-                                ),
-                                child: CupertinoDatePicker(
-                                  initialDateTime: selectedTime,
-                                  onDateTimeChanged: (DateTime newTime) {
-                                    tempSelectedTime = newTime;
-                                  },
-                                  mode: CupertinoDatePickerMode.time,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  );
-                },
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  height: height * 0.055,
-                  width: width,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color:Cardi.isDarkMode.value?CupertinoColors.white.withOpacity(0.5): CupertinoColors.black.withOpacity(0.5),
-                    ),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(label1),
-                      Icon(CupertinoIcons.time,color:Cardi.isDarkMode.value?CupertinoColors.white.withOpacity(0.5): CupertinoColors.black.withOpacity(0.5),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 10),
+              list[index],
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  buildLabel("Ajouter Participant "),
-                  IconButton(
-                      onPressed: (){},
-                      icon: const Icon(Icons.add))
+                  index != 0
+                      ? CupertinoButton(
+                    child: Container(
+                      width: width * 0.3,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Color(0xff0b40ff)),
+                        borderRadius: BorderRadius.circular(40),
+                      ),
+                      alignment: Alignment.center,
+                      child: AutoSizeText(
+                        "Precedent",
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        if (index > 0) {
+                          index--;
+                          progress -= 0.25;
+                        }
+                      });
+                    },
+                  )
+                      : Container(),
+                  CupertinoButton(
+                    child: Container(
+                      width: width * 0.3,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        gradient: !isChecked && index==3
+                            ? LinearGradient(colors: [Color(0xff7a7a7f),Color(0xff696969)])
+                            : const LinearGradient(
+                          colors: [Color(0xff0b40ff), Color(0xff0c40a4)],
+                        ),
+                        borderRadius: BorderRadius.circular(40),
+                      ),
+                      alignment: Alignment.center,
+                      child: AutoSizeText(
+                        index == 3 ? "Valider" : "Suivant",
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        if (index == 3 && isChecked) {
+                          Navigator.pop(context);
+                        }
+                        if (index < 3) {
+                          index++;
+                          progress += 0.25;
+                        }
+                      });
+                    },
+                  ),
                 ],
-              )
+              ),
             ],
           ),
         ),

@@ -82,7 +82,7 @@ class _PasswordState extends State<Password> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          Container(
+          SizedBox(
             height: height*0.07,
             width: width*0.7,
             child: Align(
