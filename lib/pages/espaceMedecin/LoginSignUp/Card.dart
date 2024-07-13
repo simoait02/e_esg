@@ -72,7 +72,7 @@ class _CardiState extends State<Cardi> {
               height: height * Cardi.q,
               decoration: BoxDecoration(
                 color: isDarkMode? Color(0xff27272d): Colors.white,
-                border: Border.all(color: Colors.black),
+                border: Border.all(color: Color(0xFF2E37A4)),
                 borderRadius: BorderRadius.circular(20),
               ),
               margin: EdgeInsets.only(left: 20, right: 20,top: height*0.15,bottom: height*0.05),

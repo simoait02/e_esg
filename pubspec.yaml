@@ -124,6 +124,11 @@ flutter:
      - assets/images/toxicomanie-tof-780x405.jpg
      - assets/images/monoxyde-de-carbone.jpg
      - assets/images/right-icon.svg
+     - assets/images/login.png
+     - assets/images/warning.svg
+     - assets/images/visible.png
+     - assets/images/invisible.png
+     - assets/images/tick-circle.svg
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

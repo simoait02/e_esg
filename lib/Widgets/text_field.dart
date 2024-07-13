@@ -1,3 +1,5 @@
+import 'package:e_esg/pages/IES/statistiques.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatefulWidget {
@@ -5,12 +7,16 @@ class CustomTextField extends StatefulWidget {
   final IconButton? iconButton;
   final TextEditingController? controller;
   final VoidCallback? onTap;
+  final String? hint;
+  final double height;
 
   CustomTextField({
     required this.title,
     this.iconButton,
     this.controller,
     this.onTap,
+    this.hint,
+    required this.height
   });
 
   @override
@@ -41,6 +47,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     double iconButtonSize = screenWidth * 0.08;
+    var brightness = MediaQuery.of(context).platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
 
     return Container(
       padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
@@ -51,17 +59,16 @@ class _CustomTextFieldState extends State<CustomTextField> {
             widget.title,
             style: TextStyle(
               fontFamily: 'Poppins',
-              fontWeight: FontWeight.w600,
-              fontSize: 20,
+              fontSize: titleFontSize+15,
             ),
           ),
-          SizedBox(height: 15),
+          SizedBox(height: widget.height),
           Container(
             height: 51,
             padding: EdgeInsets.only(left: 15),
             decoration: BoxDecoration(
               border: Border.all(
-                color: _isFocused ? Color(0xFF2E37A4) : Color(0xFFEAEBF6),
+                color: _isFocused ? Color(0xFF2E37A4) : isDarkMode ? CupertinoColors.white : Color(0xFFEAEBF6),
                 width: 2.0,
               ),
               borderRadius: BorderRadius.circular(10),
@@ -81,25 +88,14 @@ class _CustomTextFieldState extends State<CustomTextField> {
                     },
                     child: AbsorbPointer(
                       absorbing: widget.onTap != null,
-                      child: TextFormField(
+                      child: CupertinoTextField(
                         focusNode: _focusNode,
+                        placeholder:widget.hint ,
                         autofocus: false,
-                        cursorColor:Color(0xFF2E37A4),
+                        cursorColor: Color(0xFF2E37A4),
                         controller: widget.controller,
-                        decoration: InputDecoration(
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.transparent,
-                              width: 0,
-                            ),
-                          ),
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.transparent,
-                              width: 0,
-                            ),
-                          ),
-                          border: InputBorder.none,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.transparent, width: 0),
                         ),
                         onTapOutside: (PointerDownEvent event) {
                           _focusNode.unfocus();

@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:searchfield/searchfield.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import 'package:e_esg/Data/doctor_list.dart';
 import 'package:e_esg/Widgets/custom_sliver_app_bar.dart';
 import 'package:e_esg/Widgets/text_field.dart';
 import 'package:e_esg/models/doctor.dart';
@@ -18,16 +19,6 @@ class Ajoutlive extends StatefulWidget {
 class _AjoutliveState extends State<Ajoutlive> {
   double turns = 0.0;
   Doctor? _selecteddoctor;
-  List<Doctor> doctorList = [
-    Doctor("Dr. Suissi"),
-    Doctor("Dr. Chaimae Bouti"),
-    Doctor("Dr. Aithssaine Mohammed"),
-    Doctor("Dr. Yasmine Elmouddine"),
-    Doctor("Inf. Saida Hanafi"),
-    Doctor("Dr. Smissri"),
-    Doctor("Dr. Sanae"),
-    Doctor("Inf. Safae"),
-  ];
 
 
   bool isFocused = false;
@@ -137,7 +128,7 @@ class _AjoutliveState extends State<Ajoutlive> {
     );
 
     if (pickedTime != null) {
-      final String formattedTime = pickedTime.format(context); // Formats time according to locale
+      final String formattedTime = pickedTime.format(context);
       setState(() {
         _timeController.text = formattedTime;
       });
@@ -178,7 +169,7 @@ class _AjoutliveState extends State<Ajoutlive> {
                       ),
                     ),
                     SizedBox(height: 50),
-                    CustomTextField(title: "Sujet du live"),
+                    CustomTextField(title: "Sujet du live",height: 15,),
                     Container(
                       padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
                       child: Column(
@@ -287,6 +278,7 @@ class _AjoutliveState extends State<Ajoutlive> {
                       ),
                     ),
                     CustomTextField(
+                      height: 15,
                       title: "Date du live",
                       controller: _dateController,
                       onTap: _showDatePicker,
@@ -301,6 +293,7 @@ class _AjoutliveState extends State<Ajoutlive> {
                       ),
                     ),
                     CustomTextField(
+                      height: 15,
                       title: "Heure du début du live",
                       controller: _timeController,
                       onTap: _showTimePicker,
@@ -315,7 +308,7 @@ class _AjoutliveState extends State<Ajoutlive> {
                         ),
                       ),
                     ),
-                    CustomTextField(title: "Lien StreamYard"),
+                    CustomTextField(title: "Lien StreamYard",height: 15,),
                     SizedBox(height: 30,),
                     Container(
                       padding: EdgeInsets.symmetric(horizontal: 15),

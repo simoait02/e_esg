@@ -61,11 +61,20 @@ class _LoginState extends State<Login> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
-            color: isDarkMode? hasFocus?CupertinoColors.systemBlue: CupertinoColors.white.withOpacity(0.5):hasFocus?CupertinoColors.systemBlue:CupertinoColors.black.withOpacity(0.5),
+            color: isDarkMode
+                ? hasFocus
+                ? Color(0xFF2E37A4)
+                : CupertinoColors.white
+                : hasFocus
+                ? Color(0xFF2E37A4)
+                : Color(0xFFEAEBF6),
             width: 1,
           ),
         ),
         focusNode: focusNode,
+        onTapOutside: (event) => setState(() {
+          focusNode.unfocus;
+        }),
         placeholder: placeholder,
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
       ),

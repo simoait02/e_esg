@@ -172,54 +172,6 @@ class _SignupState extends State<Signup> {
                   ),
                 ),
                 const SizedBox(height: 10,),
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        width: width * 0.25,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                                height: height*0.025,
-                                margin: EdgeInsets.only(left:10) ,
-                                child: const AutoSizeText("CIN")),
-                            buildTextField(width * 0.5,height, "", _cinFocusNode, _cinHasFocus,isDarkMode),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        width: width * 0.25,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                                height: height*0.025,
-                                margin: EdgeInsets.only(left:10) ,
-                                child: const AutoSizeText("INPE")),
-                            buildTextField(width * 0.5, height,"", _inpeFocusNode, _inpeHasFocus,isDarkMode),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        width: width * 0.25,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                                height: height*0.025,
-                                margin: EdgeInsets.only(left:10) ,
-                                child: const AutoSizeText("PPR")),
-                            buildTextField(width * 0.5,height, "", _pprFocusNode, _pprHasFocus,isDarkMode),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 10,),
                 Align(alignment: Alignment.centerLeft ,
                     child: Container(
                         height: height*0.025,

@@ -1,7 +1,9 @@
 import 'package:e_esg/Widgets/NavigationBarJeune.dart';
+import 'package:e_esg/pages/IES/ies_doctor.dart';
 import 'package:e_esg/pages/IES/live_informations_page.dart';
 import 'package:e_esg/pages/IES/lives.dart';
-import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Card.dart';
+//import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Card.dart';
+import 'package:e_esg/pages/espacejeune/login_signup/Card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
