@@ -33,7 +33,6 @@ class _LivesState extends State<Lives> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
@@ -90,7 +89,6 @@ class _LivesState extends State<Lives> {
       child: Container(
         margin: EdgeInsets.all(10),
         decoration: BoxDecoration(
-          color: Colors.white,
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(

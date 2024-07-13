@@ -1,11 +1,14 @@
 import 'package:e_esg/pages/IES/live_informations_page.dart';
 import 'package:e_esg/pages/IES/lives.dart';
 import 'package:e_esg/pages/IES/your_lives.dart';
+import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:e_esg/Widgets/custom_sliver_app_bar.dart';
 import 'package:e_esg/Data/live_list.dart';
 import 'package:e_esg/models/live.dart';
+
 class Ies extends StatefulWidget {
   const Ies({super.key});
 
@@ -27,7 +30,6 @@ class _IesState extends State<Ies> {
     titleFontSize = screenWidth * 0.06;
 
     return Scaffold(
-      backgroundColor: Colors.white,
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
@@ -38,94 +40,111 @@ class _IesState extends State<Ies> {
             ),
             SliverToBoxAdapter(
               child: Container(
-                padding: EdgeInsets.all(sectionPadding),
+                color: Colors.transparent,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 60),
-                    Text(
-                      "Lives pour cette semaine",
-                      style: TextStyle(
-                        fontSize: titleFontSize,
-                        fontWeight: FontWeight.bold,
+                    Padding(
+                      padding: EdgeInsets.only(left: 20),
+                      child: Text(
+                        "Lives pour cette semaine",
+                        style: TextStyle(
+                          fontSize: titleFontSize,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 10),
                     SizedBox(
                       height: 290,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: thisWeekLives.length,
                         itemBuilder: (context, index) {
-                          return liveComponent(live: thisWeekLives[index]);
+                          return liveComponent(live: thisWeekLives[index],isDarkMode: Cardi.isDarkMode.value);
                         },
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 20),
                     Row(
                       children: [
-                        Text(
-                          "Vos lives",
-                          style: TextStyle(
-                            fontSize: titleFontSize,
-                            fontWeight: FontWeight.bold,
+                        Padding(
+                          padding: EdgeInsets.only(left: 20),
+                          child: Text(
+                            "Vos lives",
+                            style: TextStyle(
+                              fontSize: titleFontSize,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                         Spacer(),
                         IconButton(
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>YourLives()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => YourLives()));
                           },
                           icon: Container(
                             width: iconButtonSize - 3,
                             height: iconButtonSize - 3,
-                            child: SvgPicture.asset("assets/images/right-icon.svg"),
+                            child: SvgPicture.asset(
+                                "assets/images/right-icon.svg"),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 10),
                     SizedBox(
                       height: 290,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: yourLives.length,
                         itemBuilder: (context, index) {
-                          return liveComponent(live: yourLives[index]);
+                          return liveComponent(live: yourLives[index],isDarkMode: Cardi.isDarkMode.value);
                         },
                       ),
                     ),
-                    SizedBox(height: 10),
+                    SizedBox(height: 20),
                     Row(
                       children: [
-                        Text(
-                          "Lives",
-                          style: TextStyle(
-                            fontSize: titleFontSize,
-                            fontWeight: FontWeight.bold,
+                        Padding(
+                          padding: EdgeInsets.only(left: 20),
+                          child: Text(
+                            "Lives",
+                            style: TextStyle(
+                              fontSize: titleFontSize,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                         Spacer(),
                         IconButton(
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>Lives()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Lives()));
                           },
                           icon: Container(
                             width: iconButtonSize - 3,
                             height: iconButtonSize - 3,
-                            child: SvgPicture.asset("assets/images/right-icon.svg"),
+                            child: SvgPicture.asset(
+                                "assets/images/right-icon.svg"),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 10),
                     SizedBox(
                       height: 290,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: allLives.length,
                         itemBuilder: (context, index) {
-                          return liveComponent(live: allLives[index]);
+                          return liveComponent(live: allLives[index],isDarkMode: Cardi.isDarkMode.value);
                         },
                       ),
                     ),
@@ -139,14 +158,20 @@ class _IesState extends State<Ies> {
     );
   }
 
-  Widget liveComponent({required Live live}) {
+  Widget liveComponent({required Live live,required bool isDarkMode}) {
     return GestureDetector(
-      onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>LiveInformationsPage(),settings: RouteSettings(arguments: live))),
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => LiveInformationsPage(),
+          settings: RouteSettings(arguments: live),
+        ),
+      ),
       child: Container(
         width: 250,
         margin: EdgeInsets.only(right: 8),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: isDarkMode?Color(0xff181a1b): Colors.white,
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(
@@ -162,7 +187,7 @@ class _IesState extends State<Ies> {
             ClipRRect(
               borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
               child: Container(
-                height: 180, // Adjust the height as per your requirement
+                height: 180,
                 width: double.infinity,
                 child: Image.asset(
                   live.liveImage,
@@ -172,28 +197,26 @@ class _IesState extends State<Ies> {
             ),
             Padding(
               padding: EdgeInsets.all(10),
-              child: Expanded(
-                child: Text(
-                  live.subject,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w600,
-                    fontSize: titleFontSize / 1.5,
-                  ),
+              child: Text(
+                live.subject,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w600,
+                  fontSize: titleFontSize / 1.5,
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 20,bottom: 10),
+              padding: const EdgeInsets.only(left: 20, bottom: 10),
               child: Text(
                 'By ' + live.doctor.name,
                 style: TextStyle(
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w500,
-                    fontSize: titleFontSize / 1.9,
-                    color: Color(0xFF797979)
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w500,
+                  fontSize: titleFontSize / 1.9,
+                  color: Color(0xFF797979),
                 ),
               ),
             ),

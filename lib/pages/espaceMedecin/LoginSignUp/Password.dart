@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:e_esg/Widgets/NavigationBarDoctor.dart';
+import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -40,14 +41,16 @@ class _PasswordState extends State<Password> {
     super.dispose();
   }
 
-  Widget buildLabel(String label) {
+  Widget buildLabel(String label,bool isDarkMode) {
     return Container(
       margin: const EdgeInsets.only(left: 40, top: 20),
       child: Align(
         alignment: Alignment.centerLeft,
         child: Text(
           label,
-          style: const TextStyle(fontFamily: "Inter", fontSize: 15),
+          style: TextStyle(fontFamily: "Inter", fontSize: 15,
+              color:isDarkMode?Colors.white:Colors.black
+          ),
         ),
       ),
     );
@@ -76,15 +79,13 @@ class _PasswordState extends State<Password> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height =MediaQuery.of(context).size.height;
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
     return SingleChildScrollView(
       child: Column(
         children: [
-          Container(
+          SizedBox(
             height: height*0.07,
             width: width*0.7,
-            child: const Align(
+            child: Align(
               alignment: Alignment.centerLeft,
               child: AutoSizeText(
                 "créer un mot de passe",
@@ -92,16 +93,17 @@ class _PasswordState extends State<Password> {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 30,
-                    fontFamily: "poppins"),
+                      color:Cardi.isDarkMode.value?Colors.white:Colors.black,
+                      fontFamily: "poppins"),
               ),
             ),
           ),
-          buildLabel("mot de passe"),
+          buildLabel("mot de passe",Cardi.isDarkMode.value),
           const SizedBox(height: 5,),
-          buildTextField(width,height, "", _coPasswordFocusNode, _coPasswordHasFocus,isDarkMode),
-          buildLabel("confirmer mot de passe"),
+          buildTextField(width,height, "", _coPasswordFocusNode, _coPasswordHasFocus,Cardi.isDarkMode.value),
+          buildLabel("confirmer mot de passe",Cardi.isDarkMode.value),
           const SizedBox(height: 5,),
-          buildTextField(width, height,"", _passwordFocusNode, _passwordHasFocus,isDarkMode),
+          buildTextField(width, height,"", _passwordFocusNode, _passwordHasFocus,Cardi.isDarkMode.value),
            SizedBox(height: height*0.02,),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -109,15 +111,15 @@ class _PasswordState extends State<Password> {
               CupertinoButton(
                 child: Container(
                     width: width * 0.3,
-                    height: height*0.07,
+                    height: height*0.05,
                     decoration: BoxDecoration(
-                        color: Colors.white,
+                        color:Colors.transparent,
                         borderRadius: BorderRadius.circular(40),
                         border: Border.all(color: Color(0xff0b40ff))),
                     alignment: Alignment.center,
-                    child: const Text(
+                    child: Text(
                       "Precedent",
-                      style: TextStyle(color: Colors.black, fontSize: 15),
+                      style: TextStyle(color:Cardi.isDarkMode.value?Colors.white:Colors.black, fontSize: 15),
                     )),
                 onPressed: () {
                   widget.onBackTapped(0.8,0.1);
@@ -126,7 +128,7 @@ class _PasswordState extends State<Password> {
               CupertinoButton(
                 child: Container(
                     width: width * 0.4,
-                    height: height*0.07,
+                    height: height*0.05,
                     decoration: BoxDecoration(
                         gradient: const LinearGradient(
                             colors: [Color(0xff0b40ff), Color(0xff0c40a4)]),

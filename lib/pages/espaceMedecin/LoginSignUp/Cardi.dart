@@ -1,6 +1,8 @@
+import 'package:e_esg/pages/espaceMedecin/home/Profile/Settings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'Login.dart';
 import 'SignUp.dart';
@@ -10,7 +12,7 @@ class Cardi extends StatefulWidget {
   static double q = 0.5;
   static double top = 0.25;
   static bool isContinueTapped = false;
-
+  static ValueNotifier<bool> isDarkMode = ValueNotifier<bool>(false);
   Cardi({super.key});
 
   @override
@@ -44,6 +46,21 @@ class _CardiState extends State<Cardi> {
       Cardi.isContinueTapped = false;
     });
   }
+  @override
+  void initState() {
+    super.initState();
+    _loadPreferences();
+  }
+
+  _loadPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      Cardi.isDarkMode.value = prefs.getBool('isDarkMode') ?? (MediaQuery.of(context).platformBrightness == Brightness.dark);
+      Settings.isSystemSettings = prefs.getBool('isSystemSettings') ?? true;
+      Settings.isDark = prefs.getBool('isDark') ?? false;
+      Settings.isLight = prefs.getBool('isLight') ?? false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,10 +68,9 @@ class _CardiState extends State<Cardi> {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
+    Settings.isSystemSettings? Cardi.isDarkMode.value=(MediaQuery.of(context).platformBrightness == Brightness.dark):!Settings.isDark?Settings.isDark:Settings.isLight;
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
     return CupertinoApp(
       home: CupertinoPageScaffold(
         resizeToAvoidBottomInset: true,
@@ -71,13 +87,18 @@ class _CardiState extends State<Cardi> {
               width: width * 0.9,
               height: height * Cardi.q,
               decoration: BoxDecoration(
+<<<<<<< HEAD:lib/pages/espaceMedecin/LoginSignUp/Card.dart
                 color: isDarkMode? Color(0xff27272d): Colors.white,
                 border: Border.all(color: Color(0xFF2E37A4)),
+=======
+                color: Cardi.isDarkMode.value? const Color(0xff27272d): Colors.white,
+                border: Border.all(color: Colors.black),
+>>>>>>> e535ab0f3bd3b57ca6d5d7a5c765cec5af8291d1:lib/pages/espaceMedecin/LoginSignUp/Cardi.dart
                 borderRadius: BorderRadius.circular(20),
               ),
               margin: EdgeInsets.only(left: 20, right: 20,top: height*0.15,bottom: height*0.05),
               child: AnimatedSwitcher(
-                duration: const Duration(seconds: 1),
+                duration: const Duration(milliseconds: 500),
                 child: showLogin
                     ? Login(onSignUpTapped: (newQ, newTop) {
                   updateContainerSize(newQ, newTop);

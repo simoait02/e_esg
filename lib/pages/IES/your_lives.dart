@@ -1,3 +1,4 @@
+import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
 import 'package:flutter/material.dart';
 import 'package:e_esg/Widgets/custom_sliver_app_bar.dart';
 import 'package:e_esg/Widgets/search.dart';
@@ -34,7 +35,6 @@ class _YourLivesState extends State<YourLives> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
@@ -92,7 +92,6 @@ class _YourLivesState extends State<YourLives> {
       child: Container(
         margin: EdgeInsets.all(10),
         decoration: BoxDecoration(
-          color: Colors.white,
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(
