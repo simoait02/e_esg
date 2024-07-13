@@ -110,7 +110,6 @@ class _ProfileState extends State<Profile> {
                 ),
               ),
               Container(
-                height: height * 0.3,
                 width: width,
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
@@ -131,7 +130,7 @@ class _ProfileState extends State<Profile> {
                         SizedBox(
                           width: width * 0.3,
                           child: AutoSizeText(
-                            maxLines: 2,
+                            maxLines: 1,
                             "Gender",
                             style: GoogleFonts.aBeeZee(
                               textStyle: const TextStyle(
@@ -164,7 +163,7 @@ class _ProfileState extends State<Profile> {
                         SizedBox(
                           width: width * 0.3,
                           child: AutoSizeText(
-                            maxLines: 2,
+                            maxLines: 1,
                             "Designation",
                             style: GoogleFonts.aBeeZee(
                               textStyle: const TextStyle(
