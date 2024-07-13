@@ -1,4 +1,6 @@
 import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
+import 'package:e_esg/pages/espacejeune/MesDemandesNotifications.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -35,22 +37,31 @@ class CustomSliverAppBar extends StatelessWidget {
           titlePadding: EdgeInsets.symmetric(horizontal: sectionPadding),
           title: Row(
             children: [
-              IconButton(
-                onPressed: () {},
-                icon: Container(
-                  width: iconButtonSize,
-                  height: iconButtonSize,
-                  child: SvgPicture.asset('assets/images/search_icon.svg'),
+              Hero(
+                tag: "search",
+                child: IconButton(
+                  onPressed: () {},
+                  icon: SizedBox(
+                    width: iconButtonSize,
+                    height: iconButtonSize,
+                    child: SvgPicture.asset('assets/images/search_icon.svg'),
+                  ),
                 ),
               ),
               const Spacer(),
-              IconButton(
-                icon: Container(
-                  width: iconButtonSize,
-                  height: iconButtonSize,
-                  child: SvgPicture.asset('assets/images/note_icon.svg'),
+              Hero(
+                tag: "notification",
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        CupertinoPageRoute(builder: (context)=>MesDemandesNotifications()));
+                  },
+                  icon: SizedBox(
+                    width: iconButtonSize,
+                    height: iconButtonSize,
+                    child: SvgPicture.asset('assets/images/note_icon.svg'),
+                  ),
                 ),
-                onPressed: () {},
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,

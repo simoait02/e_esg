@@ -56,6 +56,9 @@ class _CardiState extends State<Cardi> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       Cardi.isDarkMode.value = prefs.getBool('isDarkMode') ?? (MediaQuery.of(context).platformBrightness == Brightness.dark);
+      Settings.isSystemSettings = prefs.getBool('isSystemSettings') ?? true;
+      Settings.isDark = prefs.getBool('isDark') ?? false;
+      Settings.isLight = prefs.getBool('isLight') ?? false;
     });
   }
 
@@ -90,7 +93,7 @@ class _CardiState extends State<Cardi> {
               ),
               margin: EdgeInsets.only(left: 20, right: 20,top: height*0.15,bottom: height*0.05),
               child: AnimatedSwitcher(
-                duration: const Duration(seconds: 1),
+                duration: const Duration(milliseconds: 500),
                 child: showLogin
                     ? Login(onSignUpTapped: (newQ, newTop) {
                   updateContainerSize(newQ, newTop);

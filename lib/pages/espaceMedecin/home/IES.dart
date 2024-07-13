@@ -187,7 +187,7 @@ class _IesState extends State<Ies> {
             ClipRRect(
               borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
               child: Container(
-                height: 180, // Adjust the height as per your requirement
+                height: 180,
                 width: double.infinity,
                 child: Image.asset(
                   live.liveImage,

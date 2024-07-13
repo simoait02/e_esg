@@ -6,6 +6,7 @@ import 'package:e_esg/pages/espaceMedecin/home/Profile/Profile.dart';
 import 'package:e_esg/pages/espaceMedecin/home/Profile/Settings.dart';
 import 'package:e_esg/pages/espaceMedecin/home/teleExpertise/TeleExpertise.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class NavbarDoc extends StatefulWidget {
   const NavbarDoc({super.key});
@@ -65,6 +66,20 @@ class _NavbarDocState extends State<NavbarDoc> {
         ),
       ),
     );
+  }
+  @override
+  void initState() {
+    _loadPreferences();
+    super.initState();
+  }
+  _loadPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      Cardi.isDarkMode.value = prefs.getBool('isDarkMode') ?? (MediaQuery.of(context).platformBrightness == Brightness.dark);
+      Settings.isSystemSettings = prefs.getBool('isSystemSettings') ?? true;
+      Settings.isDark = prefs.getBool('isDark') ?? false;
+      Settings.isLight = prefs.getBool('isLight') ?? false;
+    });
   }
 
   @override
