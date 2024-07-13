@@ -265,8 +265,8 @@ class _SignupState extends State<Signup> {
                       ],
                     ),
                     onPressed: () {
-                      Cardi.q = 0.45;
-                      Cardi.top = 0.25;
+                      CardiJeune.q = 0.45;
+                      CardiJeune.top = 0.25;
                       widget.onContinueTapped();
                     }),
                 Row(

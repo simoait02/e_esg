@@ -98,9 +98,9 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                                 onChanged: (value) {
                                   setState(() {
                                     _value = value!;
-                                    Cardi.q = 0.7;
-                                    Cardi.top = 0.1;
-                                    widget.onScolarityTapped(Cardi.q, Cardi.top);
+                                    CardiJeune.q = 0.7;
+                                    CardiJeune.top = 0.1;
+                                    widget.onScolarityTapped(CardiJeune.q, CardiJeune.top);
                                     scolarity=true;
                                     hasSelected=true;
                                   });
@@ -130,9 +130,9 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                                 onChanged: (value) {
                                   setState(() {
                                     _value = value!;
-                                    Cardi.q = 0.7;
-                                    Cardi.top = 0.1;
-                                    widget.onScolarityTapped(Cardi.q, Cardi.top);
+                                    CardiJeune.q = 0.7;
+                                    CardiJeune.top = 0.1;
+                                    widget.onScolarityTapped(CardiJeune.q, CardiJeune.top);
                                     scolarity=false;
                                     hasSelected=true;
                                   });
@@ -281,9 +281,9 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                                   )),
                               onPressed: () {
                                 setState(() {
-                                  Cardi.q = 0.5;
-                                  Cardi.top = 0.1;
-                                  widget.onPasswordTapped(Cardi.q,Cardi.top);
+                                  CardiJeune.q = 0.5;
+                                  CardiJeune.top = 0.1;
+                                  widget.onPasswordTapped(CardiJeune.q,CardiJeune.top);
                                 });
 
                               }),
@@ -311,9 +311,9 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              Cardi.q = 0.6;
-                              Cardi.top = 0.25;
-                              widget.onLoginTapped(Cardi.q, Cardi.top);
+                              CardiJeune.q = 0.6;
+                              CardiJeune.top = 0.25;
+                              widget.onLoginTapped(CardiJeune.q, CardiJeune.top);
                             },
                             child: Container(
                               height: height * 0.025,

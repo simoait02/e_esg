@@ -172,8 +172,6 @@ class _SignupState extends State<Signup> {
                   ),
                 ),
                 const SizedBox(height: 10,),
-<<<<<<< HEAD
-=======
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 20),
                   child: Row(
@@ -225,7 +223,6 @@ class _SignupState extends State<Signup> {
                   ),
                 ),
                 const SizedBox(height: 10,),
->>>>>>> e535ab0f3bd3b57ca6d5d7a5c765cec5af8291d1
                 Align(alignment: Alignment.centerLeft ,
                     child: Container(
                         height: height*0.025,

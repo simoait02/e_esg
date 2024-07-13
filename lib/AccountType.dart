@@ -3,8 +3,8 @@ import 'package:e_esg/pages/espaceMedecin/home/Profile/Settings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/services.dart';
+import 'package:e_esg/pages/espacejeune/login_signup/Card.dart';
 
 import 'pages/espaceMedecin/LoginSignUp/Cardi.dart';
 
@@ -225,6 +225,13 @@ class _AccounttypeState extends State<Accounttype> {
                           (Route<dynamic> route) => false,
                     );
                   }
+                  else(isJeune){
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      CupertinoPageRoute(builder: (context) =>CardiJeune()),
+                          (Route<dynamic> route) => false,
+                    );
+                  };
                 },
               ),
             ),

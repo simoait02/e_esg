@@ -87,13 +87,10 @@ class _CardiState extends State<Cardi> {
               width: width * 0.9,
               height: height * Cardi.q,
               decoration: BoxDecoration(
-<<<<<<< HEAD:lib/pages/espaceMedecin/LoginSignUp/Card.dart
                 color: isDarkMode? Color(0xff27272d): Colors.white,
                 border: Border.all(color: Color(0xFF2E37A4)),
-=======
                 color: Cardi.isDarkMode.value? const Color(0xff27272d): Colors.white,
                 border: Border.all(color: Colors.black),
->>>>>>> e535ab0f3bd3b57ca6d5d7a5c765cec5af8291d1:lib/pages/espaceMedecin/LoginSignUp/Cardi.dart
                 borderRadius: BorderRadius.circular(20),
               ),
               margin: EdgeInsets.only(left: 20, right: 20,top: height*0.15,bottom: height*0.05),
