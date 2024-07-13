@@ -17,7 +17,6 @@ class Ajoutlive extends StatefulWidget {
 
 class _AjoutliveState extends State<Ajoutlive> {
   double turns = 0.0;
-  Doctor? _selecteddoctor;
   List<Doctor> doctorList = [
     Doctor("Dr. Suissi"),
     Doctor("Dr. Chaimae Bouti"),
@@ -81,7 +80,7 @@ class _AjoutliveState extends State<Ajoutlive> {
   void dispose() {
     _focusNode.dispose();
     _searchController.dispose();
-    _dateController.dispose(); // Dispose the date controller
+    _dateController.dispose();
     super.dispose();
   }
 
@@ -137,7 +136,7 @@ class _AjoutliveState extends State<Ajoutlive> {
     );
 
     if (pickedTime != null) {
-      final String formattedTime = pickedTime.format(context); // Formats time according to locale
+      final String formattedTime = pickedTime.format(context);
       setState(() {
         _timeController.text = formattedTime;
       });
@@ -247,7 +246,6 @@ class _AjoutliveState extends State<Ajoutlive> {
                                     onSuggestionTap: (SearchFieldListItem<Doctor> suggestion) {
                                       setState(() {
                                         _focusNode.unfocus();
-                                        _selecteddoctor = suggestion.item;
                                       });
                                     },
                                     onTapOutside: (PointerDownEvent event) {
