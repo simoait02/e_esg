@@ -84,7 +84,7 @@ class _AddMeetingState extends State<AddMeeting> {
                       alignment: Alignment.center,
                       child: AutoSizeText(
                         "Precedent",
-                        style: TextStyle(color: Colors.white, fontSize: 20),
+                        style: TextStyle(fontSize: 20),
                       ),
                     ),
                     onPressed: () {

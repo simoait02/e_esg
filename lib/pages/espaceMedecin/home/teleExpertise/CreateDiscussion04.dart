@@ -28,6 +28,7 @@ class _Creatediscussion04State extends State<Creatediscussion04> {
       children: [
         SizedBox(height: height * 0.05),
         const AutoSizeText.rich(
+          maxLines: 4,
           TextSpan(
             text: "1. Objet du Consentement: ",
             style: TextStyle(fontWeight: FontWeight.bold),
@@ -40,6 +41,7 @@ class _Creatediscussion04State extends State<Creatediscussion04> {
           ),
         ),
         const AutoSizeText.rich(
+          maxLines: 4,
           TextSpan(
             text: "2. Confidentialité des Données: ",
             style: TextStyle(fontWeight: FontWeight.bold),
@@ -52,6 +54,7 @@ class _Creatediscussion04State extends State<Creatediscussion04> {
           ),
         ),
         const AutoSizeText.rich(
+          maxLines: 4,
           TextSpan(
             text: "3. Droits des Patients: ",
             style: TextStyle(fontWeight: FontWeight.bold),
@@ -64,6 +67,7 @@ class _Creatediscussion04State extends State<Creatediscussion04> {
           ),
         ),
         const AutoSizeText.rich(
+          maxLines: 3,
           TextSpan(
             text: "4. Utilisation des Données: ",
             style: TextStyle(fontWeight: FontWeight.bold),
@@ -76,6 +80,7 @@ class _Creatediscussion04State extends State<Creatediscussion04> {
           ),
         ),
         const AutoSizeText.rich(
+          maxLines: 2,
           TextSpan(
             text: "5. Durée du Consentement: ",
             style: TextStyle(fontWeight: FontWeight.bold),
@@ -99,10 +104,13 @@ class _Creatediscussion04State extends State<Creatediscussion04> {
                 });
               },
             ),
-            const AutoSizeText(
-              "J'ai lue et J'accepte les termes et conditions.",
-              style: TextStyle(
-                color: Colors.deepPurpleAccent,
+            const Expanded(
+              child: AutoSizeText(
+                maxLines: 1,
+                "J'ai lue et J'accepte les termes et conditions.",
+                style: TextStyle(
+                  color: Colors.deepPurpleAccent,
+                ),
               ),
             ),
           ],
