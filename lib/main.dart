@@ -3,7 +3,7 @@ import 'package:e_esg/Widgets/NavigationBarJeune.dart';
 import 'package:e_esg/pages/IES/ies_doctor.dart';
 import 'package:e_esg/pages/IES/live_informations_page.dart';
 import'package:e_esg/pages/IES/lives.dart';
-import'package:e_esg/pages/espaceMedecin/LoginSignUp/Card.dart';
+import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
 import'package:e_esg/pages/espacejeune/login_signup/Card.dart';
 import'package:e_esg/pages/IES/ajoutLive.dart';
 import'package:e_esg/pages/IES/live_informations_page.dart';
