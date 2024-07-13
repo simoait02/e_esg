@@ -111,7 +111,7 @@ class _PasswordState extends State<Password> {
               CupertinoButton(
                 child: Container(
                     width: width * 0.3,
-                    height: height*0.07,
+                    height: height*0.05,
                     decoration: BoxDecoration(
                         color:Colors.transparent,
                         borderRadius: BorderRadius.circular(40),
@@ -128,7 +128,7 @@ class _PasswordState extends State<Password> {
               CupertinoButton(
                 child: Container(
                     width: width * 0.4,
-                    height: height*0.07,
+                    height: height*0.05,
                     decoration: BoxDecoration(
                         gradient: const LinearGradient(
                             colors: [Color(0xff0b40ff), Color(0xff0c40a4)]),

@@ -113,8 +113,8 @@ class _LoginState extends State<Login> {
             const SizedBox(height: 10,),
             CupertinoButton(
                 child: Container(
-                    width: width * 0.4,
-                    height: 50,
+                    width: width * 0.3,
+                    height: height*0.05,
                     decoration: BoxDecoration(
                         gradient: const LinearGradient(
                             colors: [Color(0xff0b40ff), Color(0xff0c40a4)]),
