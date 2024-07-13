@@ -75,63 +75,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-     - assets/images/backgroundLogin.png
-     - assets/images/statistique_icone.png
-     - assets/images/search_icon.svg
-     - assets/images/note_icon.svg
-     - assets/images/boy.png
-     - assets/images/propo_icon.png
-     - assets/images/logoEsj.png
-     - assets/images/flèche1.png
-     - assets/images/calendar_icon.svg
-     - assets/images/clock_icon.svg
-     - assets/images/patients.png
-     - assets/images/patient.png
-     - assets/images/doc.png
-     - assets/images/chatbot.png
-     - assets/images/IES.png
-     - assets/images/notifications.png
-     - assets/images/profile.png
-     - assets/images/teleExpertise.png
-     - assets/images/profiletele.png
-     - assets/images/plus.svg
-     - assets/images/trash.svg
-     - assets/images/dossierMedical.png
-     - assets/images/testPsych.png
-     - assets/images/logo.png
-     - assets/images/Sedraty.png
-     - assets/images/menu.png
-     - assets/images/Image.jpeg
-     - assets/images/ROAR.png
-     - assets/images/fleche.png
-     - assets/images/afj.jpeg
-     - assets/images/booster-au-naturel_640-640x405.jpg
-     - assets/images/Boisson-gazeuse_640.jpg
-     - assets/images/chocolates-491165_640-640x405.jpg
-     - assets/images/aa.jfif
-     - assets/images/essential-oils-1433694_640-640x405.jpg
-     - assets/images/hygiene-640x405.jpg
-     - assets/images/kyste-hydatique-768x573.jpg
-     - assets/images/o.jpg
-     - assets/images/obesite.jpg
-     - assets/images/pellicule.jpg
-     - assets/images/Proteger-son-ouie.jpg
-     - assets/images/prévention-du-suicide-ar.png
-     - assets/images/Ramadan_Reflections-780x405.jpg
-     - assets/images/School-phobie-780x405.jpg
-     - assets/images/sommeil_640-640x405.jpg
-     - assets/images/STRESS-DES-EXAMENS.jpg
-     - assets/images/suncream-1337629_1280-1024x576.jpg
-     - assets/images/Tabagisme-passif.gif
-     - assets/images/Végetarien.jpg
-     - assets/images/toxicomanie-tof-780x405.jpg
-     - assets/images/monoxyde-de-carbone.jpg
-     - assets/images/right-icon.svg
-     - assets/images/login.png
-     - assets/images/warning.svg
-     - assets/images/visible.png
-     - assets/images/invisible.png
-     - assets/images/tick-circle.svg
+     - assets/images/
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

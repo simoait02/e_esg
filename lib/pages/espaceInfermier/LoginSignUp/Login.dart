@@ -1,8 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:e_esg/Widgets/NavigationBarDoctor.dart';
-import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'Cardi.dart';
 
 class Login extends StatefulWidget {
   final Function(double, double) onSignUpTapped;
@@ -98,7 +99,7 @@ class _LoginState extends State<Login> {
                   child: AutoSizeText(
                       "Login",
                     style: TextStyle(
-                      color: Cardi.isDarkMode.value?Colors.white:Colors.black,
+                      color: CardiInf.isDarkMode.value?Colors.white:Colors.black,
                       fontWeight: FontWeight.bold,
                       fontSize: 30,
                       fontFamily: "poppins"
@@ -107,12 +108,12 @@ class _LoginState extends State<Login> {
                 ),
               ),
             ),
-            buildLabel("Identifiant",height*0.02,Cardi.isDarkMode.value),
+            buildLabel("Identifiant",height*0.02,CardiInf.isDarkMode.value),
             const SizedBox(height: 5,),
-            buildTextField(width,height, "E-mail, CIN", _emailFocusNode, _emailHasFocus,Cardi.isDarkMode.value),
-            buildLabel("Password",height*0.02,Cardi.isDarkMode.value),
+            buildTextField(width,height, "E-mail, CIN", _emailFocusNode, _emailHasFocus,CardiInf.isDarkMode.value),
+            buildLabel("Password",height*0.02,CardiInf.isDarkMode.value),
             const SizedBox(height: 5,),
-            buildTextField(width, height,"Password", _passwordFocusNode, _passwordHasFocus,Cardi.isDarkMode.value),
+            buildTextField(width, height,"Password", _passwordFocusNode, _passwordHasFocus,CardiInf.isDarkMode.value),
             const SizedBox(height: 10,),
             CupertinoButton(
                 child: Container(
@@ -144,18 +145,18 @@ class _LoginState extends State<Login> {
                   const SizedBox(width: 20,),
                   AutoSizeText(
                     "Need an account?",
-                    style: TextStyle(fontFamily: "Inter", color: Cardi.isDarkMode.value?Colors.white:Colors.black,),
+                    style: TextStyle(fontFamily: "Inter", color: CardiInf.isDarkMode.value?Colors.white:Colors.black,),
                   ),
                   const SizedBox(width: 2,),
                   GestureDetector(
                     onTap: () {
-                      widget.onSignUpTapped(0.8, 0.1);
+                      widget.onSignUpTapped(0.63, 0.1);
                     },
                     child:  AutoSizeText(
                       "Sign Up",
                       style: TextStyle(
                           fontFamily: "Inter",
-                          color: Cardi.isDarkMode.value? Color(0xff759cd8):Color(0xff3a01de)),
+                          color: CardiInf.isDarkMode.value? Color(0xff759cd8):Color(0xff3a01de)),
                     ),
                   ),
                 ],

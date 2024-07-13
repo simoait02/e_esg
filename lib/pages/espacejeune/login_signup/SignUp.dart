@@ -5,7 +5,7 @@ import 'package:flutter_svg/svg.dart';
 
 import 'package:e_esg/Widgets/text_field.dart';
 import '../../IES/statistiques.dart';
-import 'Card.dart';
+import 'Cardi.dart';
 
 class Signup extends StatefulWidget {
   final Function(double, double) onSigninTapped;

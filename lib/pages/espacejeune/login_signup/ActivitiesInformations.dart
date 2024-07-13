@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:e_esg/Widgets/text_field.dart';
-import 'Card.dart';
+import 'Cardi.dart';
 
 class Activitiesinformations extends StatefulWidget {
   final Function(double, double) onBackTapped;

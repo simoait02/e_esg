@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/services.dart';
-import 'package:e_esg/pages/espacejeune/login_signup/Card.dart';
+import 'package:e_esg/pages/espacejeune/login_signup/Cardi.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'pages/espaceMedecin/LoginSignUp/Cardi.dart';
