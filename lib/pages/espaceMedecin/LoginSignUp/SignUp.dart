@@ -97,8 +97,8 @@ class _SignupState extends State<Signup> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
-            color: isDarkMode? hasFocus?CupertinoColors.systemBlue: CupertinoColors.white.withOpacity(0.5):hasFocus?CupertinoColors.systemBlue:CupertinoColors.black.withOpacity(0.5),
-            width: 1,
+            color: isDarkMode? hasFocus?CupertinoColors.systemBlue: CupertinoColors.white.withOpacity(0.5):hasFocus?Color(0xFF2E37A4):Color(0xFFEAEBF6),
+            width: 2,
           ),
         ),
         focusNode: focusNode,
@@ -273,9 +273,9 @@ class _SignupState extends State<Signup> {
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5),
-                                  border: Border.all(color:yes1?Color(0xff0b40ff) : Colors.grey)
+                                  border: Border.all(color:yes1?Color(0xff00D3C7) : Colors.grey)
                               ),
-                              child: AutoSizeText("Oui",textAlign: TextAlign.center,style: TextStyle(color:yes1?Color(0xff0b40ff) : Colors.grey),),
+                              child: AutoSizeText("Oui",textAlign: TextAlign.center,style: TextStyle(color:yes1?Color(0xff00D3C7) : Colors.grey),),
                             ),
                           ),
                           const SizedBox(width: 5,),
@@ -292,9 +292,9 @@ class _SignupState extends State<Signup> {
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5),
-                                  border: Border.all(color:no1?Color(0xff0b40ff) : Colors.grey)
+                                  border: Border.all(color:no1?Color(0xff00D3C7) : Colors.grey)
                               ),
-                              child: AutoSizeText("Non",style: TextStyle(color:no1?Color(0xff0b40ff) : Colors.grey),),
+                              child: AutoSizeText("Non",style: TextStyle(color:no1?Color(0xff00D3C7) : Colors.grey),),
                             ),
                           )
                         ],
@@ -332,9 +332,9 @@ class _SignupState extends State<Signup> {
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5),
-                                  border: Border.all(color:yes2?Color(0xff0b40ff) : Colors.grey)
+                                  border: Border.all(color:yes2?Color(0xff00D3C7) : Colors.grey)
                               ),
-                              child: AutoSizeText("Oui",textAlign: TextAlign.center,style: TextStyle(color:yes2?Color(0xff0b40ff) : Colors.grey),),
+                              child: AutoSizeText("Oui",textAlign: TextAlign.center,style: TextStyle(color:yes2?Color(0xff00D3C7) : Colors.grey),),
                             ),
                           ),
                           const SizedBox(width: 5,),
@@ -351,9 +351,9 @@ class _SignupState extends State<Signup> {
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5),
-                                  border: Border.all(color:no2?Color(0xff0b40ff) : Colors.grey)
+                                  border: Border.all(color:no2?Color(0xff00D3C7) : Colors.grey)
                               ),
-                              child: AutoSizeText("Non",style: TextStyle(color:no2?Color(0xff0b40ff) : Colors.grey),),
+                              child: AutoSizeText("Non",style: TextStyle(color:no2?Color(0xff00D3C7) : Colors.grey),),
                             ),
                           )
                         ],

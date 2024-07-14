@@ -46,7 +46,7 @@ class _PasswordState extends State<Password> {
       margin: const EdgeInsets.only(left: 40, top: 20),
       child: Align(
         alignment: Alignment.centerLeft,
-        child: Text(
+        child: AutoSizeText(
           label,
           style: TextStyle(fontFamily: "Inter", fontSize: 15,
               color:isDarkMode?Colors.white:Colors.black
@@ -64,8 +64,8 @@ class _PasswordState extends State<Password> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
-            color: isDarkMode? hasFocus?CupertinoColors.systemBlue: CupertinoColors.white.withOpacity(0.5):hasFocus?CupertinoColors.systemBlue:CupertinoColors.black.withOpacity(0.5),
-            width: 1,
+            color: isDarkMode? hasFocus?CupertinoColors.systemBlue: CupertinoColors.white.withOpacity(0.5):hasFocus?Color(0xFF2E37A4):Color(0xFFEAEBF6),
+            width: 2,
           ),
         ),
         focusNode: focusNode,

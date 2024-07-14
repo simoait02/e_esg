@@ -9,7 +9,7 @@ import 'Activitiesinformations.dart';
 import 'Password.dart';
 
 class CardiJeune extends StatefulWidget {
-  static double q = 0.6;
+  static double q = 0.55;
   static double top = 0.25;
   static bool moveToActivitiesInformations = false;
   static bool stayinActivitiesInformations = false;

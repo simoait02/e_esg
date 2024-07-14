@@ -47,9 +47,9 @@ class _LoginState extends State<Login> {
       margin: EdgeInsets.only(left: 40,top: height),
       child: Align(
         alignment: Alignment.centerLeft,
-        child: Text(
+        child: AutoSizeText(
           label,
-          style: TextStyle(fontFamily: "Inter",fontSize: 15,color: isDarkMode?Colors.white:Colors.black,
+          style: TextStyle(fontFamily: "Inter",fontSize: 15,color: isDarkMode?Colors.white:null,
           ),
         ),
       ),
@@ -64,8 +64,8 @@ class _LoginState extends State<Login> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
-            color: isDarkMode? hasFocus?CupertinoColors.systemBlue: CupertinoColors.white.withOpacity(0.5):hasFocus?CupertinoColors.systemBlue:CupertinoColors.black.withOpacity(0.5),
-            width: 1,
+            color: isDarkMode? hasFocus?CupertinoColors.systemBlue: CupertinoColors.white.withOpacity(0.5):hasFocus?Color(0xFF2E37A4):Color(0xFFEAEBF6),
+            width: 2,
           ),
         ),
         focusNode: focusNode,
@@ -73,9 +73,6 @@ class _LoginState extends State<Login> {
           focusNode.unfocus;
         }),
         placeholder: placeholder,
-        placeholderStyle: TextStyle(
-          color: isDarkMode?Colors.white.withOpacity(0.5):Colors.black.withOpacity(0.5),
-        ),
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
       ),
     );
@@ -115,6 +112,21 @@ class _LoginState extends State<Login> {
             const SizedBox(height: 5,),
             buildTextField(width, height,"Password", _passwordFocusNode, _passwordHasFocus,CardiInf.isDarkMode.value),
             const SizedBox(height: 10,),
+            Padding(padding: EdgeInsets.symmetric(horizontal:width*0.05),
+              child: Row(
+                children: [
+                  Spacer(),
+                  GestureDetector(
+                    child: AutoSizeText("Mot de passe oublié?",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: width * 0.04,
+                          fontFamily: "Poppins",
+                          color: Color(0xff00D3C7)
+                      ),),
+                  )
+                ],
+              ),),
             CupertinoButton(
                 child: Container(
                     width: width * 0.3,

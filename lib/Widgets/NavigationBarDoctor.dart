@@ -1,5 +1,4 @@
 import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
-import 'package:e_esg/pages/espaceMedecin/home/Chatbot.dart';
 import 'package:e_esg/pages/espaceMedecin/home/IES.dart';
 import 'package:e_esg/pages/espaceMedecin/home/MesPatients/MesPatients.dart';
 import 'package:e_esg/pages/espaceMedecin/home/Profile/Profile.dart';
@@ -7,6 +6,9 @@ import 'package:e_esg/pages/espaceMedecin/home/Profile/Settings.dart';
 import 'package:e_esg/pages/espaceMedecin/home/teleExpertise/TeleExpertise.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../pages/espaceMedecin/home/Chatbot.dart';
+
 
 class NavbarDoc extends StatefulWidget {
   const NavbarDoc({super.key});

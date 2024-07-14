@@ -91,17 +91,20 @@ class CustomSliverAppBar extends StatelessWidget {
               IconButton(
                 icon: Container(
                   width: iconButtonSize,
-                  height: 2 * titleFontSize  + 16,
+                  height: 2 * titleFontSize + 16,
                   decoration: BoxDecoration(
-                    color: Colors.brown,
-                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    image: DecorationImage(
+                      image: AssetImage(imagePath),
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                  child: Image.asset(imagePath),
                 ),
                 onPressed: () {
                   print('Profile button pressed');
                 },
               ),
+
             ],
           ),
         ),

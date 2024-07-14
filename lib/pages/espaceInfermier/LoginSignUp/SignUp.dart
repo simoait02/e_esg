@@ -82,11 +82,8 @@ class _SignupState extends State<Signup> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
-            color: isDarkMode? hasFocus?CupertinoColors.systemBlue:
-            CupertinoColors.white.withOpacity(0.5):
-            hasFocus?CupertinoColors.systemBlue:
-            CupertinoColors.black.withOpacity(0.5),
-            width: 1,
+            color: isDarkMode? hasFocus?CupertinoColors.systemBlue: CupertinoColors.white.withOpacity(0.5):hasFocus?Color(0xFF2E37A4):Color(0xFFEAEBF6),
+            width: 2,
           ),
         ),
         focusNode: focusNode,
