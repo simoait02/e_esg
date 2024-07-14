@@ -226,7 +226,7 @@ class _AccounttypeState extends State<Accounttype> {
                           (Route<dynamic> route) => false,
                     );
                   }
-                  else(isJeune){
+                  if(isJeune){
                     Navigator.pushAndRemoveUntil(
                       context,
                       CupertinoPageRoute(builder: (context) =>CardiJeune()),
