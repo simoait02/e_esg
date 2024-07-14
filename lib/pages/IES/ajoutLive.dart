@@ -19,16 +19,7 @@ class Ajoutlive extends StatefulWidget {
 class _AjoutliveState extends State<Ajoutlive> {
   double turns = 0.0;
   Doctor? _selecteddoctor;
-  List<Doctor> doctorList = [
-    Doctor("Dr. Suissi"),
-    Doctor("Dr. Chaimae Bouti"),
-    Doctor("Dr. Aithssaine Mohammed"),
-    Doctor("Dr. Yasmine Elmouddine"),
-    Doctor("Inf. Saida Hanafi"),
-    Doctor("Dr. Smissri"),
-    Doctor("Dr. Sanae"),
-    Doctor("Inf. Safae"),
-  ];
+
 
 
   bool isFocused = false;

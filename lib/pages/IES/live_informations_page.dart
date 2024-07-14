@@ -34,6 +34,7 @@ class _LiveInformationsPageState extends State<LiveInformationsPage> {
     sectionPadding = screenWidth * 0.04;
     titleFontSize = screenWidth * 0.06;
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: CustomScrollView(
           slivers: [

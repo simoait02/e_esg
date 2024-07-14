@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../Data/doctor_list.dart';
+
 class Creatediscussion03 extends StatefulWidget {
   const Creatediscussion03({super.key});
 
@@ -13,16 +15,7 @@ class Creatediscussion03 extends StatefulWidget {
 }
 
 class _Creatediscussion03State extends State<Creatediscussion03> {
-  List<Doctor> doctorList = [
-    Doctor("Dr. Suissi"),
-    Doctor("Dr. Chaimae Bouti"),
-    Doctor("Dr. Aithssaine Mohammed"),
-    Doctor("Dr. Yasmine Elmouddine"),
-    Doctor("Inf. Saida Hanafi"),
-    Doctor("Dr. Smissri"),
-    Doctor("Dr. Sanae"),
-    Doctor("Inf. Safae"),
-  ];
+
   List<String> specialtiesList = [
     "Cardiology",
     "Neurology",

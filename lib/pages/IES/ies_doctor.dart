@@ -18,10 +18,16 @@ class _IesDoctorState extends State<IesDoctor> {
   double sectionPadding = 0;
   double iconButtonSize = 0;
   double titleFontSize = 0;
+  double width=0;
+  double height=0;
 
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    width=screenWidth;
+    height=screenHeight;
 
     iconButtonSize = screenWidth * 0.06;
     sectionPadding = screenWidth * 0.04;
@@ -53,7 +59,7 @@ class _IesDoctorState extends State<IesDoctor> {
                     ),
                     SizedBox(height: 20),
                     SizedBox(
-                      height: 290,
+                      height: 300,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: thisWeekLives.length,
@@ -87,7 +93,7 @@ class _IesDoctorState extends State<IesDoctor> {
                     ),
                     SizedBox(height: 20),
                     SizedBox(
-                      height: 290,
+                      height: 300,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: yourLives.length,
@@ -121,7 +127,7 @@ class _IesDoctorState extends State<IesDoctor> {
                     ),
                     SizedBox(height: 20),
                     SizedBox(
-                      height: 290,
+                      height: 300,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: allLives.length,
@@ -144,7 +150,7 @@ class _IesDoctorState extends State<IesDoctor> {
     return GestureDetector(
       onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>LiveInformationsPage(),settings: RouteSettings(arguments: live))),
       child: Container(
-        width: 250,
+        width: 280,
         margin: EdgeInsets.only(right: 8),
         decoration: BoxDecoration(
           color: Colors.white,
@@ -163,7 +169,7 @@ class _IesDoctorState extends State<IesDoctor> {
             ClipRRect(
               borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
               child: Container(
-                height: 180, // Adjust the height as per your requirement
+                height: 170, // Adjust the height as per your requirement
                 width: double.infinity,
                 child: Image.asset(
                   live.liveImage,
@@ -171,31 +177,33 @@ class _IesDoctorState extends State<IesDoctor> {
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.all(10),
-              child: Expanded(
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.only(left: 5,right: 5,top: 7),
                 child: Text(
                   live.subject,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w600,
-                    fontSize: titleFontSize / 1.5,
-                  ),
+                  style: TextStyle(fontSize: width * 0.04, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.start,
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20,bottom: 10),
-              child: Text(
-                'By ' + live.doctor.name,
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w500,
-                  fontSize: titleFontSize / 1.9,
-                  color: Color(0xFF797979)
+            ListTile(
+              contentPadding: EdgeInsets.zero,
+              leading: Padding(
+                padding: EdgeInsets.symmetric(vertical: height * 0.01, horizontal: width * 0.02),
+                child: CircleAvatar(
+                  backgroundImage: AssetImage(live.doctor.profil),
                 ),
+              ),
+              title: Text(
+                live.doctor.name,
+                style: TextStyle(fontSize: width * 0.04),
+              ),
+              subtitle: Text(
+                'Date : ${live.date.day}/${live.date.month}/${live.date.year} à ${live.hour.format(context)}',
+                style: TextStyle(fontSize: width * 0.03),
               ),
             ),
           ],
