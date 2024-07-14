@@ -44,6 +44,7 @@ class _AddMeetingState extends State<AddMeeting> {
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
       resizeToAvoidBottomInset: true,
+      backgroundColor: Cardi.isDarkMode.value?Color(0xff141218):Colors.white,
       appBar: CupertinoNavigationBar(
         backgroundColor: Cardi.isDarkMode.value ? Color(0xff181a1b) : Colors.white,
         previousPageTitle: "Back",

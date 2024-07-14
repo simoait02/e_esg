@@ -32,7 +32,7 @@ class CustomSliverAppBar extends StatelessWidget {
         automaticallyImplyLeading:false,
         floating: true,
         snap: true,
-        backgroundColor: Cardi.isDarkMode.value?Color(0xff181a1b): Colors.white,
+        backgroundColor: Cardi.isDarkMode.value?Color(0xff141218): Colors.white,
         flexibleSpace: FlexibleSpaceBar(
           titlePadding: EdgeInsets.symmetric(horizontal: sectionPadding),
           title: Row(
