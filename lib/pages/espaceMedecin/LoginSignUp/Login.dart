@@ -72,6 +72,12 @@ class _LoginState extends State<Login> {
           focusNode.unfocus;
         }),
         placeholder: placeholder,
+        placeholderStyle: TextStyle(
+          color: isDarkMode?Colors.white.withOpacity(0.5):Colors.black.withOpacity(0.5),
+        ),
+        style:TextStyle(
+          color: isDarkMode?Colors.white.withOpacity(0.5):Colors.black.withOpacity(0.5),
+        ),
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
       ),
     );

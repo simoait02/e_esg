@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 class Success extends StatefulWidget {
@@ -20,13 +21,14 @@ class _SuccessState extends State<Success> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SvgPicture.asset("assets/images/tick-circle.svg",width: width*0.4,height: height*0.2,),
-          Expanded(child: Text(
+          Expanded(child: AutoSizeText(
             "You have successfully signed up ! Please check your email to confirm your account .",
             textAlign: TextAlign.center,
             style: TextStyle(
               fontFamily: "poppins",
               fontWeight: FontWeight.w500,
               fontSize: 30,
+              color: isDarkMode?Colors.white:Colors.black
             ),
           ))
         ],

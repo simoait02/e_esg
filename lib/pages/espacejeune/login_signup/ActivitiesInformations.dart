@@ -2,7 +2,6 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:e_esg/Widgets/text_field.dart';
 import 'Cardi.dart';
 
 class Activitiesinformations extends StatefulWidget {
@@ -30,6 +29,16 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
   FocusNode _focusNode = FocusNode();
   bool hasSelected=false;
   bool scolarity=true;
+  final FocusNode _cinFocusNode = FocusNode();
+  bool _cinHasFocus = false;
+  final FocusNode _cneFocusNode = FocusNode();
+  bool _cneHasFocus = false;
+  final FocusNode _codeMassarFocusNode = FocusNode();
+  bool _codeMassarHasFocus = false;
+  final FocusNode _lastStudFocusNode = FocusNode();
+  bool _lastStudHasFocus = false;
+  final FocusNode _stateActuFocusNode = FocusNode();
+  bool _stateActuHasFocus = false;
 
   @override
   void initState() {
@@ -46,11 +55,34 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
       }
     });
   }
+  Widget buildTextField(double width,double height, String placeholder, FocusNode focusNode, bool hasFocus,bool isDarkMode) {
+    return Container(
+      width: width * 0.8,
+      height: height*0.065,
+      child: CupertinoTextField(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(
+            color: hasFocus?Color(0xFF2E37A4) : isDarkMode ? CupertinoColors.white.withOpacity(0.5) : Color(0xFFEAEBF6),
+            width: 2,
+          ),
+        ),
+        focusNode: focusNode,
+        placeholder: placeholder,
+        style:TextStyle(
+          color: isDarkMode?Colors.white.withOpacity(0.5):Colors.black.withOpacity(0.5),
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+    var brightness = MediaQuery.of(context).platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
     return SingleChildScrollView(
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -58,34 +90,52 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
               Column(
                 children: [
                   Container(
-                    margin: EdgeInsets.only(left: 30),
-                    height: height * 0.07,
-                    child: const Align(
+                    margin: EdgeInsets.only(left:30),
+                    child:  Align(
                       alignment: Alignment.centerLeft,
-                      child: AutoSizeText(
-                        "Sign up",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 30,
-                            fontFamily: "Poppins"),
+                      child: Container(
+                        height: height*0.07,
+                        width: width*0.3,
+                        child: AutoSizeText(
+                          "Sign up",
+                          style: TextStyle(
+                              color: isDarkMode?Colors.white:Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 30,
+                              fontFamily: "poppins"
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 20,
+                  SizedBox(
+                    height: height*0.01,
                   ),
                   Visibility(
                       visible: true,
-                      child: CustomTextField(title: "Numéro de carte CIN", height: 0)),
+                      child: Container(
+                        margin: EdgeInsets.symmetric(horizontal: 20),
+                        alignment: Alignment.center,
+                        width: width ,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                                height: height*0.03,
+                                margin: EdgeInsets.only(left:10) ,
+                                child: AutoSizeText("CIN",
+                                  style: TextStyle(color: isDarkMode?Colors.white:Colors.black),)),
+                            buildTextField(width,height, "", _cinFocusNode, _cinHasFocus,isDarkMode),
+                          ],
+                        ),
+                      ),),
                   Align(
                       alignment: Alignment.centerLeft,
                       child: Container(
-                          height: height * 0.025,
-                          margin: EdgeInsets.only(left: 30),
-                          child: const AutoSizeText(
-                            "Scolarité",
-                            style: TextStyle(fontSize: 20, fontFamily: "Poppins"),
-                          ))),
+                          height: height*0.03,
+                          margin: EdgeInsets.only(left:30) ,
+                          child: AutoSizeText("Scolarite",
+                            style: TextStyle(color: isDarkMode?Colors.white:Colors.black),)),),
                   Container(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -107,9 +157,9 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
 
                                 },
                                 fillColor:
-                                MaterialStateProperty.resolveWith<Color?>(
-                                      (Set<MaterialState> states) {
-                                    if (states.contains(MaterialState.selected)) {
+                                WidgetStateProperty.resolveWith<Color?>(
+                                      (Set<WidgetState> states) {
+                                    if (states.contains(WidgetState.selected)) {
                                       return Color(0xff00D3C7);
                                     }
                                     return null;
@@ -118,7 +168,7 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                               ),
                               AutoSizeText(
                                 "Oui",
-                                style: TextStyle(fontFamily: "Poppins"),
+                                style: TextStyle(fontFamily: "Poppins",color: isDarkMode? Colors.white:Colors.black),
                               ),
                             ],
                           ),
@@ -138,9 +188,9 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                                   });
                                 },
                                 fillColor:
-                                MaterialStateProperty.resolveWith<Color?>(
-                                      (Set<MaterialState> states) {
-                                    if (states.contains(MaterialState.selected)) {
+                                WidgetStateProperty.resolveWith<Color?>(
+                                      (Set<WidgetState> states) {
+                                    if (states.contains(WidgetState.selected)) {
                                       return Color(0xff00D3C7);
                                     }
                                     return null;
@@ -152,7 +202,7 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                               ),
                               AutoSizeText(
                                 "Non",
-                                style: TextStyle(fontFamily: "Poppins"),
+                                style: TextStyle(fontFamily: "Poppins",color: isDarkMode? Colors.white:Colors.black),
                               ),
                             ],
                           ),
@@ -163,15 +213,16 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                     child: Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.all(20),
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               AutoSizeText("Niveau de scolarite Actuel",style: TextStyle(
-                                  fontFamily: 'poppins'
+                                  fontFamily: 'poppins',
+                                  color: isDarkMode?Colors.white:Colors.black,
                               ),),
                               Container(
-                                height: 51,
+                                height: height*0.065,
                                 padding: EdgeInsets.symmetric(horizontal: 15),
                                 decoration: BoxDecoration(
                                   border: Border.all(
@@ -183,7 +234,8 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                                 child: Row(
                                   children: [
                                     AutoSizeText(dropdownValue,style: TextStyle(
-                                        fontSize: 17
+                                        fontSize: 14,
+                                        color: isDarkMode?Colors.white.withOpacity(0.5):Colors.black.withOpacity(0.5),
                                     ),),
                                     Spacer(),
                                     DropdownButtonHideUnderline(
@@ -191,8 +243,8 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                                         focusNode: _focusNode,
                                         icon: Image.asset(
                                           "assets/images/flèche1.png",
-                                          height: 20,
-                                          width: 20,
+                                          height: 15,
+                                          width: 15,color: isDarkMode ? CupertinoColors.white.withOpacity(0.5) : Color(0xFFEAEBF6),
                                         ),
                                         dropdownColor: Colors.white,
                                         onChanged: (String? newValue) {
@@ -222,12 +274,34 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                             ],
                           ),
                         ),
+                        SizedBox(height: height*0.02,),
                         Visibility(
                             visible: dropdownValue=='Primaire',
-                            child:CustomTextField(title: 'CNE', height: 0,)),
+                            child:Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                    height: height*0.03,
+                                    margin: EdgeInsets.only(left:10) ,
+                                    child: AutoSizeText("CNE",
+                                      style: TextStyle(color: isDarkMode?Colors.white:Colors.black),)),
+                                buildTextField(width,height, "", _cneFocusNode, _cneHasFocus,isDarkMode),
+                              ],
+                            ),
+                        ),
                         Visibility(
                             visible: !(dropdownValue=='Primaire'),
-                            child:CustomTextField(title: 'Code Massar', height: 0,)),
+                            child:Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                    height: height*0.03,
+                                    margin: EdgeInsets.only(left:10) ,
+                                    child: AutoSizeText("Code Massar",
+                                      style: TextStyle(color: isDarkMode?Colors.white:Colors.black),)),
+                                buildTextField(width,height, "", _codeMassarFocusNode, _codeMassarHasFocus,isDarkMode),
+                              ],
+                            ),),
                       ],
                     ),
                   ),
@@ -236,8 +310,29 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                       child: Column(
                         children: [
                           SizedBox(height: 10,),
-                          CustomTextField(title: "Dernier niveau d'études", height: 0,),
-                          CustomTextField(title: 'Situation Actuelle', height: 0,),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                  height: height*0.03,
+                                  margin: EdgeInsets.only(left:10) ,
+                                  child: AutoSizeText("Dernier niveau d'etudes",
+                                    style: TextStyle(color: isDarkMode?Colors.white:Colors.black),)),
+                              buildTextField(width,height, "", _lastStudFocusNode, _lastStudHasFocus,isDarkMode),
+                            ],
+                          ),
+                          SizedBox(height: height*0.02,),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                  height: height*0.03,
+                                  margin: EdgeInsets.only(left:10) ,
+                                  child: AutoSizeText("Situation Actuelle",
+                                    style: TextStyle(color: isDarkMode?Colors.white:Colors.black),)),
+                              buildTextField(width,height, "", _stateActuFocusNode, _stateActuHasFocus,isDarkMode),
+                            ],
+                          ),
                         ],
                       )),
                   Column(
@@ -250,7 +345,6 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                                 width: width * 0.3,
                                 height: height*0.06,
                                 decoration: BoxDecoration(
-                                    color: Colors.white,
                                     borderRadius: BorderRadius.circular(40),
                                     border: Border.all(color: Color(0xff4E57CD))),
                                 alignment: Alignment.center,
@@ -281,50 +375,12 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                                   )),
                               onPressed: () {
                                 setState(() {
-                                  CardiJeune.q = 0.5;
+                                  CardiJeune.q = 0.55;
                                   CardiJeune.top = 0.1;
                                   widget.onPasswordTapped(CardiJeune.q,CardiJeune.top);
                                 });
 
                               }),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          Container(
-                            height: height * 0.025,
-                            child: const AutoSizeText(
-                              "Vous avez déja un compte?",
-                              style: TextStyle(
-                                fontFamily: "Inter",
-                                color: Color(0xff9999A3),
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 2,
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              CardiJeune.q = 0.6;
-                              CardiJeune.top = 0.25;
-                              widget.onLoginTapped(CardiJeune.q, CardiJeune.top);
-                            },
-                            child: Container(
-                              height: height * 0.025,
-                              child: AutoSizeText(
-                                "Sign In",
-                                style: TextStyle(
-                                    fontFamily: "Inter",
-                                    color: Color(0xff3a01de)),
-                              ),
-                            ),
-                          ),
                         ],
                       ),
                     ],

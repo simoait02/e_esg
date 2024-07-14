@@ -1,10 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-
-import 'package:e_esg/Widgets/text_field.dart';
-import '../../IES/statistiques.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'Cardi.dart';
 
 class Signup extends StatefulWidget {
@@ -20,12 +18,13 @@ class Signup extends StatefulWidget {
 class _SignupState extends State<Signup> {
   final FocusNode _nomFocusNode = FocusNode();
   final FocusNode _prenomFocusNode = FocusNode();
+  final FocusNode _emailFocusNode = FocusNode();
+  final FocusNode _numTeleFocusNode = FocusNode();
   bool _nomHasFocus = false;
   bool _prenomHasFocus = false;
+  bool _emailHasFocus = false;
+  bool _numTeleHasFocus = false;
   int _value=0;
-
-  TextEditingController _dateController = TextEditingController();
-
 
   @override
   void initState() {
@@ -48,7 +47,19 @@ class _SignupState extends State<Signup> {
     _prenomFocusNode.dispose();
     super.dispose();
   }
-
+  Widget buildLabel(String label,double height,bool isDarkMode) {
+    return Container(
+      margin: EdgeInsets.only(left: 40,top: height),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Text(
+          label,
+          style: TextStyle(fontFamily: "Inter",fontSize: 15,color: isDarkMode?Colors.white:Colors.black,
+          ),
+        ),
+      ),
+    );
+  }
   Widget buildTextField(double width,double height, String placeholder, FocusNode focusNode, bool hasFocus,bool isDarkMode) {
     return Container(
       width: width * 0.8,
@@ -57,50 +68,27 @@ class _SignupState extends State<Signup> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
-            color: hasFocus?Color(0xFF2E37A4) : isDarkMode ? CupertinoColors.white : Color(0xFFEAEBF6),
+            color: hasFocus?Color(0xFF2E37A4) : isDarkMode ? CupertinoColors.white.withOpacity(0.5) : Color(0xFFEAEBF6),
             width: 2,
           ),
         ),
         focusNode: focusNode,
         placeholder: placeholder,
+        style:TextStyle(
+          color: isDarkMode?Colors.white.withOpacity(0.5):Colors.black.withOpacity(0.5),
+        ),
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
       ),
     );
   }
-  void _showDatePicker() async {
-    final DateTime? pickedDate = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime.now(),
-      lastDate: DateTime(2040),
-      initialEntryMode: DatePickerEntryMode.calendarOnly,
-      builder: (context, child) {
-        return Theme(
-          data: ThemeData.light().copyWith(
-            colorScheme: ColorScheme.light(
-              primary: Color(0xFF99EDE9),
-              onSurface: Color(0xFF333448),
-              surface: Color(0xFFF4F5FA),
-            ),
-            textTheme: TextTheme(
-              bodyLarge: TextStyle(fontFamily: "Poppins"),
-              titleLarge: TextStyle(fontFamily: "Poppins"),
-              labelLarge: TextStyle(fontFamily: "Poppins", fontWeight: FontWeight.w400, fontSize: 20),
-            ),
-            textButtonTheme: TextButtonThemeData(
-              style: TextButton.styleFrom(
-                foregroundColor: Color(0xFF4A5BF6),
-              ),
-            ),
-          ),
-          child: child!,
-        );
-      },
-    );
-
-    if (pickedDate != null) {
-      _dateController.text = "${pickedDate.day}/${pickedDate.month}/${pickedDate.year}";
-    }
+  String label = "Choisir la date de naissance";
+  DateTime selectedDateTime = DateTime.now();
+  DateTime tempSelectedDateTime = DateTime.now();
+  void updateDate(DateTime newDate) {
+    setState(() {
+      selectedDateTime = newDate;
+      label = DateFormat.yMMMMd().format(selectedDateTime);
+    });
   }
 
   @override
@@ -110,82 +98,80 @@ class _SignupState extends State<Signup> {
     var brightness = MediaQuery.of(context).platformBrightness;
     bool isDarkMode = brightness == Brightness.dark;
     return SingleChildScrollView(
-
       child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Column(
               children: [
                 Container(
                   margin: EdgeInsets.only(left:30),
-                  height: height*0.07,
-                  child: const Align(
+                  child:  Align(
                     alignment: Alignment.centerLeft,
-                    child: AutoSizeText(
-                      "Sign up",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30,
-                          fontFamily: "Poppins"
+                    child: Container(
+                      height: height*0.07,
+                      width: width*0.3,
+                      child: AutoSizeText(
+                        "Sign up",
+                        style: TextStyle(
+                            color: isDarkMode?Colors.white:Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 30,
+                            fontFamily: "poppins"
+                        ),
                       ),
                     ),
                   ),
                 ),
-                const SizedBox(height: 20,),
-                Align(alignment: Alignment.centerLeft ,
-                    child: Container(
-                        height: height*0.025,
-                        margin: EdgeInsets.only(left:30) ,
-                        child: const AutoSizeText("Sexe")
-                    )
-                ),
                 Container(
-                    child:Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    height: height*0.04,
+                    alignment: Alignment.centerLeft,
+                    margin: EdgeInsets.only(left:30) ,
+                    child:  AutoSizeText("Sexe",
+                      style: TextStyle(color: isDarkMode?Colors.white:Colors.black),)),                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Row(
                       children: [
-                        Row(
-                          children: [
-                            Radio(value: 1, groupValue: _value, onChanged: (value) {
-                              setState(() {
-                                _value=value!;
-                              });
-                            },
-                              fillColor: MaterialStateProperty.resolveWith<Color?>(
-                                    (Set<MaterialState> states) {
-                                  if (states.contains(MaterialState.selected)) {
-                                    return Color(0xff00D3C7);
-                                  }
-                                  return null;
-                                },),
-                            ),
-                            AutoSizeText("Femme",style: TextStyle(
-                                fontFamily: "Poppins"
-                            ),),
-                          ],
+                        Radio(value: 1, groupValue: _value, onChanged: (value) {
+                          setState(() {
+                            _value=value!;
+                          });
+                        },
+                          fillColor: WidgetStateProperty.resolveWith<Color?>(
+                                (Set<WidgetState> states) {
+                              if (states.contains(WidgetState.selected)) {
+                                return Color(0xff00D3C7);
+                              }
+                              return null;
+                            },),
                         ),
-                        Row(
-                          children: [
-                            Radio(value: 2, groupValue: _value, onChanged: (value) {setState(() {
-                              _value=value!;
-                            });},
-                              fillColor: MaterialStateProperty.resolveWith<Color?>(
-                                    (Set<MaterialState> states) {
-                                  if (states.contains(MaterialState.selected)) {
-                                    return Color(0xff00D3C7);
-                                  }
-                                  return null;
-                                },),),
-                            const SizedBox(height: 4,),
-                            AutoSizeText("Homme",style: TextStyle(
-                              fontFamily: "Poppins"
-                            ),),
-                          ],
-                        ),
+                        AutoSizeText("Femme",style: TextStyle(
+                            fontFamily: "Poppins",
+                            color: isDarkMode? Colors.white.withOpacity(0.7):Colors.black.withOpacity(0.7)
+                        ),),
                       ],
-                    )
+                    ),
+                    Row(
+                      children: [
+                        Radio(value: 2, groupValue: _value, onChanged: (value) {setState(() {
+                          _value=value!;
+                        });},
+                          fillColor: WidgetStateProperty.resolveWith<Color?>(
+                                (Set<WidgetState> states) {
+                              if (states.contains(WidgetState.selected)) {
+                                return Color(0xff00D3C7);
+                              }
+                              return null;
+                            },),),
+                        const SizedBox(height: 4,),
+                        AutoSizeText("Homme",style: TextStyle(
+                          fontFamily: "Poppins",
+                            color: isDarkMode? Colors.white.withOpacity(0.7):Colors.black.withOpacity(0.7)
+                        ),),
+                      ],
+                    ),
+                  ],
                 ),
 
-                const SizedBox(height: 10,),
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 20),
                   child: Row(
@@ -197,10 +183,10 @@ class _SignupState extends State<Signup> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              height: height*0.025,
+                                height: height*0.03,
                                 margin: EdgeInsets.only(left:10) ,
-                                child: const AutoSizeText("Nom",
-                                style: TextStyle(fontFamily: "Poppins"),)),
+                                child: AutoSizeText("Nom",
+                                  style: TextStyle(color: isDarkMode?Colors.white:Colors.black),)),
                             buildTextField(width * 0.5,height, "", _nomFocusNode, _nomHasFocus,isDarkMode),
                           ],
                         ),
@@ -211,10 +197,10 @@ class _SignupState extends State<Signup> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                                height: height*0.025,
+                                height: height*0.03,
                                 margin: EdgeInsets.only(left:10) ,
-                                child: const AutoSizeText("Prénom",
-                                    style: TextStyle(fontFamily: "Poppins"))),
+                                child:  AutoSizeText("Prénom",
+                                  style: TextStyle(color: isDarkMode?Colors.white:Colors.black),)),
                             buildTextField(width * 0.5, height,"", _prenomFocusNode, _prenomHasFocus,isDarkMode),
                           ],
                         ),
@@ -222,26 +208,135 @@ class _SignupState extends State<Signup> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 20,),
-                CustomTextField(
-                  height: 0,
-                  title: "Date de naissance",
-                  controller: _dateController,
-                  onTap: _showDatePicker,
-                  iconButton: IconButton(
-                    onPressed: _showDatePicker,
-                    highlightColor: Colors.transparent,
-                    icon: Container(
-                      width: iconButtonSize+50,
-                      height: iconButtonSize+50,
-                      child: SvgPicture.asset('assets/images/calendar_icon.svg'),
+                SizedBox(height: height*0.015,),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                        height: height*0.03,
+                        margin: EdgeInsets.only(left:30) ,
+                        child:  AutoSizeText("Date de naissance",
+                          style: TextStyle(color: isDarkMode?Colors.white:Colors.black),)),
+                    GestureDetector(
+                      onTap: () {
+                        tempSelectedDateTime = selectedDateTime;
+                        showCupertinoModalPopup(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return Container(
+                              width: width,
+                              height: height * 0.35,
+                              color: isDarkMode
+                                  ? CupertinoColors.black
+                                  : CupertinoColors.white,
+                              child: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      CupertinoButton(
+                                        child: const Text(
+                                          "Cancel",
+                                          style: TextStyle(color: Colors.red),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                      CupertinoButton(
+                                        child: const Text(
+                                          "Done",
+                                          style: TextStyle(color: Colors.blue),
+                                        ),
+                                        onPressed: () {
+                                          updateDate(tempSelectedDateTime);
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                  Expanded(
+                                    child: CupertinoTheme(
+                                      data: CupertinoThemeData(
+                                        textTheme: CupertinoTextThemeData(
+                                            dateTimePickerTextStyle:
+                                            GoogleFonts.poppins(
+                                              textStyle: TextStyle(
+                                                color: isDarkMode
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                                fontSize: 20,
+                                              ),
+                                            )),
+                                      ),
+                                      child: CupertinoDatePicker(
+                                        initialDateTime: selectedDateTime,
+                                        onDateTimeChanged: (DateTime newDate) {
+                                          tempSelectedDateTime = newDate;
+                                        },
+                                        mode: CupertinoDatePickerMode.date,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        height: height * 0.055,
+                        width: width,
+                        margin: EdgeInsets.symmetric(horizontal: 20),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: isDarkMode
+                                ? CupertinoColors.white.withOpacity(0.5)
+                                : Color(0xFFEAEBF6),
+                          ),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            AutoSizeText(label,style: TextStyle(
+                              fontSize: 14,
+                              color: isDarkMode? Colors.white.withOpacity(0.7):Colors.black.withOpacity(0.7)
+                            ),),
+                            Icon(
+                              CupertinoIcons.calendar,
+                              color: isDarkMode
+                                  ? CupertinoColors.white.withOpacity(0.5)
+                                  : Color(0xFFEAEBF6),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-                CustomTextField(title: "Adresse e-mail", height: 0),
-                CustomTextField(title: "Numéro de téléphone", height: 0),
-                const SizedBox(height: 10,),
-              ],
+                SizedBox(height: height*0.015,),
+                Align(alignment: Alignment.centerLeft ,
+                    child: Container(
+                        height: height*0.03,
+                        margin: EdgeInsets.only(left:30) ,
+                        child: AutoSizeText("E-mail",
+                          style: TextStyle(color: isDarkMode?Colors.white:Colors.black),)
+                    )
+                ),
+                Container( margin: EdgeInsets.symmetric(horizontal: 20),
+                    child: buildTextField(width, height,"", _emailFocusNode, _emailHasFocus,isDarkMode)),
+                SizedBox(height: height*0.015,),
+                Align(alignment: Alignment.centerLeft ,
+                    child: Container(
+                        height: height*0.03,
+                        margin: EdgeInsets.only(left:30) ,
+                        child: AutoSizeText("Numéro de téléphone",
+                          style: TextStyle(color: isDarkMode?Colors.white:Colors.black),)
+                    )
+                ),
+                buildTextField(width,height, "", _numTeleFocusNode, _numTeleHasFocus,isDarkMode),              ],
             ),
 
             Column(
@@ -269,34 +364,36 @@ class _SignupState extends State<Signup> {
                       CardiJeune.top = 0.25;
                       widget.onContinueTapped();
                     }),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    const SizedBox(width: 20,),
-                    Container(
-                      height: height*0.025,
-                      child: const AutoSizeText(
-                        "Vous avez déja un compte?",
-                        style: TextStyle(fontFamily: "Inter",color: Color(0xff9999A3),
-    fontWeight: FontWeight.w400,),
+                Container(
+                  height: height * 0.04,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const SizedBox(width: 30),
+                      AutoSizeText(
+                        "Already have an account?",
+                        style: TextStyle(fontFamily: "Inter",
+                            color: Color(0xff9999A3),
+                            fontWeight: FontWeight.w400,
+                            fontSize: width*0.04),
                       ),
-                    ),
-                    const SizedBox(width: 2,),
-                    GestureDetector(
-                      onTap: () {
-                        widget.onSigninTapped(0.6, 0.25);
-                      },
-                      child: Container(
-                        height: height*0.025,
+                      const SizedBox(width: 2),
+                      GestureDetector(
+                        onTap: () {
+                          widget.onSigninTapped(0.6, 0.25);
+                        },
                         child: AutoSizeText(
-                          "Sign In",
+                          "Sign in",
                           style: TextStyle(
                               fontFamily: "Inter",
-                              color: isDarkMode? Color(0xff759cd8):Color(0xff3a01de)),
+                              color: isDarkMode ? Color(0xff759cd8) : Color(0xff3a01de),
+                              fontWeight: FontWeight.w400,
+                              fontSize: width*0.04
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),
