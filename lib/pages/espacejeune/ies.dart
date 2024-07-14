@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
-class Ies extends StatelessWidget {
+class Ies extends  StatefulWidget {
+
+  @override
+   IesState createState() => IesState();
+}
+class IesState extends State<Ies> {
   final List<Map<String, String>> previousLives = [
     {
       'title': 'Santé et Nutrition',
