@@ -2,8 +2,6 @@ import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../../Widgets/custom_sliver_app_bar.dart';
-
 class Chatbot extends StatefulWidget {
   const Chatbot({super.key});
   @override
@@ -56,7 +54,7 @@ class ChatbotState extends State<Chatbot> {
             padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
             decoration: BoxDecoration(
               color:
-              isUser ? Color(0xff99EDE9) : Color(0xff9196CD),
+              isUser ? Color(0xff00d3c7) : Color(0xff2e37a4),
               borderRadius: BorderRadius.circular(10.0),
             ),
             child: Column(
@@ -72,7 +70,7 @@ class ChatbotState extends State<Chatbot> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       IconButton(
-                        icon: Icon(Icons.thumb_up, size: 16,color: Color(0xffEAEBF6),),
+                        icon: Icon(Icons.thumb_up, size: 16),
                         onPressed: () {
                           print('Liked message: $messageText');
                         },
@@ -84,11 +82,10 @@ class ChatbotState extends State<Chatbot> {
                         child: Icon(
                           Icons.refresh,
                           size: 16,
-                          color: Color(0xffEAEBF6)
                         ),
                       ),
                       IconButton(
-                        icon: Icon(Icons.copy, size: 16,color: Color(0xffEAEBF6)),
+                        icon: Icon(Icons.copy, size: 16),
                         onPressed: () {
                           Clipboard.setData(ClipboardData(text: messageText));
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -120,58 +117,47 @@ class ChatbotState extends State<Chatbot> {
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Color(0xffF4F4F5),
       body: SafeArea(
         child: Column(
           children: [
             Expanded(
-              child:CustomScrollView(
-            slivers: [
-          CustomSliverAppBar(
-          name: "Simo",
-          role: "docteur",
-          imagePath: 'assets/images/profile.jpg',
-        ),
-        SliverPadding(
-          padding: EdgeInsets.only(right: 10,left: 10,top: 10),
-          sliver: SliverList(
-            delegate: SliverChildBuilderDelegate(
-                  (context, index) => buildMessage(messages[index], screenWidth),
-              childCount: messages.length,
+              child: ListView.builder(
+                padding: EdgeInsets.all(8.0),
+                itemCount: messages.length,
+                itemBuilder: (context, index) {
+                  return buildMessage(messages[index], screenWidth);
+                },
+              ),
             ),
-          ),
-        ),
+            Container(
+              alignment: Alignment.center,
+              height: 50,
+              width: screenWidth * 0.95,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  border: Border.all(width: 1,color: Cardi.isDarkMode.value?Colors.white.withOpacity(0.5):Colors.black.withOpacity(0.5))
+              ),
+              margin: EdgeInsets.only(bottom: 10),
+              padding: const EdgeInsets.only(left: 10),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: controller,
+                      decoration:
+                      InputDecoration.collapsed(hintText: 'Send a message'),
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.arrow_circle_up_outlined,color: Cardi.isDarkMode.value?Colors.white.withOpacity(0.5):Colors.black.withOpacity(0.5)),
+                    onPressed: sendMessage,
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
-        ),
-    Container(
-    alignment: Alignment.center,
-    height: 50,
-    width: screenWidth * 0.95,
-    decoration: BoxDecoration(
-    borderRadius: BorderRadius.circular(30),
-    border: Border.all(width: 2,color: Color(0xffEAEBF6))
-    ),
-    margin: EdgeInsets.only(bottom: 10),
-    padding: const EdgeInsets.only(left: 10),
-    child: Row(
-    children: [
-    SizedBox(width: 10,),
-    Expanded(
-    child: TextField(
-    controller: controller,
-    decoration:
-    InputDecoration.collapsed(hintText: 'Send a message'),
-    ),
-    ),
-    IconButton(
-    icon: Icon(Icons.arrow_circle_up_outlined,color: Color(0xff00D3C7)),
-    onPressed: sendMessage,
-    ),
-    ],
-    ),
-    ),],
       ),
-    ));
+    );
   }
 }

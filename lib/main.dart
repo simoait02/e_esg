@@ -1,3 +1,4 @@
+import 'package:e_esg/Widgets/NavigationBarDoctor.dart';
 import 'package:e_esg/pages/espaceInfermier/LoginSignUp/Cardi.dart';
 import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
 import 'package:e_esg/pages/espaceMedecin/home/Chatbot.dart';
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Chatbot(),
+      home: NavbarDoc(),
 );
   }
 }
