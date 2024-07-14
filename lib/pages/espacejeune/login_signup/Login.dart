@@ -1,8 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:e_esg/Pages/IES/calendrier.dart';
+import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:e_esg/Widgets/text_field.dart';
 
 class Login extends StatefulWidget {
   final Function(double, double) onSignUpTapped;
@@ -42,15 +42,44 @@ class _LoginState extends State<Login> {
     super.dispose();
   }
 
-  Widget buildLabel(String label, double height) {
+  Widget buildLabel(String label,double height,bool isDarkMode) {
     return Container(
-      margin: EdgeInsets.only(left: 40, top: height),
+      margin: EdgeInsets.only(left: 40,top: height),
       child: Align(
         alignment: Alignment.centerLeft,
         child: Text(
           label,
-          style: const TextStyle(fontFamily: "Inter", fontSize: 15),
+          style: TextStyle(fontFamily: "Inter",fontSize: 15,color: isDarkMode?Colors.white:Colors.black,
+          ),
         ),
+      ),
+    );
+  }
+
+  Widget buildTextField(double width,double height, String placeholder, FocusNode focusNode, bool hasFocus,bool isDarkMode) {
+    return Container(
+      width: width * 0.8,
+      height: height*0.055,
+      child: CupertinoTextField(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(
+            color: isDarkMode? hasFocus?CupertinoColors.systemBlue: CupertinoColors.white.withOpacity(0.5):hasFocus?CupertinoColors.systemBlue:Color(0xFFEAEBF6),
+            width: 2,
+          ),
+        ),
+        focusNode: focusNode,
+        onTapOutside: (event) => setState(() {
+          focusNode.unfocus;
+        }),
+        placeholder: placeholder,
+        placeholderStyle: TextStyle(
+          color: isDarkMode?Colors.white.withOpacity(0.5):Color(0xFFEAEBF6),
+        ),
+        style:TextStyle(
+          color: isDarkMode?Colors.white.withOpacity(0.5):Colors.black.withOpacity(0.5),
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
       ),
     );
   }
@@ -68,42 +97,44 @@ class _LoginState extends State<Login> {
       child: Column(
         children: [
           Container(
-            margin: EdgeInsets.only(left: 30),
-            child: Align(
+            margin: EdgeInsets.only(left:30),
+            child:  Align(
               alignment: Alignment.centerLeft,
               child: Container(
-                height: height * 0.07,
-                width: width * 0.2,
+                height: height*0.07,
+                width: width*0.2,
                 child: AutoSizeText(
                   "Login",
                   style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: width * 0.3,
-                    fontFamily: "Poppins",
+                      color: isDarkMode?Colors.white:Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                      fontFamily: "poppins"
                   ),
                 ),
               ),
             ),
           ),
-          CustomTextField(title: 'Identifiant', hint: "Email/CIN/CNE/Code Massar",height: 10,),
-          CustomTextField(title: 'Mot de passe', hint: "Mot de passe",height: 10),
-          Padding(padding: EdgeInsets.symmetric(horizontal:width*0.05),
-          child: Row(
-            children: [
-              Spacer(),
-              GestureDetector(
-                child: AutoSizeText("Mot de passe oublié?",
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: width * 0.04,
-                  fontFamily: "Poppins",
-                  color: Color(0xff00D3C7)
-                ),),
-              )
-            ],
-          ),),
+          buildLabel("Identifiant",height*0.02,isDarkMode),
+          buildTextField(width,height, "E-mail, CIN, CNE, Code Massar", _emailFocusNode, _emailHasFocus,Cardi.isDarkMode.value),
+          buildLabel("Password",height*0.02,isDarkMode),
+          buildTextField(width, height,"Password", _passwordFocusNode, _passwordHasFocus,Cardi.isDarkMode.value),
+          SizedBox(height: height*0.01,),
+          GestureDetector(
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              alignment: Alignment.centerRight,
+              child: AutoSizeText("Mot de passe oublié?",
+              style: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: width * 0.04,
+                fontFamily: "Poppins",
+                color: Color(0xff00D3C7)
+              ),),
+            ),
+          ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal:width*0.05,vertical: 10),
+            padding: EdgeInsets.symmetric(horizontal:width*0.05),
             child: Row(
               children: [
                 Checkbox(
@@ -120,6 +151,7 @@ class _LoginState extends State<Login> {
                 AutoSizeText(
                   "Se souvenir de moi",
                   style: TextStyle(
+                    color: isDarkMode?Colors.white:Colors.black,
                     fontWeight: FontWeight.w500,
                     fontSize: width * 0.04,
                     fontFamily: "Poppins",
@@ -128,11 +160,10 @@ class _LoginState extends State<Login> {
               ],
             ),
           ),
-
           CupertinoButton(
               child: Container(
                   width: width * 0.4,
-                  height: 50,
+                  height: height*0.05,
                   decoration: BoxDecoration(
                       gradient: const LinearGradient(
                           colors: [Color(0xff0b40ff), Color(0xff0c40a4)]),

@@ -70,7 +70,7 @@ class _PasswordState extends State<Password> {
           Container(
             height: height*0.07,
             width: width*0.7,
-            child: const Align(
+            child:  Align(
               alignment: Alignment.centerLeft,
               child: AutoSizeText(
                 "Créer un mot de passe",
@@ -78,6 +78,7 @@ class _PasswordState extends State<Password> {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 30,
+                    color: isDarkMode?Colors.white:Colors.black,
                     fontFamily: "poppins"),
               ),
             ),
@@ -92,6 +93,7 @@ class _PasswordState extends State<Password> {
             style: TextStyle(
               fontFamily: 'Poppins',
               fontSize: titleFontSize+15,
+              color: isDarkMode?Colors.white:Colors.black,
             ),
           ),
           Container(
@@ -108,6 +110,9 @@ class _PasswordState extends State<Password> {
               children: [
                 Expanded(
                   child: CupertinoTextField(
+                    style:TextStyle(
+                      color: isDarkMode?Colors.white:Colors.black,
+                    ),
                     focusNode: _focusNode,
                     autofocus: false,
                     obscureText: !passwordvisible,
@@ -141,7 +146,7 @@ class _PasswordState extends State<Password> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SvgPicture.asset("assets/images/warning.svg",color: Color(0xff00D3C7),),
+                SvgPicture.asset("assets/images/warning.svg",),
                 Expanded(child: Text(
                   "the password should be atleast 8 characters and  contain both lowercase and uppercase letters and  at least one numerical character and  special characters (! @ # % ^ & * )",style: TextStyle(fontSize: 10,color: Color(0xff9999A3)),
                 ))
@@ -159,6 +164,7 @@ class _PasswordState extends State<Password> {
                   style: TextStyle(
                     fontFamily: 'Poppins',
                     fontSize: titleFontSize+15,
+                    color: isDarkMode?Colors.white:Colors.black,
                   ),
                 ),
                 Container(
@@ -175,6 +181,9 @@ class _PasswordState extends State<Password> {
                     children: [
                       Expanded(
                         child: CupertinoTextField(
+                          style:TextStyle(
+                            color: isDarkMode?Colors.white:Colors.black,
+                          ),
                           focusNode: _focusNode2,
                           autofocus: false,
                           obscureText: !passwordvisible2,
@@ -210,7 +219,6 @@ class _PasswordState extends State<Password> {
                     width: width * 0.3,
                     height: height*0.06,
                     decoration: BoxDecoration(
-                        color: Colors.white,
                         borderRadius: BorderRadius.circular(40),
                         border: Border.all(color: Color(0xff4E57CD))),
                     alignment: Alignment.center,
@@ -229,12 +237,13 @@ class _PasswordState extends State<Password> {
                 child: Container(
                     width: width * 0.4,
                     height: height*0.06,
+                    padding: EdgeInsets.all(4),
                     decoration: BoxDecoration(
                         gradient: const LinearGradient(
                             colors: [Color(0xff4E57CD), Color(0xff0c40a4)]),
                         borderRadius: BorderRadius.circular(40)),
                     alignment: Alignment.center,
-                    child: const Text(
+                    child: const AutoSizeText(
                       "créer votre compte",
                       style: TextStyle(color: Colors.white, fontSize: 17),
                     )),
