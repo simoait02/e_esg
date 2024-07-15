@@ -77,7 +77,7 @@ class _CardiState extends State<Cardi> {
         child: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage("assets/images/backgroundLogin.png"),
+              image: AssetImage("assets/images/login.png"),
               fit: BoxFit.cover,
             ),
           ),

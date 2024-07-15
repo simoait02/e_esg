@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:e_esg/pages/espaceInfermier/LoginSignUp/Cardi.dart';
 import 'package:e_esg/pages/espaceMedecin/home/Profile/Settings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -230,6 +231,13 @@ class _AccounttypeState extends State<Accounttype> {
                     Navigator.pushAndRemoveUntil(
                       context,
                       CupertinoPageRoute(builder: (context) =>CardiJeune()),
+                          (Route<dynamic> route) => false,
+                    );
+                  };
+                  if(isInfermier){
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      CupertinoPageRoute(builder: (context) =>CardiInf()),
                           (Route<dynamic> route) => false,
                     );
                   };

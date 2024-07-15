@@ -121,7 +121,7 @@ class _NavbarDocState extends State<NavbarDoc> {
                   },
                   showSelectedLabels: false,
                   showUnselectedLabels: false,
-                  backgroundColor: Cardi.isDarkMode.value?Color(0xff141218):Colors.white,
+                  backgroundColor: Cardi.isDarkMode.value?const Color(0xff141218):Colors.white,
                   items: [
                     BottomNavigationBarItem(
                       icon: _buildNavItem(

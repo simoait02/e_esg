@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:video_player/video_player.dart';
-
 import '../../Data/live_list.dart';
 import '../../Widgets/custom_sliver_app_bar.dart';
 import '../../models/live.dart';
@@ -32,7 +30,6 @@ class IesState extends State<Ies> {
     sectionPadding = screenWidth * 0.04;
     titleFontSize = screenWidth * 0.06;
     return Scaffold(
-      backgroundColor: Colors.white,
       body:SafeArea(
         child: CustomScrollView(
           slivers: [
@@ -118,7 +115,6 @@ class IesState extends State<Ies> {
         width: 280,
         margin: EdgeInsets.only(right: 8),
         decoration: BoxDecoration(
-          color: Colors.white,
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(
@@ -159,7 +155,7 @@ class IesState extends State<Ies> {
               leading: Padding(
                 padding: EdgeInsets.symmetric(vertical: height * 0.01, horizontal: width * 0.02),
                 child: CircleAvatar(
-                  backgroundImage: AssetImage(live.doctor.profil),
+                  backgroundImage: AssetImage("assets/images/png"),
                 ),
               ),
               title: Text(
@@ -189,7 +185,6 @@ class SuggestionBox extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(screenWidth * 0.05),
       decoration: BoxDecoration(
-        color: Colors.white,
         borderRadius: BorderRadius.circular(16.0),
         boxShadow: [
           BoxShadow(
@@ -244,8 +239,8 @@ class SuggestionBox extends StatelessWidget {
               Spacer(),
               ElevatedButton(
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(Color(0xff2E37A4)),
-                  foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                  backgroundColor: WidgetStateProperty.all<Color>(Color(0xff2E37A4)),
+                  foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
                 ),
                 onPressed: () {
                   print('Suggestion envoyée: ${suggestionController.text}');

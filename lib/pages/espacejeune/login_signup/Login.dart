@@ -1,10 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:e_esg/Pages/IES/calendrier.dart';
+import 'package:e_esg/Widgets/NavigationBarJeune.dart';
 import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../../../Widgets/text_field.dart';
 
 class Login extends StatefulWidget {
   final Function(double, double) onSignUpTapped;
@@ -117,23 +115,6 @@ class _LoginState extends State<Login> {
               ),
             ),
           ),
-          CustomTextField(title: 'Identifiant', hint: "Email/CIN/CNE/Code Massar",height: 10,),
-          CustomTextField(title: 'Mot de passe', hint: "Mot de passe",height: 10),
-          Padding(padding: EdgeInsets.symmetric(horizontal:width*0.05),
-          child: Row(
-            children: [
-              Spacer(),
-              GestureDetector(
-                child: AutoSizeText("Mot de passe oublié?",
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: width * 0.04,
-                  fontFamily: "Poppins",
-                  color: Color(0xff00D3C7)
-                ),),
-              )
-            ],
-          ),),
           buildLabel("Identifiant",height*0.02,isDarkMode),
           buildTextField(width,height, "E-mail, CIN, CNE, Code Massar", _emailFocusNode, _emailHasFocus,Cardi.isDarkMode.value),
           buildLabel("Password",height*0.02,isDarkMode),
@@ -195,7 +176,7 @@ class _LoginState extends State<Login> {
               onPressed: () {
                 Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (context) => Calendrier()),
+                  MaterialPageRoute(builder: (context) => NavbarYouth()),
                       (Route<dynamic> route) => false,
                 );
 
