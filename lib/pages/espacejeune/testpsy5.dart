@@ -53,7 +53,7 @@ class Testpsy5State extends State<Testpsy5> {
     var brightness = MediaQuery.of(context).platformBrightness;
     bool isDarkMode = brightness == Brightness.dark;
     return Scaffold(
-      backgroundColor:isDarkMode?Color(0xff141218):Colors.white,
+      backgroundColor:isDarkMode?Color(0xff141218):Color(0xffF5F5F6),
       appBar: AppBar(
         backgroundColor:isDarkMode?Color(0xff141218):Colors.white,
       leading: IconButton(

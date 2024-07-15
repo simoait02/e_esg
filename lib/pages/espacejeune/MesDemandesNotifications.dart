@@ -124,6 +124,7 @@ class MesDemandesNotificationsState extends State<MesDemandesNotifications> {
     double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      backgroundColor:Color(0xffF5F5F6),
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
