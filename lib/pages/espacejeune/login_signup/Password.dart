@@ -146,7 +146,7 @@ class _PasswordState extends State<Password> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SvgPicture.asset("assets/images/warning.svg",),
+                SvgPicture.asset("assets/images/warning.svg",color: Color(0xff59E2DB),),
                 Expanded(child: Text(
                   "the password should be atleast 8 characters and  contain both lowercase and uppercase letters and  at least one numerical character and  special characters (! @ # % ^ & * )",style: TextStyle(fontSize: 10,color: Color(0xff9999A3)),
                 ))

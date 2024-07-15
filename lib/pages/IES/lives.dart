@@ -13,6 +13,7 @@ class Lives extends StatefulWidget {
 }
 
 class _LivesState extends State<Lives> {
+
   List<Live> _foundedLives = [];
   double sectionPadding = 16.0; // Example padding value
   double titleFontSize = 20.0; // Example font size value
@@ -30,10 +31,17 @@ class _LivesState extends State<Lives> {
       }).toList();
     });
   }
+  double width=0;
+  double height=0;
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    width=screenWidth;
+    height=screenHeight;
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xffF5F5F6),
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
@@ -48,11 +56,17 @@ class _LivesState extends State<Lives> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    IconButton(onPressed:()=>Navigator.pop(context), icon: Container(child:  Image.asset(
+                      "assets/images/fleche.png",
+                      width: 20,
+                      height: 20,
+                      color: Color(0xff2E37A4),
+                    ),)),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 20.0),
                       child: Center(
                         child: Text(
-                          "Vos lives",
+                          "Les lives",
                           style: TextStyle(
                             fontFamily: 'Poppins',
                             fontWeight: FontWeight.w700,
@@ -86,10 +100,18 @@ class _LivesState extends State<Lives> {
   }
   Widget liveComponent({required Live live}) {
     return GestureDetector(
-      onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>LiveInformationsPage(),settings: RouteSettings(arguments: live))),
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => LiveInformationsPage(),
+          settings: RouteSettings(arguments: live),
+        ),
+      ),
       child: Container(
-        margin: EdgeInsets.all(10),
+        width: 280,
+        margin: EdgeInsets.all( 8),
         decoration: BoxDecoration(
+          color: Colors.white,
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(
@@ -113,29 +135,37 @@ class _LivesState extends State<Lives> {
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 5),
+            Container(
+              padding: EdgeInsets.only(left: 5, right: 5, top: 7),
               child: Text(
                 live.subject,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w600,
-                  fontSize: titleFontSize -3,
+                  fontSize: width * 0.04,
+                  fontWeight: FontWeight.bold,
                 ),
+                textAlign: TextAlign.start,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20, bottom: 13),
-              child: Text(
-                'By ' + live.doctor.name,
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w500,
-                  fontSize: titleFontSize -7,
-                  color: Color(0xFF797979),
+            ListTile(
+              contentPadding: EdgeInsets.zero,
+              leading: Padding(
+                padding: EdgeInsets.symmetric(
+                  vertical: height * 0.01,
+                  horizontal: width * 0.02,
                 ),
+                child: CircleAvatar(
+                  backgroundImage: AssetImage(live.doctor.profil),
+                ),
+              ),
+              title: Text(
+                live.doctor.name,
+                style: TextStyle(fontSize: width * 0.04),
+              ),
+              subtitle: Text(
+                'Date : ${live.date.day}/${live.date.month}/${live.date.year} à ${live.hour.format(context)}',
+                style: TextStyle(fontSize: width * 0.03),
               ),
             ),
           ],
@@ -143,4 +173,5 @@ class _LivesState extends State<Lives> {
       ),
     );
   }
+
 }

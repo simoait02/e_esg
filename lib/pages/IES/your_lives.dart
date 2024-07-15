@@ -44,11 +44,18 @@ class _YourLivesState extends State<YourLives> {
               imagePath: 'assets/images/boy.png',
             ),
             SliverToBoxAdapter(
+
               child: Container(
                 padding: EdgeInsets.all(sectionPadding),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    IconButton(onPressed:()=>Navigator.pop(context), icon: Container(child:  Image.asset(
+                      "assets/images/fleche.png",
+                      width: 20,
+                      height: 20,
+                      color: Color(0xff2E37A4),
+                    ),)),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 20.0),
                       child: Center(

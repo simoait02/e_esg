@@ -103,7 +103,7 @@ class _MespatientsState extends State<Mespatients> {
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            CustomSliverAppBar(role: "Medcin",name: "simo",imagePath: "assets/images/boy.png",),
+            CustomSliverAppBar(role: "Docteur",name: "simo",imagePath: "assets/images/boy.png",),
             SliverToBoxAdapter(
               child: Container(
                 margin: EdgeInsets.only(top:10),

@@ -35,8 +35,8 @@ class _IesState extends State<Ies> {
         child: CustomScrollView(
           slivers: [
             CustomSliverAppBar(
-              name: "Sergio",
-              role: "Marquina",
+              name: "Simo",
+              role: "Docteur",
               imagePath: 'assets/images/boy.png',
             ),
             SliverToBoxAdapter(

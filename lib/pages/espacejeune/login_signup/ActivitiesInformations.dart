@@ -54,6 +54,31 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
         });
       }
     });
+    _cinFocusNode.addListener(() {
+      setState(() {
+        _cinHasFocus = _cinFocusNode.hasFocus;
+      });
+    });
+    _cneFocusNode.addListener(() {
+      setState(() {
+        _cneHasFocus = _cneFocusNode.hasFocus;
+      });
+    });
+    _codeMassarFocusNode.addListener(() {
+      setState(() {
+        _codeMassarHasFocus = _codeMassarFocusNode.hasFocus;
+      });
+    });
+    _lastStudFocusNode.addListener(() {
+      setState(() {
+        _lastStudHasFocus = _lastStudFocusNode.hasFocus;
+      });
+    });
+    _stateActuFocusNode.addListener(() {
+      setState(() {
+        _stateActuHasFocus = _stateActuFocusNode.hasFocus;
+      });
+    });
   }
   Widget buildTextField(double width,double height, String placeholder, FocusNode focusNode, bool hasFocus,bool isDarkMode) {
     return Container(

@@ -32,11 +32,22 @@ class _SignupState extends State<Signup> {
     _nomFocusNode.addListener(() {
       setState(() {
         _nomHasFocus = _nomFocusNode.hasFocus;
+
       });
     });
     _prenomFocusNode.addListener(() {
       setState(() {
         _prenomHasFocus = _prenomFocusNode.hasFocus;
+      });
+    });
+    _emailFocusNode.addListener(() {
+      setState(() {
+        _emailHasFocus = _emailFocusNode.hasFocus;
+      });
+    });
+    _numTeleFocusNode.addListener(() {
+      setState(() {
+        _numTeleHasFocus = _numTeleFocusNode.hasFocus;
       });
     });
   }
@@ -45,6 +56,8 @@ class _SignupState extends State<Signup> {
   void dispose() {
     _nomFocusNode.dispose();
     _prenomFocusNode.dispose();
+    _emailFocusNode.dispose();
+    _numTeleFocusNode.dispose();
     super.dispose();
   }
   Widget buildLabel(String label,double height,bool isDarkMode) {
@@ -60,27 +73,28 @@ class _SignupState extends State<Signup> {
       ),
     );
   }
-  Widget buildTextField(double width,double height, String placeholder, FocusNode focusNode, bool hasFocus,bool isDarkMode) {
+  Widget buildTextField(double width, double height, String placeholder, FocusNode focusNode, bool hasFocus, bool isDarkMode) {
     return Container(
       width: width * 0.8,
-      height: height*0.055,
+      height: height * 0.055,
       child: CupertinoTextField(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
-            color: hasFocus?Color(0xFF2E37A4) : isDarkMode ? CupertinoColors.white.withOpacity(0.5) : Color(0xFFEAEBF6),
+            color: hasFocus ? Color(0xFF2E37A4) : Color(0xFFEAEBF6),
             width: 2,
           ),
         ),
         focusNode: focusNode,
         placeholder: placeholder,
-        style:TextStyle(
-          color: isDarkMode?Colors.white.withOpacity(0.5):Colors.black.withOpacity(0.5),
+        style: TextStyle(
+          color: isDarkMode ? Colors.white.withOpacity(0.5) : Colors.black.withOpacity(0.5),
         ),
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
       ),
     );
   }
+
   String label = "Choisir la date de naissance";
   DateTime selectedDateTime = DateTime.now();
   DateTime tempSelectedDateTime = DateTime.now();
@@ -126,7 +140,8 @@ class _SignupState extends State<Signup> {
                     alignment: Alignment.centerLeft,
                     margin: EdgeInsets.only(left:30) ,
                     child:  AutoSizeText("Sexe",
-                      style: TextStyle(color: isDarkMode?Colors.white:Colors.black),)),                Row(
+                      style: TextStyle(color: isDarkMode?Colors.white:Colors.black),)),
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Row(
@@ -246,7 +261,7 @@ class _SignupState extends State<Signup> {
                                       CupertinoButton(
                                         child: const Text(
                                           "Done",
-                                          style: TextStyle(color: Colors.blue),
+                                          style: TextStyle(color:Color(0xff2E37A5)),
                                         ),
                                         onPressed: () {
                                           updateDate(tempSelectedDateTime);

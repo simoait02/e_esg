@@ -24,7 +24,7 @@ class _TeleexpertiseState extends State<TeleExpertise> {
       child: SafeArea(
         child: CustomScrollView(
           slivers: [
-            CustomSliverAppBar(role: "Medcin", name: "simo", imagePath: "assets/images/boy.png"),
+            CustomSliverAppBar(role: "Docteur", name: "simo", imagePath: "assets/images/boy.png"),
             SliverToBoxAdapter(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

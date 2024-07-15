@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'Consentement.dart';
 import 'package:page_transition/page_transition.dart';
@@ -36,7 +37,7 @@ class Dossiermedical4State extends State<Dossiermedical4> {
   List<bool> selectedDoses = [false, false, false, false];
   List<bool> selectedInstructions = [false, false, false, false];
 
-  String? priseEnCharge;
+  int _value = 0; // Changed to int
 
   Widget buildAllergiesCeinture(List<String> allergies, List<bool> selected, String titre) {
     return Column(
@@ -48,7 +49,7 @@ class Dossiermedical4State extends State<Dossiermedical4> {
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
-            color: Colors.blue,
+            color: Color(0xff2F38A5),
           ),
         ),
         SizedBox(height: 8),
@@ -58,7 +59,8 @@ class Dossiermedical4State extends State<Dossiermedical4> {
             return ChoiceChip(
               label: Text(allergies[index]),
               selected: selected[index],
-              selectedColor: Colors.blue,
+              selectedColor: Color(0xff9196CC),
+              backgroundColor: Colors.white,
               onSelected: (bool selectedValue) {
                 setState(() {
                   selected[index] = selectedValue;
@@ -77,19 +79,18 @@ class Dossiermedical4State extends State<Dossiermedical4> {
     var screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      backgroundColor: const Color(0xffF5F5F6),
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Image.asset('assets/images/logo.png', height: screenHeight * 0.08),
-            SizedBox(width: 20),
-            Text(
+            AutoSizeText(
               'Dossier médical',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
-                color: Colors.blue,
+                color: Color(0xff2F38A5),
               ),
             ),
           ],
@@ -102,12 +103,12 @@ class Dossiermedical4State extends State<Dossiermedical4> {
               Container(
                 width: 280,
                 height: 5,
-                color: Colors.black,
+                color: Color(0xff2F38A5),
               ),
               Expanded(
                 child: Container(
                   height: 5,
-                  color: Colors.blue,
+                  color: Color(0xffEAEBF6),
                 ),
               ),
             ],
@@ -136,28 +137,27 @@ class Dossiermedical4State extends State<Dossiermedical4> {
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
-                      color: Colors.blue,
+                      color: Color(0xff2F38A5),
                     ),
                   ),
                   SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      GestureDetector(
-                        onTap: () {
+                      Radio<int>(
+                        value: 1,
+                        groupValue: _value,
+                        onChanged: (int? value) {
                           setState(() {
-                            priseEnCharge = 'Médicale';
+                            _value = value!;
                           });
                         },
-                        child: Container(
-                          width: 10,
-                          height: 10,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: priseEnCharge == 'Médicale' ? Colors.blue : Colors.transparent,
-                            border: Border.all(color: Colors.blue),
-                          ),
-                        ),
+                        fillColor: MaterialStateColor.resolveWith((states) {
+                          if (states.contains(MaterialState.selected)) {
+                            return Color(0xff00D3C7);
+                          }
+                          return Color(0xff2F38A5); // Default color when not selected
+                        }),
                       ),
                       SizedBox(width: 8),
                       Text(
@@ -168,21 +168,20 @@ class Dossiermedical4State extends State<Dossiermedical4> {
                         ),
                       ),
                       SizedBox(width: 20),
-                      GestureDetector(
-                        onTap: () {
+                      Radio<int>(
+                        value: 2,
+                        groupValue: _value,
+                        onChanged: (int? value) {
                           setState(() {
-                            priseEnCharge = 'Paramédicale';
+                            _value = value!;
                           });
                         },
-                        child: Container(
-                          width: 10,
-                          height: 10,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: priseEnCharge == 'Paramédicale' ? Colors.blue : Colors.transparent,
-                            border: Border.all(color: Colors.blue),
-                          ),
-                        ),
+                        fillColor: MaterialStateColor.resolveWith((states) {
+                          if (states.contains(MaterialState.selected)) {
+                            return Color(0xff00D3C7);
+                          }
+                          return Color(0xff2F38A5); // Default color when not selected
+                        }),
                       ),
                       SizedBox(width: 8),
                       Text(
@@ -204,24 +203,24 @@ class Dossiermedical4State extends State<Dossiermedical4> {
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
-                          foregroundColor: Colors.black,
-                          side: BorderSide(color: Colors.black),
+                          foregroundColor: Color(0xff2F38A5),
+                          side: BorderSide(color: Color(0xff2F38A5)),
                         ),
                         child: Text('Précédent'),
                       ),
-                      SizedBox(width: 5),
+                      SizedBox(width:40),
                       ElevatedButton(
                         onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.rightToLeft,
-                                    child: Consentement(),
-                                  ),
-                                );
+                          Navigator.push(
+                            context,
+                            PageTransition(
+                              type: PageTransitionType.rightToLeft,
+                              child: Consentement(),
+                            ),
+                          );
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue,
+                          backgroundColor: Color(0xff2F38A5),
                           foregroundColor: Colors.white,
                         ),
                         child: Text('Continuer'),

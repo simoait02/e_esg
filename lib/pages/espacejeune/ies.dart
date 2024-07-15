@@ -36,11 +36,12 @@ class IesState extends State<Ies> {
     sectionPadding = screenWidth * 0.04;
     titleFontSize = screenWidth * 0.06;
     return Scaffold(
+      backgroundColor: Color(0xffF5F5F6),
       body:SafeArea(
         child: CustomScrollView(
           slivers: [
             CustomSliverAppBar(
-              name: "Chaimae Bouti",
+              name: "Simo",
               role: "docteur",
               imagePath: 'assets/images/boy.png',
             ),
@@ -181,6 +182,7 @@ class IesState extends State<Ies> {
         width: 280,
         margin: EdgeInsets.only(right: 8),
         decoration: BoxDecoration(
+          color: Colors.white,
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(
@@ -221,7 +223,7 @@ class IesState extends State<Ies> {
               leading: Padding(
                 padding: EdgeInsets.symmetric(vertical: height * 0.01, horizontal: width * 0.02),
                 child: CircleAvatar(
-                  backgroundImage: AssetImage("assets/images/png"),
+                  backgroundImage: AssetImage(live.doctor.profil),
                 ),
               ),
               title: Text(

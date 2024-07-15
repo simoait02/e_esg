@@ -35,6 +35,7 @@ class DossiermedicalState extends State<Dossiermedical> {
     var brightness = MediaQuery.of(context).platformBrightness;
     bool isDarkMode = brightness == Brightness.dark;
     return Scaffold(
+      backgroundColor: Color(0xffF5F5F6),
       body:  SafeArea(
         child: Center(
             child: SingleChildScrollView(
@@ -53,7 +54,7 @@ class DossiermedicalState extends State<Dossiermedical> {
                           child: CircleAvatar(
                             radius: screenWidth * 0.15,
                             backgroundImage:
-                                AssetImage('assets/images/Sedraty.png'),
+                                AssetImage('assets/images/boy.png'),
                           ),
                         ),
                         SizedBox(height: screenHeight * 0.04),

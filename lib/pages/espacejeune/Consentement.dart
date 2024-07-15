@@ -1,5 +1,8 @@
+import 'package:e_esg/Widgets/NavigationBarJeune.dart';
+import 'package:e_esg/pages/espacejeune/dossierMedical1.dart';
 import 'package:flutter/material.dart';
 import 'dossierMedical.dart';
+
 class Consentement extends StatefulWidget {
   const Consentement({super.key});
 
@@ -12,110 +15,109 @@ class ConsentementState extends State<Consentement> {
 
   @override
   Widget build(BuildContext context) {
+    var screenHeight = MediaQuery.of(context).size.height;
+    var screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 240, 235, 235),
+      backgroundColor: const Color(0xffF5F5F6),
       body: Padding(
-        padding: const EdgeInsets.all(17.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(16.0),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8.0),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black26,
-                    blurRadius: 4.0,
-                    offset: Offset(0, 2),
-                  ),
-                ],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Consentement",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                    "Veuillez lire le consentement suivant. Vous devez en accepter toutes les conditions d'utilisation de l'application avant de continuer.",
-                    style: TextStyle(
-                      fontSize: 12,
-                    ),
-                  ),
-                  SizedBox(height: 16),
-                  Text(
-                    "Les conditions d'utilisation de la plateforme :",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 0.5),
-                  Container(
-                    width: double.infinity,
-                    height: 0.5,
-                    color: Colors.black,
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 16),
-            Row(
+        padding: EdgeInsets.all(screenWidth * 0.05),
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Checkbox(
-                  value: isChecked,
-                  onChanged: (bool? value) {
-                    setState(() {
-                      isChecked = value ?? false;
-                    });
-                  },
-                ),
-                Expanded(
-                  child: Text(
-                    "J'ai lu et j'accepte les conditions d'utilisation de la plateforme",
-                    style: TextStyle(fontSize: 14),
+                Container(
+                  width: screenWidth * 0.9,
+                  padding: EdgeInsets.all(screenWidth * 0.05),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16.0),
+                    border: Border.all(color: const Color(0xffEAEBF6), width: 2),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Consentement",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      Text(
+                        "Veuillez lire le consentement suivant. Vous devez en accepter toutes les conditions d'utilisation de l'application avant de continuer.",
+                        style: TextStyle(
+                          fontSize: 12,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(height: 16),
+                      Text(
+                        "Les conditions d'utilisation de la plateforme :",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 0.5),
+                      Container(
+                        width: double.infinity,
+                        height: 0.5,
+                        color: Colors.black,
+                      ),
+                      SizedBox(height: 16),
+                      Row(
+                        children: [
+                          Checkbox(
+                            value: isChecked,
+                            onChanged: (bool? value) {
+                              setState(() {
+                                isChecked = value ?? false;
+                              });
+                            },
+                            activeColor: Color(0xff2F38A5),
+                          ),
+                          Expanded(
+                            child: Text(
+                              "J'ai lu et j'accepte les conditions d'utilisation de la plateforme",
+                              style: TextStyle(fontSize: 14),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 16),
+                      // Add a check to enable the button only when the checkbox is checked
+                      ElevatedButton(
+                        onPressed: isChecked ? () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const NavbarYouth()),
+                          );
+                        } : null,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xff2F38A5),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        child: Text(
+                          "Suivant",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 16),
-            Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Dossiermedical()),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color.fromARGB(255, 41, 124, 192), 
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10), 
-                  ),
-                ),
-                child: Text(
-                  "Suivant",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
   }
 }
-
-
-

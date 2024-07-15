@@ -34,12 +34,12 @@ class _IesDoctorState extends State<IesDoctor> {
     titleFontSize = screenWidth * 0.06;
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xffF5F5F6),
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
             CustomSliverAppBar(
-              name: "Chaimae Bouti",
+              name: "Simo",
               role: "docteur",
               imagePath: 'assets/images/boy.png',
             ),

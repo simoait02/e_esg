@@ -1,4 +1,5 @@
- import 'package:flutter/material.dart';
+ import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'dossierMedical2.dart';
 
@@ -16,19 +17,18 @@ class Dossiermedical1State extends State<Dossiermedical1> {
     var screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      backgroundColor: const Color(0xffF5F5F6),
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Image.asset('assets/images/logo.png', height: screenHeight * 0.08),
-            SizedBox(width: 45),
-            Text(
+            AutoSizeText(
               'Dossier médical',
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
-                color: Colors.blue,
+                color: Color(0xff2F38A5),
               ),
             ),
           ],
@@ -41,12 +41,12 @@ class Dossiermedical1State extends State<Dossiermedical1> {
               Container(
                 width: 130,
                 height: 5,
-                color: Colors.black,
+                color: Color(0xff2F38A5)
               ),
               Expanded(
                 child: Container(
                   height: 5,
-                  color: Colors.blue,
+                  color: Color(0xffEAEBF6),
                 ),
               ),
             ],
@@ -156,7 +156,7 @@ class Dossiermedical1State extends State<Dossiermedical1> {
                             width: screenWidth * 0.3,
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.blue,
+                                backgroundColor: Color(0xff2E37A4),
                                 foregroundColor: Colors.white,
                                 padding: EdgeInsets.symmetric(vertical: 11),
                               ),

@@ -49,6 +49,17 @@ class _LiveInformationsPageState extends State<LiveInformationsPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    Row(
+                      children: [
+                        IconButton(onPressed:()=>Navigator.pop(context), icon: Container(child:  Image.asset(
+                          "assets/images/fleche.png",
+                          width: 20,
+                          height: 20,
+                          color: Color(0xff2E37A4),
+                        ),)),
+                        Spacer()
+                      ],
+                    ),
                     Container(
                       padding: EdgeInsets.symmetric(vertical: 20),
                       child: ClipRRect(

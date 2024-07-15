@@ -64,7 +64,7 @@ class _LoginState extends State<Login> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
-            color: isDarkMode? hasFocus?CupertinoColors.systemBlue: CupertinoColors.white.withOpacity(0.5):hasFocus?CupertinoColors.systemBlue:Color(0xFFEAEBF6),
+            color: isDarkMode? hasFocus?Color(0xff2E37A5): CupertinoColors.white.withOpacity(0.5):hasFocus?Color(0xff2E37A5):Color(0xFFEAEBF6),
             width: 2,
           ),
         ),
@@ -73,9 +73,6 @@ class _LoginState extends State<Login> {
           focusNode.unfocus;
         }),
         placeholder: placeholder,
-        placeholderStyle: TextStyle(
-          color: isDarkMode?Colors.white.withOpacity(0.5):Color(0xFFEAEBF6),
-        ),
         style:TextStyle(
           color: isDarkMode?Colors.white.withOpacity(0.5):Colors.black.withOpacity(0.5),
         ),
@@ -131,33 +128,6 @@ class _LoginState extends State<Login> {
                 fontFamily: "Poppins",
                 color: Color(0xff00D3C7)
               ),),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal:width*0.05),
-            child: Row(
-              children: [
-                Checkbox(
-                  value: remember,
-                  onChanged: (bool? newValue) {
-                    setState(() {
-                       remember = !remember ;
-                    });
-                  },
-                  activeColor: Color(0xFF2E37A4),
-                  checkColor: Colors.white,
-                  side: BorderSide(color: Color(0xffD6D6DA),width: 2),
-                ),
-                AutoSizeText(
-                  "Se souvenir de moi",
-                  style: TextStyle(
-                    color: isDarkMode?Colors.white:Colors.black,
-                    fontWeight: FontWeight.w500,
-                    fontSize: width * 0.04,
-                    fontFamily: "Poppins",
-                  ),
-                ),
-              ],
             ),
           ),
           CupertinoButton(

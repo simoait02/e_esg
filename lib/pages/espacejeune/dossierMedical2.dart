@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'dossierMedical3.dart';
 import 'package:page_transition/page_transition.dart';
@@ -48,7 +49,7 @@ class DossierMedical2State extends State<DossierMedical2> {
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
-            color: Colors.blue,
+              color: Color(0xff2F38A5),
           ),
         ),
         SizedBox(height: 8),
@@ -63,8 +64,8 @@ class DossierMedical2State extends State<DossierMedical2> {
                   selectedList[index] = selected;
                 });
               },
-              selectedColor: Colors.blue,
-              backgroundColor: Colors.grey[200],
+              selectedColor: Color(0xff9196CC),
+              backgroundColor: Colors.white,
             );
           }).toList(),
         ),
@@ -78,19 +79,18 @@ class DossierMedical2State extends State<DossierMedical2> {
     var screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      backgroundColor: const Color(0xffF5F5F6),
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Image.asset('assets/images/logo.png', height: screenHeight * 0.08),
-            SizedBox(width: 20),
-            Text(
+            AutoSizeText(
               'Dossier médical',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
-                color: Colors.blue,
+                color: Color(0xff2F38A5),
               ),
             ),
           ],
@@ -103,12 +103,12 @@ class DossierMedical2State extends State<DossierMedical2> {
               Container(
                 width: 170,
                 height: 5,
-                color: Colors.black,
+                color: Color(0xff2F38A5),
               ),
               Expanded(
                 child: Container(
                   height: 5,
-                  color: Colors.blue,
+                  color: Color(0xffEAEBF6),
                 ),
               ),
             ],
@@ -142,12 +142,12 @@ class DossierMedical2State extends State<DossierMedical2> {
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
-                          foregroundColor: Colors.black,
-                          side: BorderSide(color: Colors.black),
+                          foregroundColor: Color(0xff2F38A5),
+                          side: BorderSide(color:Color(0xff2F38A5)),
                         ),
                         child: Text('Précédent'),
                       ),
-                      SizedBox(width: 5),
+                      SizedBox(width:40),
                       ElevatedButton(
                         onPressed: () {
                                 Navigator.push(
@@ -159,7 +159,7 @@ class DossierMedical2State extends State<DossierMedical2> {
                                 );
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue,
+                          backgroundColor: Color(0xff2F38A5),
                           foregroundColor: Colors.white,
                         ),
                         child: Text('Continuer'),

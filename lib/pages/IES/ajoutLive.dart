@@ -177,11 +177,11 @@ class _AjoutliveState extends State<Ajoutlive> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Medecin/Infirmier",
+                            "Médecin/Infirmier",
                             style: TextStyle(
                               fontFamily: 'Poppins',
-                              fontWeight: FontWeight.w600,
-                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
                             ),
                           ),
                           SizedBox(height: 15),
