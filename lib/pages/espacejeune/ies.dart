@@ -35,8 +35,10 @@ class IesState extends State<Ies> {
     iconButtonSize = screenWidth * 0.06;
     sectionPadding = screenWidth * 0.04;
     titleFontSize = screenWidth * 0.06;
+    var brightness = MediaQuery.of(context).platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
     return Scaffold(
-      backgroundColor: Color(0xffF5F5F6),
+        backgroundColor: isDarkMode?Color(0xff141218):Colors.white,
       body:SafeArea(
         child: CustomScrollView(
           slivers: [
@@ -66,7 +68,7 @@ class IesState extends State<Ies> {
                         scrollDirection: Axis.horizontal,
                         itemCount: thisWeekLives.length,
                         itemBuilder: (context, index) {
-                          return liveComponent(live: thisWeekLives[index]);
+                          return liveComponent(live: thisWeekLives[index],isDarkMode: isDarkMode);
                         },
                       ),
                     ),
@@ -100,7 +102,7 @@ class IesState extends State<Ies> {
                         scrollDirection: Axis.horizontal,
                         itemCount: allLives.length,
                         itemBuilder: (context, index) {
-                          return liveComponent(live: allLives[index]);
+                          return liveComponent(live: allLives[index],isDarkMode: isDarkMode);
                         },
                       ),
                     ),
@@ -175,14 +177,14 @@ class IesState extends State<Ies> {
       )
     );
   }
-  Widget liveComponent({required Live live}) {
+  Widget liveComponent({required Live live,required bool isDarkMode}) {
     return GestureDetector(
       onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>LiveInformationsPage(),settings: RouteSettings(arguments: live))),
       child: Container(
         width: 280,
         margin: EdgeInsets.only(right: 8),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color:isDarkMode?Color(0xff141218):Colors.white,
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(

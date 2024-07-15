@@ -35,7 +35,7 @@ class DossiermedicalState extends State<Dossiermedical> {
     var brightness = MediaQuery.of(context).platformBrightness;
     bool isDarkMode = brightness == Brightness.dark;
     return Scaffold(
-      backgroundColor: Color(0xffF5F5F6),
+      backgroundColor:isDarkMode?Color(0xff141218):Colors.white,
       body:  SafeArea(
         child: Center(
             child: SingleChildScrollView(
