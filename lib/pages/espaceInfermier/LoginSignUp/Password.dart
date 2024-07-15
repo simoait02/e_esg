@@ -142,7 +142,7 @@ class _PasswordState extends State<Password> {
                 onPressed: () {
                   Navigator.pushAndRemoveUntil(
                     context,
-                    MaterialPageRoute(builder: (context) => NavbarYouth()),
+                    MaterialPageRoute(builder: (context) => NavbarDoc()),
                         (Route<dynamic> route) => false,
                   );
                 },
