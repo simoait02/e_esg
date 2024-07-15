@@ -4,6 +4,8 @@ import 'package:e_esg/pages/espacejeune/testpsy5.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+
+import '../pages/espacejeune/testpsy1.dart';
 void main() {
   runApp(const NavbarYouth());
 }
@@ -18,8 +20,8 @@ class NavbarYouth extends StatefulWidget {
 class _NavbarYouthState extends State<NavbarYouth> {
   List<dynamic> selected=[
     const Dossiermedical(),
-     Ies(),
-    const Testpsy5(),
+    const Ies(),
+    const Testpsy1(),
   ];
   int _selectedItem = 0;
   Widget _buildNavItem(String assetPath, String label, int index) {
@@ -27,6 +29,7 @@ class _NavbarYouthState extends State<NavbarYouth> {
     bool isDarkMode = brightness == Brightness.dark;
     return SizedBox(
       child: Container(
+        decoration: BoxDecoration(color: Colors.white),
         margin: const EdgeInsets.only(left: 5,right: 5),
         height: 40,
         child: Row(

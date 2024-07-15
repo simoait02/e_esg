@@ -1,7 +1,12 @@
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:e_esg/Widgets/custom_sliver_app_bar.dart';
+import 'package:e_esg/pages/espacejeune/testpsy4.dart';
+import 'package:e_esg/pages/espacejeune/testpsy5.dart';
 import 'package:flutter/material.dart';
 import 'dossierMedical.dart';
 import 'ies.dart';
 import 'testpsy1.dart';
+
 class Testpsy3 extends StatefulWidget {
   const Testpsy3({Key? key}) : super(key: key);
 
@@ -46,149 +51,150 @@ class Testpsy3State extends State<Testpsy3> {
     var screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 240, 235, 235),
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        leading: IconButton(
-          icon: Image.asset('assets/images/menu.png'),
-          onPressed: () {
-            print('Afficher le menu');
-          },
-        ),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset('assets/images/logo.png', height: screenHeight * 0.1),
-          ],
-        ),
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(screenWidth * 0.05),
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  width: screenWidth * 0.9,
-                  padding: EdgeInsets.all(screenWidth * 0.05),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(screenWidth * 0.04),
-                  ),
-                  child: Center(
-                    child: Text(
-                      "Évaluation de l'Humeur et de la Vitalité",
-                      style: TextStyle(
-                        fontSize: screenWidth * 0.04,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
-                SizedBox(height: screenHeight * 0.04),
-                Container(
-                  width: screenWidth * 0.9,
-                  padding: EdgeInsets.all(screenWidth * 0.05),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(screenWidth * 0.04),
-                  ),
+      backgroundColor: Color(0xffF5F5F6),
+      body: SafeArea(
+        child: CustomScrollView(
+          slivers: [
+            CustomSliverAppBar(
+              name: "Simo",
+              role: "Jeune",
+              imagePath: 'assets/images/boy.png',
+            ),
+            SliverPadding(
+              padding: EdgeInsets.all(screenWidth * 0.05),
+              sliver: SliverToBoxAdapter(
+                child: Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context); 
-                        },
-                        child: Row(
-                          children: [
-                            Image.asset(
-                              "assets/images/fleche.png",
-                              width: screenWidth * 0.03,
-                              height: screenWidth * 0.03,
+                      Container(
+                        width: screenWidth * 0.9,
+                        padding: EdgeInsets.all(screenWidth * 0.05),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(screenWidth * 0.04),
+                          border: Border.all(color: Color(0xffEAEBF6), width: 2),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "Évaluation de l'Humeur et de la Vitalité",
+                            style: TextStyle(
+                              fontSize: screenWidth * 0.04,
+                              fontWeight: FontWeight.bold,
                             ),
-                            SizedBox(width: screenWidth * 0.01),
-                            Text(
-                              "Précédent",
-                              style: TextStyle(
-                                fontSize: screenWidth * 0.039,
-                                color: Color.fromARGB(255, 4, 79, 140),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: screenHeight * 0.04),
+                      Container(
+                        width: screenWidth * 0.9,
+                        padding: EdgeInsets.all(screenWidth * 0.05),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(screenWidth * 0.04),
+                          border: Border.all(color: Color(0xffEAEBF6), width: 2),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              child: Row(
+                                children: [
+                                  Image.asset(
+                                    "assets/images/fleche.png",
+                                    width: screenWidth * 0.03,
+                                    height: screenWidth * 0.03,
+                                    color: Color(0xff2E37A4),
+                                  ),
+                                  SizedBox(width: screenWidth * 0.01),
+                                  Text(
+                                    "Précédent",
+                                    style: TextStyle(
+                                      fontSize: screenWidth * 0.039,
+                                      color: Color(0xff2E37A4),
+                                    ),
+                                  ),
+                                ],
                               ),
+                            ),
+                            SizedBox(height: screenHeight * 0.02),
+                            AutoSizeText(
+                              "Je prends plaisir aux mêmes choses qu’autrefois.",
+                              style: TextStyle(
+                                fontSize: 16,
+                              ),
+                            ),
+                            SizedBox(height: screenHeight * 0.02),
+                            ListView.builder(
+                              shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
+                              itemCount: 4,
+                              itemBuilder: (context, index) {
+                                return MouseRegion(
+                                  onEnter: (_) {
+                                    setState(() {
+                                      isHovered[index] = true;
+                                    });
+                                  },
+                                  onExit: (_) {
+                                    setState(() {
+                                      isHovered[index] = false;
+                                    });
+                                  },
+                                  child: GestureDetector(
+                                    onTap: () => Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => Testpsy4())),
+                                    child: Container(
+                                      width: screenWidth * 0.4,
+                                      height: screenHeight * 0.08,
+                                      margin: EdgeInsets.only(
+                                          bottom: screenHeight * 0.02),
+                                      padding: EdgeInsets.all(screenWidth * 0.03),
+                                      decoration: BoxDecoration(
+                                        color: isHovered[index]
+                                            ? Colors.blue
+                                            : Color(0xff9196CD),
+                                        borderRadius: BorderRadius.circular(
+                                            screenWidth * 0.02),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          index == 0
+                                              ? 'Oui, tout autant.'
+                                              : index == 1
+                                              ? 'Pas autant.'
+                                              : index == 2
+                                              ? 'Un peu seulement.'
+                                              : 'Presque plus.',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: screenWidth * 0.035,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
                             ),
                           ],
                         ),
                       ),
-                      SizedBox(height: screenHeight * 0.02),
-                      Text(
-                        "Je prends plaisir aux mêmes choses qu’autrefois.",
-                        style: TextStyle(
-                          fontSize: screenWidth * 0.03,
-                        ),
-                      ),
-                      SizedBox(height: screenHeight * 0.02),
-                      ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: 4,
-                        itemBuilder: (context, index) {
-                          return MouseRegion(
-                            onEnter: (_) {
-                              setState(() {
-                                isHovered[index] = true;
-                              });
-                            },
-                            onExit: (_) {
-                              setState(() {
-                                isHovered[index] = false;
-                              });
-                            },
-                            child: GestureDetector(
-                              onTap: () {
-                                Navigator.pushNamed(context, '/testpsy4');
-                              },
-                              child: Container(
-                                width: screenWidth * 0.4,
-                                height: screenHeight * 0.08,
-                                margin: EdgeInsets.only(bottom: screenHeight * 0.02),
-                                padding: EdgeInsets.all(screenWidth * 0.03),
-                                decoration: BoxDecoration(
-                                  color: isHovered[index]
-                                      ? Colors.blue
-                                      : Color.fromARGB(255, 4, 79, 140),
-                                  borderRadius: BorderRadius.circular(screenWidth * 0.02),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    index == 0
-                                        ? 'Oui, tout autant.'
-                                        : index == 1
-                                            ? 'Pas autant.'
-                                            : index == 2
-                                                ? 'Un peu seulement.'
-                                                : 'Presque plus.',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: screenWidth * 0.035,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
                     ],
                   ),
                 ),
-              ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );
   }
 }
-
-

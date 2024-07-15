@@ -1,4 +1,7 @@
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:e_esg/pages/espacejeune/testpsy5.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'dossierMedical.dart';
 import 'ies.dart';
 import 'testpsy1.dart';
@@ -47,7 +50,7 @@ class Testpsy4State extends State<Testpsy4> {
     var screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 240, 235, 235),
+      backgroundColor: Color(0xffF5F5F6),
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
@@ -76,6 +79,7 @@ class Testpsy4State extends State<Testpsy4> {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(16.0),
+                    border: Border.all(color: Color(0xffEAEBF6), width: 2),
                   ),
                   child: Center(
                     child: Text(
@@ -95,44 +99,48 @@ class Testpsy4State extends State<Testpsy4> {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(16.0),
+                    border: Border.all(color: Color(0xffEAEBF6), width: 2),
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        "Merci d'avoir complèté le test",
+                      AutoSizeText(
+                        "Merci d'avoir compléter le test",
                         style: TextStyle(
-                          fontSize: 11,
+                          fontSize: 16,
                         ),
                       ),
-                      SizedBox(height: 10),
-                      Image.asset(
-                        "assets/images/taches.png",
+                      SizedBox(height: 20),
+                      SvgPicture.asset(
+                        "assets/images/tick-circle.svg",
                         width: 160,
                         height: 160,
                       ),
                       SizedBox(height: 10),
                       GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, '/testpsy5');
-                        },
+                        onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Testpsy5())),
                         child: Text(
                           "Résultat du test",
                           style: TextStyle(
-                            fontSize: 13,
-                            color: Colors.blue,
+                            fontSize: 15,
+                            color: Color(0xff9196CD),
                           ),
                         ),
                       ),
                       SizedBox(height: 10),
                       GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
+                        onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Testpsy1())),
                         child: Text(
                         "Revenir aux tests psychologiques",
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 15,
+                          color: Color(0xff00D3C7),
                         ),
                       ),
                       ),

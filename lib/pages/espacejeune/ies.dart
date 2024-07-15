@@ -1,8 +1,11 @@
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:e_esg/Widgets/vote_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../Data/live_list.dart';
+import '../../Widgets/ajout_proposition_dialog.dart';
 import '../../Widgets/custom_sliver_app_bar.dart';
 import '../../models/live.dart';
 import '../IES/live_informations_page.dart';
@@ -19,6 +22,9 @@ class Ies extends  StatefulWidget {
 class IesState extends State<Ies> {
   double width=0;
   double height=0;
+  void addNewProposition(String subject) {
+
+  }
 
 
   @override
@@ -101,7 +107,67 @@ class IesState extends State<Ies> {
                       ),
                     ),
                     SizedBox(height: 20),
-                    SuggestionBox(),
+                    GestureDetector(
+                      onTap: (){
+                        showDialog(
+                            context: context,
+                            builder: (context) => AddPropositionDialog(
+                              onConfirm: addNewProposition,
+                            ));
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(screenWidth * 0.04),
+                          border: Border.all(
+                            color: Color(0xFFEAEBF6),
+                            width: 1.0,
+                          ),
+                          color: Color(0xff2F38A5)
+                        ),
+                        padding: EdgeInsets.all(sectionPadding),
+                        child: Center(
+                          child: AutoSizeText(
+                            'Proposer',
+                            style: TextStyle(
+                              fontSize: titleFontSize - 2,
+                              color: Colors.white,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: screenHeight * 0.02),
+                    GestureDetector(
+                      onTap: (){showDialog(
+                          context: context,
+                          builder: (context) => VoteDialog(
+                              onConfirm: addNewProposition));
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(screenWidth * 0.04),
+                          border: Border.all(
+                            color: Color(0xFFEAEBF6),
+                            width: 1.0,
+                          ),
+                            color: Color(0xff2F38A5)
+                        ),
+                        padding: EdgeInsets.all(sectionPadding),
+                        child: Center(
+                          child: AutoSizeText(
+                            'Voter',
+                            style: TextStyle(
+                              fontSize: titleFontSize - 2,
+                              color: Colors.white,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),

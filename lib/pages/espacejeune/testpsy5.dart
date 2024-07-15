@@ -52,7 +52,7 @@ class Testpsy5State extends State<Testpsy5> {
     var screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 240, 235, 235),
+      backgroundColor: Color(0xffF5F5F6),
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
@@ -81,6 +81,7 @@ class Testpsy5State extends State<Testpsy5> {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(16.0),
+                    border: Border.all(color: Color(0xffEAEBF6),width: 2)
                   ),
                   child: Center(
                     child: Text(
@@ -100,6 +101,7 @@ class Testpsy5State extends State<Testpsy5> {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(16.0),
+                      border: Border.all(color: Color(0xffEAEBF6),width: 2)
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -109,7 +111,7 @@ class Testpsy5State extends State<Testpsy5> {
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
-                          color: Colors.blue.shade200,
+                          color: Color(0xff2E37A4),
                         ),
                       ),
                       SizedBox(height: 6),
@@ -145,6 +147,7 @@ class Testpsy5State extends State<Testpsy5> {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(16.0),
+                      border: Border.all(color: Color(0xffEAEBF6),width: 2)
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -154,7 +157,7 @@ class Testpsy5State extends State<Testpsy5> {
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
-                          color: Colors.blue.shade200,
+                          color: Color(0xff2E37A4),
                         ),
                       ),
                     ],
