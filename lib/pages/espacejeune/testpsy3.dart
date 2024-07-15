@@ -49,9 +49,10 @@ class Testpsy3State extends State<Testpsy3> {
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
     var screenWidth = MediaQuery.of(context).size.width;
-
+    var brightness = MediaQuery.of(context).platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
     return Scaffold(
-      backgroundColor: Color(0xffF5F5F6),
+      backgroundColor:isDarkMode?Color(0xff141218):Colors.white,
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
@@ -71,7 +72,7 @@ class Testpsy3State extends State<Testpsy3> {
                         width: screenWidth * 0.9,
                         padding: EdgeInsets.all(screenWidth * 0.05),
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color:isDarkMode?Color(0xff141218):Colors.white,
                           borderRadius: BorderRadius.circular(screenWidth * 0.04),
                           border: Border.all(color: Color(0xffEAEBF6), width: 2),
                         ),
@@ -91,7 +92,7 @@ class Testpsy3State extends State<Testpsy3> {
                         width: screenWidth * 0.9,
                         padding: EdgeInsets.all(screenWidth * 0.05),
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color:isDarkMode?Color(0xff141218):Colors.white,
                           borderRadius: BorderRadius.circular(screenWidth * 0.04),
                           border: Border.all(color: Color(0xffEAEBF6), width: 2),
                         ),
