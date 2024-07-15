@@ -23,6 +23,7 @@ class _ProfileState extends State<Profile> {
       valueListenable: Cardi.isDarkMode,
       builder: (context, isDarkMode, child) {
         return Scaffold(
+          backgroundColor: Cardi.isDarkMode.value?Color(0xff141218):Colors.white,
           appBar: AppBar(
             backgroundColor: isDarkMode ? const Color(0xff181a1b) : Colors.white,
             title: Container(

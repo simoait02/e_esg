@@ -30,12 +30,13 @@ class _IesState extends State<Ies> {
     titleFontSize = screenWidth * 0.06;
 
     return Scaffold(
+      backgroundColor: Cardi.isDarkMode.value?Color(0xff141218):Colors.white,
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
             CustomSliverAppBar(
-              name: "Chaimae Bouti",
-              role: "docteur",
+              name: "Sergio",
+              role: "Marquina",
               imagePath: 'assets/images/boy.png',
             ),
             SliverToBoxAdapter(

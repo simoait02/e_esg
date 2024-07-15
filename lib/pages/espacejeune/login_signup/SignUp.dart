@@ -342,22 +342,18 @@ class _SignupState extends State<Signup> {
             Column(
               children: [
                 CupertinoButton(
-                    child: Row(
-                      children: [
-                        Spacer(),
-                        Container(
-                            width: width * 0.3,
-                            height: height*0.06,
-                            decoration: BoxDecoration(
-                                gradient: const LinearGradient(
-                                    colors: [Color(0xff4E57CD), Color(0xff0c40a4)]),
-                                borderRadius: BorderRadius.circular(40)),
-                            alignment: Alignment.center,
-                            child: const AutoSizeText(
-                              "Suivant",
-                              style: TextStyle(color: Colors.white, fontSize: 20),
-                            )),
-                      ],
+                    child: Container(
+                      width: width * 0.3,
+                      height: height*0.055,
+                      decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                              colors: [Color(0xff4E57CD), Color(0xff0c40a4)]),
+                          borderRadius: BorderRadius.circular(40)),
+                      alignment: Alignment.center,
+                      child: const AutoSizeText(
+                        "Suivant",
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      )
                     ),
                     onPressed: () {
                       CardiJeune.q = 0.45;

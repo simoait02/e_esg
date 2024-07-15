@@ -20,6 +20,7 @@ class _TeleexpertiseState extends State<TeleExpertise> {
   Widget build(BuildContext context) {
     double width=MediaQuery.of(context).size.width;
     return CupertinoPageScaffold(
+      backgroundColor: Cardi.isDarkMode.value?Color(0xff141218):Colors.white,
       child: SafeArea(
         child: CustomScrollView(
           slivers: [

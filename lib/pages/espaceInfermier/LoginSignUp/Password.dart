@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:e_esg/Widgets/NavigationBarDoctor.dart';
+import 'package:e_esg/Widgets/NavigationBarJeune.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'Cardi.dart';
@@ -115,11 +116,11 @@ class _PasswordState extends State<Password> {
                     decoration: BoxDecoration(
                         color:Colors.transparent,
                         borderRadius: BorderRadius.circular(40),
-                        border: Border.all(color: Color(0xff0b40ff))),
+                        border: Border.all(color: Color(0xff4E57CD))),
                     alignment: Alignment.center,
                     child: Text(
                       "Precedent",
-                      style: TextStyle(color:CardiInf.isDarkMode.value?Colors.white:Colors.black, fontSize: 15),
+                      style: TextStyle(color:Color(0xff4E57CD), fontSize: 15),
                     )),
                 onPressed: () {
                   widget.onBackTapped(0.63,0.1);
@@ -131,7 +132,7 @@ class _PasswordState extends State<Password> {
                     height: height*0.05,
                     decoration: BoxDecoration(
                         gradient: const LinearGradient(
-                            colors: [Color(0xff0b40ff), Color(0xff0c40a4)]),
+                            colors: [Color(0xff4E57CD), Color(0xff2F38A5)]),
                         borderRadius: BorderRadius.circular(40)),
                     alignment: Alignment.center,
                     child: const Text(
@@ -141,7 +142,7 @@ class _PasswordState extends State<Password> {
                 onPressed: () {
                   Navigator.pushAndRemoveUntil(
                     context,
-                    CupertinoPageRoute(builder: (context) => NavbarDoc()),
+                    MaterialPageRoute(builder: (context) => NavbarYouth()),
                         (Route<dynamic> route) => false,
                   );
                 },
