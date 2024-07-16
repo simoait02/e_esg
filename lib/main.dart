@@ -1,3 +1,4 @@
+import 'package:e_esg/AccountType.dart';
 import 'package:e_esg/Widgets/NavigationBarJeune.dart';
 import 'package:e_esg/pages/IES/calendrier.dart';
 import 'package:e_esg/pages/espaceInfermier/LoginSignUp/Cardi.dart';
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Cardi(),
+      home: Accounttype(),
 );
   }
 }

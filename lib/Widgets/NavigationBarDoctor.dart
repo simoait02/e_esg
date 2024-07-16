@@ -3,12 +3,11 @@ import 'package:e_esg/pages/espaceMedecin/home/IES.dart';
 import 'package:e_esg/pages/espaceMedecin/home/MesPatients/MesPatients.dart';
 import 'package:e_esg/pages/espaceMedecin/home/Profile/Profile.dart';
 import 'package:e_esg/pages/espaceMedecin/home/Profile/Settings.dart';
-import 'package:e_esg/pages/espaceMedecin/home/teleExpertise/TeleExpertise.dart';
+import 'package:e_esg/pages/espaceMedecin/home/teleExpertise/newTeleExpertise.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../pages/espaceMedecin/home/Chatbot.dart';
-
 
 class NavbarDoc extends StatefulWidget {
   const NavbarDoc({super.key});
@@ -20,7 +19,7 @@ class NavbarDoc extends StatefulWidget {
 class _NavbarDocState extends State<NavbarDoc> {
   List<dynamic> selected = [
     const Mespatients(),
-    const TeleExpertise(),
+    const Newteleexpertise(),
     const Ies(),
     const Chatbot(),
     const Profile(),
@@ -69,11 +68,13 @@ class _NavbarDocState extends State<NavbarDoc> {
       ),
     );
   }
+
   @override
   void initState() {
     _loadPreferences();
     super.initState();
   }
+
   _loadPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -86,7 +87,11 @@ class _NavbarDocState extends State<NavbarDoc> {
 
   @override
   Widget build(BuildContext context) {
-    Settings.isSystemSettings? Cardi.isDarkMode.value=(MediaQuery.of(context).platformBrightness == Brightness.dark):!Settings.isDark?Settings.isDark:Settings.isLight;
+    Settings.isSystemSettings
+        ? Cardi.isDarkMode.value = (MediaQuery.of(context).platformBrightness == Brightness.dark)
+        : !Settings.isDark
+        ? Settings.isDark
+        : Settings.isLight;
     return ValueListenableBuilder<bool>(
       valueListenable: Cardi.isDarkMode,
       builder: (context, isDarkMode, child) {
@@ -94,85 +99,97 @@ class _NavbarDocState extends State<NavbarDoc> {
           debugShowCheckedModeBanner: false,
           theme: isDarkMode ? ThemeData.dark() : ThemeData.light(),
           home: Scaffold(
-            bottomNavigationBar: Container(
-              decoration: BoxDecoration(
-                border: Border(
-                  top: BorderSide(
-                    width: 1,
-                    color: isDarkMode ? const Color(0x40ffffff) : const Color(0x3f000000),
+            body: Stack(
+              children: [
+                selected[_selectedItem],
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: isDarkMode ? const Color(0xff141218) : Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: isDarkMode ? Colors.black26 : Colors.grey.withOpacity(0.3),
+                          spreadRadius: 3,
+                          blurRadius: 7,
+                          offset: Offset(0, 3), // changes position of shadow
+                        ),
+                      ],
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                      ),
+                      child: BottomNavigationBar(
+                        currentIndex: _selectedItem,
+                        onTap: (index) {
+                          setState(() {
+                            _selectedItem = index;
+                          });
+                        },
+                        showSelectedLabels: false,
+                        showUnselectedLabels: false,
+                        backgroundColor: isDarkMode ? const Color(0xff141218) : Colors.white,
+                        items: [
+                          BottomNavigationBarItem(
+                            icon: _buildNavItem(
+                              "assets/images/patients.png",
+                              "Mes Patients",
+                              0,
+                              isDarkMode,
+                            ),
+                            label: "",
+                          ),
+                          BottomNavigationBarItem(
+                            icon: _buildNavItem(
+                              "assets/images/teleExpertise.png",
+                              "Télé-\nExpertise",
+                              1,
+                              isDarkMode,
+                            ),
+                            label: "",
+                          ),
+                          BottomNavigationBarItem(
+                            icon: _buildNavItem(
+                              "assets/images/IES.png",
+                              "IES",
+                              2,
+                              isDarkMode,
+                            ),
+                            label: "",
+                          ),
+                          BottomNavigationBarItem(
+                            icon: _buildNavItem(
+                              "assets/images/chatbot.png",
+                              "Chatbot",
+                              3,
+                              isDarkMode,
+                            ),
+                            label: "",
+                          ),
+                          BottomNavigationBarItem(
+                            icon: _buildNavItem(
+                              "assets/images/profile.png",
+                              "Profile",
+                              4,
+                              isDarkMode,
+                            ),
+                            label: "",
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
-                ),
-              ),
-              child: ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
-                ),
-                child: BottomNavigationBar(
-                  currentIndex: _selectedItem,
-                  onTap: (index) {
-                    setState(() {
-                      _selectedItem = index;
-                    });
-                  },
-                  showSelectedLabels: false,
-                  showUnselectedLabels: false,
-                  backgroundColor: Cardi.isDarkMode.value?const Color(0xff141218):Colors.white,
-                  items: [
-                    BottomNavigationBarItem(
-                      icon: _buildNavItem(
-                        "assets/images/patients.png",
-                        "Mes Patients",
-                        0,
-                        isDarkMode,
-                      ),
-                      label: "",
-                    ),
-                    BottomNavigationBarItem(
-                      icon: _buildNavItem(
-                        "assets/images/teleExpertise.png",
-                        "Télé-\nExpertise",
-                        1,
-                        isDarkMode,
-                      ),
-                      label: "",
-                    ),
-                    BottomNavigationBarItem(
-                      icon: _buildNavItem(
-                        "assets/images/IES.png",
-                        "IES",
-                        2,
-                        isDarkMode,
-                      ),
-                      label: "",
-                    ),
-                    BottomNavigationBarItem(
-                      icon: _buildNavItem(
-                        "assets/images/chatbot.png",
-                        "Chatbot",
-                        3,
-                        isDarkMode,
-                      ),
-                      label: "",
-                    ),
-                    BottomNavigationBarItem(
-                      icon: _buildNavItem(
-                        "assets/images/profile.png",
-                        "Profile",
-                        4,
-                        isDarkMode,
-                      ),
-                      label: "",
-                    ),
-                  ],
-                ),
-              ),
+              ],
             ),
-            body: selected[_selectedItem],
           ),
         );
       },

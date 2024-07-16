@@ -169,7 +169,7 @@ class ChatbotState extends State<Chatbot> {
                     borderRadius: BorderRadius.circular(30),
                     border: Border.all(width: 2, color: Color(0xff00D3C7)),
                   ),
-                  margin: EdgeInsets.only(bottom: 10, top: 5),
+                  margin: EdgeInsets.only(bottom: 80, top: 5),
                   padding: const EdgeInsets.only(left: 10),
                   child: Row(
                     children: [
