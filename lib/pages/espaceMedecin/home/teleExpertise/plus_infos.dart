@@ -3,6 +3,7 @@ import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PlusInfos extends StatefulWidget {
   const PlusInfos({super.key});
@@ -16,11 +17,20 @@ class _PlusInfosState extends State<PlusInfos> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+    final appLocalizations = AppLocalizations.of(context);
     return Scaffold(
       backgroundColor: Cardi.isDarkMode.value ? const Color(0xff141218) : Colors.white,
       appBar: CupertinoNavigationBar(
+        backgroundColor: Cardi.isDarkMode.value ? Color(0xff181a1b) : Colors.white,
         previousPageTitle: "Back",
-        middle: Text("Informations"),
+        middle: Text(
+          appLocalizations!.infos,
+          style: GoogleFonts.poppins(
+            textStyle: TextStyle(
+              color: Cardi.isDarkMode.value ? Colors.white : Colors.black,
+            ),
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -37,7 +47,7 @@ class _PlusInfosState extends State<PlusInfos> {
                     SizedBox(
                       width: width * 0.28,
                       child: Text(
-                        "Motif: ",
+                        appLocalizations.motif,
                         style: GoogleFonts.aBeeZee(
                           textStyle: const TextStyle(
                             fontSize: 17,
@@ -68,7 +78,7 @@ class _PlusInfosState extends State<PlusInfos> {
               children: [
                 SizedBox(
                   width: width*0.28,
-                  child: AutoSizeText("Lancée par : ",
+                  child: AutoSizeText(appLocalizations.lancePar,
                     style: GoogleFonts.aBeeZee(
                         textStyle: const TextStyle(
                           fontSize: 17,
@@ -96,7 +106,7 @@ class _PlusInfosState extends State<PlusInfos> {
               children: [
                 SizedBox(
                   width: width*0.28,
-                  child: AutoSizeText("Participants :",
+                  child: AutoSizeText(appLocalizations.participants,
                     maxLines: 1,
                     style: GoogleFonts.aBeeZee(
                         textStyle: const TextStyle(
@@ -148,7 +158,7 @@ class _PlusInfosState extends State<PlusInfos> {
               children: [
                 SizedBox(
                   width: width*0.28,
-                  child: AutoSizeText("Date : ",
+                  child: AutoSizeText(appLocalizations.date,
                     style: GoogleFonts.aBeeZee(
                         textStyle: const TextStyle(
                           fontSize: 17,
@@ -176,7 +186,7 @@ class _PlusInfosState extends State<PlusInfos> {
               children: [
                 SizedBox(
                   width: width*0.28,
-                  child: AutoSizeText("Time : ",
+                  child: AutoSizeText(appLocalizations.time,
                     style: GoogleFonts.aBeeZee(
                         textStyle: const TextStyle(
                           fontSize: 17,
@@ -204,7 +214,7 @@ class _PlusInfosState extends State<PlusInfos> {
               children: [
                 SizedBox(
                   width: width*0.28,
-                  child: AutoSizeText("Compte Rendue : ",
+                  child: AutoSizeText(appLocalizations.compteRendue,
                     style: GoogleFonts.aBeeZee(
                         textStyle: const TextStyle(
                           fontSize: 17,

@@ -198,9 +198,7 @@ class _TeleExpertiseState extends State<TeleExpertise> {
                 ),
                 deactivatedColor: const Color(0xff505176),
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 20,),
               Container(
                 alignment:language=='ar'?Alignment.centerRight:Alignment.centerLeft,
                 margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -231,7 +229,7 @@ class _TeleExpertiseState extends State<TeleExpertise> {
                       ),)
                 ),
               ),
-              const SizedBox(height: 10,),
+              const SizedBox(height: 20,),
               Container(
                 alignment:language=='ar'?Alignment.centerRight:Alignment.centerLeft,
                 margin: const EdgeInsets.symmetric(horizontal: 20),

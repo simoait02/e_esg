@@ -45,7 +45,22 @@
   "myInviteddDiscussion": "مناقشاتي المدعوة",
   "startAt": "تبدأ في:",
   "start": "بدأ",
-  "rejoindre":"انضم"
-
+  "rejoindre":"انضم",
+  "discussion": "مناقشة",
+  "medcins": "الاطباء",
+  "home": "الصفحة الرئيسية",
+  "browse": "تصفح",
+  "accepter": "اقبل",
+  "refuser": "رفض",
+  "date": "تاريخ",
+  "time": "وقت",
+  "motif": "السبب",
+  "myInvitations": "دعواتي",
+  "discTermin": "المناقشات المنتهية",
+  "infos": "معلومات",
+  "lancePar": "بدأ بواسطة",
+  "participants": "مشاركون",
+  "compteRendue": "تقرير",
+  "more": "المزيد"
 
 }

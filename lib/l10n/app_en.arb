@@ -45,5 +45,21 @@
   "myInviteddDiscussion": "My invited discussions",
   "startAt": "Start at:",
   "start": "Start",
-  "rejoindre":"join"
+  "rejoindre":"join",
+  "discussion": "Discussions",
+  "medcins": "Doctors",
+  "home": "Home page",
+  "browse": "BROWSE",
+  "accepter": "Accept",
+  "refuser": "Refuse",
+  "date": "Date",
+  "time": "Time",
+  "motif": "Reason",
+  "myInvitations": "My invitations",
+  "discTermin": "finished discussions ",
+  "infos": "Informations",
+  "lancePar": "launched by",
+  "participants": "Participants",
+  "compteRendue": "report",
+  "more": "See more"
 }

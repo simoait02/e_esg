@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Sidebar extends StatefulWidget {
   final int selectedItem;
@@ -19,6 +20,7 @@ class _SidebarState extends State<Sidebar> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+    final appLocalizations = AppLocalizations.of(context);
     return Scaffold(
       body: Container(
         width: width * 0.75,
@@ -58,7 +60,7 @@ class _SidebarState extends State<Sidebar> {
                   Padding(
                     padding: const EdgeInsets.only(left: 24, top: 32, bottom: 16),
                     child: AutoSizeText(
-                      "Browse".toUpperCase(),
+                      appLocalizations!.browse.toUpperCase(),
                       style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Colors.white70),
                     ),
                   ),
@@ -99,7 +101,7 @@ class _SidebarState extends State<Sidebar> {
                           ),
                         ),
                         title: Text(
-                          "Page d'accueil",
+                          appLocalizations.home,
                           style: GoogleFonts.poppins(
                             textStyle: const TextStyle(
                               fontSize: 18,
@@ -143,7 +145,7 @@ class _SidebarState extends State<Sidebar> {
                           ),
                         ),
                         title: Text(
-                          "Discussions",
+                          appLocalizations.discussion,
                           style: GoogleFonts.poppins(
                             textStyle: const TextStyle(
                               fontSize: 18,
@@ -187,7 +189,7 @@ class _SidebarState extends State<Sidebar> {
                           ),
                         ),
                         title: Text(
-                          "Médecins",
+                          appLocalizations.medcins,
                           style: GoogleFonts.poppins(
                             textStyle: const TextStyle(
                               fontSize: 18,
