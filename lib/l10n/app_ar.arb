@@ -39,7 +39,13 @@
   "seeMedicalDoc": "انظر الملف الطبي",
   "mesPatients": "مرضاي",
   "today": "اليوم",
-  "createDiscussion": "إنشاء مناقشة"
+  "createDiscussion": "إنشاء مناقشة",
+  "emptyDisc": "لا مناقشة هذا اليوم",
+  "myCreatedDiscussion": "مناقشاتي ",
+  "myInviteddDiscussion": "مناقشاتي المدعوة",
+  "startAt": "تبدأ في:",
+  "start": "بدأ",
+  "rejoindre":"انضم"
 
 
 }

@@ -39,7 +39,13 @@
   "seeMedicalDoc": "Voir dossier médical",
   "mesPatients": "Mes patients",
   "today": "aujourd'hui",
-  "createDiscussion": "Créer une discussion"
+  "createDiscussion": "Créer une discussion",
+  "emptyDisc": "Pas de discussion aujourd'hui",
+  "myCreatedDiscussion": "Mes discussions",
+  "myInviteddDiscussion": "Mes discussions invitées",
+  "startAt": "Commencer à:",
+  "start": "Commencer",
+  "rejoindre":"rejoindre"
 
 
 }

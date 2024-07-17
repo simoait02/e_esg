@@ -86,8 +86,8 @@ class _NavbarDocState extends State<NavbarDoc> {
       Settings.isSystemSettings = prefs.getBool('isSystemSettings') ?? true;
       Settings.isDark = prefs.getBool('isDark') ?? false;
       Settings.isLight = prefs.getBool('isLight') ?? false;
-      language = prefs.getString("language") ?? 'en'; // Default to 'en' if language is not set
-      _locale = Locale(language); // Properly initialize _locale
+      language = prefs.getString("language") ?? 'en';
+      _locale = Locale(language);
     });
   }
 
