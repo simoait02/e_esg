@@ -35,5 +35,9 @@
   "actuelLevel": "Current grade level",
   "lastLevel": "last grade level",
   "currentState": "Actual situation",
-  "sucess": "You have successfully signed up ! Please check your email to confirm your account."
+  "sucess": "You have successfully signed up ! Please check your email to confirm your account.",
+  "seeMedicalDoc": "See medical file",
+  "mesPatients": "My patients",
+  "today": "Today",
+  "createDiscussion": "Create discussion"
 }

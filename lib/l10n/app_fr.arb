@@ -35,7 +35,11 @@
   "actuelLevel": "Niveau scolaire actuel",
   "lastLevel": "dernier niveau scolaire",
   "currentState": "La situation actuelle",
-  "sucess": "Vous vous êtes bien inscrit! Veuillez vérifier votre courrier électronique pour confirmer votre compte."
+  "sucess": "Vous vous êtes bien inscrit! Veuillez vérifier votre courrier électronique pour confirmer votre compte.",
+  "seeMedicalDoc": "Voir dossier médical",
+  "mesPatients": "Mes patients",
+  "today": "aujourd'hui",
+  "createDiscussion": "Créer une discussion"
 
 
 }

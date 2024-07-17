@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Chooselanguage extends StatefulWidget {
   final void Function(Locale locale) onLanguageChanged;
@@ -19,7 +20,10 @@ class _ChooselanguageState extends State<Chooselanguage> {
   bool en = false;
   bool fr = false;
   bool ar = false;
-
+  _savePreferences(value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString("language", value);
+  }
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -57,6 +61,7 @@ class _ChooselanguageState extends State<Chooselanguage> {
                       ar = false;
                     });
                     widget.onLanguageChanged(const Locale('en'));
+                    _savePreferences('en');
                   },
                   backgroundColor: !darkMode ? Colors.grey.shade100 : Colors.grey.shade900,
                   borderColor: en ? Colors.blue : Colors.grey,
@@ -105,6 +110,7 @@ class _ChooselanguageState extends State<Chooselanguage> {
                       ar = false;
                     });
                     widget.onLanguageChanged(const Locale('fr'));
+                    _savePreferences('fr');
                   },
                   child: Stack(
                     children: [
@@ -152,6 +158,7 @@ class _ChooselanguageState extends State<Chooselanguage> {
                       ar = true;
                     });
                     widget.onLanguageChanged(const Locale('ar'));
+                    _savePreferences('ar');
                   },
                   child: Stack(
                     children: [
