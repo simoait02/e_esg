@@ -183,10 +183,10 @@ class _TeleExpertiseState extends State<TeleExpertise> {
               ),
               Container(
                 margin: const EdgeInsets.only(left: 20),
-                child: Text("Mes discussion",
+                child: Text("discussions Crées",
                   style: GoogleFonts.aBeeZee(
                       textStyle: const TextStyle(
-                          fontSize: 24,
+                          fontSize: 20,
                           fontWeight: FontWeight.bold
                       )
                   ),
@@ -213,10 +213,10 @@ class _TeleExpertiseState extends State<TeleExpertise> {
               const SizedBox(height: 10,),
               Container(
                 margin: const EdgeInsets.only(left: 20),
-                child: Text("Télé-Expertise",
+                child: Text("discussions Planifiées",
                   style: GoogleFonts.aBeeZee(
                       textStyle: const TextStyle(
-                          fontSize: 24,
+                          fontSize: 20,
                           fontWeight: FontWeight.bold
                       )
                   ),

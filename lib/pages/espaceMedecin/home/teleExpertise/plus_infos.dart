@@ -62,7 +62,6 @@ class _PlusInfosState extends State<PlusInfos> {
                 ),
               ),
             ),
-
             Divider(),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,

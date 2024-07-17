@@ -3,6 +3,7 @@ import 'package:e_esg/Widgets/NavigationBarJeune.dart';
 import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Login extends StatefulWidget {
   final Function(double, double) onSignUpTapped;
@@ -56,28 +57,37 @@ class _LoginState extends State<Login> {
     );
   }
 
-  Widget buildTextField(double width,double height, String placeholder, FocusNode focusNode, bool hasFocus,bool isDarkMode) {
-    return Container(
-      width: width * 0.8,
-      height: height*0.055,
-      child: CupertinoTextField(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(
-            color: isDarkMode? hasFocus?Color(0xff2E37A5): CupertinoColors.white.withOpacity(0.5):hasFocus?Color(0xff2E37A5):Color(0xFFEAEBF6),
-            width: 2,
+  Widget buildTextField(double width, double height, String placeholder, FocusNode focusNode, bool hasFocus, bool isDarkMode) {
+    return SizedBox(
+        width: width * 0.8,
+        height: height * 0.055,
+        child: Directionality(
+          textDirection: TextDirection.ltr,
+          child: CupertinoTextField(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color: isDarkMode
+                    ? (hasFocus ? CupertinoColors.systemBlue : CupertinoColors.white.withOpacity(0.5))
+                    : (hasFocus ? Color(0xFF2E37A4) : Color(0xFFEAEBF6)),
+                width: 2,
+              ),
+            ),
+            focusNode: focusNode,
+            onTapOutside: (event) => setState(() {
+              focusNode.unfocus();
+            }),
+            placeholder: placeholder,
+            placeholderStyle: TextStyle(
+              color: isDarkMode ? Colors.white.withOpacity(0.5) : Colors.black.withOpacity(0.5),
+            ),
+            style: TextStyle(
+              color: isDarkMode ? Colors.white : Colors.black,
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
           ),
-        ),
-        focusNode: focusNode,
-        onTapOutside: (event) => setState(() {
-          focusNode.unfocus;
-        }),
-        placeholder: placeholder,
-        style:TextStyle(
-          color: isDarkMode?Colors.white.withOpacity(0.5):Colors.black.withOpacity(0.5),
-        ),
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      ),
+        )
+
     );
   }
 
@@ -87,8 +97,7 @@ class _LoginState extends State<Login> {
     double height = MediaQuery.of(context).size.height;
     var brightness = MediaQuery.of(context).platformBrightness;
     bool isDarkMode = brightness == Brightness.dark;
-
-
+    final appLocalizations = AppLocalizations.of(context);
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       child: Column(
@@ -99,9 +108,8 @@ class _LoginState extends State<Login> {
               alignment: Alignment.centerLeft,
               child: Container(
                 height: height*0.07,
-                width: width*0.2,
                 child: AutoSizeText(
-                  "Login",
+                  appLocalizations!.login,
                   style: TextStyle(
                       color: isDarkMode?Colors.white:Colors.black,
                       fontWeight: FontWeight.bold,
@@ -112,16 +120,16 @@ class _LoginState extends State<Login> {
               ),
             ),
           ),
-          buildLabel("Identifiant",height*0.02,isDarkMode),
+          buildLabel(appLocalizations.id,height*0.02,isDarkMode),
           buildTextField(width,height, "E-mail, CIN, CNE, Code Massar", _emailFocusNode, _emailHasFocus,Cardi.isDarkMode.value),
-          buildLabel("Password",height*0.02,isDarkMode),
-          buildTextField(width, height,"Password", _passwordFocusNode, _passwordHasFocus,Cardi.isDarkMode.value),
+          buildLabel(appLocalizations.password,height*0.02,isDarkMode),
+          buildTextField(width, height,"", _passwordFocusNode, _passwordHasFocus,Cardi.isDarkMode.value),
           SizedBox(height: height*0.01,),
           GestureDetector(
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 15),
               alignment: Alignment.centerRight,
-              child: AutoSizeText("Mot de passe oublié?",
+              child: AutoSizeText(appLocalizations.forgotPassword,
               style: TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: width * 0.04,
@@ -140,7 +148,7 @@ class _LoginState extends State<Login> {
                       borderRadius: BorderRadius.circular(40)),
                   alignment: Alignment.center,
                   child: AutoSizeText(
-                    "Login",
+                    appLocalizations.login,
                     style: TextStyle(color: Colors.white, fontSize: 20),
                   )),
               onPressed: () {
@@ -154,12 +162,13 @@ class _LoginState extends State<Login> {
           const SizedBox(height: 5),
           Container(
             height: height * 0.04,
+            width: width*0.9,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const SizedBox(width: 30),
+                const SizedBox(width:10),
                 AutoSizeText(
-                  "Vous n'avez pas de compte?",
+                  appLocalizations.needAcc,
                   style: TextStyle(fontFamily: "Inter",
                   color: Color(0xff9999A3),
                   fontWeight: FontWeight.w400,
@@ -171,7 +180,7 @@ class _LoginState extends State<Login> {
                     widget.onSignUpTapped(0.8, 0.1);
                   },
                   child: AutoSizeText(
-                    "Sign Up",
+                    appLocalizations.signUp,
                     style: TextStyle(
                       fontFamily: "Inter",
                       color: isDarkMode ? Color(0xff759cd8) : Color(0xff3a01de),
