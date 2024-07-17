@@ -317,7 +317,7 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                         ),
                         SizedBox(height: height*0.02,),
                         Visibility(
-                            visible: dropdownValue=='Primaire',
+                            visible: !(dropdownValue=='Primaire'),
                             child:Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -331,7 +331,7 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                             ),
                         ),
                         Visibility(
-                            visible: !(dropdownValue=='Primaire'),
+                            visible: (dropdownValue=='Primaire'),
                             child:Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
