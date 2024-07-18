@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Bottommodalsheet extends StatefulWidget {
   final double height;
@@ -114,22 +115,23 @@ class _BottommodalsheetState extends State<Bottommodalsheet> {
   }
 
   Widget _buildContent() {
+    final appLocalizations = AppLocalizations.of(context);
     switch (widget.parametre) {
       case "Nom":
-        return _buildInputField("Nom", "entrez votre Nom", false);
+        return _buildInputField(appLocalizations!.nom, "entrez votre Nom", false);
       case "Prénom":
-        return _buildInputField("Prénom", "entrez votre Prénom", false);
+        return _buildInputField(appLocalizations!.prenom, "entrez votre Prénom", false);
       case "email":
-        return _buildInputField("E-mail", "entrez votre nouveau email", false);
+        return _buildInputField(appLocalizations!.email, "entrez votre nouveau email", false);
       case "numTele":
-        return _buildInputField("Numéro de téléphone", "entrez votre nouveau téléphone", false);
+        return _buildInputField(appLocalizations!.tele, "entrez votre nouveau téléphone", false);
       case "password":
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildInputField("Confirm password", "entrez votre mot de passe actuelle", true),
+            _buildInputField(appLocalizations!.password, "entrez votre mot de passe actuelle", true),
             const SizedBox(height: 20),
-            _buildInputField("New Password", "entrez votre nouveau mot de passe", true),
+            _buildInputField(appLocalizations.confirmPass, "entrez votre nouveau mot de passe", true),
           ],
         );
       default:
@@ -139,6 +141,7 @@ class _BottommodalsheetState extends State<Bottommodalsheet> {
 
   @override
   Widget build(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context);
     return Container(
       height: widget.height * 1.4,
       color: widget.isDarkMode ? const Color(0xff181a1b) : Colors.white,
@@ -148,11 +151,11 @@ class _BottommodalsheetState extends State<Bottommodalsheet> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               CupertinoButton(
-                child: const Text("Cancel", style: TextStyle(color: Colors.red)),
+                child: Text(appLocalizations!.cancel, style: TextStyle(color: Colors.red)),
                 onPressed: () => Navigator.pop(context),
               ),
               CupertinoButton(
-                child: const Text("Done", style: TextStyle(color: Colors.blue)),
+                child: Text(appLocalizations.done, style: TextStyle(color: Colors.blue)),
                 onPressed: () {
                   widget.updateInfo(widget.parametre, _controller.text);
                   Navigator.pop(context);

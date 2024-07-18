@@ -74,7 +74,15 @@
   "public": "Publique",
   "private": "Privée",
   "chooseDoc": "Ajouter des médecins",
-  "chooseSpeciality": "Ajouter par spécialités"
+  "chooseSpeciality": "Ajouter par spécialités",
+  "settings": "Parametre",
+  "appearance": "Apparence",
+  "systemSettings": "Parametre du système",
+  "dark": "Mode sombre",
+  "light": "Mode lumière",
+  "myInfos": "Mes informations",
+  "logOut": "Se déconnecter"
+
 
 
 

@@ -74,5 +74,12 @@
   "public": "Public",
   "private": "Private",
   "chooseDoc": "Add Doctors",
-  "chooseSpeciality": "Add by Specialities"
+  "chooseSpeciality": "Add by Specialities",
+  "settings": "Settings",
+  "appearance": "Appearance",
+  "systemSettings": "System settings",
+  "dark": "Dark mode",
+  "light": "Light mode",
+  "myInfos": "My informations",
+  "logOut": "Log out"
 }

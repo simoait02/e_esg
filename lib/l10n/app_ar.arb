@@ -74,6 +74,13 @@
   "public": "عام",
   "private": "خاص",
   "chooseDoc": "اضافة اطباء",
-  "chooseSpeciality": "إضافة حسب التخصصات"
+  "chooseSpeciality": "إضافة حسب التخصصات",
+  "settings": "الاعدادات",
+  "appearance": "المظهر",
+  "systemSettings": "اعدادات النظام",
+  "dark": "الوضع الليلي",
+  "light": "الوضع الضوئي",
+  "myInfos": "معلوماتي",
+  "logOut": "تسجيل خروج"
 
 }
