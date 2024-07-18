@@ -2,11 +2,9 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-
 import '../../../../Data/maladie_list.dart';
 import '../../../../models/patient.dart';
-import 'MesPatients.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SortAndFilter extends StatefulWidget {
   final double height;
@@ -35,7 +33,7 @@ class _SortAndFilterState extends State<SortAndFilter> {
   bool sort =false;
   Set<String> selectedMaladies = {"Tout"};
 
-  Widget _buildFilterOption(String iconimage, String title, IconButton down, String desc, IconButton? sort) {
+  Widget _buildFilterOption(String label,String iconimage, String title, IconButton down, String desc, IconButton? sort) {
     return Container(
       padding: const EdgeInsets.all(5),
       decoration: BoxDecoration(
@@ -56,7 +54,7 @@ class _SortAndFilterState extends State<SortAndFilter> {
                 ),
                 SizedBox(width: 10),
                 AutoSizeText(
-                  title,
+                  label,
                   style: GoogleFonts.poppins(
                     textStyle: TextStyle(fontSize: 18),
                   ),
@@ -87,7 +85,7 @@ class _SortAndFilterState extends State<SortAndFilter> {
     );
   }
 
-  Widget _buildsortOption(String title, bool sortUp, Function onPressed) {
+  Widget _buildsortOption(String label,String title, bool sortUp, Function onPressed) {
     return Container(
       width: widget.width,
       padding: const EdgeInsets.all(5),
@@ -117,7 +115,7 @@ class _SortAndFilterState extends State<SortAndFilter> {
                       : SizedBox(width: 25),
                   SizedBox(width: 10),
                   AutoSizeText(
-                    title,
+                    label,
                     style: GoogleFonts.poppins(
                       textStyle: TextStyle(fontSize: 18),
                     ),
@@ -146,7 +144,7 @@ class _SortAndFilterState extends State<SortAndFilter> {
     );
   }
 
-  Widget _buildsexeFilter(String title) {
+  Widget _buildsexeFilter(String label,String title) {
     return Container(
       width: widget.width,
       padding: const EdgeInsets.all(5),
@@ -173,7 +171,7 @@ class _SortAndFilterState extends State<SortAndFilter> {
                   : SizedBox(width: 25),
               SizedBox(width: 10),
               AutoSizeText(
-                title,
+                label,
                 style: GoogleFonts.poppins(
                   textStyle: TextStyle(fontSize: 18),
                 ),
@@ -244,6 +242,7 @@ class _SortAndFilterState extends State<SortAndFilter> {
 
   @override
   Widget build(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context);
     return SingleChildScrollView(
       child: Container(
         color: widget.isDarkMode ? const Color(0xff181a1b) : Colors.white,
@@ -254,8 +253,8 @@ class _SortAndFilterState extends State<SortAndFilter> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CupertinoButton(
-                  child: const Text(
-                    "Annuler",
+                  child: Text(
+                    appLocalizations!.cancel,
                     style: TextStyle(
                       color: Colors.red,
                       fontSize: 17,
@@ -265,8 +264,8 @@ class _SortAndFilterState extends State<SortAndFilter> {
                   onPressed: () => Navigator.pop(context),
                 ),
                 CupertinoButton(
-                  child: const Text(
-                    "Confirmer",
+                  child: Text(
+                    appLocalizations.valide,
                     style: TextStyle(
                       color: Color(0xff2e37a4),
                       fontSize: 17,
@@ -301,7 +300,7 @@ class _SortAndFilterState extends State<SortAndFilter> {
               ),
               child: Column(
                 children: [
-                  _buildFilterOption(
+                  _buildFilterOption(appLocalizations!.sort,
                     "assets/images/sorting.png",
                     "Trier par",
                     IconButton(
@@ -351,25 +350,25 @@ class _SortAndFilterState extends State<SortAndFilter> {
                   if (tri)
                     Column(
                       children: [
-                        _buildsortOption("Date de consultation", consultation_sort_up, () {
+                        _buildsortOption(appLocalizations!.dateConsultation,"Date de consultation", consultation_sort_up, () {
                           setState(() {
                             consultation_sort_up = !consultation_sort_up;
                             if (tri_par == "Date de consultation") sort_up = consultation_sort_up;
                           });
                         }),
-                        _buildsortOption("Nom", nom_sort_up, () {
+                        _buildsortOption(appLocalizations.nom,"Nom", nom_sort_up, () {
                           setState(() {
                             nom_sort_up = !nom_sort_up;
                             if (tri_par == "Nom")sort_up = nom_sort_up;
                           });
                         }),
-                        _buildsortOption("Prenom", prenom_sort_up, () {
+                        _buildsortOption(appLocalizations.prenom,"Prenom", prenom_sort_up, () {
                           setState(() {
                             prenom_sort_up = !prenom_sort_up;
                             if (tri_par == "Prenom")sort_up = prenom_sort_up;
                           });
                         }),
-                        _buildsortOption("Age", age_sort_up, () {
+                        _buildsortOption(appLocalizations.agePatient,"Age", age_sort_up, () {
                           setState(() {
                             age_sort_up = !age_sort_up;
                             if (tri_par == "Age")sort_up = age_sort_up;
@@ -377,7 +376,7 @@ class _SortAndFilterState extends State<SortAndFilter> {
                         }),
                       ],
                     ),
-                  _buildFilterOption(
+                  _buildFilterOption(appLocalizations.sex,
                     "assets/images/sorting.png",
                     "Sexe",
                     IconButton(
@@ -400,12 +399,12 @@ class _SortAndFilterState extends State<SortAndFilter> {
                   if (selectsexe)
                     Column(
                       children: [
-                        _buildsexeFilter("Tout"),
-                        _buildsexeFilter("Homme"),
-                        _buildsexeFilter("Femme"),
+                        _buildsexeFilter(appLocalizations!.tout,"Tout"),
+                        _buildsexeFilter(appLocalizations.male,"Homme"),
+                        _buildsexeFilter(appLocalizations.female,"Femme"),
                       ],
                     ),
-                  _buildFilterOption(
+                  _buildFilterOption(appLocalizations.maladie,
                     "assets/images/sorting.png",
                     "Maladie",
                     IconButton(

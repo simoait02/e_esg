@@ -86,7 +86,12 @@
   "profile": "Mon profile",
   "aboutMe": "À propos de moi",
   "designation": "Désignation",
-  "education": "Éducation"
+  "education": "Éducation",
+  "searchByName": "Rechercher un patient par prénom ou nom",
+  "tout": "Tout",
+  "dateConsultation": "date de consultation",
+  "sort": "Trier par",
+  "maladie": "Maladie"
 
 
 

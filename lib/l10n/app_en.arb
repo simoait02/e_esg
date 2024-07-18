@@ -86,6 +86,10 @@
   "profile": "My profile",
   "aboutMe": "About me",
   "designation": "hiring",
-  "education": "Education"
-
+  "education": "Education",
+  "searchByName": "Search for patient by first or last name",
+  "tout": "All",
+  "dateConsultation": "Date of consultation",
+  "sort": "Sort by",
+  "maladie": "Sickness"
 }
