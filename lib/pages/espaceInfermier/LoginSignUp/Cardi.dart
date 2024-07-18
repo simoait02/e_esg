@@ -10,7 +10,7 @@ class CardiInf extends StatefulWidget {
   static double q = 0.5;
   static double top = 0.25;
   static bool isContinueTapped = false;
-  static ValueNotifier<bool> isDarkMode = ValueNotifier<bool>(false);
+  static ValueNotifier<bool> isDarkMode = ValueNotifier<bool>(true);
   CardiInf({super.key});
 
   @override
@@ -53,10 +53,9 @@ class _CardiInfState extends State<CardiInf> {
     CardiInf.isDarkMode.value=(MediaQuery.of(context).platformBrightness == Brightness.dark);
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    return CupertinoApp(
-      home: CupertinoPageScaffold(
+    return Scaffold(
         resizeToAvoidBottomInset: true,
-        child: Container(
+        body: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/images/login.png"),
@@ -98,7 +97,6 @@ class _CardiInfState extends State<CardiInf> {
             ),
           ),
         ),
-      ),
-    );
+      );
   }
 }
