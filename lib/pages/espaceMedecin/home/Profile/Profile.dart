@@ -4,33 +4,34 @@ import 'package:e_esg/pages/espaceMedecin/home/Profile/Settings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Profile extends StatefulWidget {
-  const Profile({super.key});
+  const Profile({Key? key}) : super(key: key);
 
   @override
   State<Profile> createState() => _ProfileState();
 }
 
 class _ProfileState extends State<Profile> {
-
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+    final appLocalizations = AppLocalizations.of(context);
 
     return ValueListenableBuilder<bool>(
       valueListenable: Cardi.isDarkMode,
       builder: (context, isDarkMode, child) {
         return Scaffold(
-          backgroundColor: Cardi.isDarkMode.value?Color(0xff141218):Colors.white,
+          backgroundColor: Cardi.isDarkMode.value ? const Color(0xff141218) : Colors.white,
           appBar: AppBar(
             backgroundColor: isDarkMode ? const Color(0xff181a1b) : Colors.white,
             title: Container(
               alignment: Alignment.centerLeft,
               child: AutoSizeText(
+                appLocalizations!.profile,
                 textAlign: TextAlign.center,
-                "El Dotoree",
                 style: GoogleFonts.poppins(
                   textStyle: TextStyle(
                     fontSize: 20,
@@ -44,193 +45,307 @@ class _ProfileState extends State<Profile> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    CupertinoPageRoute(builder: (context) => Settings()),
+                    CupertinoPageRoute(builder: (context) => const Settings()),
                   );
                 },
                 icon: const Icon(CupertinoIcons.settings, size: 28),
               ),
             ],
           ),
-          body: Column(
-            children: [
-              Container(
-                width: width,
-                height: height * 0.3,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Stack(
-                  children: [
-                    Container(
-                      height: height * 0.15,
-                      width: width,
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage("assets/images/chocolates-491165_640-640x405.jpg"),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      top: height * 0.09,
-                      left: width * 0.08,
-                      child: Container(
-                        height: width * 0.22,
-                        width: width * 0.22,
-                        alignment: Alignment.center,
-                        decoration: const BoxDecoration(
-                          color: Colors.black,
-                          shape: BoxShape.circle,
-                        ),
-                        child: CircleAvatar(
-                          backgroundColor: Colors.transparent,
-                          radius: width * 0.08,
-                          child: Image.asset("assets/images/boy.png"),
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      top: height * 0.17,
-                      left: width * 0.35,
-                      child: Column(
+          body: SingleChildScrollView(
+            child: Container(
+              margin: const EdgeInsets.only(top: 30),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
                         children: [
-                          Text(
-                            "Dr. Lionel Messi",
-                            style: GoogleFonts.inter(
-                              textStyle: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 24,
-                              ),
-                            ),
+                          CircleAvatar(
+                            radius: 40,
+                            backgroundColor: Cardi.isDarkMode.value ? Colors.white24 : Colors.black26,
+                            child: Icon(Icons.person, color: Cardi.isDarkMode.value ? Colors.white : Colors.black, size: 60),
                           ),
-                          const Text("Junior Doctor"),
+                          SizedBox(width: width * 0.02),
+                          AutoSizeText(
+                            "simo",
+                            style: GoogleFonts.aBeeZee(fontSize: 30),
+                          ),
                         ],
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                width: width,
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    AutoSizeText(
-                      "About me",
-                      style: GoogleFonts.poppins(
-                        textStyle: const TextStyle(
-                          fontSize: 22,
-                          color: Color(0xff5085ab),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: height * 0.01),
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: width * 0.3,
-                          child: AutoSizeText(
-                            maxLines: 1,
-                            "Gender",
-                            style: GoogleFonts.aBeeZee(
-                              textStyle: const TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 17,
+                      Row(
+                        children: [
+                          Container(
+                            height: 40,
+                            width: 40,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              image: const DecorationImage(
+                                image: AssetImage("assets/images/linkdine.png"),
                               ),
                             ),
                           ),
-                        ),
-                        SizedBox(width: width * 0.2),
-                        Container(
-                          alignment: Alignment.center,
-                          child: Text(
-                            "Male",
-                            textAlign: TextAlign.left,
-                            style: GoogleFonts.aBeeZee(
-                              textStyle: TextStyle(
-                                fontWeight: FontWeight.normal,
-                                fontSize: 14,
-                                color: isDarkMode ? Colors.white.withOpacity(0.5) : Colors.black.withOpacity(0.5),
+                          const SizedBox(width: 10),
+                          Container(
+                            height: 40,
+                            width: 40,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              image: const DecorationImage(
+                                image: AssetImage("assets/images/x.png"),
                               ),
                             ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Container(
+                    width: width * 0.95,
+                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                    decoration: BoxDecoration(
+                      color: Cardi.isDarkMode.value ? Colors.white24 : const Color(0xfffafffa),
+                      borderRadius: BorderRadius.circular(15),
+                      border: Border.all(color: Cardi.isDarkMode.value ? Colors.white.withOpacity(0.5) : Colors.black.withOpacity(0.5)),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AutoSizeText(
+                          appLocalizations.aboutMe,
+                          style: GoogleFonts.aBeeZee(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: const Color(0xff0ee58d)
+                          ),
+                        ),
+                        AutoSizeText(
+                          "description",
+                          style: GoogleFonts.abel(
+                            fontSize: 14,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: width * 0.3,
+                              child: Text(
+                                appLocalizations.sex,
+                                style: GoogleFonts.poppins(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                appLocalizations.male,
+                                style: GoogleFonts.poppins(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400,
+                                  color: Cardi.isDarkMode.value ? Colors.white38 : Colors.black38,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                        const SizedBox(height: 5),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: width * 0.3,
+                              child: Text(
+                                appLocalizations.designation,
+                                style: GoogleFonts.poppins(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                "Medecin senior",
+                                style: GoogleFonts.poppins(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400,
+                                  color: Cardi.isDarkMode.value ? Colors.white38 : Colors.black38,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                        Divider(
+                          color: Cardi.isDarkMode.value ? Colors.white.withOpacity(0.5) : Colors.black.withOpacity(0.5),
+                        ),
+                        const SizedBox(height: 5),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: width * 0.3,
+                              child: Text(
+                                appLocalizations.nom,
+                                style: GoogleFonts.poppins(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                "Simo",
+                                style: GoogleFonts.poppins(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400,
+                                  color: Cardi.isDarkMode.value ? Colors.white38 : Colors.black38,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                        const SizedBox(height: 5),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: width * 0.3,
+                              child: Text(
+                                appLocalizations.prenom,
+                                style: GoogleFonts.poppins(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                "Simo",
+                                style: GoogleFonts.poppins(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400,
+                                  color: Cardi.isDarkMode.value ? Colors.white38 : Colors.black38,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                        const SizedBox(height: 5),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: width * 0.3,
+                              child: Text(
+                                appLocalizations.tele,
+                                style: GoogleFonts.poppins(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                "1234567890",
+                                style: GoogleFonts.poppins(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400,
+                                  color: Cardi.isDarkMode.value ? Colors.white38 : Colors.black38,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                        const SizedBox(height: 5),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: width * 0.3,
+                              child: Text(
+                                appLocalizations.email,
+                                style: GoogleFonts.poppins(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                "qwertyuiop@gmail.com",
+                                style: GoogleFonts.poppins(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400,
+                                  color: Cardi.isDarkMode.value ? Colors.white38 : Colors.black38,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Container(
+                    width: width * 0.95,
+                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                    decoration: BoxDecoration(
+                      color: Cardi.isDarkMode.value ? Colors.white24 : const Color(0xfffafffa),
+                      borderRadius: BorderRadius.circular(15),
+                      border: Border.all(color: Cardi.isDarkMode.value ? Colors.white.withOpacity(0.5) : Colors.black.withOpacity(0.5)),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AutoSizeText(
+                          appLocalizations.education,
+                          style: GoogleFonts.aBeeZee(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: const Color(0xff0ee58d)
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: 20,
+                                height: 20,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: isDarkMode ? Colors.white.withOpacity(0.5) : Colors.black.withOpacity(0.5),
+                                ),
+                              ),
+                              const SizedBox(width: 16),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    AutoSizeText(
+                                      "2001-2005",
+                                      style: GoogleFonts.roboto(fontSize: 16),
+                                    ),
+                                    const SizedBox(height: 8),
+                                    AutoSizeText(
+                                      "Université du Wyoming",
+                                      style: GoogleFonts.roboto(fontSize: 18),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: height * 0.01),
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: width * 0.3,
-                          child: AutoSizeText(
-                            maxLines: 1,
-                            "Designation",
-                            style: GoogleFonts.aBeeZee(
-                              textStyle: const TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 17,
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: width * 0.2),
-                        Container(
-                          alignment: Alignment.center,
-                          child: Text(
-                            "Sr. Doctor",
-                            textAlign: TextAlign.left,
-                            style: GoogleFonts.aBeeZee(
-                              textStyle: TextStyle(
-                                fontWeight: FontWeight.normal,
-                                fontSize: 14,
-                                color: isDarkMode ? Colors.white.withOpacity(0.5) : Colors.black.withOpacity(0.5),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: height * 0.05),
-                    AutoSizeText(
-                      "Speciality",
-                      style: GoogleFonts.poppins(
-                        textStyle: const TextStyle(
-                          fontSize: 22,
-                          color: Color(0xff5085ab),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: height * 0.01),
-                    AutoSizeText(
-                      "Médecin au centre d’ESJ",
-                      textAlign: TextAlign.left,
-                      maxLines: 1,
-                      style: GoogleFonts.aBeeZee(
-                        textStyle: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: 18,
-                          color: isDarkMode ? Colors.white.withOpacity(0.5) : Colors.black.withOpacity(0.5),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: height * 0.01),
-                    AutoSizeText(
-                      "Médecin spécialisé en allergologie",
-                      textAlign: TextAlign.left,
-                      maxLines: 1,
-                      style: GoogleFonts.aBeeZee(
-                        textStyle: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: 18,
-                          color: isDarkMode ? Colors.white.withOpacity(0.5) : Colors.black.withOpacity(0.5),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                  SizedBox(height: height * 0.1),
+                ],
               ),
-            ],
+            ),
           ),
         );
       },

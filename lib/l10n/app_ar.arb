@@ -82,6 +82,10 @@
   "light": "الوضع الضوئي",
   "myInfos": "معلوماتي",
   "logOut": "تسجيل خروج",
-  "notification": "الاشعارات"
+  "notification": "الاشعارات",
+  "profile": "ملفي",
+  "aboutMe": "عني",
+  "designation": "تعيين",
+  "education": "تكوين"
 
 }
