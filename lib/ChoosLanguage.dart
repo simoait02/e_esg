@@ -34,7 +34,7 @@ class _ChooselanguageState extends State<Chooselanguage> {
     double height = MediaQuery.of(context).size.height;
     bool darkMode = WidgetsBinding.instance.platformDispatcher.platformBrightness == Brightness.dark;
     return Scaffold(
-      backgroundColor: darkMode?const Color(0xff141218) : Colors.white,
+      backgroundColor: darkMode?const Color(0xff141218) : Color(0xffF5F5F6),
       body: Builder(
         builder: (context) {
           final appLocalizations = AppLocalizations.of(context);
@@ -63,8 +63,8 @@ class _ChooselanguageState extends State<Chooselanguage> {
                     widget.onLanguageChanged(const Locale('en'));
                     _savePreferences('en');
                   },
-                  backgroundColor: !darkMode ? Colors.grey.shade100 : Colors.grey.shade900,
-                  borderColor: en ? Colors.blue : Colors.grey,
+                  backgroundColor: !darkMode ? Colors.white : Colors.grey.shade900,
+                  borderColor: en ? Color(0xff2E37A4) :darkMode? Color(0xff9196CC):Color(0xffEAEBF6),
                   child: Stack(
                     children: [
                       Positioned(
@@ -84,7 +84,7 @@ class _ChooselanguageState extends State<Chooselanguage> {
                       Positioned(
                         left: 75,
                         top: 20,
-                        child: const Text(
+                        child: const AutoSizeText(
                           "English",
                           textDirection: TextDirection.ltr,
                           style: TextStyle(fontSize: 20),
@@ -101,8 +101,8 @@ class _ChooselanguageState extends State<Chooselanguage> {
                   buttonHeight: 2,
                   width: width * 0.9,
                   height: 70,
-                  backgroundColor: !darkMode ? Colors.grey.shade100 : Colors.grey.shade900,
-                  borderColor: fr ? Colors.blue : Colors.grey,
+                  backgroundColor: !darkMode ? Colors.white : Colors.grey.shade900,
+                  borderColor: fr ? Color(0xff2E37A4) :darkMode? Color(0xff9196CC):Color(0xffEAEBF6),
                   onPressed: () {
                     setState(() {
                       en = false;
@@ -132,8 +132,8 @@ class _ChooselanguageState extends State<Chooselanguage> {
                       Positioned(
                         left: 75,
                         top: 20,
-                        child: const Text(
-                          "Francais",
+                        child: const AutoSizeText(
+                          "Français",
                           textDirection: TextDirection.ltr,
                           style: TextStyle(fontSize: 20),
                         ),
@@ -149,8 +149,8 @@ class _ChooselanguageState extends State<Chooselanguage> {
                   buttonHeight: 2,
                   width: width * 0.9,
                   height: 70,
-                  backgroundColor: !darkMode ? Colors.grey.shade100 : Colors.grey.shade900,
-                  borderColor: ar ? Colors.blue : Colors.grey,
+                  backgroundColor: !darkMode ? Colors.white : Colors.grey.shade900,
+                  borderColor: ar ? Color(0xff2E37A4) :darkMode? Color(0xff9196CC):Color(0xffEAEBF6),
                   onPressed: () {
                     setState(() {
                       en = false;
@@ -161,9 +161,19 @@ class _ChooselanguageState extends State<Chooselanguage> {
                     _savePreferences('ar');
                   },
                   child: Stack(
+                    alignment: Alignment.topRight,
                     children: [
                       Positioned(
-                        left: 2,
+                        right: 75,
+                        top: 20,
+                        child: const AutoSizeText(
+                          "العربية",
+                          textDirection: TextDirection.ltr,
+                          style: TextStyle(fontSize: 20),
+                        ),
+                      ),
+                      Positioned(
+                        right: 15,
                         top: 8,
                         child: Container(
                           margin: const EdgeInsets.only(left: 10),
@@ -175,15 +185,6 @@ class _ChooselanguageState extends State<Chooselanguage> {
                               fit: BoxFit.cover,
                             ),
                           ),
-                        ),
-                      ),
-                      Positioned(
-                        left: 75,
-                        top: 20,
-                        child: const Text(
-                          "Arabe",
-                          textDirection: TextDirection.ltr,
-                          style: TextStyle(fontSize: 20),
                         ),
                       ),
                     ],
@@ -199,7 +200,7 @@ class _ChooselanguageState extends State<Chooselanguage> {
                     width: width * 0.5,
                     decoration: BoxDecoration(
                       gradient: const LinearGradient(
-                        colors: [Color(0xff0b40ff), Color(0xff0c40a4)],
+                        colors: [Color(0xff4E57CD), Color(0xff2F38A5)],
                       ),
                       borderRadius: BorderRadius.circular(40),
                     ),

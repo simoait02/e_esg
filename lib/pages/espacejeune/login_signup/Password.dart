@@ -248,13 +248,11 @@ class _PasswordState extends State<Password> {
                       appLocalizations.createAcc,
                       style: TextStyle(color: Colors.white, fontSize: 17),
                     )),
-                /*onPressed: () {
-                  Navigator.pushAndRemoveUntil(
+                /*Navigator.pushAndRemoveUntil(
                     context,
                     CupertinoPageRoute(builder: (context) => NavbarDoc()),
                         (Route<dynamic> route) => false,
-                  );
-                },*/
+                  );*/
               ),
             ],
           ),

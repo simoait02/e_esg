@@ -1,3 +1,4 @@
+import 'package:e_esg/pages/espaceMedecin/LoginSignUp/speciality.dart';
 import 'package:e_esg/pages/espaceMedecin/home/Profile/Settings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,9 @@ import 'Password.dart';
 class Cardi extends StatefulWidget {
   static double q = 0.5;
   static double top = 0.25;
-  static bool isContinueTapped = false;
+  static bool moveToSpeciality = false;
+  static bool stayinSpeciality = false;
+  static bool moveToPassword = false;
   static ValueNotifier<bool> isDarkMode = ValueNotifier<bool>(false);
   Cardi({super.key});
 
@@ -37,14 +40,46 @@ class _CardiState extends State<Cardi> {
 
   void navigateToPassword() {
     setState(() {
-      Cardi.isContinueTapped = true;
+      Cardi.moveToSpeciality = false;
+      Cardi.stayinSpeciality = false;
+      Cardi.moveToPassword = true;
+    });
+  }
+  void navigateToSpeciality() {
+    setState(() {
+      Cardi.moveToSpeciality = true;
+      Cardi.stayinSpeciality = false;
+      Cardi.moveToPassword = false;
+    });
+  }
+  void stayinSpeciality() {
+    setState(() {
+      Cardi.stayinSpeciality = true;
+      Cardi.moveToSpeciality = false;
+      Cardi.moveToPassword = false;
     });
   }
 
   void navigateToSignup() {
     setState(() {
-      Cardi.isContinueTapped = false;
+      showLogin = false;
+      Cardi.stayinSpeciality = false;
+      Cardi.moveToSpeciality = false;
+      Cardi.moveToPassword = false;
     });
+  }
+  void navigateToLogin() {
+    setState(() {
+      showLogin = true;
+      Cardi.stayinSpeciality = false;
+      Cardi.moveToSpeciality = false;
+      Cardi.moveToPassword = false;
+    });
+  }
+  void onLoginTapped(double newQ, double newTop) {
+    updateContainerSize(newQ, newTop);
+    toggleLoginSignUp();
+    navigateToSpeciality();
   }
   @override
   void initState() {
@@ -98,18 +133,36 @@ class _CardiState extends State<Cardi> {
                   updateContainerSize(newQ, newTop);
                   toggleLoginSignUp();
                 })
-                    : Cardi.isContinueTapped
-                    ? Password(onBackTapped: (newQ,newTop) {
-                  updateContainerSize(newQ, newTop);
-                  navigateToSignup();
-                })
-                    : Signup(
+                    : Cardi.moveToSpeciality ||
+                    Cardi.stayinSpeciality
+                    ? Speciality(
+                  onBackTapped: (newQ, newTop) {
+                    updateContainerSize(newQ, newTop);
+                    navigateToSignup();
+                  },
+                  onSpecialityTapped: (newQ, newTop) {
+                    updateContainerSize(newQ, newTop);
+                    stayinSpeciality();
+                  },
+                  onPasswordTapped: (newQ, newTop) {
+                    updateContainerSize(newQ, newTop);
+                    navigateToPassword();
+                  },
+                )
+                    : Cardi.moveToPassword
+                    ? Password(
+                  onBackTapped: (newQ, newTop) {
+                    updateContainerSize(newQ, newTop);
+                    stayinSpeciality();
+                  },
+                ):
+                Signup(
                     onSigninTapped: (newQ, newTop) {
                       updateContainerSize(newQ, newTop);
                       toggleLoginSignUp();
                     },
                     onContinueTapped: () {
-                      navigateToPassword();
+                      navigateToSpeciality();
                     }),
               ),
             ),
