@@ -61,7 +61,21 @@
   "lancePar": "lancée par",
   "participants": "Participants",
   "compteRendue": "Compte rendu",
-  "more": "Voir plus"
+  "more": "Voir plus",
+  "valide": "Valider",
+  "nomPatient": "Nom du patient",
+  "prenomPatient": "Prénom du patient",
+  "agePatient": "Age du patient",
+  "patientCase": "Cas du patient",
+  "titleDiscussion": "Titre de discussion",
+  "motifDiscussion": "Motif de la discussion",
+  "traitement": "Éventuels traitement",
+  "import": "Importez tout fichier qui serait utile à d'autres médecins",
+  "public": "Publique",
+  "private": "Privée",
+  "chooseDoc": "Ajouter des médecins",
+  "chooseSpeciality": "Ajouter par spécialités"
+
 
 
 }

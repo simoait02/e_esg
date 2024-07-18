@@ -2,7 +2,7 @@ import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Creatediscussion02 extends StatefulWidget {
   const Creatediscussion02({super.key});
@@ -12,14 +12,6 @@ class Creatediscussion02 extends StatefulWidget {
 }
 
 class _Creatediscussion02State extends State<Creatediscussion02> {
-  String label = "Select meeting date";
-  DateTime selectedDateTime = DateTime.now();
-  DateTime tempSelectedDateTime = DateTime.now();
-  String label1 = "Select meeting time";
-  DateTime selectedTime = DateTime.now();
-  DateTime tempSelectedTime = DateTime.now();
-  bool male = false;
-  bool female = false;
 
   Widget buildLabel(String text) {
     return Text(
@@ -31,23 +23,11 @@ class _Creatediscussion02State extends State<Creatediscussion02> {
       ),
     );
   }
-  void updateDate(DateTime newDate) {
-    setState(() {
-      selectedDateTime = newDate;
-      label = DateFormat.yMMMMd().format(selectedDateTime);
-    });
-  }
-
-  void updateTime(DateTime newTime) {
-    setState(() {
-      selectedTime = newTime;
-      label1 = DateFormat.Hm().format(selectedTime);
-    });
-  }
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+    final appLocalizations = AppLocalizations.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -55,7 +35,7 @@ class _Creatediscussion02State extends State<Creatediscussion02> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text("Motif de Discussion"),
+            Text(appLocalizations!.motifDiscussion),
             SizedBox(
               width: width,
               child: CupertinoTextField(
@@ -80,7 +60,7 @@ class _Creatediscussion02State extends State<Creatediscussion02> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text("Eventuels Traitements"),
+            Text(appLocalizations.traitement),
             SizedBox(
               width: width,
               child: CupertinoTextField(
@@ -102,7 +82,7 @@ class _Creatediscussion02State extends State<Creatediscussion02> {
           ],
         ),
         const SizedBox(height: 20),
-        buildLabel("Importez tout fichier qui serait utile aux autres medecins"),
+        buildLabel(appLocalizations.import),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           height: height * 0.055,

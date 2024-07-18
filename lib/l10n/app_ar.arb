@@ -61,6 +61,19 @@
   "lancePar": "بدأ بواسطة",
   "participants": "مشاركون",
   "compteRendue": "تقرير",
-  "more": "المزيد"
+  "more": "المزيد",
+  "valide": "انتهاء",
+  "nomPatient": "الاسم العائلي للمريض",
+  "prenomPatient": "الاسم الشخصي للمريض",
+  "agePatient": "عمر المريض",
+  "patientCase": "حالة المريض",
+  "titleDiscussion": "عنوان المناقشة",
+  "motifDiscussion": "سبب المناقشة",
+  "traitement": "العلاج الممكن",
+  "import": "قم باستيراد أي ملف قد يكون مفيدًا للأطباء الآخرين",
+  "public": "عام",
+  "private": "خاص",
+  "chooseDoc": "اضافة اطباء",
+  "chooseSpeciality": "إضافة حسب التخصصات"
 
 }

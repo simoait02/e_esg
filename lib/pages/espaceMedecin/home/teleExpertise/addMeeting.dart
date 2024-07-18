@@ -7,6 +7,8 @@ import 'package:e_esg/pages/espaceMedecin/home/teleExpertise/CreateDiscussion04.
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class AddMeeting extends StatefulWidget {
   const AddMeeting({Key? key}) : super(key: key);
@@ -42,14 +44,15 @@ class _AddMeetingState extends State<AddMeeting> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
+    final appLocalizations = AppLocalizations.of(context);
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: Cardi.isDarkMode.value?Color(0xff141218):Colors.white,
       appBar: CupertinoNavigationBar(
         backgroundColor: Cardi.isDarkMode.value ? Color(0xff181a1b) : Colors.white,
-        previousPageTitle: "Back",
+        previousPageTitle: appLocalizations!.precedent,
         middle: Text(
-          'Create Discussion',
+          appLocalizations.createDiscussion,
           style: GoogleFonts.poppins(
             textStyle: TextStyle(
               color: Cardi.isDarkMode.value ? Colors.white : Colors.black,
@@ -84,7 +87,7 @@ class _AddMeetingState extends State<AddMeeting> {
                       ),
                       alignment: Alignment.center,
                       child: AutoSizeText(
-                        "Precedent",
+                        appLocalizations.precedent,
                         style: TextStyle(fontSize: 20),
                       ),
                     ),
@@ -112,7 +115,7 @@ class _AddMeetingState extends State<AddMeeting> {
                       ),
                       alignment: Alignment.center,
                       child: AutoSizeText(
-                        index == 3 ? "Valider" : "Suivant",
+                        index == 3 ? appLocalizations.valide : appLocalizations.suivant,
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
                     ),

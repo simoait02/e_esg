@@ -61,5 +61,18 @@
   "lancePar": "launched by",
   "participants": "Participants",
   "compteRendue": "report",
-  "more": "See more"
+  "more": "See more",
+  "valide": "Validate",
+  "nomPatient": "Patient last name",
+  "prenomPatient": "Patient first name",
+  "agePatient": "Patient age",
+  "patientCase": "Patient Case",
+  "titleDiscussion": "Discussion title",
+  "motifDiscussion": "Discussion reason",
+  "traitement": "Possible treatment",
+  "import": "Import any file that would be useful to other doctors",
+  "public": "Public",
+  "private": "Private",
+  "chooseDoc": "Add Doctors",
+  "chooseSpeciality": "Add by Specialities"
 }

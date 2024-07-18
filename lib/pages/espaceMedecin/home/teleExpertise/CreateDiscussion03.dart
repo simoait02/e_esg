@@ -2,9 +2,10 @@ import 'package:e_esg/models/doctor.dart';
 import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../Data/doctor_list.dart';
 
 class Creatediscussion03 extends StatefulWidget {
@@ -139,6 +140,7 @@ class _Creatediscussion03State extends State<Creatediscussion03> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+    final appLocalizations = AppLocalizations.of(context);
     return Stack(
       children: [
         Column(
@@ -157,7 +159,7 @@ class _Creatediscussion03State extends State<Creatediscussion03> {
                 children: {
                   0: Container(
                       child: Text(
-                        'Private',
+                        appLocalizations!.private,
                         style: GoogleFonts.poppins(
                             textStyle: TextStyle(
                                 color: Cardi.isDarkMode.value
@@ -166,13 +168,14 @@ class _Creatediscussion03State extends State<Creatediscussion03> {
                                 fontWeight: FontWeight.w500)),
                       )),
                   1: Container(
-                      child: Text('Public',
+                      child: Text(appLocalizations.public,
                           style: GoogleFonts.poppins(
                               textStyle: TextStyle(
                                   color: Cardi.isDarkMode.value
                                       ? CupertinoColors.white
                                       : CupertinoColors.black,
-                                  fontWeight: FontWeight.w500)))),
+                                  fontWeight: FontWeight.w500))
+                      )),
                 },
                 onValueChanged: (int value) {
                   setState(() {
@@ -186,7 +189,7 @@ class _Creatediscussion03State extends State<Creatediscussion03> {
                 ? Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                buildLabel("Choisissez vos Médecins"),
+                buildLabel(appLocalizations.chooseDoc),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   height: height * 0.055,
@@ -262,7 +265,7 @@ class _Creatediscussion03State extends State<Creatediscussion03> {
                 : Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                buildLabel("Choisissez les Spécialités"),
+                buildLabel(appLocalizations.chooseSpeciality),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   height: height * 0.055,
@@ -335,7 +338,7 @@ class _Creatediscussion03State extends State<Creatediscussion03> {
                 ),
               ],
             ),
-            buildLabel("Date"),
+            buildLabel(appLocalizations.date),
             GestureDetector(
               onTap: () {
                 tempSelectedDateTime = selectedDateTime;
@@ -354,8 +357,8 @@ class _Creatediscussion03State extends State<Creatediscussion03> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               CupertinoButton(
-                                child: const Text(
-                                  "Cancel",
+                                child: Text(
+                                  appLocalizations.cancel,
                                   style: TextStyle(color: Colors.red),
                                 ),
                                 onPressed: () {
@@ -363,13 +366,26 @@ class _Creatediscussion03State extends State<Creatediscussion03> {
                                 },
                               ),
                               CupertinoButton(
-                                child: const Text(
-                                  "Done",
+                                child: Text(
+                                  appLocalizations.done,
                                   style: TextStyle(color: Colors.blue),
                                 ),
                                 onPressed: () {
-                                  updateDate(tempSelectedDateTime);
-                                  Navigator.pop(context);
+                                  if (tempSelectedDateTime.weekday == DateTime.wednesday ||
+                                      tempSelectedDateTime.weekday == DateTime.friday) {
+                                    updateDate(tempSelectedDateTime);
+                                    Navigator.pop(context);
+                                  } else {
+                                    Fluttertoast.showToast(
+                                      msg: "Please select a Wednesday or Friday.",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.BOTTOM,
+                                      timeInSecForIosWeb: 1,
+                                      backgroundColor: Colors.red,
+                                      textColor: Colors.white,
+                                      fontSize: 16.0,
+                                    );
+                                  }
                                 },
                               ),
                             ],
@@ -378,22 +394,31 @@ class _Creatediscussion03State extends State<Creatediscussion03> {
                             child: CupertinoTheme(
                               data: CupertinoThemeData(
                                 textTheme: CupertinoTextThemeData(
-                                    dateTimePickerTextStyle:
-                                    GoogleFonts.poppins(
-                                      textStyle: TextStyle(
-                                        color: Cardi.isDarkMode.value
-                                            ? Colors.white
-                                            : Colors.black,
-                                        fontSize: 20,
-                                      ),
-                                    )),
+                                  dateTimePickerTextStyle: GoogleFonts.poppins(
+                                    textStyle: TextStyle(
+                                      color: Cardi.isDarkMode.value
+                                          ? Colors.white
+                                          : Colors.black,
+                                      fontSize: 24, // Increase the font size
+                                    ),
+                                  ),
+                                ),
                               ),
-                              child: CupertinoDatePicker(
-                                initialDateTime: selectedDateTime,
-                                onDateTimeChanged: (DateTime newDate) {
-                                  tempSelectedDateTime = newDate;
-                                },
-                                mode: CupertinoDatePickerMode.date,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 16.0), // Add padding
+                                child: StatefulBuilder(
+                                  builder: (BuildContext context, StateSetter setState) {
+                                    return CupertinoDatePicker(
+                                      initialDateTime: selectedDateTime,
+                                      onDateTimeChanged: (DateTime newDate) {
+                                        setState(() {
+                                          tempSelectedDateTime = newDate;
+                                        });
+                                      },
+                                      mode: CupertinoDatePickerMode.date,
+                                    );
+                                  },
+                                ),
                               ),
                             ),
                           ),
@@ -429,6 +454,7 @@ class _Creatediscussion03State extends State<Creatediscussion03> {
                 ),
               ),
             ),
+
             const SizedBox(height: 20),
             buildLabel("Time"),
             GestureDetector(
@@ -463,8 +489,21 @@ class _Creatediscussion03State extends State<Creatediscussion03> {
                                   style: TextStyle(color: Colors.blue),
                                 ),
                                 onPressed: () {
-                                  updateTime(tempSelectedTime);
-                                  Navigator.pop(context);
+                                  if ((tempSelectedTime.hour >= 9 && tempSelectedTime.hour < 12) &&
+                                      (tempSelectedTime.minute == 0 || tempSelectedTime.minute == 30)) {
+                                    updateTime(tempSelectedTime);
+                                    Navigator.pop(context);
+                                  } else {
+                                    Fluttertoast.showToast(
+                                      msg: "Please select a time between 9:00 AM and 12:00 PM with minutes 00 or 30.",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.BOTTOM,
+                                      timeInSecForIosWeb: 1,
+                                      backgroundColor: Colors.red,
+                                      textColor: Colors.white,
+                                      fontSize: 16.0,
+                                    );
+                                  }
                                 },
                               ),
                             ],
@@ -473,15 +512,15 @@ class _Creatediscussion03State extends State<Creatediscussion03> {
                             child: CupertinoTheme(
                               data: CupertinoThemeData(
                                 textTheme: CupertinoTextThemeData(
-                                    dateTimePickerTextStyle:
-                                    GoogleFonts.poppins(
-                                      textStyle: TextStyle(
-                                        color: Cardi.isDarkMode.value
-                                            ? Colors.white
-                                            : Colors.black,
-                                        fontSize: 20,
-                                      ),
-                                    )),
+                                  dateTimePickerTextStyle: GoogleFonts.poppins(
+                                    textStyle: TextStyle(
+                                      color: Cardi.isDarkMode.value
+                                          ? Colors.white
+                                          : Colors.black,
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                ),
                               ),
                               child: CupertinoDatePicker(
                                 initialDateTime: selectedTime,
