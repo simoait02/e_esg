@@ -31,35 +31,17 @@ class _AccounttypeState extends State<Accounttype> {
 
   _loadPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      Cardi.isDarkMode.value = prefs.getBool('isDarkMode') ?? (MediaQuery.of(context).platformBrightness == Brightness.dark);
-      Settings.isSystemSettings = prefs.getBool('isSystemSettings') ?? true;
-      Settings.isDark = prefs.getBool('isDark') ?? false;
-      Settings.isLight = prefs.getBool('isLight') ?? false;
-    });
-    _setStatusBarStyle();
-  }
-
-  _setStatusBarStyle() {
-    SystemUiOverlayStyle overlayStyle = Cardi.isDarkMode.value
-        ? SystemUiOverlayStyle.light
-        : SystemUiOverlayStyle.dark;
-    SystemChrome.setSystemUIOverlayStyle(overlayStyle);
+    setState(() {Settings.isSystemSettings = prefs.getBool('isSystemSettings') ?? true;});
   }
 
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    Settings.isSystemSettings
-        ? Cardi.isDarkMode.value = (MediaQuery.of(context).platformBrightness == Brightness.dark)
-        : !Settings.isDark
-        ? Settings.isDark
-        : Settings.isLight;
-    _setStatusBarStyle();
+    bool darkMode = WidgetsBinding.instance.platformDispatcher.platformBrightness == Brightness.dark;
 
     return Scaffold(
-        backgroundColor: Cardi.isDarkMode.value ? Color(0xff1a1a1e) : Colors.white,
+        backgroundColor: darkMode ? Color(0xff1a1a1e) : Color(0xffF5F5F6),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -75,7 +57,7 @@ class _AccounttypeState extends State<Accounttype> {
                   textStyle: TextStyle(
                     fontSize: 50,
                     fontWeight: FontWeight.bold,
-                    color: !Cardi.isDarkMode.value ? const Color(0xff27272d) : Colors.white,
+                    color: !darkMode ? const Color(0xff27272d) : Colors.white,
                   ),
                 ),
               ),
@@ -94,9 +76,9 @@ class _AccounttypeState extends State<Accounttype> {
                 margin: EdgeInsets.symmetric(horizontal: 20),
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 decoration: BoxDecoration(
-                  color: isJeune ? Color(0xff00d3c7) : Color(0xb59799ef),
+                  color: isJeune ? Color(0xff2F38A5) :!darkMode ? Colors.white : Colors.grey.shade900,
                   borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: Colors.black),
+                  border: Border.all(color:darkMode? Color(0xff9196CC):Color(0xffEAEBF6)),
                 ),
                 child: Stack(
                   children: [
@@ -104,7 +86,7 @@ class _AccounttypeState extends State<Accounttype> {
                       left: 0,
                         top: 0,
                         bottom: 0,
-                        child: Image.asset("assets/images/jeune.png")),
+                        child: Image.asset("assets/images/youngpeople.png")),
                     Positioned(
                       left: width * 0.42,
                       top: height * 0.06,
@@ -117,6 +99,7 @@ class _AccounttypeState extends State<Accounttype> {
                           maxLines: 1,
                           style: GoogleFonts.aBeeZee(
                             textStyle: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                            color:!darkMode?const Color(0xff141218) : Colors.white,
                           ),
                         ),
                       ),
@@ -140,9 +123,9 @@ class _AccounttypeState extends State<Accounttype> {
                 margin: EdgeInsets.symmetric(horizontal: 20),
                 padding: EdgeInsets.symmetric(vertical: 10),
                 decoration: BoxDecoration(
-                  color: isDoctor ? Color(0xff00d3c7) : Color(0xb59799ef),
+                  color: isDoctor ? Color(0xff2F38A5) : !darkMode ? Colors.white : Colors.grey.shade900,
                   borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: Colors.black),
+                  border: Border.all(color: darkMode? Color(0xff9196CC):Color(0xffEAEBF6)),
                 ),
                 child: Stack(
                   children: [
@@ -150,7 +133,7 @@ class _AccounttypeState extends State<Accounttype> {
                         left: 0,
                         top: 0,
                         bottom: 0,
-                        child: Image.asset("assets/images/doctor.png")),
+                        child: Image.asset("assets/images/doctors.png")),
                     Positioned(
                       left: width * 0.47,
                       top: height * 0.06,
@@ -163,6 +146,7 @@ class _AccounttypeState extends State<Accounttype> {
                           maxLines: 1,
                           style: GoogleFonts.aBeeZee(
                             textStyle: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                            color:!darkMode?const Color(0xff141218) : Colors.white,
                           ),
                         ),
                       ),
@@ -186,9 +170,9 @@ class _AccounttypeState extends State<Accounttype> {
                 margin: EdgeInsets.symmetric(horizontal: 20),
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 decoration: BoxDecoration(
-                  color: isInfermier ? Color(0xff00d3c7) : Color(0xb59799ef),
+                  color: isInfermier ?Color(0xff2F38A5) : !darkMode ? Colors.white : Colors.grey.shade900,
                   borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: Colors.black),
+                  border: Border.all(color: darkMode? Color(0xff9196CC):Color(0xffEAEBF6)),
                 ),
                 child: Stack(
                   children: [
@@ -196,7 +180,7 @@ class _AccounttypeState extends State<Accounttype> {
                         left: 0,
                         top: 0,
                         bottom: 0,
-                        child: Image.asset("assets/images/infermier.png")),
+                        child: Image.asset("assets/images/nurses.png")),
                     Positioned(
                       left: width * 0.41,
                       top: height * 0.06,
@@ -209,6 +193,7 @@ class _AccounttypeState extends State<Accounttype> {
                           maxLines: 1,
                           style: GoogleFonts.aBeeZee(
                             textStyle: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                            color:!darkMode?const Color(0xff141218) : Colors.white,
                           ),
                         ),
                       ),
@@ -226,7 +211,7 @@ class _AccounttypeState extends State<Accounttype> {
                   width: width * 0.5,
                   decoration: BoxDecoration(
                     gradient: const LinearGradient(
-                      colors: [Color(0xff0b40ff), Color(0xff0c40a4)],
+                      colors: [Color(0xff4E57CD), Color(0xff2F38A5)],
                     ),
                     borderRadius: BorderRadius.circular(40),
                   ),

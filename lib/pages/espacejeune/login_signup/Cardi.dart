@@ -89,7 +89,7 @@ class _CardiJeuneState extends State<CardiJeune> {
 
   void navigateToSignup() {
     setState(() {
-      showLogin = false; // Ensure we are showing signup screen
+      showLogin = false;
       CardiJeune.stayinActivitiesInformations = false;
       CardiJeune.moveToActivitiesInformations = false;
       CardiJeune.moveToPassword = false;
