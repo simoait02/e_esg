@@ -26,29 +26,32 @@ class Bottommodalsheet extends StatefulWidget {
 
 class _BottommodalsheetState extends State<Bottommodalsheet> {
   TextEditingController _controller = TextEditingController();
+  TextEditingController _controllerPassword = TextEditingController();
+  bool obscurePassword = true;
+  bool obscureCoPassword = true;
 
   @override
   void initState() {
     super.initState();
     switch (widget.parametre) {
       case "Nom":
-        _controller.text = "Marquina";
+        _controller.text = "";
         break;
       case "Prénom":
-        _controller.text = "Sergio";
+        _controller.text = "";
         break;
       case "email":
-        _controller.text = "sergiomarquina@gmail.com";
+        _controller.text = "";
         break;
       case "numTele":
-        _controller.text = "1234567890";
+        _controller.text = "";
         break;
       case "password":
         break;
     }
   }
 
-  Widget _buildInputField(String labelText, String placeholderText, bool password) {
+  Widget _buildInputField(String labelText, String placeholderText, bool password, TextEditingController controller, bool obscureText) {
     final Color color = widget.isDarkMode ? Colors.white : Colors.black;
     final Color placeholderColor = color.withOpacity(0.5);
     return Column(
@@ -79,7 +82,7 @@ class _BottommodalsheetState extends State<Bottommodalsheet> {
             children: [
               Expanded(
                 child: CupertinoTextField(
-                  controller: _controller,
+                  controller: controller,
                   padding: EdgeInsets.zero,
                   style: GoogleFonts.aBeeZee(
                     color: placeholderColor,
@@ -95,14 +98,40 @@ class _BottommodalsheetState extends State<Bottommodalsheet> {
                       color: Colors.transparent,
                     ),
                   ),
-                  obscureText: password,
+                  obscureText: obscureText,
                 ),
               ),
-              Container(
+              password
+                  ? GestureDetector(
+                onTap: () {
+                  setState(() {
+                    if (controller == _controller) {
+                      obscurePassword = !obscurePassword;
+                    } else {
+                      obscureCoPassword = !obscureCoPassword;
+                    }
+                  });
+                },
+                child: Container(
+                  height: 30,
+                  width: 30,
+                  padding: const EdgeInsets.all(2),
+                  child: obscureText
+                      ? Image.asset(
+                    "assets/images/eyeClo.png",
+                    color: placeholderColor,
+                  )
+                      : Image.asset(
+                    "assets/images/eyeOp.png",
+                    color: placeholderColor,
+                  ),
+                ),
+              )
+                  : Container(
                 height: 30,
                 width: 30,
                 padding: const EdgeInsets.all(2),
-                child: password ? Image.asset("assets/images/eyeOp.png", color: placeholderColor,) : Image.asset(
+                child: Image.asset(
                   "assets/images/edit.png",
                   color: placeholderColor,
                 ),
@@ -118,20 +147,20 @@ class _BottommodalsheetState extends State<Bottommodalsheet> {
     final appLocalizations = AppLocalizations.of(context);
     switch (widget.parametre) {
       case "Nom":
-        return _buildInputField(appLocalizations!.nom, "entrez votre Nom", false);
+        return _buildInputField(appLocalizations!.nom, "entrez votre Nom", false, _controller, false);
       case "Prénom":
-        return _buildInputField(appLocalizations!.prenom, "entrez votre Prénom", false);
+        return _buildInputField(appLocalizations!.prenom, "entrez votre Prénom", false, _controller, false);
       case "email":
-        return _buildInputField(appLocalizations!.email, "entrez votre nouveau email", false);
+        return _buildInputField(appLocalizations!.email, "entrez votre nouveau email", false, _controller, false);
       case "numTele":
-        return _buildInputField(appLocalizations!.tele, "entrez votre nouveau téléphone", false);
+        return _buildInputField(appLocalizations!.tele, "entrez votre nouveau téléphone", false, _controller, false);
       case "password":
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildInputField(appLocalizations!.password, "entrez votre mot de passe actuelle", true),
+            _buildInputField(appLocalizations!.password, "entrez votre mot de passe actuelle", true, _controller, obscurePassword),
             const SizedBox(height: 20),
-            _buildInputField(appLocalizations.confirmPass, "entrez votre nouveau mot de passe", true),
+            _buildInputField(appLocalizations.confirmPass, "Confirmer mot de passe", true, _controllerPassword, obscureCoPassword),
           ],
         );
       default:

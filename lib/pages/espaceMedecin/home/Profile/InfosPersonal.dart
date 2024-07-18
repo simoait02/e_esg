@@ -103,9 +103,9 @@ class _InfospersonalState extends State<Infospersonal> {
     return Scaffold(
       appBar: CupertinoNavigationBar(
         backgroundColor: backgroundColor,
-        previousPageTitle: "Back",
+        previousPageTitle: appLocalizations!.precedent,
         middle: Text(
-          appLocalizations!.myInfos,
+          appLocalizations.myInfos,
           style: GoogleFonts.poppins(
             textStyle: TextStyle(
               color: textColor,

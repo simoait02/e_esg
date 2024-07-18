@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
+import 'package:intl/intl.dart' as intl;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'addMeeting.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -26,6 +26,9 @@ class TeleExpertise extends StatefulWidget {
 }
 
 class _TeleExpertiseState extends State<TeleExpertise> {
+  bool isArabic(BuildContext context) {
+    return Localizations.localeOf(context).languageCode == 'ar';
+  }
   String language='en';
   @override
   void initState() {
@@ -115,7 +118,7 @@ class _TeleExpertiseState extends State<TeleExpertise> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          DateFormat.yMMMMd().format(DateTime.now()),
+                          intl.DateFormat.yMMMMd().format(DateTime.now()),
                           style: GoogleFonts.aBeeZee(
                               textStyle: TextStyle(
                                   fontSize: 24,
@@ -303,12 +306,15 @@ class _TeleExpertiseState extends State<TeleExpertise> {
                             Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(appLocalizations.startAt,
-                                  style: GoogleFonts.rubik(
-                                      textStyle: const TextStyle(
-                                        fontSize: 15,
-                                        color: Color(0xFF4254F4),
-                                      )
+                                Directionality(
+                                  textDirection: isArabic(context)?TextDirection.rtl:TextDirection.ltr,
+                                  child: Text(appLocalizations.startAt,
+                                    style: GoogleFonts.rubik(
+                                        textStyle: const TextStyle(
+                                          fontSize: 15,
+                                          color: Color(0xFF4254F4),
+                                        )
+                                    ),
                                   ),
                                 ),
                                 Row(
