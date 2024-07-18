@@ -81,5 +81,6 @@
   "dark": "Dark mode",
   "light": "Light mode",
   "myInfos": "My informations",
-  "logOut": "Log out"
+  "logOut": "Log out",
+  "notification": "Notifications"
 }

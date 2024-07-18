@@ -456,7 +456,7 @@ class _Creatediscussion03State extends State<Creatediscussion03> {
             ),
 
             const SizedBox(height: 20),
-            buildLabel("Time"),
+            buildLabel(appLocalizations.time),
             GestureDetector(
               onTap: () {
                 tempSelectedTime = selectedTime;
