@@ -113,7 +113,9 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
 
     );
   }
-
+  bool isArabic(BuildContext context) {
+    return Localizations.localeOf(context).languageCode == 'ar';
+  }
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -123,25 +125,24 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
     final appLocalizations = AppLocalizations.of(context);
     return SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    margin: EdgeInsets.only(left:30),
-                    child:  Align(
-                      alignment: Alignment.centerLeft,
-                      child: Container(
-                        height: height*0.07,
-                        width: width*0.3,
-                        child: AutoSizeText(
-                          appLocalizations!.signUp,
-                          style: TextStyle(
-                              color: isDarkMode?Colors.white:Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 30,
-                              fontFamily: "poppins"
-                          ),
+                    margin: EdgeInsets.symmetric(horizontal:30),
+                    child:  Container(
+                      height: height*0.07,
+                      width: width*0.3,
+                      child: AutoSizeText(
+                        appLocalizations!.signUp,
+                        style: TextStyle(
+                            color: isDarkMode?Colors.white:Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 30,
+                            fontFamily: "poppins"
                         ),
                       ),
                     ),
@@ -160,22 +161,19 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                           children: [
                             Container(
                                 height: height*0.03,
-                                margin: EdgeInsets.only(left:10) ,
+                                margin: EdgeInsets.symmetric(horizontal:10) ,
                                 child: AutoSizeText("CIN",
                                   style: TextStyle(color: isDarkMode?Colors.white:Colors.black),)),
                             buildTextField(width,height, "", _cinFocusNode, _cinHasFocus,isDarkMode),
                           ],
                         ),
                       ),),
-                  Align(
-                      alignment: Alignment.centerLeft,
-                      child: Container(
-                          height: height*0.03,
-                          margin: EdgeInsets.only(left:30) ,
-                          child: AutoSizeText(appLocalizations.scolarite,
-                            style: TextStyle(color: isDarkMode?Colors.white:Colors.black),
-                          )
-                      ),
+                  Container(
+                      height: height*0.03,
+                      margin: EdgeInsets.symmetric(horizontal:30) ,
+                      child: AutoSizeText(appLocalizations.scolarite,
+                        style: TextStyle(color: isDarkMode?Colors.white:Colors.black),
+                      )
                   ),
                   Container(
                       child: Row(
@@ -356,10 +354,12 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                             children: [
                               Container(
                                   height: height*0.03,
-                                  margin: EdgeInsets.only(left:10) ,
+                                  margin: EdgeInsets.symmetric(horizontal:20) ,
                                   child: AutoSizeText(appLocalizations.lastLevel,
                                     style: TextStyle(color: isDarkMode?Colors.white:Colors.black),)),
-                              buildTextField(width,height, "", _lastStudFocusNode, _lastStudHasFocus,isDarkMode),
+                              Container(
+                                  margin: EdgeInsets.symmetric(horizontal: 20),
+                                  child: buildTextField(width,height, "", _lastStudFocusNode, _lastStudHasFocus,isDarkMode)),
                             ],
                           ),
                           SizedBox(height: height*0.02,),

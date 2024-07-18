@@ -118,8 +118,11 @@ class _SignupState extends State<Signup> {
   void updateDate(DateTime newDate) {
     setState(() {
       selectedDateTime = newDate;
-      label = intl.DateFormat.yMMMMd().format(selectedDateTime); // Using intl for date formatting
+      label = intl.DateFormat.yMMMMd().format(selectedDateTime);
     });
+  }
+  bool isArabic(BuildContext context) {
+    return Localizations.localeOf(context).languageCode == 'ar';
   }
 
   @override
@@ -131,32 +134,30 @@ class _SignupState extends State<Signup> {
     final appLocalizations = AppLocalizations.of(context);
     return SingleChildScrollView(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                margin: EdgeInsets.only(left: 30),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Container(
-                    height: height * 0.07,
-                    width: width * 0.3,
-                    child: AutoSizeText(
-                      appLocalizations!.signUp,
-                      style: TextStyle(
-                        color: isDarkMode ? Colors.white : Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30,
-                        fontFamily: "poppins",
-                      ),
+                margin: EdgeInsets.only(left: 20,right: 20),
+                child: Container(
+                  height: height * 0.07,
+                  width: width * 0.3,
+                  child: AutoSizeText(
+                    appLocalizations!.signUp,
+                    style: TextStyle(
+                      color: isDarkMode ? Colors.white : Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                      fontFamily: "poppins",
                     ),
                   ),
                 ),
               ),
               Container(
                 height: height * 0.04,
-                alignment: Alignment.centerLeft,
-                margin: EdgeInsets.only(left: 30),
+                margin: EdgeInsets.symmetric(horizontal: 30),
                 child: AutoSizeText(
                   appLocalizations.sex,
                   style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
@@ -379,9 +380,8 @@ class _SignupState extends State<Signup> {
               ),
               SizedBox(height: height * 0.015),
               Container(
-                alignment: Alignment.centerLeft,
                 height: height * 0.03,
-                margin: EdgeInsets.only(left: 30),
+                margin: EdgeInsets.symmetric(horizontal: 30),
                 child: AutoSizeText(
                   appLocalizations.email,
                   style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
@@ -392,18 +392,17 @@ class _SignupState extends State<Signup> {
                 child: buildTextField(width, height, "", _emailFocusNode, _emailHasFocus, isDarkMode),
               ),
               SizedBox(height: height * 0.015),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Container(
-                  height: height * 0.03,
-                  margin: EdgeInsets.only(left: 30),
-                  child: AutoSizeText(
-                    appLocalizations.tele,
-                    style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
-                  ),
+              Container(
+                height: height * 0.03,
+                margin: EdgeInsets.symmetric(horizontal: 30),
+                child: AutoSizeText(
+                  appLocalizations.tele,
+                  style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
                 ),
               ),
-              buildTextField(width, height, "", _numTeleFocusNode, _numTeleHasFocus, isDarkMode),
+              Container(
+                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  child: buildTextField(width, height, "", _numTeleFocusNode, _numTeleHasFocus, isDarkMode)),
             ],
           ),
           Column(

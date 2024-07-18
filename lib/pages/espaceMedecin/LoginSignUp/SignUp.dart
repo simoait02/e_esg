@@ -127,20 +127,18 @@ class _SignupState extends State<Signup> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                margin: const EdgeInsets.only(left: 30),
+                margin: const EdgeInsets.symmetric(horizontal: 30),
                 height: height * 0.07,
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: AutoSizeText(
-                    appLocalizations!.signUp,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30,
-                      fontFamily: "poppins",
-                      color: Cardi.isDarkMode.value ? Colors.white : Colors.black,
-                    ),
+                child: AutoSizeText(
+                  appLocalizations!.signUp,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30,
+                    fontFamily: "poppins",
+                    color: Cardi.isDarkMode.value ? Colors.white : Colors.black,
                   ),
                 ),
               ),
@@ -248,31 +246,29 @@ class _SignupState extends State<Signup> {
                 ),
               ),
               const SizedBox(height: 10),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Container(
-                  height: height * 0.025,
-                  margin: const EdgeInsets.only(left: 30),
-                  child: AutoSizeText(
-                    appLocalizations.email,
-                    style: TextStyle(color: Cardi.isDarkMode.value ? Colors.white : Colors.black),
-                  ),
+              Container(
+                height: height * 0.025,
+                margin: const EdgeInsets.symmetric(horizontal: 30),
+                child: AutoSizeText(
+                  appLocalizations.email,
+                  style: TextStyle(color: Cardi.isDarkMode.value ? Colors.white : Colors.black),
                 ),
               ),
-              buildTextField(width, height, "", _emailFocusNode, _emailHasFocus, Cardi.isDarkMode.value),
+              Container(
+                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  child: buildTextField(width, height, "", _emailFocusNode, _emailHasFocus, Cardi.isDarkMode.value)),
               const SizedBox(height: 10),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Container(
-                  height: height * 0.025,
-                  margin: const EdgeInsets.only(left: 30),
-                  child: AutoSizeText(
-                    appLocalizations.tele,
-                    style: TextStyle(color: Cardi.isDarkMode.value ? Colors.white : Colors.black),
-                  ),
+              Container(
+                height: height * 0.025,
+                margin: const EdgeInsets.symmetric(horizontal: 30),
+                child: AutoSizeText(
+                  appLocalizations.tele,
+                  style: TextStyle(color: Cardi.isDarkMode.value ? Colors.white : Colors.black),
                 ),
               ),
-              buildTextField(width, height, "", _numTeleFocusNode, _numTeleHasFocus, Cardi.isDarkMode.value),
+              Container(
+                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  child: buildTextField(width, height, "", _numTeleFocusNode, _numTeleHasFocus, Cardi.isDarkMode.value)),
               const SizedBox(height: 10),
               Column(
                 children: [
