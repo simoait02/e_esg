@@ -68,11 +68,11 @@ class _ChooselanguageState extends State<Chooselanguage> {
                   child: Stack(
                     children: [
                       Positioned(
-                        left: 0,
-                        top: 0,
+                        left: 10,
+                        top: 8,
                         child: Container(
-                          width: 70,
-                          height: 70,
+                          width: 50,
+                          height: 50,
                           decoration: const BoxDecoration(
                             image: DecorationImage(
                               image: AssetImage("assets/usa.png"),

@@ -82,8 +82,11 @@
   "light": "Mode lumière",
   "myInfos": "Mes informations",
   "logOut": "Se déconnecter",
-  "notification": "Notifications"
-
+  "notification": "Notifications",
+  "profile": "Mon profile",
+  "aboutMe": "À propos de moi",
+  "designation": "Désignation",
+  "education": "Éducation"
 
 
 

@@ -7,7 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../Widgets/search.dart';
 import '../../../../models/patient.dart';
 
@@ -112,12 +112,16 @@ class _MespatientsState extends State<Mespatients> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+    final appLocalizations = AppLocalizations.of(context);
+
     return Scaffold(
       backgroundColor: Cardi.isDarkMode.value ? Color(0xff141218) : Colors.white,
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            CustomSliverAppBar(role: "Docteur", name: "simo", imagePath: "assets/images/boy.png",),
+            Directionality(
+              textDirection: TextDirection.ltr,
+                child: CustomSliverAppBar(role: "Docteur", name: "simo", imagePath: "assets/images/boy.png",)),
             SliverToBoxAdapter(
               child: Container(
                 margin: EdgeInsets.only(top: 10),
@@ -128,7 +132,7 @@ class _MespatientsState extends State<Mespatients> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Mes Patients", style: GoogleFonts.poppins(
+                        Text(appLocalizations!.mesPatients, style: GoogleFonts.poppins(
                             textStyle: TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
@@ -243,7 +247,7 @@ class _MespatientsState extends State<Mespatients> {
                     border: Border.all(color: Color(0xff2e37a4)),
                   ),
                   child: AutoSizeText(
-                    "voir dossier medical",
+                    AppLocalizations.of(context)!.seeMedicalDoc,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.white,

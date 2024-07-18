@@ -82,5 +82,10 @@
   "light": "Light mode",
   "myInfos": "My informations",
   "logOut": "Log out",
-  "notification": "Notifications"
+  "notification": "Notifications",
+  "profile": "My profile",
+  "aboutMe": "About me",
+  "designation": "hiring",
+  "education": "Education"
+
 }
