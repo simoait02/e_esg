@@ -409,7 +409,7 @@ class _SpecialityState extends State<Speciality> {
                           style: TextStyle(color: Color(0xff4E57CD), fontSize: 20),
                         )),
                     onPressed: () {
-                      widget.onBackTapped(0.8,0.1);
+                      widget.onBackTapped(0.63,0.1);
                     },
                   ),
                   CupertinoButton(
