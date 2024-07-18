@@ -339,7 +339,7 @@ class _SpecialityState extends State<Speciality> {
                             ),
                             offset: Offset(0, 50),
                             suggestionsDecoration: SuggestionDecoration(
-                              color: Colors.white,
+                              color: Cardi.isDarkMode.value?Color(0xff9196CD):Colors.white,
                               borderRadius: BorderRadius.circular(10),
                               width: MediaQuery.of(context).size.width - 100,
                             ),
