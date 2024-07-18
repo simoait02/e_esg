@@ -88,19 +88,19 @@ class _MespatientsState extends State<Mespatients> {
 
   Widget buildPatient({required String text, required bool isDarkMode, required double width}) {
     return Container(
-      margin: EdgeInsets.only(left: 10),
-      padding: EdgeInsets.all(3),
+      margin: const EdgeInsets.only(left: 10),
+      padding: const EdgeInsets.all(3),
       alignment: Alignment.center,
       width: width,
       decoration: BoxDecoration(
         color: isDarkMode ? const Color(0xff181a1b) : Colors.white,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: Color(0xff00d3c7)),
+        border: Border.all(color: const Color(0xff00d3c7)),
       ),
       child: AutoSizeText(
         text,
         textAlign: TextAlign.center,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 15,
           fontFamily: "Poppins",
         ),
@@ -113,19 +113,19 @@ class _MespatientsState extends State<Mespatients> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     final appLocalizations = AppLocalizations.of(context);
-
     return Scaffold(
-      backgroundColor: Cardi.isDarkMode.value ? Color(0xff141218) : Colors.white,
+      backgroundColor: Cardi.isDarkMode.value ? const Color(0xff141218) : Colors.white,
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
             Directionality(
               textDirection: TextDirection.ltr,
-                child: CustomSliverAppBar(role: "Docteur", name: "simo", imagePath: "assets/images/boy.png",)),
+                child: CustomSliverAppBar(role: "Docteur", name: "simo", imagePath: "assets/images/boy.png",)
+            ),
             SliverToBoxAdapter(
               child: Container(
-                margin: EdgeInsets.only(top: 10),
-                padding: EdgeInsets.all(16),
+                margin: const EdgeInsets.only(top: 10),
+                padding: const EdgeInsets.all(16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -133,12 +133,12 @@ class _MespatientsState extends State<Mespatients> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(appLocalizations!.mesPatients, style: GoogleFonts.poppins(
-                            textStyle: TextStyle(
+                            textStyle: const TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
                             )
                         ),),
-                        Spacer(),
+                        const Spacer(),
                         IconButton(
                           onPressed: (){
                             setState(() {
@@ -172,15 +172,15 @@ class _MespatientsState extends State<Mespatients> {
                                 });
                               }
                             },
-                            icon: Icon(Icons.sort_rounded))
+                            icon: const Icon(Icons.sort_rounded))
                       ],
                     ),
-                    SizedBox(height: 10,),
+                    const SizedBox(height: 10,),
                     CustomSearch(
-                      hintText: 'Rechercher un nom ou prenom',
+                      hintText: appLocalizations.searchByName,
                       onchanged: (value) => onSearch(value),
                     ),
-                    SizedBox(height: 15,),
+                    const SizedBox(height: 15,),
                   ],
                 ),
               ),
@@ -190,7 +190,7 @@ class _MespatientsState extends State<Mespatients> {
                 return patientComponent(patient: _searchedpatients[index]);
               },
               childCount: _searchedpatients.length,)),
-            SliverToBoxAdapter(
+            const SliverToBoxAdapter(
               child: SizedBox(height: 100,),
             )
           ],
@@ -204,9 +204,9 @@ class _MespatientsState extends State<Mespatients> {
     return Directionality(
       textDirection: TextDirection.ltr,
       child: Container(
-        margin: EdgeInsets.only(top: 5, left: 10, right: 10),
+        margin: const EdgeInsets.only(top: 5, left: 10, right: 10),
         decoration: BoxDecoration(
-            color: Color(0x3fc8d3f7),
+            color: const Color(0x3fc8d3f7),
             borderRadius: BorderRadius.circular(10)
         ),
         child: Column(
@@ -215,7 +215,7 @@ class _MespatientsState extends State<Mespatients> {
             Row(
               children: [
                 Container(
-                  margin: EdgeInsets.all(10),
+                  margin: const EdgeInsets.all(10),
                   height: 40,
                   width: 40,
                   child: CircleAvatar(
@@ -224,7 +224,7 @@ class _MespatientsState extends State<Mespatients> {
                 ),
                 Text(patient.nom + " " + patient.prenom,
                   style: GoogleFonts.aBeeZee(
-                      textStyle: TextStyle(
+                      textStyle: const TextStyle(
                         fontWeight: FontWeight.w300,
                         fontSize: 20,
                       )
@@ -238,18 +238,18 @@ class _MespatientsState extends State<Mespatients> {
                 buildPatient(text: patient.sexe, isDarkMode: Cardi.isDarkMode.value, width: width * 0.19),
                 buildPatient(text: patient.age.toString().trim() + " ans", isDarkMode: Cardi.isDarkMode.value, width: width * 0.17),
                 Container(
-                  margin: EdgeInsets.symmetric(vertical: 10),
-                  padding: EdgeInsets.all(7),
+                  margin: const EdgeInsets.symmetric(vertical: 10),
+                  padding: const EdgeInsets.all(7),
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color: Color(0xff2e37a4),
+                    color: const Color(0xff2e37a4),
                     borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: Color(0xff2e37a4)),
+                    border: Border.all(color: const Color(0xff2e37a4)),
                   ),
                   child: AutoSizeText(
                     AppLocalizations.of(context)!.seeMedicalDoc,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 15,
                       fontFamily: "Poppins",

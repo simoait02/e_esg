@@ -104,29 +104,25 @@ class _SpecialityState extends State<Speciality> {
       child: Column(
         children: [
           Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                margin: const EdgeInsets.only(left:30),
+                margin: const EdgeInsets.symmetric(horizontal:30),
                 height: height*0.07,
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: AutoSizeText(
-                    appLocalizations!.signUp,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30,
-                        fontFamily: "poppins",
-                        color:Cardi.isDarkMode.value?Colors.white:Colors.black
-                    ),
+                child: AutoSizeText(
+                  appLocalizations!.signUp,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                      fontFamily: "poppins",
+                      color:Cardi.isDarkMode.value?Colors.white:Colors.black
                   ),
                 ),
               ),
               const SizedBox(height: 20,),
               Container(
                 height: height * 0.04,
-                alignment: Alignment.centerLeft,
-                margin: EdgeInsets.only(left: 30),
+                margin: EdgeInsets.symmetric(horizontal: 30),
                 child: AutoSizeText(
                   appLocalizations.stateDoc,
                   style: TextStyle(color: Cardi.isDarkMode.value ? Colors.white : Colors.black),
@@ -195,15 +191,12 @@ class _SpecialityState extends State<Speciality> {
                 ],
               ),
               const SizedBox(height: 10,),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Container(
-                    height: height*0.03,
-                    margin: EdgeInsets.only(left:30) ,
-                    child: AutoSizeText(appLocalizations.gen,
-                      style: TextStyle(color:Cardi.isDarkMode.value?Colors.white:Colors.black),
-                    )
-                ),
+              Container(
+                  height: height*0.03,
+                  margin: EdgeInsets.symmetric(horizontal:30) ,
+                  child: AutoSizeText(appLocalizations.gen,
+                    style: TextStyle(color:Cardi.isDarkMode.value?Colors.white:Colors.black),
+                  )
               ),
               Container(
                   child: Row(

@@ -44,16 +44,13 @@ class _LoginState extends State<Login> {
 
   Widget buildLabel(String label, double height, bool isDarkMode) {
     return Container(
-      margin: EdgeInsets.only(left: 40, top: height),
-      child: Align(
-        alignment: Alignment.centerLeft,
-        child: AutoSizeText(
-          label,
-          style: TextStyle(
-            fontFamily: "Inter",
-            fontSize: 15,
-            color: isDarkMode ? Colors.white : Colors.black,
-          ),
+      margin: EdgeInsets.only(left: 40, top: height,right: 40),
+      child: AutoSizeText(
+        label,
+        style: TextStyle(
+          fontFamily: "Inter",
+          fontSize: 15,
+          color: isDarkMode ? Colors.white : Colors.black,
         ),
       ),
     );
@@ -101,75 +98,75 @@ class _LoginState extends State<Login> {
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            margin: EdgeInsets.only(left: 30),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Container(
-                height: height * 0.07,
-                child: AutoSizeText(
-                  appLocalizations!.login,
-                  style: TextStyle(
-                    color: Cardi.isDarkMode.value ? Colors.white : Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
-                    fontFamily: "poppins",
-                  ),
+            margin: EdgeInsets.symmetric(horizontal: 30),
+            child: Container(
+              height: height * 0.07,
+              child: AutoSizeText(
+                appLocalizations!.login,
+                style: TextStyle(
+                  color: Cardi.isDarkMode.value ? Colors.white : Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30,
+                  fontFamily: "poppins",
                 ),
               ),
             ),
           ),
           buildLabel(appLocalizations.id, height * 0.02, Cardi.isDarkMode.value),
           const SizedBox(height: 5),
-          buildTextField(width, height, "E-mail, CIN", _emailFocusNode, _emailHasFocus, Cardi.isDarkMode.value),
+          Container(
+              margin: EdgeInsets.symmetric(horizontal: 20),
+              child: buildTextField(width, height, "E-mail, CIN", _emailFocusNode, _emailHasFocus, Cardi.isDarkMode.value)),
           buildLabel(appLocalizations.password, height * 0.02, Cardi.isDarkMode.value),
           const SizedBox(height: 5),
-          buildTextField(width, height, "", _passwordFocusNode, _passwordHasFocus, Cardi.isDarkMode.value),
+          Container(
+              margin: EdgeInsets.symmetric(horizontal: 20),
+              child: buildTextField(width, height, "", _passwordFocusNode, _passwordHasFocus, Cardi.isDarkMode.value)),
           const SizedBox(height: 10),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: width * 0.05),
-            child: Row(
-              children: [
-                Spacer(),
-                GestureDetector(
-                  child: AutoSizeText(
-                    appLocalizations.forgotPassword,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: width * 0.04,
-                      fontFamily: "Poppins",
-                      color: Color(0xff00D3C7),
-                    ),
-                  ),
+            child: GestureDetector(
+              child: AutoSizeText(
+                appLocalizations.forgotPassword,
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: width * 0.04,
+                  fontFamily: "Poppins",
+                  color: Color(0xff00D3C7),
                 ),
-              ],
+              ),
             ),
           ),
-          CupertinoButton(
-            child: Container(
-              width: width * 0.3,
-              height: height * 0.05,
-              padding: EdgeInsets.symmetric(horizontal: 8),
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [Color(0xff4E57CD), Color(0xff2F38A5)],
+          Align(
+            alignment: Alignment.center,
+            child: CupertinoButton(
+              child: Container(
+                width: width * 0.3,
+                height: height * 0.05,
+                padding: EdgeInsets.symmetric(horizontal: 8),
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: [Color(0xff4E57CD), Color(0xff2F38A5)],
+                  ),
+                  borderRadius: BorderRadius.circular(40),
                 ),
-                borderRadius: BorderRadius.circular(40),
+                alignment: Alignment.center,
+                child: AutoSizeText(
+                  AppLocalizations.of(context)!.login,
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
               ),
-              alignment: Alignment.center,
-              child: AutoSizeText(
-                AppLocalizations.of(context)!.login,
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
+              onPressed: () {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  CupertinoPageRoute(builder: (context) => NavbarDoc()),
+                      (Route<dynamic> route) => false,
+                );
+              },
             ),
-            onPressed: () {
-              Navigator.pushAndRemoveUntil(
-                context,
-                CupertinoPageRoute(builder: (context) => NavbarDoc()),
-                    (Route<dynamic> route) => false,
-              );
-            },
           ),
           const SizedBox(height: 10),
           Container(

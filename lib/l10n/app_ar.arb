@@ -86,6 +86,11 @@
   "profile": "ملفي",
   "aboutMe": "عني",
   "designation": "تعيين",
-  "education": "تكوين"
+  "education": "تكوين",
+  "searchByName": "البحث عن المريض بالاسم أو النسب",
+  "tout": "الكل",
+  "dateConsultation": "تاريخ الزيارة",
+  "sort": "الترتيب حسب",
+  "maladie": "مرض"
 
 }

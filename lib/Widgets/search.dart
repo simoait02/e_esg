@@ -1,3 +1,4 @@
+import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 class CustomSearch extends StatefulWidget {
@@ -31,7 +32,7 @@ class _CustomSearchState extends State<CustomSearch> {
         padding: EdgeInsets.only(left: 3),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
-          color: Color(0xFFF4F5FA),
+          color: Cardi.isDarkMode.value?Colors.black54: Color(0xFFF4F5FA),
         ),
         child: Row(
           children: [
@@ -72,7 +73,7 @@ class _CustomSearchState extends State<CustomSearch> {
                   hintStyle: TextStyle(
                     fontFamily: "Poppins",
                     fontWeight: FontWeight.w500,
-                    fontSize: titleFontSize-1,
+                    fontSize: 16,
                     color: Color(0xFFB8BCE1),
                   ),
                 ),
