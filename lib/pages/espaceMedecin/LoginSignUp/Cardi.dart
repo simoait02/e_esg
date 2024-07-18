@@ -71,10 +71,9 @@ class _CardiState extends State<Cardi> {
     Settings.isSystemSettings? Cardi.isDarkMode.value=(MediaQuery.of(context).platformBrightness == Brightness.dark):!Settings.isDark?Settings.isDark:Settings.isLight;
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    return CupertinoApp(
-      home: CupertinoPageScaffold(
+    return Scaffold(
         resizeToAvoidBottomInset: true,
-        child: Container(
+        body: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/images/login.png"),
@@ -116,7 +115,6 @@ class _CardiState extends State<Cardi> {
             ),
           ),
         ),
-      ),
-    );
+      );
   }
 }

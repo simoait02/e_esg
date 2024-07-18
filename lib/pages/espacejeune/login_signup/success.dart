@@ -2,7 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:e_esg/pages/espacejeune/Consentement.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../dossierMedical1.dart';
 class Success extends StatefulWidget {
   const Success({super.key});
@@ -32,6 +32,7 @@ class _SuccessState extends State<Success> {
     double height =MediaQuery.of(context).size.height;
     var brightness = MediaQuery.of(context).platformBrightness;
     bool isDarkMode = brightness == Brightness.dark;
+    final appLocalizations = AppLocalizations.of(context);
     return Padding(
       padding: EdgeInsets.all(20),
       child: Column(
@@ -39,7 +40,7 @@ class _SuccessState extends State<Success> {
         children: [
           SvgPicture.asset("assets/images/tick-circle.svg",width: width*0.4,height: height*0.2,),
           Expanded(child: AutoSizeText(
-            "You have successfully signed up ! Please check your email to confirm your account .",
+            appLocalizations!.sucess,
             textAlign: TextAlign.center,
             style: TextStyle(
               fontFamily: "poppins",

@@ -2,7 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../IES/statistiques.dart';
 
 class Password extends StatefulWidget {
@@ -64,6 +64,7 @@ class _PasswordState extends State<Password> {
     double height =MediaQuery.of(context).size.height;
     var brightness = MediaQuery.of(context).platformBrightness;
     bool isDarkMode = brightness == Brightness.dark;
+    final appLocalizations = AppLocalizations.of(context);
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -73,7 +74,7 @@ class _PasswordState extends State<Password> {
             child:  Align(
               alignment: Alignment.centerLeft,
               child: AutoSizeText(
-                "Créer un mot de passe",
+                appLocalizations!.createPass,
                 maxLines: 2,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -89,7 +90,7 @@ class _PasswordState extends State<Password> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Mot de passe",
+            appLocalizations.password,
             style: TextStyle(
               fontFamily: 'Poppins',
               fontSize: titleFontSize+15,
@@ -160,7 +161,7 @@ class _PasswordState extends State<Password> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Confirmer le mot de passe",
+                  appLocalizations.confirmPass,
                   style: TextStyle(
                     fontFamily: 'Poppins',
                     fontSize: titleFontSize+15,
@@ -222,8 +223,8 @@ class _PasswordState extends State<Password> {
                         borderRadius: BorderRadius.circular(40),
                         border: Border.all(color: Color(0xff4E57CD))),
                     alignment: Alignment.center,
-                    child: const Text(
-                      "Précédent",
+                    child: Text(
+                      appLocalizations.precedent,
                       style: TextStyle(color: Color(0xff4E57CD), fontSize: 20),
                     )),
                 onPressed: () {
@@ -243,8 +244,8 @@ class _PasswordState extends State<Password> {
                             colors: [Color(0xff4E57CD), Color(0xff0c40a4)]),
                         borderRadius: BorderRadius.circular(40)),
                     alignment: Alignment.center,
-                    child: const AutoSizeText(
-                      "créer votre compte",
+                    child: AutoSizeText(
+                      appLocalizations.createAcc,
                       style: TextStyle(color: Colors.white, fontSize: 17),
                     )),
                 /*onPressed: () {

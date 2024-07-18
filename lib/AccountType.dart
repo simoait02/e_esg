@@ -7,8 +7,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/services.dart';
 import 'package:e_esg/pages/espacejeune/login_signup/Cardi.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'pages/espaceMedecin/LoginSignUp/Cardi.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class Accounttype extends StatefulWidget {
   const Accounttype({super.key});
@@ -68,7 +69,8 @@ class _AccounttypeState extends State<Accounttype> {
               height: height * 0.2,
               width: width,
               child: AutoSizeText(
-                "Select \n User Type",
+                maxLines: 2,
+                AppLocalizations.of(context)!.welcome,
                 style: GoogleFonts.aBeeZee(
                   textStyle: TextStyle(
                     fontSize: 50,
@@ -98,7 +100,11 @@ class _AccounttypeState extends State<Accounttype> {
                 ),
                 child: Stack(
                   children: [
-                    Image.asset("assets/images/jeune.png"),
+                    Positioned(
+                      left: 0,
+                        top: 0,
+                        bottom: 0,
+                        child: Image.asset("assets/images/jeune.png")),
                     Positioned(
                       left: width * 0.42,
                       top: height * 0.06,
@@ -106,7 +112,8 @@ class _AccounttypeState extends State<Accounttype> {
                         alignment: Alignment.centerLeft,
                         width: width * 0.25,
                         child: AutoSizeText(
-                          "Jeune",
+                          textDirection: TextDirection.rtl,
+                          AppLocalizations.of(context)!.jeune,
                           maxLines: 1,
                           style: GoogleFonts.aBeeZee(
                             textStyle: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
@@ -139,7 +146,11 @@ class _AccounttypeState extends State<Accounttype> {
                 ),
                 child: Stack(
                   children: [
-                    Image.asset("assets/images/doctor.png"),
+                    Positioned(
+                        left: 0,
+                        top: 0,
+                        bottom: 0,
+                        child: Image.asset("assets/images/doctor.png")),
                     Positioned(
                       left: width * 0.47,
                       top: height * 0.06,
@@ -147,7 +158,8 @@ class _AccounttypeState extends State<Accounttype> {
                         alignment: Alignment.centerLeft,
                         width: width * 0.3,
                         child: AutoSizeText(
-                          "Médcin",
+                          textDirection: TextDirection.rtl,
+                          AppLocalizations.of(context)!.medecin,
                           maxLines: 1,
                           style: GoogleFonts.aBeeZee(
                             textStyle: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
@@ -180,7 +192,11 @@ class _AccounttypeState extends State<Accounttype> {
                 ),
                 child: Stack(
                   children: [
-                    Image.asset("assets/images/infermier.png"),
+                    Positioned(
+                        left: 0,
+                        top: 0,
+                        bottom: 0,
+                        child: Image.asset("assets/images/infermier.png")),
                     Positioned(
                       left: width * 0.41,
                       top: height * 0.06,
@@ -188,7 +204,8 @@ class _AccounttypeState extends State<Accounttype> {
                         alignment: Alignment.centerLeft,
                         width: width * 0.4,
                         child: AutoSizeText(
-                          "Infermier",
+                          textDirection: TextDirection.rtl,
+                          AppLocalizations.of(context)!.infirmier,
                           maxLines: 1,
                           style: GoogleFonts.aBeeZee(
                             textStyle: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
@@ -215,7 +232,7 @@ class _AccounttypeState extends State<Accounttype> {
                   ),
                   alignment: Alignment.center,
                   child: AutoSizeText(
-                    "Suivant",
+                    AppLocalizations.of(context)!.suivant,
                     style: TextStyle(fontSize: 26, color: Colors.white),
                   ),
                 ),
@@ -235,10 +252,9 @@ class _AccounttypeState extends State<Accounttype> {
                     );
                   };
                   if(isInfermier){
-                    Navigator.pushAndRemoveUntil(
+                    Navigator.push(
                       context,
                       CupertinoPageRoute(builder: (context) =>CardiInf()),
-                          (Route<dynamic> route) => false,
                     );
                   };
                 },

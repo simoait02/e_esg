@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ConfirmInformations extends StatefulWidget {
   final Function(double, double) onLoginTapped;
@@ -23,7 +24,7 @@ class _ConfirmInformationsState extends State<ConfirmInformations> {
     double height = MediaQuery.of(context).size.height;
     var brightness = MediaQuery.of(context).platformBrightness;
     bool isDarkMode = brightness == Brightness.dark;
-
+    final appLocalizations = AppLocalizations.of(context);
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Column(
@@ -60,33 +61,39 @@ class _ConfirmInformationsState extends State<ConfirmInformations> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      buildInfoRow(width, "Sexe :", "Femme",isDarkMode),
-                      SizedBox(height: height * 0.03),
-                      buildInfoRow(width, "Nom :", "Bouti",isDarkMode),
-                      SizedBox(height: height * 0.03),
-                      buildInfoRow(width, "Prénom :", "Chaimae",isDarkMode),
-                      const SizedBox(height: 20),
-                      buildInfoRow(width, "Date de naissance :", "26/02/2003",isDarkMode),
-                      const SizedBox(height: 20),
-                      buildInfoRow(width, "Numero de telephone :", "0632715685",isDarkMode),
-                      buildInfoRow(width, "Compte e-mail :", "theofil888@gmail.com",isDarkMode),
+                      buildInfoRow(width, appLocalizations!.sex, "Femme",isDarkMode),
+                      const SizedBox(height: 10),
+                      buildInfoRow(width, appLocalizations.nom, "Bouti",isDarkMode),
+                      const SizedBox(height: 10),
+                      buildInfoRow(width, appLocalizations.prenom, "Chaimae",isDarkMode),
+                      const SizedBox(height: 10),
+                      buildInfoRow(width, appLocalizations.birthDay, "26/02/2003",isDarkMode),
+                      const SizedBox(height: 10),
+                      buildInfoRow(width, appLocalizations.tele, "0632715685",isDarkMode),
+                      buildInfoRow(width, appLocalizations.email, "theofil888@gmail.com",isDarkMode),
+                      SizedBox(height: 10,),
                       Visibility(
-                        child: buildInfoRow(width, "Numero de carte CIN :", "0632715685",isDarkMode),
+                        child: buildInfoRow(width, "CIN :", "0632715685",isDarkMode),
                       ),
+                      SizedBox(height: 10,),
                       Visibility(
-                        child: buildInfoRow(width, "Niveau de scolarite actuel :", "Superieur",isDarkMode),
-                      ),
+                        child: buildInfoRow(width, appLocalizations.actuelLevel, "Superieur",isDarkMode),
+                      ),                      SizedBox(height: 10,),
+
                       Visibility(
                         child: buildInfoRow(width, "CNE :", "0632715685",isDarkMode),
-                      ),
+                      ),                      SizedBox(height: 10,),
+
                       Visibility(
                         child: buildInfoRow(width, "Code Massar :", "0632715685",isDarkMode),
-                      ),
+                      ),                      SizedBox(height: 10,),
+
                       Visibility(
-                        child: buildInfoRow(width, "Dernier niveau d'etudes :", "0632715685",isDarkMode),
-                      ),
+                        child: buildInfoRow(width, appLocalizations.lastLevel, "0632715685",isDarkMode),
+                      ),                      SizedBox(height: 10,),
+
                       Visibility(
-                        child: buildInfoRow(width, "Situation Actuelle :", "0632715685",isDarkMode),
+                        child: buildInfoRow(width, appLocalizations.currentState, "0632715685",isDarkMode),
                       ),
                     ],
                   ),
@@ -106,8 +113,8 @@ class _ConfirmInformationsState extends State<ConfirmInformations> {
                         borderRadius: BorderRadius.circular(40),
                         border: Border.all(color: const Color(0xff4E57CD))),
                     alignment: Alignment.center,
-                    child: const Text(
-                      "Précédent",
+                    child: Text(
+                      appLocalizations.precedent,
                       style: TextStyle(color: Color(0xff4E57CD), fontSize: 20),
                     )),
                 onPressed: () {
@@ -127,8 +134,8 @@ class _ConfirmInformationsState extends State<ConfirmInformations> {
                             colors: [Color(0xff4E57CD), Color(0xff0c40a4)]),
                         borderRadius: BorderRadius.circular(40)),
                     alignment: Alignment.center,
-                    child: const AutoSizeText(
-                      "créer votre compte",
+                    child: AutoSizeText(
+                      appLocalizations.createAcc,
                       style: TextStyle(color: Colors.white, fontSize: 17),
                     )),
               ),

@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Infospersonal extends StatefulWidget {
   const Infospersonal({super.key});
@@ -97,12 +98,14 @@ class _InfospersonalState extends State<Infospersonal> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+    final appLocalizations = AppLocalizations.of(context);
+
     return Scaffold(
       appBar: CupertinoNavigationBar(
         backgroundColor: backgroundColor,
         previousPageTitle: "Back",
         middle: Text(
-          "Mes informations",
+          appLocalizations!.myInfos,
           style: GoogleFonts.poppins(
             textStyle: TextStyle(
               color: textColor,
@@ -129,7 +132,7 @@ class _InfospersonalState extends State<Infospersonal> {
                     );
                   });
                 },
-                child: BuildWidgets(height, width, "Nom", nom, "edit", true)),
+                child: BuildWidgets(height, width, appLocalizations.nom, nom, "edit", true)),
             SizedBox(height: height * 0.02,),
             GestureDetector(
                 onTap: () {
@@ -144,7 +147,7 @@ class _InfospersonalState extends State<Infospersonal> {
                     );
                   });
                 },
-                child: BuildWidgets(height, width, "Prénom", prenom, "edit", true)),
+                child: BuildWidgets(height, width, appLocalizations.prenom, prenom, "edit", true)),
             SizedBox(height: height * 0.02,),
             BuildWidgets(height, width, "CIN", cin, "edit", false),
             SizedBox(height: height * 0.02,),
@@ -169,7 +172,7 @@ class _InfospersonalState extends State<Infospersonal> {
                     );
                   });
                 },
-                child: BuildWidgets(height, width, "E-mail", email, "edit", true)
+                child: BuildWidgets(height, width, appLocalizations.email, email, "edit", true)
             ),
             SizedBox(height: height * 0.02,),
             GestureDetector(
@@ -185,7 +188,7 @@ class _InfospersonalState extends State<Infospersonal> {
                     );
                   });
                 },
-                child: BuildWidgets(height, width, "Numéro de Télephone", numtele, "edit", true)),
+                child: BuildWidgets(height, width, appLocalizations.tele, numtele, "edit", true)),
             SizedBox(height: height * 0.02,),
             Divider(
               color: Cardi.isDarkMode.value ? Colors.white.withOpacity(0.2) : Colors.black.withOpacity(0.2),
@@ -205,7 +208,7 @@ class _InfospersonalState extends State<Infospersonal> {
                     );
                   });
                 },
-                child: BuildWidgets(height, width, "Password", "Password", "next", true)),
+                child: BuildWidgets(height, width, appLocalizations.password, "Password", "next", true)),
           ],
         ),
       ),

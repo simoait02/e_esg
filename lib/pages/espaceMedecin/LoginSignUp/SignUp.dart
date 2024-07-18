@@ -1,6 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 import 'Cardi.dart';
 
@@ -89,22 +91,37 @@ class _SignupState extends State<Signup> {
     super.dispose();
   }
 
-  Widget buildTextField(double width,double height, String placeholder, FocusNode focusNode, bool hasFocus,bool isDarkMode) {
-    return Container(
-      width: width * 0.8,
-      height: height*0.055,
-      child: CupertinoTextField(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(
-            color: isDarkMode? hasFocus?CupertinoColors.systemBlue: CupertinoColors.white.withOpacity(0.5):hasFocus?Color(0xFF2E37A4):Color(0xFFEAEBF6),
-            width: 2,
+  Widget buildTextField(double width, double height, String placeholder, FocusNode focusNode, bool hasFocus, bool isDarkMode) {
+    return SizedBox(
+        width: width * 0.8,
+        height: height * 0.055,
+        child: Directionality(
+          textDirection: TextDirection.ltr,
+          child: CupertinoTextField(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color: isDarkMode
+                    ? (hasFocus ? CupertinoColors.systemBlue : CupertinoColors.white.withOpacity(0.5))
+                    : (hasFocus ? Color(0xFF2E37A4) : Color(0xFFEAEBF6)),
+                width: 2,
+              ),
+            ),
+            focusNode: focusNode,
+            onTapOutside: (event) => setState(() {
+              focusNode.unfocus();
+            }),
+            placeholder: placeholder,
+            placeholderStyle: TextStyle(
+              color: isDarkMode ? Colors.white.withOpacity(0.5) : Colors.black.withOpacity(0.5),
+            ),
+            style: TextStyle(
+              color: isDarkMode ? Colors.white : Colors.black,
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
           ),
-        ),
-        focusNode: focusNode,
-        placeholder: placeholder,
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      ),
+        )
+
     );
   }
 
@@ -112,6 +129,7 @@ class _SignupState extends State<Signup> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height =MediaQuery.of(context).size.height;
+    final appLocalizations = AppLocalizations.of(context);
     return SingleChildScrollView(
       child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -119,12 +137,12 @@ class _SignupState extends State<Signup> {
             Column(
               children: [
                 Container(
-                  margin: EdgeInsets.only(left:30),
+                  margin: const EdgeInsets.only(left:30),
                   height: height*0.07,
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: AutoSizeText(
-                      "Sign up",
+                      appLocalizations!.signUp,
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 30,
@@ -134,35 +152,35 @@ class _SignupState extends State<Signup> {
                     ),
                   ),
                 ),
-                 SizedBox(height: height*0.01,),
+                SizedBox(height: height*0.01,),
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
+                      SizedBox(
                         width: width * 0.37,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
                               height: height*0.025,
-                                margin: EdgeInsets.only(left:10) ,
-                                child: AutoSizeText("Nom",
+                                margin: const EdgeInsets.only(left:10) ,
+                                child: AutoSizeText(appLocalizations.nom,
                                   style: TextStyle(color: Cardi.isDarkMode.value?Colors.white:Colors.black),)),
                             buildTextField(width * 0.5,height, "", _nomFocusNode, _nomHasFocus,Cardi.isDarkMode.value),
                           ],
                         ),
                       ),
-                      Container(
+                      SizedBox(
                         width: width * 0.37,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
                                 height: height*0.025,
-                                margin: EdgeInsets.only(left:10) ,
-                                child:  AutoSizeText("Prénom",
+                                margin: const EdgeInsets.only(left:10) ,
+                                child:  AutoSizeText(appLocalizations.prenom,
                                 style: TextStyle(color: Cardi.isDarkMode.value?Colors.white:Colors.black),)),
                             buildTextField(width * 0.5, height,"", _prenomFocusNode, _prenomHasFocus,Cardi.isDarkMode.value),
                           ],
@@ -173,46 +191,46 @@ class _SignupState extends State<Signup> {
                 ),
                 const SizedBox(height: 10,),
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
+                      SizedBox(
                         width: width * 0.25,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
                                 height: height*0.025,
-                                margin: EdgeInsets.only(left:10) ,
+                                margin: const EdgeInsets.only(left:10) ,
                                 child: AutoSizeText("CIN",
                                   style: TextStyle(color: Cardi.isDarkMode.value?Colors.white:Colors.black),)),
                             buildTextField(width * 0.5,height, "", _cinFocusNode, _cinHasFocus,Cardi.isDarkMode.value),
                           ],
                         ),
                       ),
-                      Container(
+                      SizedBox(
                         width: width * 0.25,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
                                 height: height*0.025,
-                                margin: EdgeInsets.only(left:10) ,
+                                margin: const EdgeInsets.only(left:10) ,
                                 child: AutoSizeText("INPE",
                                   style: TextStyle(color: Cardi.isDarkMode.value?Colors.white:Colors.black),)),
                             buildTextField(width * 0.5, height,"", _inpeFocusNode, _inpeHasFocus,Cardi.isDarkMode.value),
                           ],
                         ),
                       ),
-                      Container(
+                      SizedBox(
                         width: width * 0.25,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
                                 height: height*0.025,
-                                margin: EdgeInsets.only(left:10) ,
+                                margin: const EdgeInsets.only(left:10) ,
                                 child: AutoSizeText("PPR",
                                   style: TextStyle(color: Cardi.isDarkMode.value?Colors.white:Colors.black),)),
                             buildTextField(width * 0.5,height, "", _pprFocusNode, _pprHasFocus,Cardi.isDarkMode.value),
@@ -226,8 +244,8 @@ class _SignupState extends State<Signup> {
                 Align(alignment: Alignment.centerLeft ,
                     child: Container(
                         height: height*0.025,
-                        margin: EdgeInsets.only(left:30) ,
-                        child: AutoSizeText("E-mail",
+                        margin: const EdgeInsets.only(left:30) ,
+                        child: AutoSizeText(appLocalizations.email,
                           style: TextStyle(color: Cardi.isDarkMode.value?Colors.white:Colors.black),)
                     )
                 ),
@@ -237,8 +255,8 @@ class _SignupState extends State<Signup> {
                 Align(alignment: Alignment.centerLeft ,
                     child: Container(
                         height: height*0.025,
-                        margin: EdgeInsets.only(left:30) ,
-                        child: AutoSizeText("Numéro de téléphone",
+                        margin: const EdgeInsets.only(left:30) ,
+                        child: AutoSizeText(appLocalizations.tele,
                           style: TextStyle(color: Cardi.isDarkMode.value?Colors.white:Colors.black),)
                     )
                 ),
@@ -246,15 +264,15 @@ class _SignupState extends State<Signup> {
 
                 const SizedBox(height: 10,),
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Align(alignment: Alignment.centerLeft ,
                           child: Container(
                               height: height*0.045,
-                              margin: EdgeInsets.only(left:10) ,
-                              child: AutoSizeText("Médecin au sein \nd’un centre ESJ?",
+                              margin: const EdgeInsets.only(left:10) ,
+                              child: AutoSizeText(appLocalizations.stateDoc,
                                 style: TextStyle(color: Cardi.isDarkMode.value?Colors.white:Colors.black),)
                           )
                       ),
@@ -273,9 +291,9 @@ class _SignupState extends State<Signup> {
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5),
-                                  border: Border.all(color:yes1?Color(0xff00D3C7) : Colors.grey)
+                                  border: Border.all(color:yes1?const Color(0xff00D3C7) : Colors.grey)
                               ),
-                              child: AutoSizeText("Oui",textAlign: TextAlign.center,style: TextStyle(color:yes1?Color(0xff00D3C7) : Colors.grey),),
+                              child: AutoSizeText(appLocalizations.oui,textAlign: TextAlign.center,style: TextStyle(color:yes1?const Color(0xff00D3C7) : Colors.grey),),
                             ),
                           ),
                           const SizedBox(width: 5,),
@@ -292,9 +310,9 @@ class _SignupState extends State<Signup> {
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5),
-                                  border: Border.all(color:no1?Color(0xff00D3C7) : Colors.grey)
+                                  border: Border.all(color:no1?const Color(0xff00D3C7) : Colors.grey)
                               ),
-                              child: AutoSizeText("Non",style: TextStyle(color:no1?Color(0xff00D3C7) : Colors.grey),),
+                              child: AutoSizeText(appLocalizations.non,style: TextStyle(color:no1?const Color(0xff00D3C7) : Colors.grey),),
                             ),
                           )
                         ],
@@ -305,15 +323,15 @@ class _SignupState extends State<Signup> {
                 ),
                 const SizedBox(height: 10,),
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Align(alignment: Alignment.centerLeft ,
                           child: Container(
                               height: height*0.025,
-                              margin: EdgeInsets.only(left:10) ,
-                              child: AutoSizeText("Médecin Généraliste?",
+                              margin: const EdgeInsets.only(left:10) ,
+                              child: AutoSizeText(appLocalizations.gen,
                                 style: TextStyle(color: Cardi.isDarkMode.value?Colors.white:Colors.black),)
                           )
                       ),
@@ -332,9 +350,9 @@ class _SignupState extends State<Signup> {
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5),
-                                  border: Border.all(color:yes2?Color(0xff00D3C7) : Colors.grey)
+                                  border: Border.all(color:yes2?const Color(0xff00D3C7) : Colors.grey)
                               ),
-                              child: AutoSizeText("Oui",textAlign: TextAlign.center,style: TextStyle(color:yes2?Color(0xff00D3C7) : Colors.grey),),
+                              child: AutoSizeText(appLocalizations.oui,textAlign: TextAlign.center,style: TextStyle(color:yes2?const Color(0xff00D3C7) : Colors.grey),),
                             ),
                           ),
                           const SizedBox(width: 5,),
@@ -351,9 +369,9 @@ class _SignupState extends State<Signup> {
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5),
-                                  border: Border.all(color:no2?Color(0xff00D3C7) : Colors.grey)
+                                  border: Border.all(color:no2?const Color(0xff00D3C7) : Colors.grey)
                               ),
-                              child: AutoSizeText("Non",style: TextStyle(color:no2?Color(0xff00D3C7) : Colors.grey),),
+                              child: AutoSizeText(appLocalizations.non,style: TextStyle(color:no2?const Color(0xff00D3C7) : Colors.grey),),
                             ),
                           )
                         ],
@@ -366,8 +384,8 @@ class _SignupState extends State<Signup> {
                 yes2? Align(alignment: Alignment.centerLeft ,
                     child: Container(
                       height: height*0.025,
-                        margin: EdgeInsets.only(left:30) ,
-                        child: AutoSizeText("Specialitée",
+                        margin: const EdgeInsets.only(left:30) ,
+                        child: AutoSizeText(appLocalizations.speciality,
                           style: TextStyle(color: Cardi.isDarkMode.value?Colors.white:Colors.black),))):SizedBox(height: height*0.025,),
                 yes2? buildTextField(width, height,"", _specialiteFocusNode, _specialiteHasFocus,Cardi.isDarkMode.value):SizedBox(height: height*0.055,),
 
@@ -385,8 +403,8 @@ class _SignupState extends State<Signup> {
                                 colors: [Color(0xff4E57CD), Color(0xff2F38A5)]),
                             borderRadius: BorderRadius.circular(40)),
                         alignment: Alignment.center,
-                        child: const AutoSizeText(
-                          "Suivant",
+                        child: AutoSizeText(
+                          appLocalizations.suivant,
                           style: TextStyle(color: Colors.white, fontSize: 20),
                         )),
                     onPressed: () {
@@ -401,7 +419,7 @@ class _SignupState extends State<Signup> {
                     SizedBox(
                       height: height*0.04,
                       child:  AutoSizeText(
-                        "Already have an account?",
+                        appLocalizations.haveAcc,
                         style: TextStyle(fontFamily: "Inter",
                             color: Cardi.isDarkMode.value?Colors.white:Colors.black),
                       ),
@@ -411,13 +429,13 @@ class _SignupState extends State<Signup> {
                       onTap: () {
                         widget.onSigninTapped(0.5, 0.25);
                       },
-                      child: Container(
+                      child: SizedBox(
                         height: height*0.04,
                         child: AutoSizeText(
-                          "Sign In",
+                          appLocalizations.login,
                           style: TextStyle(
                               fontFamily: "Inter",
-                              color: Cardi.isDarkMode.value? Color(0xff759cd8):Color(0xff3a01de)),
+                              color: Cardi.isDarkMode.value? const Color(0xff759cd8):const Color(0xff3a01de)),
                         ),
                       ),
                     ),

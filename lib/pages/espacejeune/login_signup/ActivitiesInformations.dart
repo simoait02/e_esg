@@ -1,7 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'Cardi.dart';
 
 class Activitiesinformations extends StatefulWidget {
@@ -80,25 +80,37 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
       });
     });
   }
-  Widget buildTextField(double width,double height, String placeholder, FocusNode focusNode, bool hasFocus,bool isDarkMode) {
-    return Container(
-      width: width * 0.8,
-      height: height*0.065,
-      child: CupertinoTextField(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(
-            color: hasFocus?Color(0xFF2E37A4) : isDarkMode ? CupertinoColors.white.withOpacity(0.5) : Color(0xFFEAEBF6),
-            width: 2,
+  Widget buildTextField(double width, double height, String placeholder, FocusNode focusNode, bool hasFocus, bool isDarkMode) {
+    return SizedBox(
+        width: width * 0.8,
+        height: height * 0.055,
+        child: Directionality(
+          textDirection: TextDirection.ltr,
+          child: CupertinoTextField(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color: isDarkMode
+                    ? (hasFocus ? CupertinoColors.systemBlue : CupertinoColors.white.withOpacity(0.5))
+                    : (hasFocus ? Color(0xFF2E37A4) : Color(0xFFEAEBF6)),
+                width: 2,
+              ),
+            ),
+            focusNode: focusNode,
+            onTapOutside: (event) => setState(() {
+              focusNode.unfocus();
+            }),
+            placeholder: placeholder,
+            placeholderStyle: TextStyle(
+              color: isDarkMode ? Colors.white.withOpacity(0.5) : Colors.black.withOpacity(0.5),
+            ),
+            style: TextStyle(
+              color: isDarkMode ? Colors.white : Colors.black,
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
           ),
-        ),
-        focusNode: focusNode,
-        placeholder: placeholder,
-        style:TextStyle(
-          color: isDarkMode?Colors.white.withOpacity(0.5):Colors.black.withOpacity(0.5),
-        ),
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      ),
+        )
+
     );
   }
 
@@ -108,6 +120,7 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
     double height = MediaQuery.of(context).size.height;
     var brightness = MediaQuery.of(context).platformBrightness;
     bool isDarkMode = brightness == Brightness.dark;
+    final appLocalizations = AppLocalizations.of(context);
     return SingleChildScrollView(
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -122,7 +135,7 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                         height: height*0.07,
                         width: width*0.3,
                         child: AutoSizeText(
-                          "Sign up",
+                          appLocalizations!.signUp,
                           style: TextStyle(
                               color: isDarkMode?Colors.white:Colors.black,
                               fontWeight: FontWeight.bold,
@@ -159,8 +172,11 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                       child: Container(
                           height: height*0.03,
                           margin: EdgeInsets.only(left:30) ,
-                          child: AutoSizeText("Scolarite",
-                            style: TextStyle(color: isDarkMode?Colors.white:Colors.black),)),),
+                          child: AutoSizeText(appLocalizations.scolarite,
+                            style: TextStyle(color: isDarkMode?Colors.white:Colors.black),
+                          )
+                      ),
+                  ),
                   Container(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -192,7 +208,7 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                                 ),
                               ),
                               AutoSizeText(
-                                "Oui",
+                                appLocalizations.oui,
                                 style: TextStyle(fontFamily: "Poppins",color: isDarkMode? Colors.white:Colors.black),
                               ),
                             ],
@@ -226,7 +242,7 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                                 height: 4,
                               ),
                               AutoSizeText(
-                                "Non",
+                                appLocalizations.non,
                                 style: TextStyle(fontFamily: "Poppins",color: isDarkMode? Colors.white:Colors.black),
                               ),
                             ],
@@ -242,7 +258,7 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              AutoSizeText("Niveau de scolarite Actuel",style: TextStyle(
+                              AutoSizeText(appLocalizations.actuelLevel,style: TextStyle(
                                   fontFamily: 'poppins',
                                   color: isDarkMode?Colors.white:Colors.black,
                               ),),
@@ -301,7 +317,7 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                         ),
                         SizedBox(height: height*0.02,),
                         Visibility(
-                            visible: dropdownValue=='Primaire',
+                            visible: !(dropdownValue=='Primaire'),
                             child:Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -315,7 +331,7 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                             ),
                         ),
                         Visibility(
-                            visible: !(dropdownValue=='Primaire'),
+                            visible: (dropdownValue=='Primaire'),
                             child:Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -341,7 +357,7 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                               Container(
                                   height: height*0.03,
                                   margin: EdgeInsets.only(left:10) ,
-                                  child: AutoSizeText("Dernier niveau d'etudes",
+                                  child: AutoSizeText(appLocalizations.lastLevel,
                                     style: TextStyle(color: isDarkMode?Colors.white:Colors.black),)),
                               buildTextField(width,height, "", _lastStudFocusNode, _lastStudHasFocus,isDarkMode),
                             ],
@@ -353,7 +369,7 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                               Container(
                                   height: height*0.03,
                                   margin: EdgeInsets.only(left:10) ,
-                                  child: AutoSizeText("Situation Actuelle",
+                                  child: AutoSizeText(appLocalizations.currentState,
                                     style: TextStyle(color: isDarkMode?Colors.white:Colors.black),)),
                               buildTextField(width,height, "", _stateActuFocusNode, _stateActuHasFocus,isDarkMode),
                             ],
@@ -373,8 +389,8 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                                     borderRadius: BorderRadius.circular(40),
                                     border: Border.all(color: Color(0xff4E57CD))),
                                 alignment: Alignment.center,
-                                child: const Text(
-                                  "Précédent",
+                                child: Text(
+                                  appLocalizations.precedent,
                                   style: TextStyle(color: Color(0xff4E57CD), fontSize: 20),
                                 )),
                             onPressed: () {
@@ -393,8 +409,8 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                                           ]),
                                       borderRadius: BorderRadius.circular(40)),
                                   alignment: Alignment.center,
-                                  child: const AutoSizeText(
-                                    "Suivant",
+                                  child: AutoSizeText(
+                                    appLocalizations.suivant,
                                     style: TextStyle(
                                         color: Colors.white, fontSize: 20),
                                   )),

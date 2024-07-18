@@ -3,6 +3,8 @@ import 'package:e_esg/Widgets/NavigationBarDoctor.dart';
 import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class Password extends StatefulWidget {
   final Function(double,double) onBackTapped;
@@ -56,22 +58,37 @@ class _PasswordState extends State<Password> {
     );
   }
 
-  Widget buildTextField(double width,double height, String placeholder, FocusNode focusNode, bool hasFocus,bool isDarkMode) {
-    return Container(
-      width: width * 0.8,
-      height: height*0.055,
-      child: CupertinoTextField(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(
-            color: isDarkMode? hasFocus?CupertinoColors.systemBlue: CupertinoColors.white.withOpacity(0.5):hasFocus?Color(0xFF2E37A4):Color(0xFFEAEBF6),
-            width: 2,
+  Widget buildTextField(double width, double height, String placeholder, FocusNode focusNode, bool hasFocus, bool isDarkMode) {
+    return SizedBox(
+        width: width * 0.8,
+        height: height * 0.055,
+        child: Directionality(
+          textDirection: TextDirection.ltr,
+          child: CupertinoTextField(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color: isDarkMode
+                    ? (hasFocus ? CupertinoColors.systemBlue : CupertinoColors.white.withOpacity(0.5))
+                    : (hasFocus ? Color(0xFF2E37A4) : Color(0xFFEAEBF6)),
+                width: 2,
+              ),
+            ),
+            focusNode: focusNode,
+            onTapOutside: (event) => setState(() {
+              focusNode.unfocus();
+            }),
+            placeholder: placeholder,
+            placeholderStyle: TextStyle(
+              color: isDarkMode ? Colors.white.withOpacity(0.5) : Colors.black.withOpacity(0.5),
+            ),
+            style: TextStyle(
+              color: isDarkMode ? Colors.white : Colors.black,
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
           ),
-        ),
-        focusNode: focusNode,
-        placeholder: placeholder,
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      ),
+        )
+
     );
   }
 
@@ -79,6 +96,8 @@ class _PasswordState extends State<Password> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height =MediaQuery.of(context).size.height;
+    final appLocalizations = AppLocalizations.of(context);
+
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -88,7 +107,7 @@ class _PasswordState extends State<Password> {
             child: Align(
               alignment: Alignment.centerLeft,
               child: AutoSizeText(
-                "Créer un mot de passe",
+                appLocalizations!.createPass,
                 maxLines: 2,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -98,10 +117,10 @@ class _PasswordState extends State<Password> {
               ),
             ),
           ),
-          buildLabel("Mot de passe",Cardi.isDarkMode.value),
+          buildLabel(appLocalizations.password,Cardi.isDarkMode.value),
           const SizedBox(height: 5,),
           buildTextField(width,height, "", _coPasswordFocusNode, _coPasswordHasFocus,Cardi.isDarkMode.value),
-          buildLabel("Confirmer mot de passe",Cardi.isDarkMode.value),
+          buildLabel(appLocalizations.confirmPass,Cardi.isDarkMode.value),
           const SizedBox(height: 5,),
           buildTextField(width, height,"", _passwordFocusNode, _passwordHasFocus,Cardi.isDarkMode.value),
            SizedBox(height: height*0.02,),
@@ -118,7 +137,7 @@ class _PasswordState extends State<Password> {
                         border: Border.all(color: Color(0xff4E57CD))),
                     alignment: Alignment.center,
                     child: Text(
-                      "Precedent",
+                      appLocalizations.precedent,
                       style: TextStyle(color:Color(0xff4E57CD), fontSize: 15),
                     )),
                 onPressed: () {
@@ -134,8 +153,8 @@ class _PasswordState extends State<Password> {
                             colors: [Color(0xff4E57CD), Color(0xff2F38A5)]),
                         borderRadius: BorderRadius.circular(40)),
                     alignment: Alignment.center,
-                    child: const Text(
-                      "créer votre compte",
+                    child:  AutoSizeText(
+                      appLocalizations.createAcc,
                       style: TextStyle(color: Colors.white, fontSize: 15),
                     )),
                 onPressed: () {

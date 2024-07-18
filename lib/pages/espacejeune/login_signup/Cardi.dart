@@ -125,6 +125,7 @@ class _CardiJeuneState extends State<CardiJeune> {
     double width = MediaQuery.of(context).size.width;
     var brightness = MediaQuery.of(context).platformBrightness;
     bool isDarkMode = brightness == Brightness.dark;
+
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: Container(

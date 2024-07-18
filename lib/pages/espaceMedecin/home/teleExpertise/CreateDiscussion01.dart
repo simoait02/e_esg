@@ -3,6 +3,7 @@ import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Creatediscussion extends StatefulWidget {
   const Creatediscussion({super.key});
@@ -14,10 +15,6 @@ class Creatediscussion extends StatefulWidget {
 class _CreatediscussionState extends State<Creatediscussion> {
   final FocusNode _titleFocusNode = FocusNode();
   bool _titleHasFocus = false;
-  String label = "Select meeting date";
-  DateTime selectedDateTime = DateTime.now();
-  DateTime tempSelectedDateTime = DateTime.now();
-  String label1 = "Select meeting time";
   DateTime selectedTime = DateTime.now();
   DateTime tempSelectedTime = DateTime.now();
   bool male = false;
@@ -38,6 +35,9 @@ class _CreatediscussionState extends State<Creatediscussion> {
     return Container(
       height: height * 0.055,
       child: CupertinoTextField(
+        style: TextStyle(
+          color:Cardi.isDarkMode.value?CupertinoColors.white.withOpacity(0.5): CupertinoColors.black.withOpacity(0.5),
+        ),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
@@ -57,6 +57,7 @@ class _CreatediscussionState extends State<Creatediscussion> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+    final appLocalizations = AppLocalizations.of(context);
     return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -67,11 +68,14 @@ class _CreatediscussionState extends State<Creatediscussion> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text("Nom du Patient"),
+                      Text(appLocalizations!.nomPatient),
                       SizedBox(
                         height: height * 0.055,
                         width: width*0.42,
                         child: CupertinoTextField(
+                          style: TextStyle(
+                            color:Cardi.isDarkMode.value?CupertinoColors.white.withOpacity(0.5): CupertinoColors.black.withOpacity(0.5),
+                          ),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             border: Border.all(
@@ -87,11 +91,14 @@ class _CreatediscussionState extends State<Creatediscussion> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text("Prénom du Patient"),
+                      Text(appLocalizations.prenomPatient),
                       SizedBox(
                         height: height * 0.055,
                         width: width*0.42,
                         child: CupertinoTextField(
+                          style: TextStyle(
+                            color:Cardi.isDarkMode.value?CupertinoColors.white.withOpacity(0.5): CupertinoColors.black.withOpacity(0.5),
+                          ),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             border: Border.all(
@@ -119,7 +126,7 @@ class _CreatediscussionState extends State<Creatediscussion> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     AutoSizeText(
-                      "Sexe",
+                      appLocalizations.sex,
                       style: GoogleFonts.poppins(
                         textStyle: TextStyle(fontSize: 18),
                       ),
@@ -141,7 +148,7 @@ class _CreatediscussionState extends State<Creatediscussion> {
                             border: Border.all(color: male ? Color(0xff0b40ff) : Colors.grey),
                           ),
                           child: AutoSizeText(
-                            "Male",
+                            appLocalizations.male,
                             maxLines: 1,
                             style: TextStyle(color: male ? Color(0xff0b40ff) : Colors.grey),
                           ),
@@ -164,7 +171,7 @@ class _CreatediscussionState extends State<Creatediscussion> {
                             border: Border.all(color: female ? Color(0xff0b40ff) : Colors.grey),
                           ),
                           child: AutoSizeText(
-                            "Female",
+                            appLocalizations.female,
                             maxLines: 1,
                             style: TextStyle(color: female ? Color(0xff0b40ff) : Colors.grey),
                           ),
@@ -178,11 +185,14 @@ class _CreatediscussionState extends State<Creatediscussion> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text("Age du Patient"),
+                  Text(appLocalizations.agePatient),
                   SizedBox(
                     height: height * 0.055,
                     width: width,
                     child: CupertinoTextField(
+                      style: TextStyle(
+                        color:Cardi.isDarkMode.value?CupertinoColors.white.withOpacity(0.5): CupertinoColors.black.withOpacity(0.5),
+                      ),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(
@@ -199,11 +209,14 @@ class _CreatediscussionState extends State<Creatediscussion> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text("Cas du Patient"),
+                  Text(appLocalizations.patientCase),
                   SizedBox(
                     height: height * 0.055,
                     width: width,
                     child: CupertinoTextField(
+                      style: TextStyle(
+                        color:Cardi.isDarkMode.value?CupertinoColors.white.withOpacity(0.5): CupertinoColors.black.withOpacity(0.5),
+                      ),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(
@@ -217,7 +230,7 @@ class _CreatediscussionState extends State<Creatediscussion> {
                 ],
               ),
               SizedBox(height: height*0.02),
-              buildLabel("Titre de discussion"),
+              buildLabel(appLocalizations.titleDiscussion),
               buildTextField(height, "", _titleFocusNode, _titleHasFocus,Cardi.isDarkMode.value),
               SizedBox(height: height*0.02),
 

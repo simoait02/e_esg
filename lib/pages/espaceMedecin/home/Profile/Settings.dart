@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Settings extends StatefulWidget {
   static bool themePressed = false;
@@ -56,11 +57,12 @@ class _SettingsState extends State<Settings> {
     Color textColor = Cardi.isDarkMode.value ? Colors.white : Colors.black;
     Color dividerColor = Cardi.isDarkMode.value ? Colors.white.withOpacity(0.2) : Colors.black.withOpacity(0.2);
     Color iconColor = Cardi.isDarkMode.value ? Colors.white.withOpacity(0.5) : Colors.black.withOpacity(0.5);
+    final appLocalizations = AppLocalizations.of(context);
 
     return Scaffold(
       appBar: CupertinoNavigationBar(
         backgroundColor: backgroundColor,
-        previousPageTitle: "Back",
+        previousPageTitle: appLocalizations!.precedent,
         middle: Container(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -68,7 +70,7 @@ class _SettingsState extends State<Settings> {
               Icon(FluentIcons.settings_16_regular, color: textColor),
               SizedBox(width: 8),
               Text(
-                "Settings",
+                appLocalizations.settings,
                 style: GoogleFonts.poppins(
                   textStyle: TextStyle(
                     color: textColor,
@@ -81,6 +83,7 @@ class _SettingsState extends State<Settings> {
         trailing: GestureDetector(
           onTap: () {
             _savePreferences();
+            Navigator.pop(context);
           },
           child: Text(
             "Done",
@@ -116,7 +119,7 @@ class _SettingsState extends State<Settings> {
                   SizedBox(width: width * 0.02),
                   Expanded(
                     child: AutoSizeText(
-                      "Language",
+                      appLocalizations.language,
                       style: GoogleFonts.aBeeZee(
                         textStyle: TextStyle(
                           fontSize: 22,
@@ -144,7 +147,7 @@ class _SettingsState extends State<Settings> {
                 ),
                 SizedBox(width: width * 0.02),
                 AutoSizeText(
-                  "Theme",
+                  appLocalizations.appearance,
                   style: GoogleFonts.aBeeZee(
                     textStyle: TextStyle(
                       fontSize: 22,
@@ -175,7 +178,7 @@ class _SettingsState extends State<Settings> {
             ),
             Settings.themePressed
                 ? Container(
-              padding: EdgeInsets.only(left: width * 0.1),
+              padding: EdgeInsets.symmetric(horizontal: width * 0.1),
               child: Column(
                 children: [
                   Divider(
@@ -205,7 +208,7 @@ class _SettingsState extends State<Settings> {
                         SizedBox(width: width * 0.02),
                           Expanded(
                             child: AutoSizeText(
-                              "System settings",
+                              appLocalizations.systemSettings,
                               style: GoogleFonts.aBeeZee(
                                 textStyle: TextStyle(
                                   fontSize: 22,
@@ -250,7 +253,7 @@ class _SettingsState extends State<Settings> {
                         SizedBox(width: width * 0.02),
                         Expanded(
                           child: AutoSizeText(
-                            "Dark mode",
+                            appLocalizations.dark,
                             style: GoogleFonts.aBeeZee(
                               textStyle: TextStyle(
                                 fontSize: 22,
@@ -295,7 +298,7 @@ class _SettingsState extends State<Settings> {
                         SizedBox(width: width * 0.02),
                         Expanded(
                           child: AutoSizeText(
-                              "Light mode",
+                              appLocalizations.light,
                               style: GoogleFonts.aBeeZee(
                                 textStyle: TextStyle(
                                   fontSize: 22,
@@ -338,7 +341,7 @@ class _SettingsState extends State<Settings> {
                   SizedBox(width: width * 0.02),
                   Expanded(
                     child: AutoSizeText(
-                      "Mes informations",
+                      appLocalizations.myInfos,
                       style: GoogleFonts.aBeeZee(
                         textStyle: TextStyle(
                           fontSize: 22,
@@ -366,7 +369,7 @@ class _SettingsState extends State<Settings> {
                 ),
                 SizedBox(width: width * 0.02),
                 AutoSizeText(
-                  "Log out",
+                  appLocalizations.logOut,
                   style: GoogleFonts.aBeeZee(
                     textStyle: TextStyle(
                       fontSize: 22,

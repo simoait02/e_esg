@@ -7,7 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'addMeeting.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TeleExpertise extends StatefulWidget {
   final bool isSideBarClosed;
@@ -24,11 +26,25 @@ class TeleExpertise extends StatefulWidget {
 }
 
 class _TeleExpertiseState extends State<TeleExpertise> {
+  String language='en';
+  @override
+  void initState() {
+    _loadPreferences();
+    super.initState();
+  }
+  _loadPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      language = prefs.getString("language") ?? 'en';
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-
+    final appLocalizations = AppLocalizations.of(context);
     return CustomScrollView(
       slivers: [
         SliverAppBar(
@@ -109,7 +125,7 @@ class _TeleExpertiseState extends State<TeleExpertise> {
                                   fontWeight: FontWeight.w500)),
                         ),
                         Text(
-                          "Today",
+                          appLocalizations!.today,
                           style: GoogleFonts.aBeeZee(
                               textStyle: const TextStyle(
                                   fontSize: 24, fontWeight: FontWeight.bold)),
@@ -126,8 +142,8 @@ class _TeleExpertiseState extends State<TeleExpertise> {
                           decoration: BoxDecoration(
                               color: const Color(0xff2e37a4),
                               borderRadius: BorderRadius.circular(10)),
-                          child: const AutoSizeText(
-                            "Créer une discussion",
+                          child: AutoSizeText(
+                            appLocalizations.createDiscussion,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Colors.white,
@@ -140,12 +156,16 @@ class _TeleExpertiseState extends State<TeleExpertise> {
                           Navigator.push(
                               context,
                               CupertinoPageRoute(
-                                  builder: (context) => const AddMeeting()));
-                        })
+                                  builder: (context) => const AddMeeting()
+                              )
+                          );
+                        }
+                      )
                   ],
                 ),
               ),
               DatePicker(
+                locale: language,
                 DateTime.now(),
                 height: 123,
                 width: 105,
@@ -178,15 +198,14 @@ class _TeleExpertiseState extends State<TeleExpertise> {
                 ),
                 deactivatedColor: const Color(0xff505176),
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 20,),
               Container(
-                margin: const EdgeInsets.only(left: 20),
-                child: Text("Mes discussion",
+                alignment:language=='ar'?Alignment.centerRight:Alignment.centerLeft,
+                margin: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text(appLocalizations.myCreatedDiscussion,
                   style: GoogleFonts.aBeeZee(
                       textStyle: const TextStyle(
-                          fontSize: 24,
+                          fontSize: 20,
                           fontWeight: FontWeight.bold
                       )
                   ),
@@ -201,7 +220,7 @@ class _TeleExpertiseState extends State<TeleExpertise> {
                     border: Border.all(color:!Cardi.isDarkMode.value?CupertinoColors.black.withOpacity(0.5): CupertinoColors.white.withOpacity(0.5),),
                     borderRadius: BorderRadius.circular(10)
                 ),
-                child: Text("pas de discussion ce jour-là",
+                child: Text(appLocalizations.emptyDisc,
                     style: GoogleFonts.poppins(
                       textStyle:  TextStyle(
                         fontSize: 20,
@@ -210,13 +229,14 @@ class _TeleExpertiseState extends State<TeleExpertise> {
                       ),)
                 ),
               ),
-              const SizedBox(height: 10,),
+              const SizedBox(height: 20,),
               Container(
-                margin: const EdgeInsets.only(left: 20),
-                child: Text("Télé-Expertise",
+                alignment:language=='ar'?Alignment.centerRight:Alignment.centerLeft,
+                margin: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text(appLocalizations.myInviteddDiscussion,
                   style: GoogleFonts.aBeeZee(
                       textStyle: const TextStyle(
-                          fontSize: 24,
+                          fontSize: 20,
                           fontWeight: FontWeight.bold
                       )
                   ),
@@ -283,7 +303,7 @@ class _TeleExpertiseState extends State<TeleExpertise> {
                             Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text("Commencer à:",
+                                Text(appLocalizations.startAt,
                                   style: GoogleFonts.rubik(
                                       textStyle: const TextStyle(
                                         fontSize: 15,
@@ -305,7 +325,7 @@ class _TeleExpertiseState extends State<TeleExpertise> {
                                         ),
                                       ),
                                     ),
-                                    Text("  Aujourd’hui",
+                                    Text(appLocalizations.today,
                                       style: GoogleFonts.rubik(
                                           textStyle: TextStyle(
                                             fontSize: 12,
@@ -319,13 +339,14 @@ class _TeleExpertiseState extends State<TeleExpertise> {
                             ),
                             CupertinoButton(
                                 child: Container(
+                                  width: width*0.4,
                                   padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 10),
                                   decoration: BoxDecoration(
                                       color: const Color(0xff2e37a4),
                                       borderRadius: BorderRadius.circular(10)
                                   ),
-                                  child: const Text(
-                                    "Regoindre",
+                                  child: Text(
+                                    appLocalizations.rejoindre,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       color: Colors.white,
