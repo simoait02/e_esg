@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Invitation {
   final String doctorName;
@@ -117,48 +118,42 @@ class MesDemandesNotificationsState extends State<MesDemandesNotifications> {
   }
 
   int typeNoti = 0;
-
+  bool isArabic(BuildContext context) {
+    return Localizations.localeOf(context).languageCode == 'ar';
+  }
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
+    final appLocalizations = AppLocalizations.of(context);
 
     return Scaffold(
-      backgroundColor:Color(0xffF5F5F6),
       appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
+        leading: Row(
+          children: [
+            SizedBox(width: 10,),
+            IconButton(
+              icon: Icon(Icons.arrow_back_ios),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            AutoSizeText(appLocalizations!.notification,
+            style: GoogleFonts.aBeeZee(
+              fontSize: 20
+            ),)
+          ],
         ),
         title: Hero(
           tag: "notification",
           child: Container(
-            margin: EdgeInsets.only(left: screenWidth * 0.26, right: screenWidth * 0.4),
+            margin: isArabic(context)?
+            EdgeInsets.only(left: screenWidth * 0.4, right: screenWidth * 0.3):
+            EdgeInsets.only(left: screenWidth * 0.26, right: screenWidth * 0.4),
             child: SvgPicture.asset(
               'assets/images/note_icon.svg',
               width: 40,
               height: 40,
-            ),
-          ),
-        ),
-        bottom: PreferredSize(
-          preferredSize: Size.fromHeight(screenHeight * 0.05),
-          child: SizedBox(
-            width: screenWidth * 0.9,
-            child: CupertinoSlidingSegmentedControl<int>(
-              padding: EdgeInsets.all(4),
-              groupValue: typeNoti,
-              onValueChanged: (int? value) {
-                setState(() {
-                  typeNoti = value!;
-                });
-              },
-              children: {
-                0: buildSegmentedControlItem('Mes Demandes'),
-                1: buildSegmentedControlItem('Mes Notifications'),
-              },
             ),
           ),
         ),
@@ -172,9 +167,7 @@ class MesDemandesNotificationsState extends State<MesDemandesNotifications> {
               Container(
                 width: screenWidth * 0.9,
                 height: screenHeight * 0.8,
-                child: typeNoti == 0
-                    ? buildDemandesList(screenHeight, screenWidth)
-                    : buildNotificationsList(screenHeight, screenWidth),
+                child:buildNotificationsList(screenHeight, screenWidth),
               ),
             ],
           ),

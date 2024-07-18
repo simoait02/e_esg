@@ -1,7 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
-import 'package:e_esg/pages/espacejeune/MesDemandesNotifications.dart';
+import 'package:e_esg/Widgets/MesDemandesNotifications.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';

@@ -36,65 +36,62 @@ class _MespatientsState extends State<Mespatients> {
     );
   }
   Widget patient(double width,bool isDarkMode,String doc){
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: Container(
-        width: width,
-        margin: EdgeInsets.only(top: 5),
-        decoration: BoxDecoration(
-            color: Color(0x3fc8d3f7),
-            borderRadius: BorderRadius.circular(10)
-        ),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Container(
-                  margin: EdgeInsets.all(10),
-                  height: 40,
-                  width: 40,
-                  child: CircleAvatar(
-                    child: Image.asset("assets/images/patient.png",fit: BoxFit.fill,),
+    return Container(
+      width: width,
+      margin: EdgeInsets.only(top: 5),
+      decoration: BoxDecoration(
+          color: Color(0x3fc8d3f7),
+          borderRadius: BorderRadius.circular(10)
+      ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Container(
+                margin: EdgeInsets.all(10),
+                height: 40,
+                width: 40,
+                child: CircleAvatar(
+                  child: Image.asset("assets/images/patient.png",fit: BoxFit.fill,),
+                ),
+              ),
+              Text("Sergio marquina",
+                style: GoogleFonts.aBeeZee(
+                    textStyle: TextStyle(
+                      fontWeight: FontWeight.w300,
+                      fontSize: 20,
+                    )
+                ),
+              )
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              buildPatient(text: "Male",isDarkMode: isDarkMode),
+              buildPatient(text: "Maladie",isDarkMode: isDarkMode),
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 10),
+                padding: EdgeInsets.all(5),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: Color(0xff2e37a4),
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: Color(0xff2e37a4)),
+                ),
+                child: Text(
+                  doc,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                    fontFamily: "Poppins",
                   ),
                 ),
-                Text("Sergio marquina",
-                  style: GoogleFonts.aBeeZee(
-                      textStyle: TextStyle(
-                        fontWeight: FontWeight.w300,
-                        fontSize: 20,
-                      )
-                  ),
-                )
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                buildPatient(text: "Male",isDarkMode: isDarkMode),
-                buildPatient(text: "Maladie",isDarkMode: isDarkMode),
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: 10),
-                  padding: EdgeInsets.all(5),
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: Color(0xff2e37a4),
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: Color(0xff2e37a4)),
-                  ),
-                  child: Text(
-                    doc,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15,
-                      fontFamily: "Poppins",
-                    ),
-                  ),
-                )
-              ],
-            )
-          ],
-        ),
+              )
+            ],
+          )
+        ],
       ),
     );
   }
