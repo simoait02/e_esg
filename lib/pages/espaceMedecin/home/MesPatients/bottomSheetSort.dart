@@ -4,65 +4,239 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
+import '../../../../Data/maladie_list.dart';
+import '../../../../models/patient.dart';
+import 'MesPatients.dart';
+
 class SortAndFilter extends StatefulWidget {
   final double height;
   final double width;
   final bool isDarkMode;
+  final List<Patient> foundedpatients;
 
-  SortAndFilter({required this.height, required this.isDarkMode, required this.width});
+  SortAndFilter({required this.height, required this.isDarkMode, required this.width, required this.foundedpatients});
 
   @override
   _SortAndFilterState createState() => _SortAndFilterState();
 }
 
 class _SortAndFilterState extends State<SortAndFilter> {
-  bool azNom = false;
-  bool azPrenom = false;
-  bool male = false;
-  bool female = false;
-  bool ageCroissant = false;
-  bool ageDecroissant = false;
-  bool dateCroissant = false;
-  bool dateDecroissant = false;
+  bool consultation_sort_up = true;
+  bool nom_sort_up = true;
+  bool prenom_sort_up = true;
+  bool age_sort_up = true;
+  String tri_par = "Date de consultation";
+  String sexe = "Tout";
+  String maladie = "Tout";
+  bool tri = false;
+  bool sort_up = true;
+  bool selectsexe = false;
+  bool selectmaladie = false;
+  bool sort =false;
+  Set<String> selectedMaladies = {"Tout"};
 
-  Widget _buildFilterOption(String title, List<Widget> options) {
+  Widget _buildFilterOption(String iconimage, String title, IconButton down, String desc, IconButton? sort) {
     return Container(
-      height: widget.height * 0.12,
-      width: widget.width,
-      padding: const EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.all(5),
       decoration: BoxDecoration(
         border: Border.symmetric(horizontal: BorderSide(width: 1, color: widget.isDarkMode ? Color(0x40ffffff) : Color(0x3f000000))),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          AutoSizeText(
-            title,
-            style: GoogleFonts.poppins(
-              textStyle: TextStyle(fontSize: 18),
+      child: Padding(
+        padding: EdgeInsets.zero,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              children: [
+                Image.asset(
+                  iconimage,
+                  height: 25,
+                  width: 25,
+                  color: Color(0xff2e37a4),
+                ),
+                SizedBox(width: 10),
+                AutoSizeText(
+                  title,
+                  style: GoogleFonts.poppins(
+                    textStyle: TextStyle(fontSize: 18),
+                  ),
+                ),
+                Spacer(),
+                down
+              ],
             ),
-          ),
-          Row(children: options),
-        ],
+            Row(
+              children: [
+                SizedBox(width: 50),
+                Expanded(
+                  child: AutoSizeText(
+                    desc,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: GoogleFonts.poppins(
+                      textStyle: TextStyle(fontSize: 15),
+                    ),
+                  ),
+                ),
+                if (sort != null) sort
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
 
-  Widget _buildSelectableOption(String label, bool selected, VoidCallback onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: widget.width * 0.2,
-        margin: const EdgeInsets.symmetric(vertical: 5),
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5),
-          border: Border.all(color: selected ? Color(0xff0b40ff) : Colors.grey),
+  Widget _buildsortOption(String title, bool sortUp, Function onPressed) {
+    return Container(
+      width: widget.width,
+      padding: const EdgeInsets.all(5),
+      decoration: BoxDecoration(
+        border: Border.symmetric(horizontal: BorderSide(width: 1, color: widget.isDarkMode ? Color(0x40ffffff) : Color(0x3f000000))),
+        color: Color(0x3fc8d3f7),
+      ),
+      child: Padding(
+        padding: EdgeInsets.zero,
+        child: Row(
+          children: [
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  tri_par = title;
+                  sort_up = sortUp;
+                });
+              },
+              child: Row(
+                children: [
+                  (tri_par == title)
+                      ? Icon(
+                    Icons.check_rounded,
+                    size: 30,
+                    color: Color(0xff2e37a4),
+                  )
+                      : SizedBox(width: 25),
+                  SizedBox(width: 10),
+                  AutoSizeText(
+                    title,
+                    style: GoogleFonts.poppins(
+                      textStyle: TextStyle(fontSize: 18),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Spacer(),
+            IconButton(
+              onPressed: () {
+                onPressed();
+              },
+              highlightColor: Colors.transparent,
+              splashColor: Colors.transparent,
+              icon: Container(
+                width: 25,
+                height: 25,
+                child: sortUp
+                    ? Image.asset("assets/images/up_sort.png")
+                    : Image.asset("assets/images/down_sort.png"),
+              ),
+            ),
+          ],
         ),
-        child: AutoSizeText(
-          label,
-          maxLines: 1,
-          style: TextStyle(color: selected ? Color(0xff0b40ff) : Colors.grey),
+      ),
+    );
+  }
+
+  Widget _buildsexeFilter(String title) {
+    return Container(
+      width: widget.width,
+      padding: const EdgeInsets.all(5),
+      decoration: BoxDecoration(
+        border: Border.symmetric(horizontal: BorderSide(width: 1, color: widget.isDarkMode ? Color(0x40ffffff) : Color(0x3f000000))),
+        color: Color(0x3fc8d3f7),
+      ),
+      child: Padding(
+        padding: EdgeInsets.zero,
+        child: GestureDetector(
+          onTap: () {
+            setState(() {
+              sexe = title;
+            });
+          },
+          child: Row(
+            children: [
+              (sexe == title)
+                  ? Icon(
+                Icons.check_rounded,
+                size: 30,
+                color: Color(0xff2e37a4),
+              )
+                  : SizedBox(width: 25),
+              SizedBox(width: 10),
+              AutoSizeText(
+                title,
+                style: GoogleFonts.poppins(
+                  textStyle: TextStyle(fontSize: 18),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildmaladieFilter(String title) {
+    bool selected = selectedMaladies.contains(title);
+    return Container(
+      width: widget.width,
+      padding: const EdgeInsets.all(5),
+      decoration: BoxDecoration(
+        border: Border.symmetric(horizontal: BorderSide(width: 1, color: widget.isDarkMode ? Color(0x40ffffff) : Color(0x3f000000))),
+        color: Color(0x3fc8d3f7),
+      ),
+      child: Padding(
+        padding: EdgeInsets.zero,
+        child: GestureDetector(
+          onTap: () {
+            setState(() {
+              if(title=="Tout") {maladie="Tout";
+              selectedMaladies={"Tout"};}
+              else{if (selected) {
+                selectedMaladies.remove(title);
+              } else {
+                selectedMaladies.add(title);
+              }
+              if (selectedMaladies.contains("Tout")) {
+                selectedMaladies.remove("Tout");
+                selectedMaladies.add(title);
+                maladie=title;
+              } else {
+                if(selectedMaladies.isEmpty) {selectedMaladies.add("Tout");
+                maladie="Tout";}
+                else maladie = selectedMaladies.join(", ");
+              }
+            }});
+          },
+          child: Row(
+            children: [
+              selected
+                  ? Icon(
+                Icons.check_rounded,
+                size: 30,
+                color: Color(0xff2e37a4),
+              )
+                  : SizedBox(width: 25),
+              SizedBox(width: 10),
+              Expanded(
+                child: AutoSizeText(
+                  title,
+                  style: GoogleFonts.poppins(
+                    textStyle: TextStyle(fontSize: 18),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -70,123 +244,198 @@ class _SortAndFilterState extends State<SortAndFilter> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: widget.height,
-      color: widget.isDarkMode ? const Color(0xff181a1b) : Colors.white,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              CupertinoButton(
-                child: const Text("Cancel", style: TextStyle(color: Colors.red)),
-                onPressed: () => Navigator.pop(context),
-              ),
-              CupertinoButton(
-                child: const Text("Done", style: TextStyle(color: Colors.blue)),
-                onPressed: () => Navigator.pop(context),
-              ),
-            ],
-          ),
-          Container(
-            margin: const EdgeInsets.only(left: 20, top: 20),
-            height: widget.height * 0.1,
-            child: AutoSizeText(
-              "Filter and sort",
-              style: GoogleFonts.poppins(
-                textStyle: TextStyle(
-                  fontSize: 20,
-                  color: !widget.isDarkMode ? CupertinoColors.black.withOpacity(0.5) : CupertinoColors.white.withOpacity(0.5),
-                ),
-              ),
-            ),
-          ),
-          SizedBox(height: widget.height * 0.04),
-          Container(
-            width: widget.width,
-            decoration: BoxDecoration(
-              border: Border.symmetric(horizontal: BorderSide(width: 1, color: widget.isDarkMode ? Color(0x40ffffff) : Color(0x3f000000))),
-            ),
-            child: Column(
+    return SingleChildScrollView(
+      child: Container(
+        color: widget.isDarkMode ? const Color(0xff181a1b) : Colors.white,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _buildFilterOption("Maladie", [IconButton(onPressed: () {}, icon: Icon(Icons.arrow_forward_ios_outlined))]),
-                _buildFilterOption(
-                  "Ordre alphabétique",
-                  [
-                    _buildSelectableOption("Nom", azNom, () {
-                      setState(() {
-                        azNom = !azNom;
-                        azPrenom = false;
-                      });
-                    }),
-                    const SizedBox(width: 5),
-                    _buildSelectableOption("Prenom", azPrenom, () {
-                      setState(() {
-                        azPrenom = !azPrenom;
-                        azNom = false;
-                      });
-                    }),
-                  ],
+                CupertinoButton(
+                  child: const Text(
+                    "Annuler",
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 17,
+                      fontFamily: "Poppins",
+                    ),
+                  ),
+                  onPressed: () => Navigator.pop(context),
                 ),
-                _buildFilterOption(
-                  "Sexe",
-                  [
-                    _buildSelectableOption("Masculin", male, () {
-                      setState(() {
-                        male = !male;
-                        female = false;
-                      });
-                    }),
-                    const SizedBox(width: 5),
-                    _buildSelectableOption("Féminin", female, () {
-                      setState(() {
-                        female = !female;
-                        male = false;
-                      });
-                    }),
-                  ],
-                ),
-                _buildFilterOption(
-                  "Age",
-                  [
-                    _buildSelectableOption("Croissant", ageCroissant, () {
-                      setState(() {
-                        ageCroissant = !ageCroissant;
-                        ageDecroissant = false;
-                      });
-                    }),
-                    const SizedBox(width: 5),
-                    _buildSelectableOption("Décroissant", ageDecroissant, () {
-                      setState(() {
-                        ageDecroissant = !ageDecroissant;
-                        ageCroissant = false;
-                      });
-                    }),
-                  ],
-                ),
-                _buildFilterOption(
-                  "Date de consultation",
-                  [
-                    _buildSelectableOption("Croissant", dateCroissant, () {
-                      setState(() {
-                        dateCroissant = !dateCroissant;
-                        dateDecroissant = false;
-                      });
-                    }),
-                    const SizedBox(width: 5),
-                    _buildSelectableOption("Décroissant", dateDecroissant, () {
-                      setState(() {
-                        dateDecroissant = !dateDecroissant;
-                        dateCroissant = false;
-                      });
-                    }),
-                  ],
+                CupertinoButton(
+                  child: const Text(
+                    "Confirmer",
+                    style: TextStyle(
+                      color: Color(0xff2e37a4),
+                      fontSize: 17,
+                      fontFamily: "Poppins",
+                    ),
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      if (tri_par == "Date de consultation") sort_up = consultation_sort_up;
+                      else if (tri_par == "Nom") sort_up = nom_sort_up;
+                      else if (tri_par == "Prenom") sort_up = prenom_sort_up;
+                      else if (tri_par == "Age") sort_up = age_sort_up;
+                    });
+
+                    Navigator.pop(context, {
+                      'tri_par': tri_par,
+                      'sexe': sexe,
+                      'selectedMaladies': selectedMaladies.toList(),
+                      'sort_up': sort_up,
+                    });
+                  },
+
+
                 ),
               ],
             ),
-          ),
-        ],
+            SizedBox(height: widget.height * 0.04),
+            Container(
+              width: widget.width,
+              decoration: BoxDecoration(
+                border: Border.symmetric(horizontal: BorderSide(width: 1, color: widget.isDarkMode ? Color(0x40ffffff) : Color(0x3f000000))),
+              ),
+              child: Column(
+                children: [
+                  _buildFilterOption(
+                    "assets/images/sorting.png",
+                    "Trier par",
+                    IconButton(
+                      onPressed: () {
+                        setState(() {
+                          tri = !tri;
+                        });
+                      },
+                      icon: Icon(
+                        Icons.keyboard_arrow_down_rounded,
+                        size: 30,
+                        color: Color(0xff2e37a4),
+                      ),
+                      highlightColor: Colors.transparent,
+                      splashColor: Colors.transparent,
+                    ),
+                    tri_par,
+                    IconButton(
+                      onPressed: () {
+                        setState(() {
+                          if (tri_par == "Date de consultation") {
+                            consultation_sort_up = !consultation_sort_up;
+                            sort_up = consultation_sort_up;
+                          } else if (tri_par == "Nom") {
+                            nom_sort_up = !nom_sort_up;
+                            sort_up = nom_sort_up;
+                          } else if (tri_par == "Prenom") {
+                            prenom_sort_up = !prenom_sort_up;
+                            sort_up = prenom_sort_up;
+                          } else if (tri_par == "Age") {
+                            age_sort_up = !age_sort_up;
+                            sort_up = age_sort_up;
+                          }
+                        });
+                      },
+                      icon: Container(
+                        width: 25,
+                        height: 25,
+                        child: sort_up
+                            ? Image.asset("assets/images/up_sort.png")
+                            : Image.asset("assets/images/down_sort.png"),
+                      ),
+                      highlightColor: Colors.transparent,
+                      splashColor: Colors.transparent,
+                    ),
+                  ),
+                  if (tri)
+                    Column(
+                      children: [
+                        _buildsortOption("Date de consultation", consultation_sort_up, () {
+                          setState(() {
+                            consultation_sort_up = !consultation_sort_up;
+                            if (tri_par == "Date de consultation") sort_up = consultation_sort_up;
+                          });
+                        }),
+                        _buildsortOption("Nom", nom_sort_up, () {
+                          setState(() {
+                            nom_sort_up = !nom_sort_up;
+                            if (tri_par == "Nom")sort_up = nom_sort_up;
+                          });
+                        }),
+                        _buildsortOption("Prenom", prenom_sort_up, () {
+                          setState(() {
+                            prenom_sort_up = !prenom_sort_up;
+                            if (tri_par == "Prenom")sort_up = prenom_sort_up;
+                          });
+                        }),
+                        _buildsortOption("Age", age_sort_up, () {
+                          setState(() {
+                            age_sort_up = !age_sort_up;
+                            if (tri_par == "Age")sort_up = age_sort_up;
+                          });
+                        }),
+                      ],
+                    ),
+                  _buildFilterOption(
+                    "assets/images/sorting.png",
+                    "Sexe",
+                    IconButton(
+                      onPressed: () {
+                        setState(() {
+                          selectsexe = !selectsexe;
+                        });
+                      },
+                      icon: Icon(
+                        Icons.keyboard_arrow_down_rounded,
+                        size: 30,
+                        color: Color(0xff2e37a4),
+                      ),
+                      highlightColor: Colors.transparent,
+                      splashColor: Colors.transparent,
+                    ),
+                    sexe,
+                    null,
+                  ),
+                  if (selectsexe)
+                    Column(
+                      children: [
+                        _buildsexeFilter("Tout"),
+                        _buildsexeFilter("Homme"),
+                        _buildsexeFilter("Femme"),
+                      ],
+                    ),
+                  _buildFilterOption(
+                    "assets/images/sorting.png",
+                    "Maladie",
+                    IconButton(
+                      onPressed: () {
+                        setState(() {
+                          selectmaladie = !selectmaladie;
+                        });
+                      },
+                      icon: Icon(
+                        Icons.keyboard_arrow_down_rounded,
+                        size: 30,
+                        color: Color(0xff2e37a4),
+                      ),
+                      highlightColor: Colors.transparent,
+                      splashColor: Colors.transparent,
+                    ),
+                    maladie,
+                    null,
+                  ),
+                  if (selectmaladie)
+                    Column(
+                      children: [
+                        ...maladies.map((maladie) => _buildmaladieFilter(maladie)).toList(),
+                      ],
+                    ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

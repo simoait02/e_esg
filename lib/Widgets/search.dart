@@ -3,11 +3,13 @@ import 'package:flutter_svg/svg.dart';
 class CustomSearch extends StatefulWidget {
 
   void Function(String) onchanged;
+  void Function(String)? onclear;
   String hintText;
 
   CustomSearch({
     required this.hintText,
-    required this.onchanged
+    required this.onchanged,
+    this.onclear
   });
 
   @override
