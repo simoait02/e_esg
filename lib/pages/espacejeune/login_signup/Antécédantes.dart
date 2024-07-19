@@ -41,33 +41,42 @@ class _AntecedantesState extends State<Antecedantes> {
     double width = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 1, 78, 140),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Container(
-            width: width * 0.9,
-            padding: EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(25),
-              border: Border.all(color: Color.fromARGB(255, 1, 78, 140)),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black26,
-                  blurRadius: 10,
-                  offset: Offset(0, 5),
-                ),
-              ],
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: Image.asset(
+              'assets/images/backgroundLogin.png', 
+              fit: BoxFit.cover,
             ),
-            child: showFamilialOptions
-                ? buildFamilialOptions(width)
-                : showHabitsOptions
-                    ? buildHabitsOptions(width)
-                    : showChirurgicalOptions
-                        ? buildChirurgicalOptions(width)
-                        : buildMedicalHistory(width),
           ),
-        ),
+          Center(
+            child: SingleChildScrollView(
+              child: Container(
+                width: width * 0.9,
+                padding: EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(25),
+                  border: Border.all(color: Color.fromARGB(255, 1, 78, 140)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 10,
+                      offset: Offset(0, 5),
+                    ),
+                  ],
+                ),
+                child: showFamilialOptions
+                    ? buildFamilialOptions(width)
+                    : showHabitsOptions
+                        ? buildHabitsOptions(width)
+                        : showChirurgicalOptions
+                            ? buildChirurgicalOptions(width)
+                            : buildMedicalHistory(width),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
