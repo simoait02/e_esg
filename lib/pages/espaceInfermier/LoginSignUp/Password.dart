@@ -1,10 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:e_esg/Widgets/NavigationBarDoctor.dart';
-import 'package:e_esg/Widgets/NavigationBarJeune.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../IES/statistiques.dart';
 import 'Cardi.dart';
 
@@ -65,23 +64,23 @@ class _PasswordState extends State<Password> {
     double width = MediaQuery.of(context).size.width;
     double height =MediaQuery.of(context).size.height;
     var brightness = MediaQuery.of(context).platformBrightness;
+    final appLocalizations = AppLocalizations.of(context);
     return SingleChildScrollView(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             height: height*0.07,
             width: width*0.7,
-            child:  Align(
-              alignment: Alignment.centerLeft,
-              child: AutoSizeText(
-                "Créer un mot de passe",
-                maxLines: 2,
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
-                    color: CardiInf.isDarkMode.value?Colors.white:Colors.black,
-                    fontFamily: "poppins"),
-              ),
+            margin: EdgeInsets.symmetric(horizontal: 30),
+            child: AutoSizeText(
+              appLocalizations!.createPass,
+              maxLines: 2,
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30,
+                  color: CardiInf.isDarkMode.value?Colors.white:Colors.black,
+                  fontFamily: "poppins"),
             ),
           ),
           Container(
@@ -90,7 +89,7 @@ class _PasswordState extends State<Password> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Mot de passe",
+                  appLocalizations.password,
                   style: TextStyle(
                     fontFamily: 'Poppins',
                     fontSize: titleFontSize+15,
@@ -162,7 +161,7 @@ class _PasswordState extends State<Password> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Confirmer mot de passe",
+                  appLocalizations.confirmPass,
                   style: TextStyle(
                     fontFamily: 'Poppins',
                     fontSize: titleFontSize+15,
@@ -226,7 +225,7 @@ class _PasswordState extends State<Password> {
                         border: Border.all(color: Color(0xff4E57CD))),
                     alignment: Alignment.center,
                     child: Text(
-                      "Précédent",
+                      appLocalizations.precedent,
                       style: TextStyle(color: Color(0xff4E57CD), fontSize: 20),
                     )),
                 onPressed: () {
@@ -251,7 +250,7 @@ class _PasswordState extends State<Password> {
                         borderRadius: BorderRadius.circular(40)),
                     alignment: Alignment.center,
                     child: AutoSizeText(
-                      "Créer votre compte",
+                      appLocalizations.createAcc,
                       style: TextStyle(color: Colors.white, fontSize: 17),
                     )),
                 /**/
