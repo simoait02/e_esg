@@ -118,7 +118,7 @@ class _AntecedantesState extends State<Antecedantes> {
             ),
           );
         }).toList(),
-        if (diseases['Autre']!)
+        if (diseases['Autres']!)
           Padding(
             padding: const EdgeInsets.only(top: 20),
             child: Container(
@@ -127,7 +127,7 @@ class _AntecedantesState extends State<Antecedantes> {
               child: TextField(
                 controller: otherDiseaseController,
                 decoration: InputDecoration(
-                  labelText: "Autre",
+                  labelText: "Autres",
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5),
                   ),
@@ -500,7 +500,7 @@ class _AntecedantesState extends State<Antecedantes> {
               );
             }).toList(),
           ),
-        if (familial['Autre']!)
+        if (familial['Autres']!)
           Padding(
             padding: const EdgeInsets.only(top: 20),
             child: Container(
@@ -509,7 +509,7 @@ class _AntecedantesState extends State<Antecedantes> {
               child: TextField(
                 controller: otherDiseaseController,
                 decoration: InputDecoration(
-                  labelText: "Autre",
+                  labelText: "Autres",
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5),
                   ),
