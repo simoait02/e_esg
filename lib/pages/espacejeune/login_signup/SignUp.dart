@@ -89,7 +89,7 @@ class _SignupState extends State<Signup> {
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
               color: isDarkMode
-                  ? (hasFocus ? CupertinoColors.systemBlue : CupertinoColors.white.withOpacity(0.5))
+                  ? (hasFocus ? Color(0xFF2E37A4) : CupertinoColors.white.withOpacity(0.5))
                   : (hasFocus ? Color(0xFF2E37A4) : Color(0xFFEAEBF6)),
               width: 2,
             ),

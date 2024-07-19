@@ -102,7 +102,9 @@ class _PasswordState extends State<Password> {
             padding: EdgeInsets.only(left: 15),
             decoration: BoxDecoration(
               border: Border.all(
-                color: _isFocused ? Color(0xFF2E37A4) : isDarkMode ? CupertinoColors.white : Color(0xFFEAEBF6),
+                color: isDarkMode
+                    ? (_isFocused ? Color(0xFF2E37A4) : CupertinoColors.white.withOpacity(0.5))
+                    : (_isFocused ? Color(0xFF2E37A4) : Color(0xFFEAEBF6)),
                 width: 2.0,
               ),
               borderRadius: BorderRadius.circular(10),
@@ -173,7 +175,9 @@ class _PasswordState extends State<Password> {
                   padding: EdgeInsets.only(left: 15),
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: _isFocused2? Color(0xFF2E37A4) : isDarkMode ? CupertinoColors.white : Color(0xFFEAEBF6),
+                      color: isDarkMode
+                          ? (_isFocused2 ? Color(0xFF2E37A4) : CupertinoColors.white.withOpacity(0.5))
+                          : (_isFocused2 ? Color(0xFF2E37A4) : Color(0xFFEAEBF6)),
                       width: 2.0,
                     ),
                     borderRadius: BorderRadius.circular(10),
