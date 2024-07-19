@@ -546,7 +546,6 @@ class _AntecedantesState extends State<Antecedantes> {
             ),
             GestureDetector(
               onTap: () {
-                // Handle continue action
               },
               child: Container(
                 width: width * 0.3,
