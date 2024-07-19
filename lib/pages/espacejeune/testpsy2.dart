@@ -1,12 +1,22 @@
-import 'package:e_esg/Widgets/custom_sliver_app_bar.dart';
-import 'package:e_esg/pages/espacejeune/testpsy3.dart';
 import 'package:flutter/material.dart';
-import 'dossierMedical.dart';
-import 'ies.dart';
-import 'testpsy1.dart';
+import '../../Widgets/custom_sliver_app_bar.dart';
+import 'Estime de Soi.dart';  
+import 'Anxiété.dart';  
+import 'Humeur.dart'; 
+import 'testpsy4.dart'; 
+
 
 class Testpsy2 extends StatefulWidget {
-  const Testpsy2({Key? key}) : super(key: key);
+  final String title;
+  final String description;
+  final String imagePath;
+
+  const Testpsy2({
+    Key? key,
+    required this.title,
+    required this.description,
+    required this.imagePath,
+  }) : super(key: key);
 
   @override
   State<Testpsy2> createState() => Testpsy2State();
@@ -21,8 +31,30 @@ class Testpsy2State extends State<Testpsy2> {
     var screenWidth = MediaQuery.of(context).size.width;
     var brightness = MediaQuery.of(context).platformBrightness;
     bool isDarkMode = brightness == Brightness.dark;
+
+    void _navigateBasedOnTitle() {
+      Widget destination;
+      switch (widget.title) {
+        case "Evaluation de l'Estime de Soi":
+          destination = EstimedeSoi(); 
+          break;
+        case "Evaluation de la Paix Intérieure":
+          destination = Anxiete(); 
+          break;
+        case "Evaluation de l'Humeur et de la Vitalité":
+          destination = Humeur();
+          break;
+        case "Evaluation de la qualité de sommeil":
+          destination = Humeur(); 
+          break;
+        default:
+          destination = Humeur();
+      }
+      Navigator.push(context, MaterialPageRoute(builder: (context) => destination));
+    }
+
     return Scaffold(
-      backgroundColor:isDarkMode?Color(0xff141218):Color(0xffF5F5F6),
+      backgroundColor: isDarkMode ? Color(0xff141218) : Color(0xffF5F5F6),
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
@@ -43,15 +75,15 @@ class Testpsy2State extends State<Testpsy2> {
                         width: screenWidth * 0.9,
                         padding: EdgeInsets.all(screenWidth * 0.05),
                         decoration: BoxDecoration(
-                          color:isDarkMode?Color(0xff141218):Colors.white,
+                          color: isDarkMode ? Color(0xff141218) : Colors.white,
                           borderRadius: BorderRadius.circular(16.0),
                           border: Border.all(color: Color(0xffEAEBF6), width: 2),
                         ),
                         child: Center(
                           child: Text(
-                            "Evaluation de l'Humeur et de la Vitalité",
+                            widget.title,
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 14,
                               fontWeight: FontWeight.bold,
                             ),
                             textAlign: TextAlign.center,
@@ -63,7 +95,7 @@ class Testpsy2State extends State<Testpsy2> {
                         width: screenWidth * 0.9,
                         padding: EdgeInsets.all(screenWidth * 0.05),
                         decoration: BoxDecoration(
-                          color:isDarkMode?Color(0xff141218):Colors.white,
+                          color: isDarkMode ? Color(0xff141218) : Colors.white,
                           borderRadius: BorderRadius.circular(16.0),
                           border: Border.all(color: Color(0xffEAEBF6), width: 2),
                         ),
@@ -71,10 +103,9 @@ class Testpsy2State extends State<Testpsy2> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'Explorez votre humeur et découvrez des moyens de retrouver votre vitalité émotionnelle pour une vie plus équilibrée',
+                              widget.description,
                               style: TextStyle(
                                 fontSize: 12,
-                                fontWeight: FontWeight.bold,
                               ),
                               textAlign: TextAlign.center,
                             ),
@@ -82,7 +113,7 @@ class Testpsy2State extends State<Testpsy2> {
                             ClipRRect(
                               borderRadius: BorderRadius.circular(16.0),
                               child: Image.asset(
-                                'assets/images/Image.jpeg',
+                                widget.imagePath,
                                 height: screenHeight * 0.3,
                                 width: screenWidth * 0.8,
                                 fit: BoxFit.cover,
@@ -101,7 +132,7 @@ class Testpsy2State extends State<Testpsy2> {
                                 });
                               },
                               child: GestureDetector(
-                                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => Testpsy3())),
+                                onTap: _navigateBasedOnTitle,
                                 child: AnimatedContainer(
                                   duration: Duration(milliseconds: 200),
                                   padding: EdgeInsets.symmetric(
@@ -116,7 +147,9 @@ class Testpsy2State extends State<Testpsy2> {
                                     'Commencer le test',
                                     style: TextStyle(
                                       fontSize: 12,
-                                      color: isHovered ? Colors.white : Colors.black,
+                                      color: isHovered
+                                          ? Color.fromARGB(255, 78, 244, 217)
+                                          : Color.fromARGB(255, 194, 194, 194),
                                     ),
                                     textAlign: TextAlign.center,
                                   ),

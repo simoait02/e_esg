@@ -1,5 +1,4 @@
 import 'package:e_esg/Widgets/NavigationBarJeune.dart';
-import 'package:e_esg/pages/espacejeune/dossierMedical1.dart';
 import 'package:flutter/material.dart';
 import 'dossierMedical.dart';
 
@@ -87,7 +86,6 @@ class ConsentementState extends State<Consentement> {
                         ],
                       ),
                       SizedBox(height: 16),
-                      // Add a check to enable the button only when the checkbox is checked
                       ElevatedButton(
                         onPressed: isChecked ? () {
                           Navigator.push(
