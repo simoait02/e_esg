@@ -91,6 +91,16 @@
   "tout": "الكل",
   "dateConsultation": "تاريخ الزيارة",
   "sort": "الترتيب حسب",
-  "maladie": "مرض"
+  "maladie": "مرض",
+  "sendMsg": "ارسل رسالة",
+  "docMedical": "الملف الطبي",
+  "addImage": "أضف صورتك",
+  "medicalHistory": "التاريخ الطبي",
+  "antecedantMedicaux": "سوابق طبية",
+  "antecedantChirugi": "سوابق جراحية",
+  "antecedantFamil": "سوابق عائلية",
+  "from": "من",
+  "to": "الى",
+  "fillCorrectly": "يرجى ملء الحقول بشكل صحيح"
 
 }

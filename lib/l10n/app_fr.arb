@@ -91,8 +91,16 @@
   "tout": "Tout",
   "dateConsultation": "date de consultation",
   "sort": "Trier par",
-  "maladie": "Maladie"
-
-
+  "maladie": "Maladie",
+  "sendMsg": "Envoyer un message",
+  "docMedical": "Dossier médical",
+  "addImage": "Ajouter votre image",
+  "medicalHistory": "Historique médical",
+  "antecedantMedicaux": "Antécédents Médicaux",
+  "antecedantChirugi": "Antécédants Chirurgicaux",
+  "antecedantFamil": "Antécédants Familiaux",
+  "from": "De",
+  "to": "à",
+  "fillCorrectly": "Veuillez remplir les champs correctement"
 
 }

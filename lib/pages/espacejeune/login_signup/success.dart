@@ -1,9 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:e_esg/pages/espacejeune/Consentement.dart';
+import 'package:e_esg/pages/espacejeune/DossierMedical/DocMedical.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'Antécédantes.dart';
 class Success extends StatefulWidget {
   const Success({super.key});
 
@@ -20,7 +19,7 @@ class _SuccessState extends State<Success> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => Antecedantes(), // Replace with the page you want to navigate to
+          builder: (context) => DocMedical(),
         ),
       );
     });

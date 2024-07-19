@@ -91,5 +91,16 @@
   "tout": "All",
   "dateConsultation": "Date of consultation",
   "sort": "Sort by",
-  "maladie": "Sickness"
+  "maladie": "Sickness",
+  "sendMsg": "Send a message",
+  "docMedical": "Medical file",
+  "addImage": "Add your image",
+  "medicalHistory": "Medical history",
+  "antecedantMedicaux": "Medical background",
+  "antecedantChirugi": "Surgical background",
+  "antecedantFamil": "Family background",
+  "from": "From",
+  "to": "To",
+  "fillCorrectly": "Please fill fields correctly"
+
 }
