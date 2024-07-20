@@ -102,7 +102,7 @@ class _LoginState extends State<Login> {
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 30),
+        margin: EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -164,36 +164,34 @@ class _LoginState extends State<Login> {
                   }),
             ),
             const SizedBox(height: 5),
-            Container(
-              height: height * 0.04,
-              width: width*0.9,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  AutoSizeText(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  child: AutoSizeText(
                     appLocalizations.needAcc,
                     style: TextStyle(fontFamily: "Inter",
                     color: Color(0xff9999A3),
                     fontWeight: FontWeight.w400,
-                    fontSize: 15),
+                    fontSize: 10),
                   ),
-                  const SizedBox(width: 2),
-                  GestureDetector(
-                    onTap: () {
-                      widget.onSignUpTapped(0.8, 0.1);
-                    },
-                    child: AutoSizeText(
-                      appLocalizations.signUp,
-                      style: TextStyle(
-                        fontFamily: "Inter",
-                        color: isDarkMode ? Color(0xff759cd8) : Color(0xff3a01de),
-                          fontWeight: FontWeight.w400,
-                          fontSize: 15
-                      ),
+                ),
+                const SizedBox(width: 2),
+                GestureDetector(
+                  onTap: () {
+                    widget.onSignUpTapped(0.8, 0.1);
+                  },
+                  child: AutoSizeText(
+                    appLocalizations.signUp,
+                    style: TextStyle(
+                      fontFamily: "Inter",
+                      color: isDarkMode ? Color(0xff759cd8) : Color(0xff3a01de),
+                        fontWeight: FontWeight.w400,
+                        fontSize: 10
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ],
         ),

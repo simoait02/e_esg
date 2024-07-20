@@ -18,6 +18,20 @@ class ConfirmInformations extends StatefulWidget {
 }
 
 class _ConfirmInformationsState extends State<ConfirmInformations> {
+  late ScrollController _scrollController;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -51,13 +65,15 @@ class _ConfirmInformationsState extends State<ConfirmInformations> {
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Container(
               height: height * 0.55,
-              padding: const EdgeInsets.only(left: 20,top: 20,bottom: 20),
+              padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(color: Colors.black, width: 1)),
               child: Scrollbar(
                 thumbVisibility: true,
+                controller: _scrollController,
                 child: SingleChildScrollView(
+                  controller: _scrollController,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -166,9 +182,9 @@ class _ConfirmInformationsState extends State<ConfirmInformations> {
           child: AutoSizeText(
             value,
             style: TextStyle(
-              fontFamily: "Poppins",
-              fontSize: 10,
-              color: isDarkMode? Colors.white.withOpacity(0.8):Colors.black.withOpacity(0.8)
+                fontFamily: "Poppins",
+                fontSize: 10,
+                color: isDarkMode? Colors.white.withOpacity(0.8):Colors.black.withOpacity(0.8)
             ),
           ),
         ),

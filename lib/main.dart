@@ -48,7 +48,7 @@ class _MyAppState extends State<MyApp> {
         Locale('en')
       ],
       debugShowCheckedModeBanner: false,
-      home:SideBarController(),
+      home:Chooselanguage(onLanguageChanged: _setLocale,)
     );
   }
 }

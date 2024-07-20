@@ -143,7 +143,6 @@ class _SignupState extends State<Signup> {
                 margin: EdgeInsets.only(left: 20,right: 20),
                 child: Container(
                   height: height * 0.07,
-                  width: width * 0.3,
                   child: AutoSizeText(
                     appLocalizations!.signUp,
                     style: TextStyle(
