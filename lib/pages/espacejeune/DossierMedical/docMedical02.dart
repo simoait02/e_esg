@@ -178,7 +178,7 @@ class _Docmedical02State extends State<Docmedical02> {
       style: GoogleFonts.inter(
         textStyle: const TextStyle(
           fontSize: 20,
-          color: Color(0xff4E57CD),
+          color: Color(0xff2e37a4),
         ),
       ),
     );
@@ -731,7 +731,7 @@ class _Docmedical02State extends State<Docmedical02> {
                 CupertinoButton(
                   child: Container(
                     width: width * 0.3,
-                    height: height * 0.06,
+                    height: height * 0.05,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(40),
                       border: Border.all(color: Color(0xff4E57CD)),

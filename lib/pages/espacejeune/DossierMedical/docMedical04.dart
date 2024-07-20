@@ -4,18 +4,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:e_esg/Data/allergiAlimentaire_list.dart';
-import 'package:e_esg/Data/allergieMedicam_list.dart';
-import 'package:e_esg/Data/allergieEnvi_list.dart';
+import 'package:e_esg/Data/historyMedica_list.dart';
+import 'package:e_esg/Data/historyDose_list.dart';
+import 'package:e_esg/Data/historyInstruction_list.dart';
 
-class Docmedical03 extends StatefulWidget {
-  const Docmedical03({super.key});
+class Docmedical04 extends StatefulWidget {
+  const Docmedical04({super.key});
 
   @override
-  State<Docmedical03> createState() => _Docmedical03State();
+  State<Docmedical04> createState() => _Docmedical04State();
 }
 
-class _Docmedical03State extends State<Docmedical03> {
+class _Docmedical04State extends State<Docmedical04> {
   TextEditingController searchAlliController = TextEditingController();
   TextEditingController searchMedicaController = TextEditingController();
   TextEditingController searchEnviController = TextEditingController();
@@ -44,7 +44,7 @@ class _Docmedical03State extends State<Docmedical03> {
   }
 
   void filterSearchResultsEnvi(String query) {
-    List<String> dummySearchList = allergiesEnvironnementales;
+    List<String> dummySearchList = historyDoses;
     if (query.isNotEmpty) {
       List<String> dummyListData = [];
       dummySearchList.forEach((item) {
@@ -64,7 +64,7 @@ class _Docmedical03State extends State<Docmedical03> {
   }
 
   void filterSearchResultsMedica(String query) {
-    List<String> dummySearchList = allergiesMedicamenteuses;
+    List<String> dummySearchList = historiqueDoses;
     if (query.isNotEmpty) {
       List<String> dummyListData = [];
       dummySearchList.forEach((item) {
@@ -84,7 +84,7 @@ class _Docmedical03State extends State<Docmedical03> {
   }
 
   void filterSearchResultsAlli(String query) {
-    List<String> dummySearchList = allergiesAlimentaires; // Exclude "Tout"
+    List<String> dummySearchList = historiqueMedicaments;
     if (query.isNotEmpty) {
       List<String> dummyListData = [];
       dummySearchList.forEach((item) {
@@ -162,7 +162,8 @@ class _Docmedical03State extends State<Docmedical03> {
       ),
     );
   }
-
+  String _priseEnCharge = 'médicale';
+  String _correspondances = 'référence';
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context);
@@ -177,7 +178,7 @@ class _Docmedical03State extends State<Docmedical03> {
           children: [
             Center(
               child: Text(
-                appLocalizations!.alergieEtIntolerance,
+                appLocalizations!.medicalPrescription,
                 style: GoogleFonts.inter(
                   fontSize: 24,
                   color: isDarkMode ? Colors.white : Colors.black,
@@ -191,7 +192,7 @@ class _Docmedical03State extends State<Docmedical03> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                buildLabel(appLocalizations.foodAllergy),
+                buildLabel(appLocalizations.historyMedic),
                 SizedBox(height: height * 0.01),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -227,7 +228,7 @@ class _Docmedical03State extends State<Docmedical03> {
                               color: Colors.transparent,
                             ),
                           ),
-                          placeholder: appLocalizations.foodAllergy,
+                          placeholder: appLocalizations.historyMedic,
                           onSubmitted: (value) => addItemAlli(value),
                         ),
                       ),
@@ -296,7 +297,7 @@ class _Docmedical03State extends State<Docmedical03> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                buildLabel(appLocalizations.medcaAllergy),
+                buildLabel(appLocalizations.historyDoses),
                 SizedBox(height: height * 0.01),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -332,7 +333,7 @@ class _Docmedical03State extends State<Docmedical03> {
                               color: Colors.transparent,
                             ),
                           ),
-                          placeholder: appLocalizations.medcaAllergy,
+                          placeholder: appLocalizations.historyDoses,
                           onSubmitted: (value) => addItemMedica(value),
                         ),
                       ),
@@ -401,7 +402,7 @@ class _Docmedical03State extends State<Docmedical03> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                buildLabel(appLocalizations.enviAllergy),
+                buildLabel(appLocalizations.instructions),
                 SizedBox(height: height * 0.01),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -437,7 +438,7 @@ class _Docmedical03State extends State<Docmedical03> {
                               color: Colors.transparent,
                             ),
                           ),
-                          placeholder: appLocalizations.enviAllergy
+                          placeholder: appLocalizations.instructions
                           ,
                           onSubmitted: (value) => addItemEnvi(value),
                         ),
@@ -503,9 +504,79 @@ class _Docmedical03State extends State<Docmedical03> {
                 ),
               ],
             ),
-            SizedBox(
-              height: height * 0.05,
+            SizedBox(height: height*0.02,),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                buildLabel(appLocalizations.priseEnCharge),
+                Row(
+                  children: [
+                    Expanded(
+                      child: RadioListTile(
+                        title: Text(appLocalizations.medical,style: TextStyle(color:isDarkMode
+                            ? CupertinoColors.white.withOpacity(0.5)
+                            : CupertinoColors.black.withOpacity(0.5),)),
+                        value: 'médicale',
+                        groupValue: _priseEnCharge,
+                        onChanged: (value) {
+                          setState(() {
+                            _priseEnCharge = value.toString();
+                          });
+                        },
+                      ),
+                    ),
+                    Expanded(
+                      child: RadioListTile(
+                        title: AutoSizeText(maxLines: 1, appLocalizations.paraMedical,style: TextStyle(color:isDarkMode
+                            ? CupertinoColors.white.withOpacity(0.5)
+                            : CupertinoColors.black.withOpacity(0.5),)),
+                        value: 'paramédicale',
+                        groupValue: _priseEnCharge,
+                        onChanged: (value) {
+                          setState(() {
+                            _priseEnCharge = value.toString();
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+                buildLabel(appLocalizations.correspondance),
+                Row(
+                  children: [
+                    Expanded(
+                      child: RadioListTile(
+                        title: Text(appLocalizations.reference,style: TextStyle(color:isDarkMode
+                            ? CupertinoColors.white.withOpacity(0.5)
+                            : CupertinoColors.black.withOpacity(0.5),)),
+                        value: 'référence',
+                        groupValue: _correspondances,
+                        onChanged: (value) {
+                          setState(() {
+                            _correspondances = value.toString();
+                          });
+                        },
+                      ),
+                    ),
+                    Expanded(
+                      child: RadioListTile(
+                        title: Text(appLocalizations.coreference,style: TextStyle(color:isDarkMode
+                            ? CupertinoColors.white.withOpacity(0.5)
+                            : CupertinoColors.black.withOpacity(0.5),)),
+                        value: 'contre référence',
+                        groupValue: _correspondances,
+                        onChanged: (value) {
+                          setState(() {
+                            _correspondances = value.toString();
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
+            SizedBox(height: height * 0.05,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -524,8 +595,8 @@ class _Docmedical03State extends State<Docmedical03> {
                     ),
                   ),
                   onPressed: () {
-                    DocMedical.setProgress(context, 0.25);
-                    DocMedical.setIndex(context, 1);
+                    DocMedical.setProgress(context, 0.5);
+                    DocMedical.setIndex(context, 2);
                   },
                 ),
                 CupertinoButton(
@@ -545,8 +616,8 @@ class _Docmedical03State extends State<Docmedical03> {
                     ),
                   ),
                   onPressed: () {
-                    DocMedical.setProgress(context, 0.75);
-                    DocMedical.setIndex(context, 3);
+                    DocMedical.setProgress(context, 1);
+                    DocMedical.setIndex(context, 4);
                   },
                 ),
               ],

@@ -68,7 +68,7 @@ class _Docmedical01State extends State<Docmedical01> {
             SizedBox(height: height * 0.02),
             buildInfoRow(width, appLocalizations.prenom, "simo", isDarkMode),
             SizedBox(height: height * 0.02),
-            buildInfoRow(width, appLocalizations.sex, appLocalizations.sex, isDarkMode),
+            buildInfoRow(width, appLocalizations.sex, appLocalizations.male, isDarkMode),
             SizedBox(height: height * 0.02),
             buildInfoRow(width, appLocalizations.birthDay, "dd/mm/yyyy", isDarkMode),
             SizedBox(height: height * 0.02),

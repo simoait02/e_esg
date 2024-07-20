@@ -101,6 +101,20 @@
   "antecedantFamil": "Antécédants Familiaux",
   "from": "De",
   "to": "à",
-  "fillCorrectly": "Veuillez remplir les champs correctement"
+  "fillCorrectly": "Veuillez remplir les champs correctement",
+  "alergieEtIntolerance": "Allergie et Intolérances",
+  "foodAllergy": "Allergies alimentaires",
+  "medcaAllergy": "Allergie médicamenteuses",
+  "enviAllergy": "Allergie environnementales",
+  "medicalPrescription": "Prescription Médicales",
+  "historyMedic": "Historique des médicaments",
+  "historyDoses": "Historique des doses",
+  "instructions": "Instructions",
+  "priseEnCharge":"Pris en charge",
+  "correspondance": "Correspondances",
+  "medical": "Médicale",
+  "paraMedical": "Paramédicale",
+  "reference": "Référence",
+  "coreference": "Contre référence"
 
 }

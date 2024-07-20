@@ -101,6 +101,20 @@
   "antecedantFamil": "سوابق عائلية",
   "from": "من",
   "to": "الى",
-  "fillCorrectly": "يرجى ملء الحقول بشكل صحيح"
+  "fillCorrectly": "يرجى ملء الحقول بشكل صحيح",
+  "alergieEtIntolerance": "الحساسية وعدم التحمل",
+  "foodAllergy": "حساسية الطعام",
+  "medcaAllergy": "الحساسية الدوائية",
+  "enviAllergy": "الحساسية البيئية",
+  "medicalPrescription": "وصفة طبية",
+  "historyMedic": "تاريخ الدواء",
+  "historyDoses": "تاريخ الجرعات",
+  "instructions": "تعليمات",
+  "priseEnCharge":"تغطية صحية",
+  "correspondance":"تطابق",
+  "medical": "طبية",
+  "paraMedical": "شبه طبية",
+  "reference": "مرجع",
+  "coreference": "ضد المرجعية"
 
 }
