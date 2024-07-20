@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:e_esg/Widgets/pulse_animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -33,29 +34,61 @@ class _SidebarYongState extends State<SidebarYong> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ListTile(
-                    leading: const CircleAvatar(
-                      backgroundColor: Colors.white24,
-                      child: Icon(CupertinoIcons.person, color: Colors.white),
-                    ),
-                    title: AutoSizeText(
-                      "simo",
-                      style: GoogleFonts.poppins(
-                        textStyle: const TextStyle(
-                          fontSize: 22,
-                          color: Colors.white,
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Card(
+                          elevation:0,
+                          color: Colors.transparent,
+                          child: ListTile(
+                            leading: const CircleAvatar(
+                              backgroundColor: Colors.white24,
+                              child: Icon(CupertinoIcons.person, color: Colors.white),
+                            ),
+                            title: AutoSizeText(
+                              "simo",
+                              style: GoogleFonts.poppins(
+                                textStyle: const TextStyle(
+                                  fontSize: 22,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            subtitle: AutoSizeText(
+                              appLocalizations!.jeune,
+                              style: GoogleFonts.poppins(
+                                textStyle: const TextStyle(
+                                  fontSize: 15,
+                                  color: Colors.white54,
+                                ),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                    subtitle: AutoSizeText(
-                      appLocalizations!.jeune,
-                      style: GoogleFonts.poppins(
-                        textStyle: const TextStyle(
-                          fontSize: 15,
-                          color: Colors.white54,
+                      IconButton(
+                        onPressed: (){},
+                        icon: Stack(
+                          clipBehavior: Clip.none,
+                          children: [
+                            SizedBox(
+                              height: 40,
+                              width: 40,
+                              child: SvgPicture.asset(
+                                'assets/images/note_icon.svg',
+                                color: Colors.purple.shade100,
+                              ),
+                            ),
+                            Positioned(
+                              top: 0,
+                              right: 5,
+                              child: PulseAnimation(),
+                            ),
+                          ],
                         ),
                       ),
-                    ),
+                      SizedBox(width: 20,)
+                    ],
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 24, top: 32, bottom: 16),

@@ -1,13 +1,17 @@
 import 'package:e_esg/pages/espacejeune/dossierMedical.dart';
 import 'package:e_esg/pages/espacejeune/ies.dart';
 import 'package:e_esg/pages/espacejeune/testpsy1.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_svg/svg.dart';
 
 class NavbarYouth extends StatefulWidget {
-
-  const NavbarYouth({super.key});
+  final bool isSideBarClosed;
+  final VoidCallback onSidebarToggle;
+  const NavbarYouth({super.key,required this.isSideBarClosed,
+    required this.onSidebarToggle,});
   static void setLocale(BuildContext context, Locale newLocale) async {
     _NavbarYouthState? state = context.findAncestorStateOfType<_NavbarYouthState>();
     state!.changeLanguage(newLocale);
@@ -16,7 +20,7 @@ class NavbarYouth extends StatefulWidget {
   State<NavbarYouth> createState() => _NavbarYouthState();
 }
 
-class _NavbarYouthState extends State<NavbarYouth> {
+class _NavbarYouthState extends State<NavbarYouth> with TickerProviderStateMixin{
   List<dynamic> selected=[
     const Dossiermedical(),
     const Ies(),
@@ -65,6 +69,19 @@ class _NavbarYouthState extends State<NavbarYouth> {
         ),
       ),
     );
+  }
+  bool isPlay=false;
+  late AnimationController _controller;
+  @override
+  void initState() {
+    _controller=AnimationController(vsync: this,duration: Duration(milliseconds: 200));
+    super.initState();
+  }
+
+  @override
+  void dispose(){
+    _controller.dispose();
+    super.dispose();
   }
 
   late String language;
@@ -160,9 +177,54 @@ class _NavbarYouthState extends State<NavbarYouth> {
                 ),
               ),
             ),
+            ClipPath(
+              clipper: CustomMenuClipper(),
+              child: Container(
+                width: 35,
+                height: 100,
+                color: Color(0xff2e37a4),
+                alignment: Alignment.centerLeft,
+                child: GestureDetector(
+                  onTap: widget.onSidebarToggle,
+                  child: widget.isSideBarClosed?Padding(
+                    padding: EdgeInsets.only(left: 5),
+                    child: SvgPicture.asset(
+                      "assets/images/more.svg",
+                      color: Colors.purple.shade100,
+                    ),
+                  ):Icon(
+                    CupertinoIcons.clear_circled_solid,size: 40,
+                  ),
+                )
+              ),
+            )
           ],
         ),
       ),
     );
   }
+}
+class CustomMenuClipper extends CustomClipper<Path>{
+  @override
+  Path getClip(Size size) {
+    Paint paint=Paint();
+    paint.color=Colors.white;
+    final width=size.width;
+    final height=size.height;
+    Path path=Path();
+    path.moveTo(0,0);
+    path.quadraticBezierTo(0, 8, 10, 16);
+    path.quadraticBezierTo(width-1, height/2 -20, width, height/2);
+    path.quadraticBezierTo(width+1, height/2 +20, 10, height-16);
+    path.quadraticBezierTo(0, height-8, 0, height);
+
+    path.close();
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
+    return true;
+  }
+
 }

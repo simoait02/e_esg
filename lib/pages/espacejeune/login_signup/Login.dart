@@ -5,6 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../SideBar/SidebarController.dart';
+
 class Login extends StatefulWidget {
   final Function(double, double) onSignUpTapped;
 
@@ -155,7 +157,7 @@ class _LoginState extends State<Login> {
                   onPressed: () {
                     Navigator.pushAndRemoveUntil(
                       context,
-                      MaterialPageRoute(builder: (context) => NavbarYouth()),
+                      MaterialPageRoute(builder: (context) => SideBarController()),
                           (Route<dynamic> route) => false,
                     );
 
