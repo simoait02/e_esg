@@ -23,11 +23,6 @@ class Testpsy1State extends State<Testpsy1> {
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            CustomSliverAppBar(
-              name: "Simo",
-              role: "Jeune",
-              imagePath: 'assets/images/boy.png',
-            ),
             SliverToBoxAdapter(
               child: Padding(
                 padding: EdgeInsets.all(screenWidth * 0.05),
@@ -35,6 +30,7 @@ class Testpsy1State extends State<Testpsy1> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      SizedBox(height: 40,),
                       Container(
                         width: screenWidth * 0.9,
                         padding: EdgeInsets.all(screenWidth * 0.05),
@@ -196,6 +192,7 @@ class Testpsy1State extends State<Testpsy1> {
                           ],
                         ),
                       ),
+                      SizedBox(height: screenHeight*0.1,)
                     ],
                   ),
                 ),

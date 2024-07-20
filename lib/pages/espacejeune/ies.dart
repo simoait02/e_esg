@@ -42,11 +42,6 @@ class IesState extends State<Ies> {
       body:SafeArea(
         child: CustomScrollView(
           slivers: [
-            CustomSliverAppBar(
-              name: "Simo",
-              role: "docteur",
-              imagePath: 'assets/images/boy.png',
-            ),
             SliverToBoxAdapter(
               child: Container(
                 padding: EdgeInsets.all(sectionPadding),
@@ -168,6 +163,7 @@ class IesState extends State<Ies> {
                         ),
                       ),
                     ),
+                    SizedBox(height: screenHeight*0.1,)
                   ],
                 ),
               ),
@@ -237,6 +233,7 @@ class IesState extends State<Ies> {
                 style: TextStyle(fontSize: width * 0.03),
               ),
             ),
+
           ],
         ),
       ),
