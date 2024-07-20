@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class NavbarYouth extends StatefulWidget {
   final bool isSideBarClosed;
@@ -75,6 +76,7 @@ class _NavbarYouthState extends State<NavbarYouth> with TickerProviderStateMixin
   @override
   void initState() {
     _controller=AnimationController(vsync: this,duration: Duration(milliseconds: 200));
+    _loadPreferences();
     super.initState();
   }
 
@@ -87,6 +89,13 @@ class _NavbarYouthState extends State<NavbarYouth> with TickerProviderStateMixin
   late String language;
   Locale? _locale;
 
+  _loadPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      language = prefs.getString("language") ?? 'en';
+      _locale = Locale(language);
+    });
+  }
   changeLanguage(Locale locale) {
     setState(() {
       _locale = locale;
@@ -177,25 +186,29 @@ class _NavbarYouthState extends State<NavbarYouth> with TickerProviderStateMixin
                 ),
               ),
             ),
-            ClipPath(
-              clipper: CustomMenuClipper(),
-              child: Container(
-                width: 35,
-                height: 100,
-                color: Color(0xff2e37a4),
-                alignment: Alignment.centerLeft,
-                child: GestureDetector(
-                  onTap: widget.onSidebarToggle,
-                  child: widget.isSideBarClosed?Padding(
-                    padding: EdgeInsets.only(left: 5),
-                    child: SvgPicture.asset(
-                      "assets/images/more.svg",
-                      color: Colors.purple.shade100,
+            Positioned(
+              left: 0,
+              top: 20,
+              child: ClipPath(
+                clipper: CustomMenuClipper(),
+                child: Container(
+                  width: 35,
+                  height: 100,
+                  color: Color(0xff2e37a4),
+                  alignment: Alignment.centerLeft,
+                  child: GestureDetector(
+                    onTap: widget.onSidebarToggle,
+                    child: widget.isSideBarClosed?Padding(
+                      padding: EdgeInsets.only(left: 5),
+                      child: SvgPicture.asset(
+                        "assets/images/more.svg",
+                        color: Colors.purple.shade100,
+                      ),
+                    ):Icon(
+                      CupertinoIcons.clear_circled_solid,size: 40,color: Colors.white24,
                     ),
-                  ):Icon(
-                    CupertinoIcons.clear_circled_solid,size: 40,
-                  ),
-                )
+                  )
+                ),
               ),
             )
           ],

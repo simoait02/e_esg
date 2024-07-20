@@ -71,17 +71,14 @@ class _PasswordState extends State<Password> {
           Container(
             height: height*0.07,
             width: width*0.7,
-            child:  Align(
-              alignment: Alignment.centerLeft,
-              child: AutoSizeText(
-                appLocalizations!.createPass,
-                maxLines: 2,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
-                    color: isDarkMode?Colors.white:Colors.black,
-                    fontFamily: "poppins"),
-              ),
+            child:  AutoSizeText(
+              appLocalizations!.createPass,
+              maxLines: 2,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30,
+                  color: isDarkMode?Colors.white:Colors.black,
+                  fontFamily: "poppins"),
             ),
           ),
       Container(
