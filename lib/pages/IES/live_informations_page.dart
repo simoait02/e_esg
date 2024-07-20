@@ -34,7 +34,7 @@ class _LiveInformationsPageState extends State<LiveInformationsPage> {
     sectionPadding = screenWidth * 0.04;
     titleFontSize = screenWidth * 0.06;
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xffF5F5F6),
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
@@ -44,203 +44,196 @@ class _LiveInformationsPageState extends State<LiveInformationsPage> {
               imagePath: 'assets/images/boy.png',
             ),
             SliverToBoxAdapter(
-              child: Container(
-                padding: EdgeInsets.all(sectionPadding),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        IconButton(onPressed:()=>Navigator.pop(context), icon: Container(child:  Image.asset(
-                          "assets/images/fleche.png",
-                          width: 20,
-                          height: 20,
-                          color: Color(0xff2E37A4),
-                        ),)),
-                        Spacer()
-                      ],
-                    ),
-                    Container(
-                      padding: EdgeInsets.symmetric(vertical: 20),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Container(
-                          height: 300,
-                          width: double.infinity,
-                          child: Image.asset(
-                            live.liveImage,
-                            fit: BoxFit.cover,
+              child: Padding(
+                padding: const EdgeInsets.all(15),
+                child: Container(
+                  padding: EdgeInsets.all(sectionPadding),
+                  decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(10)),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.symmetric(vertical: 20),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Container(
+                            height: 300,
+                            width: double.infinity,
+                            child: Image.asset(
+                              live.liveImage,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    SizedBox(height: 40),
-                    Padding(
-                      padding: EdgeInsets.only(left: 30,right: 10),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width:screenWidth*0.22,
-                                child: Text(
-                                  "Sujet du live :",
-                                  style: TextStyle(
-                                    fontFamily: "Poppins",
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: titleFontSize - 7,
-                                    color: Color(0xFF2E37A4),
+                      SizedBox(height: 40),
+                      Padding(
+                        padding: EdgeInsets.only(left: 30,right: 10),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  width:screenWidth*0.22,
+                                  child: Text(
+                                    "Sujet du live :",
+                                    style: TextStyle(
+                                      fontFamily: "Poppins",
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: titleFontSize - 7,
+                                      color: Color(0xFF2E37A4),
+                                    ),
                                   ),
                                 ),
-                              ),
-                              SizedBox(width: sectionPadding*4),
-                              Expanded(
-                                child: AutoSizeText(
-                                  live.subject,
-                                  style: TextStyle(
-                                    fontFamily: "Poppins",
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: titleFontSize - 7,
+                                SizedBox(width: sectionPadding*4),
+                                Expanded(
+                                  child: AutoSizeText(
+                                    live.subject,
+                                    style: TextStyle(
+                                      fontFamily: "Poppins",
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: titleFontSize - 7,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 20,),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width:screenWidth*0.22,
-                                child: Text(
-                                  "Docteur/Infirmier :",
-                                  style: TextStyle(
-                                    fontFamily: "Poppins",
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: titleFontSize - 7,
-                                    color: Color(0xFF2E37A4),
+                              ],
+                            ),
+                            SizedBox(height: 20,),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  width:screenWidth*0.22,
+                                  child: Text(
+                                    "Docteur/Infirmier :",
+                                    style: TextStyle(
+                                      fontFamily: "Poppins",
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: titleFontSize - 7,
+                                      color: Color(0xFF2E37A4),
+                                    ),
                                   ),
                                 ),
-                              ),
-                              SizedBox(width: sectionPadding*4),
-                              Expanded(
-                                child: Text(
-                                  live.doctor.name,
-                                  style: TextStyle(
-                                    fontFamily: "Poppins",
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: titleFontSize - 7,
+                                SizedBox(width: sectionPadding*4),
+                                Expanded(
+                                  child: Text(
+                                    live.doctor.name,
+                                    style: TextStyle(
+                                      fontFamily: "Poppins",
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: titleFontSize - 7,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 20,),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width:screenWidth*0.22,
-                                child: Text(
-                                  "Date du live :",
-                                  style: TextStyle(
-                                    fontFamily: "Poppins",
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: titleFontSize - 7,
-                                    color: Color(0xFF2E37A4),
+                              ],
+                            ),
+                            SizedBox(height: 20,),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  width:screenWidth*0.22,
+                                  child: Text(
+                                    "Date du live :",
+                                    style: TextStyle(
+                                      fontFamily: "Poppins",
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: titleFontSize - 7,
+                                      color: Color(0xFF2E37A4),
+                                    ),
                                   ),
                                 ),
-                              ),
-                              SizedBox(width: sectionPadding*4),
-                              Expanded(
-                                child: Text(
-                                  "${live.date.day}/${live.date.month}/${live.date.year}",
-                                  style: TextStyle(
-                                    fontFamily: "Poppins",
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: titleFontSize - 7,
+                                SizedBox(width: sectionPadding*4),
+                                Expanded(
+                                  child: Text(
+                                    "${live.date.day}/${live.date.month}/${live.date.year}",
+                                    style: TextStyle(
+                                      fontFamily: "Poppins",
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: titleFontSize - 7,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 20,),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width:screenWidth*0.22,
-                                child: Text(
-                                  "Heure du debut du live :",
-                                  style: TextStyle(
-                                    fontFamily: "Poppins",
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: titleFontSize - 7,
-                                    color: Color(0xFF2E37A4),
+                              ],
+                            ),
+                            SizedBox(height: 20,),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  width:screenWidth*0.22,
+                                  child: Text(
+                                    "Heure du debut du live :",
+                                    style: TextStyle(
+                                      fontFamily: "Poppins",
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: titleFontSize - 7,
+                                      color: Color(0xFF2E37A4),
+                                    ),
                                   ),
                                 ),
-                              ),
-                              SizedBox(width: sectionPadding*4),
-                              Expanded(
-                                child: Text(
-                                 live.hour.format(context),
-                                  style: TextStyle(
-                                    fontFamily: "Poppins",
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: titleFontSize - 7,
+                                SizedBox(width: sectionPadding*4),
+                                Expanded(
+                                  child: Text(
+                                   live.hour.format(context),
+                                    style: TextStyle(
+                                      fontFamily: "Poppins",
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: titleFontSize - 7,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 20,),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width:screenWidth*0.22,
-                                child: Text(
-                                  "Lien StreamYard :",
-                                  style: TextStyle(
-                                    fontFamily: "Poppins",
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: titleFontSize - 7,
-                                    color: Color(0xFF2E37A4),
+                              ],
+                            ),
+                            SizedBox(height: 20,),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  width:screenWidth*0.22,
+                                  child: Text(
+                                    "Lien StreamYard :",
+                                    style: TextStyle(
+                                      fontFamily: "Poppins",
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: titleFontSize - 7,
+                                      color: Color(0xFF2E37A4),
+                                    ),
+                                    softWrap: true,
+                                    overflow: TextOverflow.visible,
                                   ),
-                                  softWrap: true,
-                                  overflow: TextOverflow.visible,
                                 ),
-                              ),
-                              SizedBox(width: sectionPadding*4),
-                              GestureDetector(
-                                onTap: () => _launchUrl(live.liveLink),
-                                child: Text(
-                                  live.liveLink,
-                                  style: TextStyle(
-                                    fontFamily: "Poppins",
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: titleFontSize - 7,
-                                    color: Color(0xFF99EDE9),
-                                    decoration: TextDecoration.underline,
-                                    decorationColor: Color(0xFF99EDE9),
+                                SizedBox(width: sectionPadding*4),
+                                GestureDetector(
+                                  onTap: () => _launchUrl(live.liveLink),
+                                  child: Text(
+                                    live.liveLink,
+                                    style: TextStyle(
+                                      fontFamily: "Poppins",
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: titleFontSize - 7,
+                                      color: Color(0xFF99EDE9),
+                                      decoration: TextDecoration.underline,
+                                      decorationColor: Color(0xFF99EDE9),
 
+                                    ),
+                                    softWrap: true,
+                                    overflow: TextOverflow.visible,
+                                    textAlign: TextAlign.left,
                                   ),
-                                  softWrap: true,
-                                  overflow: TextOverflow.visible,
-                                  textAlign: TextAlign.left,
                                 ),
-                              ),
 
-                            ],
-                          ),
-                          SizedBox(height: 20,),
-                        ],
+                              ],
+                            ),
+                            SizedBox(height: 20,),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

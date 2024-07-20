@@ -33,6 +33,7 @@ class _CustomSearchState extends State<CustomSearch> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
           color: Cardi.isDarkMode.value?Colors.black54: Color(0xFFF4F5FA),
+          border: Border.all(color: Color(0xffE6E6FF),width: 1)
         ),
         child: Row(
           children: [

@@ -68,7 +68,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             padding: EdgeInsets.only(left: 15),
             decoration: BoxDecoration(
               border: Border.all(
-                color: _isFocused ? Color(0xff3a01de) : isDarkMode ? CupertinoColors.white : Color(0xFFEAEBF6),
+                color: _isFocused ? Color(0xFF2E37A4) : isDarkMode ? CupertinoColors.white : Color(0xFFEAEBF6),
                 width: 2.0,
               ),
               borderRadius: BorderRadius.circular(10),

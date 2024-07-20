@@ -15,8 +15,8 @@ class Lives extends StatefulWidget {
 class _LivesState extends State<Lives> {
 
   List<Live> _foundedLives = [];
-  double sectionPadding = 16.0; // Example padding value
-  double titleFontSize = 20.0; // Example font size value
+  double sectionPadding = 16.0;
+  double titleFontSize = 20.0;
 
   @override
   void initState() {
@@ -58,12 +58,6 @@ class _LivesState extends State<Lives> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    IconButton(onPressed:()=>Navigator.pop(context), icon: Container(child:  Image.asset(
-                      "assets/images/fleche.png",
-                      width: 20,
-                      height: 20,
-                      color: Color(0xff2E37A4),
-                    ),)),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 20.0),
                       child: Center(
