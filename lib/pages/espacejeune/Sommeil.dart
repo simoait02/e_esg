@@ -2,76 +2,104 @@ import 'package:flutter/material.dart';
 import '../../Widgets/custom_sliver_app_bar.dart';
 import 'testpsy4.dart';
 
-class Humeur extends StatefulWidget {
-  const Humeur({Key? key}) : super(key: key);
+class Sommeil extends StatefulWidget {
+  const Sommeil({Key? key}) : super(key: key);
 
   @override
-  State<Humeur> createState() => HumeurState();
+  State<Sommeil> createState() => SommeilState();
 }
 
-class HumeurState extends State<Humeur> {
+class SommeilState extends State<Sommeil> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   int currentQuestionIndex = 0;
-  List<bool> isHovered = List.generate(4, (index) => false);
+  List<bool> isHovered = List.generate(2, (index) => false);
 
   final List<String> questions = [
-    "Je prends plaisir aux mêmes choses qu'autrefois.",
-    "Je ris facilement et vois le bon côté des choses.",
-    "Je suis de bonne humeur.",
-    "J'ai l'impression de fonctionner au ralenti.",
-    "Je ne m'intéresse plus à mon apparence.",
-    "Je me réjouis d'avance à l'idée de faire certaines choses.",
-    "Je peux prendre plaisir à un bon livre ou à une bonne émission radio ou télévision.", 
+    "Ronflez-vous fréquemment la nuit ?",
+    "Ronflez-vous en continu pendant la nuit ?",
+    "Votre ronflement est-il très bruyant ?",
+    "Avez-vous une respiration bruyante pendant le sommeil ?",
+    "Avez-vous une respiration irrégulière pendant le sommeil ?",
+    "Avez-vous déjà été observé(e) en train de faire des pauses respiratoires pendant le sommeil ?",
+    "Avez-vous tendance à garder la bouche ouverte pendant la journée ?",
+    "Votre bouche est-elle souvent sèche lorsque vous vous réveillez ?",
+    "Vous sentez-vous fatigué(e) au réveil ?",
+    "Avez-vous tendance à vous endormir pendant la journée ?",
+    "Vous endormez-vous souvent à l'école ou au travail ?",
+    "Avez-vous des difficultés à vous réveiller le matin ?",
+    "Avez-vous des difficultés à écouter et à prêter attention ?",
+    "Avez-vous tendance à être désorganisé(e) ?",
+    "Êtes-vous facilement distrait(e) ?",
+    "Avez-vous du mal à rester immobile ?",
+    "Êtes-vous toujours en mouvement ?",
+    "Interrompez-vous souvent vos activités ?",
+    "Avez-vous des épisodes d'énurésie nocturne (fait d'uriner involontairement pendant le sommeil) ?",
+    "Souffrez-vous souvent de maux de tête ?",
+    "Avez-vous un retard de croissance ?",
+    "Avez-vous des problèmes de poids ou d'obésité ?",
   ];
 
   final List<List<String>> answers = [
-    ['Oui, tout autant', 'Pas autant', 'Un peu seulement', 'Presque plus'],
-    ['Autant que par le passé', "Plus autant qu'avant", "Vraiment moins qu'avant", "Plus du tout"],
-    ['La plupart du temps', 'Assez souvent', 'Rarement', 'Jamais'],
-    ["J'y prête autant d'attention que par le passé", "Il se peut que je n'y fasse plus autant attention", "Je n'y accorde pas autant d'attention que je devrais", 'Plus du tout'],
-    ['Jamais', 'Parfois', 'Très souvent', 'Presque toujours'],
-    ["Autant qu'avant", "Un peu moins qu'avant", "Bien moins qu'avant", "Presque jamais"],
-    ['Souvent', 'Parfois', 'Rarement', 'Très rarement'],
+    ['oui', 'non'],
+    ['oui', 'non'],
+    ['oui', 'non'],
+    ['oui', 'non'],
+    ['oui', 'non'],
+    ['oui', 'non'],
+    ['oui', 'non'],
+    ['oui', 'non'],
+    ['oui', 'non'],
+    ['oui', 'non'],
+    ['oui', 'non'],
+    ['oui', 'non'],
+    ['oui', 'non'],
+    ['oui', 'non'],
+    ['oui', 'non'],
+    ['oui', 'non'],
+    ['oui', 'non'],
+    ['oui', 'non'],
+    ['oui', 'non'],
+    ['oui', 'non'],
+    ['oui', 'non'],
+    ['oui', 'non'],
   ];
 
-  final List<int> answerScores = [0, 1, 2, 3];
+  final List<int> answerScores = [1, 0];
 
-  List<int> humeurAnswers = [];
+  List<int> sommeilAnswers = [];
   int totalScore = 0;
 
   void calculateTotalScore() {
     totalScore = 0;
-    for (int i = 0; i < humeurAnswers.length; i++) {
-      totalScore += answerScores[humeurAnswers[i]];
+    for (int i = 0; i < sommeilAnswers.length; i++) {
+      totalScore += answerScores[sommeilAnswers[i]];
     }
   }
 
   String interpretScore(int score) {
-    if (score < 8) {
-      return  "Votre évaluation indique que vous avez un bon état émotionnel. Continuez à prendre soin de vous et à pratiquer des activités qui vous apportent joie et satisfaction. Restez attentif à votre bien-être et n'hésitez pas à consulter nos ressources pour maintenir cet équilibre.";
-    } else if (score >= 8 && score < 10) {
-      return "Votre évaluation suggère que vous traversez peut-être une période de changements émotionnels. Il est important de prêter attention à vos sentiments et de prendre soin de vous. Considérez parler à un professionnel ou à un proche de confiance, et explorez nos conseils pour gérer les moments de stress ou de tristesse.";
+    if (score <= 8) {
+      return "Votre évaluation indique que vous n'avez pas de signes significatifs de troubles du sommeil. Continuez à maintenir de bonnes habitudes de sommeil pour garantir votre bien-être. Si vous ressentez des symptômes perturbants, consultez un professionnel de la santé.";
     } else {
-      return "Votre évaluation suggère que vous traversez peut-être une période de préoccupations émotionnelles. Il est important de prêter attention à vos sentiments et de prendre soin de vous. Considérez parler à un professionnel ou à un proche de confiance, et explorez nos conseils pour gérer les moments de stress ou de tristesse.";
+      return "Vos résultats indiquent des problèmes potentiels de sommeil. Il est recommandé de consulter un professionnel de la santé pour une évaluation plus approfondie et des conseils personnalisés. Entre-temps, explorez nos ressources pour des conseils sur l'amélioration de la qualité du sommeil.";
     }
   }
 
   void nextQuestion(int selectedIndex) {
     if (currentQuestionIndex < questions.length - 1) {
       setState(() {
-        if (humeurAnswers.length > currentQuestionIndex) {
-          humeurAnswers[currentQuestionIndex] = selectedIndex;
+        if (sommeilAnswers.length > currentQuestionIndex) {
+          sommeilAnswers[currentQuestionIndex] = selectedIndex;
         } else {
-          humeurAnswers.add(selectedIndex);
+          sommeilAnswers.add(selectedIndex);
         }
         currentQuestionIndex++;
       });
     } else {
-      if (humeurAnswers.length > currentQuestionIndex) {
-        humeurAnswers[currentQuestionIndex] = selectedIndex;
+      if (sommeilAnswers.length > currentQuestionIndex) {
+        sommeilAnswers[currentQuestionIndex] = selectedIndex;
       } else {
-        humeurAnswers.add(selectedIndex);
+        sommeilAnswers.add(selectedIndex);
       }
       calculateTotalScore();
       String interpretation = interpretScore(totalScore);
@@ -86,7 +114,7 @@ class HumeurState extends State<Humeur> {
           context,
           MaterialPageRoute(
             builder: (context) => Testpsy4(
-              title: "Évaluation de l'Humeur et de la Vitalité",
+              title: "Évaluation de la qualité de sommeil",
               score: totalScore,
               interpretation: interpretation,
             ),
@@ -100,7 +128,7 @@ class HumeurState extends State<Humeur> {
     if (currentQuestionIndex > 0) {
       setState(() {
         currentQuestionIndex--;
-        humeurAnswers.removeLast(); 
+        sommeilAnswers.removeLast();
       });
     }
   }
@@ -138,7 +166,7 @@ class HumeurState extends State<Humeur> {
                       ),
                       child: Center(
                         child: Text(
-                          "Évaluation de l'Humeur et de la Vitalité",
+                          "Evaluation de la qualité de sommeil",
                           style: TextStyle(
                             fontSize: screenWidth * 0.04,
                             fontWeight: FontWeight.bold,
@@ -177,7 +205,7 @@ class HumeurState extends State<Humeur> {
                                 ),
                                 SizedBox(width: screenWidth * 0.48),
                                 Text(
-                                  '${currentQuestionIndex + 1}/7',
+                                  '${currentQuestionIndex + 1}/${questions.length}',
                                   style: TextStyle(
                                     fontSize: screenWidth * 0.03,
                                     color: Color.fromARGB(255, 4, 79, 140),
@@ -196,7 +224,7 @@ class HumeurState extends State<Humeur> {
                           SizedBox(height: screenHeight * 0.02),
                           ListView.builder(
                             shrinkWrap: true,
-                            itemCount: 4,
+                            itemCount: answers[currentQuestionIndex].length,
                             itemBuilder: (context, index) {
                               return MouseRegion(
                                 onEnter: (_) {
@@ -217,9 +245,7 @@ class HumeurState extends State<Humeur> {
                                     margin: EdgeInsets.only(bottom: screenHeight * 0.02),
                                     padding: EdgeInsets.all(screenWidth * 0.03),
                                     decoration: BoxDecoration(
-                                      color: isHovered[index]
-                                          ? Colors.blue
-                                          : Color.fromARGB(255, 4, 79, 140),
+                                      color: isHovered[index] ? Colors.blue : Color.fromARGB(255, 4, 79, 140),
                                       borderRadius: BorderRadius.circular(screenWidth * 0.02),
                                     ),
                                     child: Center(
@@ -250,4 +276,3 @@ class HumeurState extends State<Humeur> {
     );
   }
 }
-
