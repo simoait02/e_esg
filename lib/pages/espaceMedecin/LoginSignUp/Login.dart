@@ -179,6 +179,7 @@ class _LoginState extends State<Login> {
                   appLocalizations.needAcc,
                   style: TextStyle(
                     fontFamily: "Inter",
+                    fontSize: 10,
                     color: Cardi.isDarkMode.value ? Colors.white : Color(0xff9999A3),
                   ),
                 ),
@@ -191,6 +192,7 @@ class _LoginState extends State<Login> {
                     appLocalizations.signUp,
                     style: TextStyle(
                       fontFamily: "Inter",
+                      fontSize: 10,
                       color: Cardi.isDarkMode.value ? Color(0xff759cd8) : Color(0xff3a01de),
                     ),
                   ),
