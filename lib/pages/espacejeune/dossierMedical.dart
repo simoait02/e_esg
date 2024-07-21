@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:e_esg/pages/espacejeune/SideBar/Settings.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -32,10 +33,7 @@ class DossiermedicalState extends State<Dossiermedical> {
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
     var screenWidth = MediaQuery.of(context).size.width;
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
     return Scaffold(
-      backgroundColor:isDarkMode?Color(0xff141218):Color(0xffF5F5F6),
       body:  SafeArea(
         child: Center(
             child: SingleChildScrollView(
@@ -63,7 +61,7 @@ class DossiermedicalState extends State<Dossiermedical> {
                           physics: NeverScrollableScrollPhysics(),
                           itemCount: infos.length,
                           separatorBuilder: (context, index) => Divider(
-                            color: isDarkMode? Color(0xff545456):Color(0x56545456),
+                            color: SettingsYong.isDarkMode.value? Color(0xff545456):Color(0x56545456),
                             height: 1,
                           ),
                           itemBuilder: (context, index) {
@@ -91,7 +89,7 @@ class DossiermedicalState extends State<Dossiermedical> {
                                         textStyle:  TextStyle(
                                             fontWeight: FontWeight.normal,
                                             fontSize: 14,
-                                          color: isDarkMode? Colors.white.withOpacity(0.5): Colors.black.withOpacity(0.5)
+                                          color: SettingsYong.isDarkMode.value? Colors.white.withOpacity(0.5): Colors.black.withOpacity(0.5)
                                         ),
                                       ),
                                     ),

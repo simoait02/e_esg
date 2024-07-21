@@ -1,12 +1,9 @@
 import 'dart:math';
 import 'package:e_esg/Widgets/NavigationBarJeune.dart';
-import 'package:e_esg/pages/espacejeune/dossierMedical.dart';
-import 'package:e_esg/pages/espacejeune/ies.dart';
+import 'package:e_esg/pages/espacejeune/SideBar/Settings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
-import '../testpsy1.dart';
 import 'SideBarYong.dart';
 
 class SideBarController extends StatefulWidget {
@@ -22,7 +19,6 @@ class _SideBarControllerState extends State<SideBarController> with SingleTicker
   late Animation<double> animation;
   late Animation<double> scaleAnimation;
   int selectedItem = 1;
-  int _selected=0;
   @override
   void initState() {
     _animationController = AnimationController(
@@ -84,18 +80,18 @@ class _SideBarControllerState extends State<SideBarController> with SingleTicker
         //   },
         // );
       case 3:
-        // return Medecins(isSideBarClosed: isSideBarClosed,
-        //   onSidebarToggle: () {
-        //     if (isSideBarClosed) {
-        //       _animationController.forward();
-        //     } else {
-        //       _animationController.reverse();
-        //     }
-        //     setState(() {
-        //       isSideBarClosed = !isSideBarClosed;
-        //     });
-        //   },
-        // );
+        return SettingsYong(isSideBarClosed: isSideBarClosed,
+          onSidebarToggle: () {
+            if (isSideBarClosed) {
+              _animationController.forward();
+            } else {
+              _animationController.reverse();
+            }
+            setState(() {
+              isSideBarClosed = !isSideBarClosed;
+            });
+          },
+        );
       default:
         return Container();
     }
