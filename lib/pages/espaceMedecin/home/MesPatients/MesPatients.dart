@@ -29,6 +29,7 @@ class _MespatientsState extends State<Mespatients> {
   void initState() {
     _foundedpatients = List.from(patients)..sort((a, b) => b.consultation_date.compareTo(a.consultation_date));
     _searchedpatients = _foundedpatients;
+    super.initState();
   }
 
   @override

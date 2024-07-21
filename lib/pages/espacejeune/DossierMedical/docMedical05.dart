@@ -4,6 +4,7 @@ import 'package:e_esg/pages/espacejeune/dossierMedical.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../SideBar/SidebarController.dart';
 import 'DocMedical.dart';
 
 class Docmedical05 extends StatefulWidget {
@@ -158,7 +159,7 @@ class _Docmedical05State extends State<Docmedical05> {
                 if(boxCheck){
                   Navigator.pushAndRemoveUntil(
                     context,
-                    CupertinoPageRoute(builder: (context) => NavbarYouth()),
+                    CupertinoPageRoute(builder: (context) => SideBarController()),
                         (Route<dynamic> route) => false,
                   );
                 }

@@ -20,11 +20,6 @@ class _LoginState extends State<Login> {
   bool _emailHasFocus = false;
   bool _passwordHasFocus = false;
   bool remember=false;
-  bool identifiernull=false;
-  bool passwordnull=false;
-
-  final TextEditingController _identifierController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
 
   @override
   void initState() {
@@ -45,8 +40,6 @@ class _LoginState extends State<Login> {
   void dispose() {
     _emailFocusNode.dispose();
     _passwordFocusNode.dispose();
-    _identifierController.dispose();
-    _passwordController.dispose();
     super.dispose();
   }
   Widget buildLabel(String label,double height,bool isDarkMode) {
@@ -60,19 +53,19 @@ class _LoginState extends State<Login> {
     );
   }
 
-  Widget buildTextField(double width, double height, String placeholder,TextEditingController controller, FocusNode focusNode, bool hasFocus, bool isDarkMode,bool error) {
+  Widget buildTextField(double width, double height, String placeholder, FocusNode focusNode, bool hasFocus, bool isDarkMode) {
     return SizedBox(
         width: width * 0.8,
         height: height * 0.055,
         child: Directionality(
           textDirection: TextDirection.ltr,
           child: CupertinoTextField(
-            controller: controller,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               border: Border.all(
-                color: hasFocus ? Color(0xFF2E37A4):error?Colors.red:isDarkMode
-                    ? CupertinoColors.white.withOpacity(0.5): Color(0xFFEAEBF6),
+                color: isDarkMode
+                    ? (hasFocus ? Color(0xFF2E37A4) : CupertinoColors.white.withOpacity(0.5))
+                    : (hasFocus ? Color(0xFF2E37A4) : Color(0xFFEAEBF6)),
                 width: 2,
               ),
             ),
@@ -127,9 +120,9 @@ class _LoginState extends State<Login> {
               ),
             ),
             buildLabel(appLocalizations.id,height*0.02,isDarkMode),
-            buildTextField(width,height, "E-mail, CIN, CNE, Code Massar",_identifierController, _emailFocusNode, _emailHasFocus,isDarkMode,identifiernull),
+            buildTextField(width,height, "E-mail, CIN, CNE, Code Massar", _emailFocusNode, _emailHasFocus,isDarkMode),
             buildLabel(appLocalizations.password,height*0.02,isDarkMode),
-            buildTextField(width, height,"",_passwordController, _passwordFocusNode, _passwordHasFocus,isDarkMode,passwordnull),
+            buildTextField(width, height,"", _passwordFocusNode, _passwordHasFocus,isDarkMode),
             SizedBox(height: height*0.01,),
             GestureDetector(
               child: Container(
@@ -160,17 +153,7 @@ class _LoginState extends State<Login> {
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       )),
                   onPressed: () {
-                    final identifier = _identifierController.text;
-                    final password = _passwordController.text;
-                    if(identifier==""||password==""){
-                      if(identifier=="") setState(() {
-                        identifiernull=true;
-                      });
-                      if(identifier=="") setState(() {
-                        passwordnull=true;
-                      });
-                    }
-                    else Navigator.pushAndRemoveUntil(
+                    Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(builder: (context) => NavbarYouth()),
                           (Route<dynamic> route) => false,
@@ -182,36 +165,32 @@ class _LoginState extends State<Login> {
             Container(
               height: height * 0.04,
               width: width*0.9,
-
-              child: Expanded(
-                child: Wrap(
-                  children: [
-                    AutoSizeText(
-                      softWrap: true,
-                      appLocalizations.needAcc,
-                      style: TextStyle(fontFamily: "Inter",
-                      color: Color(0xff9999A3),
-                      fontWeight: FontWeight.w400,
-                      fontSize: 15),
-                    ),
-                    const SizedBox(width: 2),
-                    GestureDetector(
-                      onTap: () {
-                        widget.onSignUpTapped(0.8, 0.1);
-                      },
-                      child: AutoSizeText(
-                        softWrap: true,
-                        appLocalizations.signUp,
-                        style: TextStyle(
-                          fontFamily: "Inter",
-                          color: isDarkMode ? Color(0xff759cd8) : Color(0xff3a01de),
-                            fontWeight: FontWeight.w400,
-                            fontSize: 15
-                        ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  AutoSizeText(
+                    appLocalizations.needAcc,
+                    style: TextStyle(fontFamily: "Inter",
+                    color: Color(0xff9999A3),
+                    fontWeight: FontWeight.w400,
+                    fontSize: 15),
+                  ),
+                  const SizedBox(width: 2),
+                  GestureDetector(
+                    onTap: () {
+                      widget.onSignUpTapped(0.8, 0.1);
+                    },
+                    child: AutoSizeText(
+                      appLocalizations.signUp,
+                      style: TextStyle(
+                        fontFamily: "Inter",
+                        color: isDarkMode ? Color(0xff759cd8) : Color(0xff3a01de),
+                          fontWeight: FontWeight.w400,
+                          fontSize: 15
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ],

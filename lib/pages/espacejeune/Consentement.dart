@@ -1,5 +1,6 @@
 import 'package:e_esg/Widgets/NavigationBarJeune.dart';
 import 'package:flutter/material.dart';
+import 'SideBar/SidebarController.dart';
 import 'dossierMedical.dart';
 
 class Consentement extends StatefulWidget {
@@ -90,7 +91,7 @@ class ConsentementState extends State<Consentement> {
                         onPressed: isChecked ? () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => const NavbarYouth()),
+                            MaterialPageRoute(builder: (context) => const SideBarController()),
                           );
                         } : null,
                         style: ElevatedButton.styleFrom(

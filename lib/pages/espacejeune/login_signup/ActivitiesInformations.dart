@@ -151,7 +151,6 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                 margin: EdgeInsets.symmetric(horizontal: 30),
                 child: Container(
                   height: height * 0.07,
-                  width: width * 0.3,
                   child: AutoSizeText(
                     appLocalizations!.signUp,
                     style: TextStyle(
