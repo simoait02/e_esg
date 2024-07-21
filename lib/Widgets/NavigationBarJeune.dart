@@ -1,3 +1,4 @@
+import 'package:e_esg/pages/IES/espace_jeune.dart';
 import 'package:e_esg/pages/espacejeune/SideBar/Settings.dart';
 import 'package:e_esg/pages/espacejeune/dossierMedical.dart';
 import 'package:e_esg/pages/espacejeune/ies.dart';
@@ -26,7 +27,7 @@ class NavbarYouth extends StatefulWidget {
 class _NavbarYouthState extends State<NavbarYouth> with TickerProviderStateMixin{
   List<dynamic> selected=[
     const Dossiermedical(),
-    const Ies(),
+    const EspaceJeune(),
     const Testpsy1(),
   ];
 
