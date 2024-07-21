@@ -3,6 +3,7 @@ import 'package:e_esg/Widgets/NavigationBarDoctor.dart';
 import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Login extends StatefulWidget {
@@ -56,19 +57,20 @@ class _LoginState extends State<Login> {
     );
   }
 
-  Widget buildTextField(double width, double height, String placeholder, FocusNode focusNode, bool hasFocus, bool isDarkMode) {
+  Widget buildTextField(double width, double height, String placeholder, FocusNode focusNode, bool hasFocus, bool isDarkMode,TextEditingController controller) {
     return SizedBox(
       width: width * 0.8,
       height: height * 0.055,
       child: Directionality(
         textDirection: TextDirection.ltr,
         child: CupertinoTextField(
+          controller: controller,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
               color: isDarkMode
                   ? (hasFocus ? CupertinoColors.systemBlue : CupertinoColors.white.withOpacity(0.5))
-                  : (hasFocus ? Color(0xFF2E37A4) : Color(0xFFEAEBF6)),
+                  : (hasFocus ? const Color(0xFF2E37A4) : const Color(0xFFEAEBF6)),
               width: 2,
             ),
           ),
@@ -119,12 +121,12 @@ class _LoginState extends State<Login> {
           const SizedBox(height: 5),
           Container(
               margin: EdgeInsets.symmetric(horizontal: 20),
-              child: buildTextField(width, height, "E-mail, CIN", _emailFocusNode, _emailHasFocus, Cardi.isDarkMode.value)),
+              child: buildTextField(width, height, "E-mail, CIN", _emailFocusNode, _emailHasFocus, Cardi.isDarkMode.value,Cardi.emailController)),
           buildLabel(appLocalizations.password, height * 0.02, Cardi.isDarkMode.value),
           const SizedBox(height: 5),
           Container(
               margin: EdgeInsets.symmetric(horizontal: 20),
-              child: buildTextField(width, height, "", _passwordFocusNode, _passwordHasFocus, Cardi.isDarkMode.value)),
+              child: buildTextField(width, height, "", _passwordFocusNode, _passwordHasFocus, Cardi.isDarkMode.value,Cardi.passwordController)),
           const SizedBox(height: 10),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: width * 0.05),
