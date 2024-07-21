@@ -6,6 +6,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'LanguageYouth.dart';
+
 class SettingsYong extends StatefulWidget {
   final bool isSideBarClosed;
   final VoidCallback onSidebarToggle;
@@ -71,37 +73,40 @@ class _SettingsYongState extends State<SettingsYong> {
       backgroundColor: backgroundColor,
       body: CustomScrollView(
         slivers: [
-          SliverAppBar(
-            automaticallyImplyLeading: true,
-            floating: true,
-            snap: true,
-            backgroundColor: backgroundColor,
-            leading: Container(
-              alignment: Alignment.center,
-              height: 40,
-              width: 40,
-              child: FloatingActionButton(
-                backgroundColor: Colors.transparent,
-                elevation: 0,
-                onPressed: widget.onSidebarToggle,
-                child: widget.isSideBarClosed
-                    ? SvgPicture.asset('assets/images/more.svg')
-                    : Container(
-                  height: 70,
-                  width: 70,
-                  decoration: const BoxDecoration(
-                      color: Color(0x5e0e1462), shape: BoxShape.circle),
-                  child: const Icon(CupertinoIcons.clear,
-                      color: Color(0xff2e37a4)),
+          Directionality(
+            textDirection: TextDirection.ltr,
+            child: SliverAppBar(
+              automaticallyImplyLeading: true,
+              floating: true,
+              snap: true,
+              backgroundColor: backgroundColor,
+              leading: Container(
+                alignment: Alignment.center,
+                height: 40,
+                width: 40,
+                child: FloatingActionButton(
+                  backgroundColor: Colors.transparent,
+                  elevation: 0,
+                  onPressed: widget.onSidebarToggle,
+                  child: widget.isSideBarClosed
+                      ? SvgPicture.asset('assets/images/more.svg')
+                      : Container(
+                    height: 70,
+                    width: 70,
+                    decoration: const BoxDecoration(
+                        color: Color(0x5e0e1462), shape: BoxShape.circle),
+                    child: const Icon(CupertinoIcons.clear,
+                        color: Color(0xff2e37a4)),
+                  ),
                 ),
               ),
-            ),
-            title: Container(
-              margin: EdgeInsets.symmetric(horizontal: width * 0.18),
-              child: Text(
-                appLocalizations!.settings,
-                style: TextStyle(
-                    color: SettingsYong.isDarkMode.value ? Colors.white : Colors.black),
+              title: Container(
+                margin: EdgeInsets.symmetric(horizontal: width * 0.18),
+                child: Text(
+                  appLocalizations!.settings,
+                  style: TextStyle(
+                      color: SettingsYong.isDarkMode.value ? Colors.white : Colors.black),
+                ),
               ),
             ),
           ),
@@ -115,7 +120,7 @@ class _SettingsYongState extends State<SettingsYong> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      // Navigator.push(context, CupertinoPageRoute(builder: (context)=>Language()));
+                      Navigator.push(context, CupertinoPageRoute(builder: (context)=>Languageyouth()));
                     },
                     child: Row(
                       children: [

@@ -94,7 +94,7 @@ class _NavbarYouthState extends State<NavbarYouth> with TickerProviderStateMixin
   _loadPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      language = prefs.getString("language") ?? 'en';
+      language = prefs.getString("languageYong") ?? 'en';
       _locale = Locale(language);
       SettingsYong.themePressed = prefs.getBool('themePressedYong') ?? false;
       SettingsYong.isSystemSettings = prefs.getBool('isSystemSettingsYong') ?? true;
