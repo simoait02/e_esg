@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../Widgets/custom_sliver_app_bar.dart';
+import 'SideBar/Settings.dart';
 
 class Testpsy5 extends StatefulWidget {
   final String title;  
@@ -22,11 +23,9 @@ class Testpsy5State extends State<Testpsy5> {
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
     var screenWidth = MediaQuery.of(context).size.width;
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: isDarkMode ? Color(0xff141218) : Color(0xffF5F5F6),
+      backgroundColor: SettingsYong.isDarkMode.value ? Color(0xff141218) : Color(0xffF5F5F6),
       body: CustomScrollView(
         slivers: [
           CustomSliverAppBar(
@@ -46,7 +45,7 @@ class Testpsy5State extends State<Testpsy5> {
                         width: screenWidth * 0.9,
                         padding: EdgeInsets.all(screenWidth * 0.05),
                         decoration: BoxDecoration(
-                          color: isDarkMode ? Color(0xff141218) : Colors.white,
+                          color: SettingsYong.isDarkMode.value ? Color(0xff141218) : Colors.white,
                           borderRadius: BorderRadius.circular(16.0),
                           border: Border.all(color: Color(0xffEAEBF6), width: 2),
                         ),
@@ -66,7 +65,7 @@ class Testpsy5State extends State<Testpsy5> {
                         width: screenWidth * 0.9,
                         padding: EdgeInsets.all(screenWidth * 0.05),
                         decoration: BoxDecoration(
-                          color: isDarkMode ? Color(0xff141218) : Colors.white,
+                          color: SettingsYong.isDarkMode.value ? Color(0xff141218) : Colors.white,
                           borderRadius: BorderRadius.circular(16.0),
                           border: Border.all(color: Color(0xffEAEBF6), width: 2),
                         ),
@@ -112,7 +111,7 @@ class Testpsy5State extends State<Testpsy5> {
                         width: screenWidth * 0.9,
                         padding: EdgeInsets.all(screenWidth * 0.05),
                         decoration: BoxDecoration(
-                          color: isDarkMode ? Color(0xff141218) : Colors.white,
+                          color: SettingsYong.isDarkMode.value ? Color(0xff141218) : Colors.white,
                           borderRadius: BorderRadius.circular(16.0),
                           border: Border.all(color: Color(0xffEAEBF6), width: 2),
                         ),

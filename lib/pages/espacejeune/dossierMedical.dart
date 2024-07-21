@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:e_esg/pages/espacejeune/SideBar/Settings.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Dossiermedical extends StatefulWidget {
   const Dossiermedical({super.key});
@@ -28,6 +29,20 @@ class DossiermedicalState extends State<Dossiermedical> {
     "Antécédants familiaux": "tttt",
   };
 
+  _loadPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      SettingsYong.isSystemSettings = prefs.getBool('isSystemSettingsYong') ?? true;
+      SettingsYong.isDark = prefs.getBool('isDarkYong') ?? false;
+      SettingsYong.isLight = prefs.getBool('isLightYong') ?? false;
+      SettingsYong.isDarkMode.value = prefs.getBool('isDarkModeYong') ?? (MediaQuery.of(context).platformBrightness == Brightness.dark);
+    });
+  }
+@override
+  void initState() {
+  _loadPreferences();
+  super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
