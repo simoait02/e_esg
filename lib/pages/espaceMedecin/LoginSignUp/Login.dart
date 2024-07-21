@@ -96,7 +96,7 @@ class _LoginState extends State<Login> {
     double height = MediaQuery.of(context).size.height;
     final appLocalizations = AppLocalizations.of(context);
     return SingleChildScrollView(
-      physics: BouncingScrollPhysics(),
+      physics: const BouncingScrollPhysics(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -171,8 +171,7 @@ class _LoginState extends State<Login> {
           const SizedBox(height: 10),
           Container(
             height: height * 0.04,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+            child: Wrap(
               children: [
                 const SizedBox(width: 20),
                 AutoSizeText(

@@ -212,7 +212,7 @@ class _ChooselanguageState extends State<Chooselanguage> {
                     ),
                   ),
                   onPressed: () {
-                    Navigator.push(
+                    if(en||ar||fr) Navigator.push(
                       context,
                       CupertinoPageRoute(builder: (context) => const Accounttype()),
                     );

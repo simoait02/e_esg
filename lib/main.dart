@@ -23,7 +23,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Locale _locale = const Locale('ar');
+  Locale _locale = const Locale('fr');
 
   void _setLocale(Locale locale) {
     setState(() {
@@ -47,7 +47,7 @@ class _MyAppState extends State<MyApp> {
         Locale('en')
       ],
       debugShowCheckedModeBanner: false,
-      home:NavbarDoc(),
+      home:Chooselanguage(onLanguageChanged: (Locale locale) { _locale=locale; },),
     );
   }
 }

@@ -5,6 +5,8 @@ import 'package:e_esg/pages/espacejeune/testpsy5.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+
+import '../pages/IES/espace_jeune.dart';
 void main() {
   runApp(const NavbarYouth());
 }
@@ -19,7 +21,7 @@ class NavbarYouth extends StatefulWidget {
 class _NavbarYouthState extends State<NavbarYouth> {
   List<dynamic> selected=[
     const Dossiermedical(),
-    const Ies(),
+    const EspaceJeune(),
     const Testpsy1(),
   ];
   int _selectedItem = 0;
