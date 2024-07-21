@@ -19,6 +19,11 @@ class _LoginState extends State<Login> {
   final FocusNode _passwordFocusNode = FocusNode();
   bool _emailHasFocus = false;
   bool _passwordHasFocus = false;
+  bool identifiernull=false;
+  bool passwordnull=false;
+
+  final TextEditingController _identifierController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   void initState() {
@@ -53,19 +58,18 @@ class _LoginState extends State<Login> {
     );
   }
 
-  Widget buildTextField(double width, double height, String placeholder, FocusNode focusNode, bool hasFocus, bool isDarkMode) {
+  Widget buildTextField(double width, double height, String placeholder,TextEditingController controller, FocusNode focusNode, bool hasFocus, bool isDarkMode,bool error) {
     return SizedBox(
         width: width * 0.8,
         height: height * 0.055,
         child: Directionality(
           textDirection: TextDirection.ltr,
           child: CupertinoTextField(
+            controller: controller,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               border: Border.all(
-                color: isDarkMode
-                    ? (hasFocus ? CupertinoColors.systemBlue : CupertinoColors.white.withOpacity(0.5))
-                    : (hasFocus ? Color(0xFF2E37A4) : Color(0xFFEAEBF6)),
+                color: hasFocus ? Color(0xFF2E37A4) :error?Colors.red:isDarkMode?CupertinoColors.white.withOpacity(0.5): Color(0xFFEAEBF6),
                 width: 2,
               ),
             ),
@@ -116,12 +120,12 @@ class _LoginState extends State<Login> {
             const SizedBox(height: 5,),
             Container(
                 margin: EdgeInsets.symmetric(horizontal: 20),
-                child: buildTextField(width,height, "E-mail, CIN", _emailFocusNode, _emailHasFocus,CardiInf.isDarkMode.value)),
+                child: buildTextField(width,height, "E-mail, CIN",_identifierController, _emailFocusNode, _emailHasFocus,CardiInf.isDarkMode.value,identifiernull)),
             buildLabel(appLocalizations.password,height*0.02,CardiInf.isDarkMode.value),
             const SizedBox(height: 5,),
             Container(
                 margin: EdgeInsets.symmetric(horizontal: 20),
-                child: buildTextField(width, height,"Password", _passwordFocusNode, _passwordHasFocus,CardiInf.isDarkMode.value)),
+                child: buildTextField(width, height,"Password",_passwordController, _passwordFocusNode, _passwordHasFocus,CardiInf.isDarkMode.value,passwordnull)),
             const SizedBox(height: 10,),
             Padding(padding: EdgeInsets.symmetric(horizontal:width*0.05),
               child: GestureDetector(
@@ -149,7 +153,17 @@ class _LoginState extends State<Login> {
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       )),
                   onPressed: () {
-                    Navigator.pushAndRemoveUntil(
+                    final identifier=_identifierController.text;
+                    final password=_passwordController.text;
+                    if(identifier==""||password==""){
+                      if(identifier=="") setState(() {
+                        identifiernull=true;
+                      });
+                      if(password=="") setState(() {
+                        passwordnull=true;
+                      });
+                    }
+                    else Navigator.pushAndRemoveUntil(
                       context,
                       CupertinoPageRoute(builder: (context) => NavbarDoc()),
                           (Route<dynamic> route) => false,
