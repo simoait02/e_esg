@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:searchfield/searchfield.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -28,13 +29,12 @@ class _SpecialityState extends State<Speciality> {
   bool isFocused = false;
   FocusNode _focusNode = FocusNode();
   double turns = 0.0;
-  int _value = 0;
-  int _value1 = 0;
+  static int _value = 0;
+  static int _value1 = 0;
   bool speciality=true;
   bool hasSelected=false;
 
 
-  TextEditingController _searchController = TextEditingController();
   List<String> specialitiesList =[
     " Cardiologue",
     " Dermatologue",
@@ -73,18 +73,18 @@ class _SpecialityState extends State<Speciality> {
         });
       }
     });
-    _searchController.addListener(() {
+    Cardi.specialiteeController.addListener(() {
       _filterSuggestions();
     });
   }
   void _filterSuggestions() {
     setState(() {
-      if (_searchController.text.isEmpty) {
+      if (Cardi.specialiteeController.text.isEmpty) {
         filteredSpecialitiesList = specialitiesList;
       } else {
         filteredSpecialitiesList = specialitiesList
             .where((speciality) =>
-            speciality.toLowerCase().contains(_searchController.text.toLowerCase()))
+            speciality.toLowerCase().contains(Cardi.specialiteeController.text.toLowerCase()))
             .toList();
       }
     });
@@ -92,7 +92,6 @@ class _SpecialityState extends State<Speciality> {
   @override
   void dispose() {
     _focusNode.dispose();
-    _searchController.dispose();
     super.dispose();
   }
   @override
@@ -299,9 +298,10 @@ class _SpecialityState extends State<Speciality> {
                       children: [
                         Expanded(
                           child: SearchField<String>(
-                            controller: _searchController,
+                            controller: Cardi.specialiteeController,
                             focusNode: _focusNode,
                             autofocus: false,
+                            searchStyle: TextStyle(color:Cardi.isDarkMode.value? Colors.white:Colors.black),
                             itemHeight: 40,
                             maxSuggestionsInViewPort: 4,
                             suggestions:  filteredSpecialitiesList
@@ -430,12 +430,37 @@ class _SpecialityState extends State<Speciality> {
                                 color: Colors.white, fontSize: 20),
                           )),
                       onPressed: () {
-                        setState(() {
-                          Cardi.q = 0.5;
-                          Cardi.top = 0.1;
-                          widget.onPasswordTapped(Cardi.q,Cardi.top);
-                        });
-      
+                        if (_value1==1){
+                          Cardi.isEsgDoctor=true;
+                        }else if (_value1==2){
+                          Cardi.isEsgDoctor=false;
+                        }
+                        if(_value==1){
+                          Cardi.isGeneralist=true;
+                        }else if (_value==2){
+                          Cardi.isGeneralist=false;
+                        }
+                        if((_value1==1 || _value1==2)&&(_value==1||_value==2)){
+                          switch(_value){
+                            case 2:{
+                              if(Cardi.specialiteeController.text.isNotEmpty){
+                                setState(() {
+                                  Cardi.q = 0.5;
+                                  Cardi.top = 0.1;
+                                  widget.onPasswordTapped(Cardi.q,Cardi.top);
+                                });
+                              }else{
+                                Fluttertoast.showToast(msg: "  entrez la specialitée  ",backgroundColor: Colors.red);
+                              }
+                              break;
+                            }
+                            case 1:setState(() {
+                              Cardi.q = 0.5;
+                              Cardi.top = 0.1;
+                              widget.onPasswordTapped(Cardi.q,Cardi.top);
+                            });
+                          }
+                        }
                       }),
                 ],
               ),

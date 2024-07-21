@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:e_esg/Widgets/NavigationBarJeune.dart';
 import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
+import 'package:e_esg/pages/espacejeune/SideBar/SidebarController.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -170,7 +171,7 @@ class _LoginState extends State<Login> {
                     }
                     else Navigator.pushAndRemoveUntil(
                       context,
-                      MaterialPageRoute(builder: (context) => NavbarYouth(isSideBarClosed: false, onSidebarToggle: () {  },)),
+                      MaterialPageRoute(builder: (context) => SideBarController()),
                           (Route<dynamic> route) => false,
                     );
 

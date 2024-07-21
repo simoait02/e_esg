@@ -1,3 +1,7 @@
+import 'dart:convert';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart' as http;
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:e_esg/Widgets/NavigationBarDoctor.dart';
 import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
@@ -21,7 +25,8 @@ class Password extends StatefulWidget {
 class _PasswordState extends State<Password> {
   bool passwordvisible=false;
   bool passwordvisible2=false;
-
+  static TextEditingController passwordController=TextEditingController();
+  static TextEditingController copasswordController=TextEditingController();
   FocusNode _focusNode = FocusNode();
   bool _isFocused = false;
   FocusNode _focusNode2 = FocusNode();
@@ -61,11 +66,13 @@ class _PasswordState extends State<Password> {
       if(_isFocused2) _isFocused2=true;
     });
   }
+
+
+  bool error=false;
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height =MediaQuery.of(context).size.height;
-    var brightness = MediaQuery.of(context).platformBrightness;
     final appLocalizations = AppLocalizations.of(context);
     return SingleChildScrollView(
       child: Column(
@@ -115,6 +122,7 @@ class _PasswordState extends State<Password> {
                     children: [
                       Expanded(
                         child: CupertinoTextField(
+                          controller:passwordController,
                           style:TextStyle(
                             color: Cardi.isDarkMode.value?Colors.white:Colors.black,
                           ),
@@ -177,7 +185,7 @@ class _PasswordState extends State<Password> {
                   padding: EdgeInsets.only(left: 15),
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color:Cardi.isDarkMode.value
+                      color:error?Colors.red:Cardi.isDarkMode.value
                           ? (_isFocused2 ? Color(0xFF2E37A4) : CupertinoColors.white.withOpacity(0.5))
                           : (_isFocused2 ? Color(0xFF2E37A4) : Color(0xFFEAEBF6)),width: 2.0,
                     ),
@@ -187,6 +195,7 @@ class _PasswordState extends State<Password> {
                     children: [
                       Expanded(
                         child: CupertinoTextField(
+                          controller:copasswordController,
                           style:TextStyle(
                             color: Cardi.isDarkMode.value?Colors.white:Colors.black,
                           ),
@@ -237,12 +246,57 @@ class _PasswordState extends State<Password> {
                 },
               ),
               CupertinoButton(
-                onPressed: () {
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    CupertinoPageRoute(builder: (context) => NavbarDoc()),
-                        (Route<dynamic> route) => false,
-                  );
+                onPressed: () async {
+                  if(passwordController.text==copasswordController.text){
+                    final url = Uri.parse("http://192.168.1.10:8080/register/medecins");
+
+                    Map<String, dynamic> data = {
+                      "cin": Cardi.cinController.text,
+                      "inpe": Cardi.inpeController.text,
+                      "ppr": Cardi.pprController.text,
+                      "estMedcinESJ": Cardi.isEsgDoctor,
+                      "estGeneraliste": Cardi.isGeneralist,
+                      "specialite": Cardi.specialiteeController.text,
+                      "infoUser": {
+                        "nom": Cardi.nomController.text,
+                        "prenom": Cardi.prenomController.text,
+                        "numTel": Cardi.teleController.text,
+                        "mail": Cardi.emailController.text,
+                        "motDePasse": passwordController.text
+                      }
+                    };
+
+                    try {
+                      final response = await http.post(
+                        url,
+                        headers: {
+                          'Content-Type': 'application/json',
+                        },
+                        body: json.encode(data),
+                      );
+
+                      if (response.statusCode == 200) {
+                        print('Data posted successfully: ${response.body}');
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          CupertinoPageRoute(builder: (context) => NavbarDoc()),
+                              (Route<dynamic> route) => false,
+                        );
+                      } else {
+                        print('Failed to post data: ${response.statusCode}');
+                        print('Response body: ${response.body}');
+                      }
+                    } catch (e) {
+                      print('Error: $e');
+                    }
+
+                  }else{
+                    setState(() {
+                      error=true;
+                    });
+                    Fluttertoast.showToast(msg: " fields doesn't math ",backgroundColor: Colors.red);
+                  }
+
                 },
                 child: Container(
                     width: width * 0.4,

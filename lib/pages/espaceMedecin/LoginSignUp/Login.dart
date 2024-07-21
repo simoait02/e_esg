@@ -23,8 +23,9 @@ class _LoginState extends State<Login> {
   bool identifiernull=false;
   bool passwordnull=false;
 
-  final TextEditingController _identifierController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  static TextEditingController _identifierController = TextEditingController();
+  static TextEditingController _passwordController = TextEditingController();
+
 
   @override
   void initState() {
@@ -142,7 +143,7 @@ class _LoginState extends State<Login> {
             alignment: Alignment.center,
             child: CupertinoButton(
                 child: Container(
-                    width: width * 0.3,
+                    width: width * 0.4,
                     height: height*0.05,
                     decoration: BoxDecoration(
                         gradient: const LinearGradient(
@@ -180,7 +181,7 @@ class _LoginState extends State<Login> {
                 const SizedBox(width: 20,),
                 AutoSizeText(
                   appLocalizations.needAcc,
-                  style: TextStyle(fontFamily: "Inter", color: Cardi.isDarkMode.value?Colors.white:Colors.black,),
+                  style: TextStyle(fontFamily: "Inter", color: Cardi.isDarkMode.value?Colors.white:Colors.black,fontSize: 10),
                 ),
                 const SizedBox(width: 2,),
                 GestureDetector(
@@ -191,6 +192,7 @@ class _LoginState extends State<Login> {
                     appLocalizations.signUp,
                     style: TextStyle(
                         fontFamily: "Inter",
+                        fontSize: 10,
                         color: Cardi.isDarkMode.value? Color(0xff759cd8):Color(0xff3a01de)),
                   ),
                 ),

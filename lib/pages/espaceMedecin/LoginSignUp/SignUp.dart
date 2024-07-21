@@ -1,8 +1,10 @@
+import 'dart:convert';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
+import 'package:http/http.dart' as http;
 import 'Cardi.dart';
 
 class Signup extends StatefulWidget {
@@ -30,6 +32,51 @@ class _SignupState extends State<Signup> {
   bool _pprHasFocus = false;
   bool _emailHasFocus = false;
   bool _numTeleHasFocus = false;
+
+
+
+
+  Future<void> postData() async {
+    final url = Uri.parse("http://192.168.1.10:8080/register/medecins");
+
+    Map<String, dynamic> data = {
+      "cin": "cinValue",
+      "inpe": "inpeValue",
+      "ppr": "pprValue",
+      "estMedcinESJ": false,
+      "estGeneraliste": true,
+      "specialite": "gh",
+      "infoUser": {
+        "nom": "Dupont",
+        "prenom": "Jean",
+        "numTel": "0645678920",
+        "mail": "ilyas.nom@gmail.com",
+        "motDePasse": "password123"
+      }
+    };
+
+    try {
+      final response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: json.encode(data),
+      );
+
+      if (response.statusCode == 200) {
+        print('Data posted successfully: ${response.body}');
+      } else {
+        print('Failed to post data: ${response.statusCode}');
+        print('Response body: ${response.body}');
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
+
+
+
 
   @override
   void initState() {
@@ -83,13 +130,14 @@ class _SignupState extends State<Signup> {
     super.dispose();
   }
 
-  Widget buildTextField(double width, double height, String placeholder, FocusNode focusNode, bool hasFocus, bool isDarkMode) {
+  Widget buildTextField(double width, double height, String placeholder, FocusNode focusNode, bool hasFocus, bool isDarkMode,TextEditingController controller) {
     return SizedBox(
       width: width * 0.8,
       height: height * 0.055,
       child: Directionality(
         textDirection: TextDirection.ltr,
         child: CupertinoTextField(
+          controller: controller,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
@@ -161,7 +209,7 @@ class _SignupState extends State<Signup> {
                               style: TextStyle(color: Cardi.isDarkMode.value ? Colors.white : Colors.black),
                             ),
                           ),
-                          buildTextField(width * 0.5, height, "", _nomFocusNode, _nomHasFocus, Cardi.isDarkMode.value),
+                          buildTextField(width * 0.5, height, "", _nomFocusNode, _nomHasFocus, Cardi.isDarkMode.value,Cardi.nomController),
                         ],
                       ),
                     ),
@@ -178,7 +226,7 @@ class _SignupState extends State<Signup> {
                               style: TextStyle(color: Cardi.isDarkMode.value ? Colors.white : Colors.black),
                             ),
                           ),
-                          buildTextField(width * 0.5, height, "", _prenomFocusNode, _prenomHasFocus, Cardi.isDarkMode.value),
+                          buildTextField(width * 0.5, height, "", _prenomFocusNode, _prenomHasFocus, Cardi.isDarkMode.value,Cardi.prenomController),
                         ],
                       ),
                     ),
@@ -204,7 +252,7 @@ class _SignupState extends State<Signup> {
                               style: TextStyle(color: Cardi.isDarkMode.value ? Colors.white : Colors.black),
                             ),
                           ),
-                          buildTextField(width * 0.5, height, "", _cinFocusNode, _cinHasFocus, Cardi.isDarkMode.value),
+                          buildTextField(width * 0.5, height, "", _cinFocusNode, _cinHasFocus, Cardi.isDarkMode.value,Cardi.cinController),
                         ],
                       ),
                     ),
@@ -221,7 +269,7 @@ class _SignupState extends State<Signup> {
                               style: TextStyle(color: Cardi.isDarkMode.value ? Colors.white : Colors.black),
                             ),
                           ),
-                          buildTextField(width * 0.5, height, "", _inpeFocusNode, _inpeHasFocus, Cardi.isDarkMode.value),
+                          buildTextField(width * 0.5, height, "", _inpeFocusNode, _inpeHasFocus, Cardi.isDarkMode.value,Cardi.inpeController),
                         ],
                       ),
                     ),
@@ -238,7 +286,7 @@ class _SignupState extends State<Signup> {
                               style: TextStyle(color: Cardi.isDarkMode.value ? Colors.white : Colors.black),
                             ),
                           ),
-                          buildTextField(width * 0.5, height, "", _pprFocusNode, _pprHasFocus, Cardi.isDarkMode.value),
+                          buildTextField(width * 0.5, height, "", _pprFocusNode, _pprHasFocus, Cardi.isDarkMode.value,Cardi.pprController),
                         ],
                       ),
                     ),
@@ -256,7 +304,7 @@ class _SignupState extends State<Signup> {
               ),
               Container(
                   margin: EdgeInsets.symmetric(horizontal: 20),
-                  child: buildTextField(width, height, "", _emailFocusNode, _emailHasFocus, Cardi.isDarkMode.value)),
+                  child: buildTextField(width, height, "", _emailFocusNode, _emailHasFocus, Cardi.isDarkMode.value,Cardi.emailController)),
               const SizedBox(height: 10),
               Container(
                 height: height * 0.025,
@@ -268,7 +316,7 @@ class _SignupState extends State<Signup> {
               ),
               Container(
                   margin: EdgeInsets.symmetric(horizontal: 20),
-                  child: buildTextField(width, height, "", _numTeleFocusNode, _numTeleHasFocus, Cardi.isDarkMode.value)),
+                  child: buildTextField(width, height, "", _numTeleFocusNode, _numTeleHasFocus, Cardi.isDarkMode.value,Cardi.teleController)),
               const SizedBox(height: 10),
               Column(
                 children: [
