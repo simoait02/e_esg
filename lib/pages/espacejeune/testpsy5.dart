@@ -3,21 +3,35 @@ import '../../Widgets/custom_sliver_app_bar.dart';
 import 'SideBar/Settings.dart';
 
 class Testpsy5 extends StatefulWidget {
-  final String title;  
+  final String title;
+  final int score;
+  final String interpretation;
 
-  const Testpsy5({super.key, required this.title});  
+  const Testpsy5({
+    Key? key,
+    required this.title,
+    required this.score,
+    required this.interpretation,
+  }) : super(key: key);
 
   @override
   State<Testpsy5> createState() => Testpsy5State();
 }
 
 class Testpsy5State extends State<Testpsy5> {
-  final Map<String, String> infos = {
-    "Identifiant": "01",
-    "Nom et Prénom": "nom prenom",
-    "Date du test": "4/7/2024 16/1/17",
-    "Score": "9",
-  };
+  late Map<String, String> infos;
+
+  @override
+  void initState() {
+    super.initState();
+    infos = {
+      "Identifiant": "01", 
+      "Nom et Prénom": "Nom Prénom", 
+      "Date du test": "4/7/2024", 
+      "Score": widget.score.toString(),
+};
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +65,7 @@ class Testpsy5State extends State<Testpsy5> {
                         ),
                         child: Center(
                           child: Text(
-                            widget.title,  
+                            widget.title,
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
@@ -126,7 +140,27 @@ class Testpsy5State extends State<Testpsy5> {
                                 color: Color(0xff2E37A4),
                               ),
                             ),
+                            SizedBox(height: 6),
+                            Text(
+                              widget.interpretation,
+                              style: TextStyle(
+                                fontSize: 11,
+                              ),
+                            ),
                           ],
+                        ),
+                      ),
+                      SizedBox(height: 5),
+                      TextButton(
+                        onPressed: () {
+                          print("Télécharger le PDF");
+                        },
+                        child: Text(
+                          "Télécharger le PDF",
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.blue, 
+                          ),
                         ),
                       ),
                     ],
@@ -140,3 +174,5 @@ class Testpsy5State extends State<Testpsy5> {
     );
   }
 }
+
+

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import '../../Widgets/custom_sliver_app_bar.dart';
-import 'Estime de Soi.dart';  
-import 'Anxiété.dart';  
-import 'Humeur.dart'; 
-import 'SideBar/Settings.dart';
+import 'Estime de Soi.dart';
+import 'Anxiété.dart';
+import 'Humeur.dart';
+import 'Sommeil.dart';
 import 'testpsy4.dart';
-
 
 class Testpsy2 extends StatefulWidget {
   final String title;
@@ -26,34 +25,31 @@ class Testpsy2 extends StatefulWidget {
 class Testpsy2State extends State<Testpsy2> {
   bool isHovered = false;
 
+  void _navigateBasedOnTitle() {
+    Widget destination;
+    switch (widget.title) {
+      case "Evaluation de l'Estime de Soi":
+        destination = EstimedeSoi();
+        break;
+      case "Evaluation de la Paix Intérieure":
+        destination = Anxiete();
+        break;
+      case "Evaluation de l'Humeur et de la Vitalité":
+        destination = Humeur();
+        break;
+      default:
+        destination = Sommeil();
+    }
+    Navigator.push(context, MaterialPageRoute(builder: (context) => destination));
+  }
+
   @override
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
     var screenWidth = MediaQuery.of(context).size.width;
 
-    void _navigateBasedOnTitle() {
-      Widget destination;
-      switch (widget.title) {
-        case "Evaluation de l'Estime de Soi":
-          destination = EstimedeSoi(); 
-          break;
-        case "Evaluation de la Paix Intérieure":
-          destination = Anxiete(); 
-          break;
-        case "Evaluation de l'Humeur et de la Vitalité":
-          destination = Humeur();
-          break;
-        case "Evaluation de la qualité de sommeil":
-          destination = Humeur(); 
-          break;
-        default:
-          destination = Humeur();
-      }
-      Navigator.push(context, MaterialPageRoute(builder: (context) => destination));
-    }
-
     return Scaffold(
-      backgroundColor: SettingsYong.isDarkMode.value ? Color(0xff141218) : Color(0xffF5F5F6),
+      backgroundColor: Colors.white, 
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
@@ -74,7 +70,7 @@ class Testpsy2State extends State<Testpsy2> {
                         width: screenWidth * 0.9,
                         padding: EdgeInsets.all(screenWidth * 0.05),
                         decoration: BoxDecoration(
-                          color: SettingsYong.isDarkMode.value ? Color(0xff141218) : Colors.white,
+                          color: Colors.white, // Utilisation d'une couleur fixe
                           borderRadius: BorderRadius.circular(16.0),
                           border: Border.all(color: Color(0xffEAEBF6), width: 2),
                         ),
@@ -94,7 +90,7 @@ class Testpsy2State extends State<Testpsy2> {
                         width: screenWidth * 0.9,
                         padding: EdgeInsets.all(screenWidth * 0.05),
                         decoration: BoxDecoration(
-                          color: SettingsYong.isDarkMode.value ? Color(0xff141218) : Colors.white,
+                          color: Colors.white, // Utilisation d'une couleur fixe
                           borderRadius: BorderRadius.circular(16.0),
                           border: Border.all(color: Color(0xffEAEBF6), width: 2),
                         ),
@@ -169,3 +165,4 @@ class Testpsy2State extends State<Testpsy2> {
     );
   }
 }
+
