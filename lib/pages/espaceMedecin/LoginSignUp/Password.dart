@@ -284,9 +284,11 @@ class _PasswordState extends State<Password> {
                         );
                       } else {
                         print('Failed to post data: ${response.statusCode}');
+                        Fluttertoast.showToast(msg: response.body.toString(),backgroundColor: Colors.red);
                         print('Response body: ${response.body}');
                       }
                     } catch (e) {
+                      Fluttertoast.showToast(msg: e.toString(),backgroundColor: Colors.red);
                       print('Error: $e');
                     }
 
