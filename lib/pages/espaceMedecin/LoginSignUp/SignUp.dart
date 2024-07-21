@@ -1,10 +1,7 @@
-import 'dart:convert';
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:http/http.dart' as http;
 import 'Cardi.dart';
 
 class Signup extends StatefulWidget {
@@ -32,51 +29,13 @@ class _SignupState extends State<Signup> {
   bool _pprHasFocus = false;
   bool _emailHasFocus = false;
   bool _numTeleHasFocus = false;
-
-
-
-
-  Future<void> postData() async {
-    final url = Uri.parse("http://192.168.1.10:8080/register/medecins");
-
-    Map<String, dynamic> data = {
-      "cin": "cinValue",
-      "inpe": "inpeValue",
-      "ppr": "pprValue",
-      "estMedcinESJ": false,
-      "estGeneraliste": true,
-      "specialite": "gh",
-      "infoUser": {
-        "nom": "Dupont",
-        "prenom": "Jean",
-        "numTel": "0645678920",
-        "mail": "ilyas.nom@gmail.com",
-        "motDePasse": "password123"
-      }
-    };
-
-    try {
-      final response = await http.post(
-        url,
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: json.encode(data),
-      );
-
-      if (response.statusCode == 200) {
-        print('Data posted successfully: ${response.body}');
-      } else {
-        print('Failed to post data: ${response.statusCode}');
-        print('Response body: ${response.body}');
-      }
-    } catch (e) {
-      print('Error: $e');
-    }
-  }
-
-
-
+  bool _isEmailValid = true;
+  bool _isInpeValid = true;
+  bool _isPprValid = true;
+  bool _isTeleValid = true;
+  bool _isCinValid = true;
+  bool _isNomValid = true;
+  bool _isPrenomValid = true;
 
   @override
   void initState() {
@@ -130,37 +89,69 @@ class _SignupState extends State<Signup> {
     super.dispose();
   }
 
-  Widget buildTextField(double width, double height, String placeholder, FocusNode focusNode, bool hasFocus, bool isDarkMode,TextEditingController controller) {
-    return SizedBox(
-      width: width * 0.8,
-      height: height * 0.055,
-      child: Directionality(
-        textDirection: TextDirection.ltr,
-        child: CupertinoTextField(
-          controller: controller,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(
-              color: isDarkMode
-                  ? (hasFocus ? CupertinoColors.systemBlue : CupertinoColors.white.withOpacity(0.5))
-                  : (hasFocus ? Color(0xFF2E37A4) : Color(0xFFEAEBF6)),
-              width: 2,
+  bool validateEmail(String email) {
+    final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
+    return emailRegex.hasMatch(email);
+  }
+
+  bool validateNumber(String number) {
+    final numberRegex = RegExp(r'^\d+$');
+    return numberRegex.hasMatch(number);
+  }
+
+  bool validateCin(String cin) {
+    return cin.length == 8 ;
+  }
+
+  bool validateName(String name) {
+    final nameRegex = RegExp(r'^[a-zA-Z]{2,}$');
+    return nameRegex.hasMatch(name);
+  }
+
+  Widget buildTextField(double width, double height, String placeholder, FocusNode focusNode, bool hasFocus, bool isDarkMode, TextEditingController controller, {bool isEmail = false, bool isNumber = false, bool isValid = true}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          width: width * 0.8,
+          height: height * 0.055,
+          child: Directionality(
+            textDirection: TextDirection.ltr,
+            child: CupertinoTextField(
+              controller: controller,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(
+                  color: isDarkMode
+                      ? (hasFocus ? CupertinoColors.systemBlue : CupertinoColors.white.withOpacity(0.5))
+                      : (hasFocus ? const Color(0xFF2E37A4) : const Color(0xFFEAEBF6)),
+                  width: 2,
+                ),
+              ),
+              focusNode: focusNode,
+              onTapOutside: (event) => setState(() {
+                focusNode.unfocus();
+              }),
+              placeholder: placeholder,
+              placeholderStyle: TextStyle(
+                color: isDarkMode ? Colors.white.withOpacity(0.5) : Colors.black.withOpacity(0.5),
+              ),
+              style: TextStyle(
+                color: isDarkMode ? Colors.white : Colors.black,
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
             ),
           ),
-          focusNode: focusNode,
-          onTapOutside: (event) => setState(() {
-            focusNode.unfocus();
-          }),
-          placeholder: placeholder,
-          placeholderStyle: TextStyle(
-            color: isDarkMode ? Colors.white.withOpacity(0.5) : Colors.black.withOpacity(0.5),
-          ),
-          style: TextStyle(
-            color: isDarkMode ? Colors.white : Colors.black,
-          ),
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
         ),
-      ),
+        if (!isValid)
+          Padding(
+            padding: const EdgeInsets.only(top: 5.0),
+            child: Text(
+              'Invalid input',
+              style: TextStyle(color: Colors.red, fontSize: 12),
+            ),
+          ),
+      ],
     );
   }
 
@@ -209,7 +200,7 @@ class _SignupState extends State<Signup> {
                               style: TextStyle(color: Cardi.isDarkMode.value ? Colors.white : Colors.black),
                             ),
                           ),
-                          buildTextField(width * 0.5, height, "", _nomFocusNode, _nomHasFocus, Cardi.isDarkMode.value,Cardi.nomController),
+                          buildTextField(width * 0.5, height, "", _nomFocusNode, _nomHasFocus, Cardi.isDarkMode.value, Cardi.nomController, isValid: _isNomValid),
                         ],
                       ),
                     ),
@@ -226,7 +217,7 @@ class _SignupState extends State<Signup> {
                               style: TextStyle(color: Cardi.isDarkMode.value ? Colors.white : Colors.black),
                             ),
                           ),
-                          buildTextField(width * 0.5, height, "", _prenomFocusNode, _prenomHasFocus, Cardi.isDarkMode.value,Cardi.prenomController),
+                          buildTextField(width * 0.5, height, "", _prenomFocusNode, _prenomHasFocus, Cardi.isDarkMode.value, Cardi.prenomController, isValid: _isPrenomValid),
                         ],
                       ),
                     ),
@@ -252,7 +243,7 @@ class _SignupState extends State<Signup> {
                               style: TextStyle(color: Cardi.isDarkMode.value ? Colors.white : Colors.black),
                             ),
                           ),
-                          buildTextField(width * 0.5, height, "", _cinFocusNode, _cinHasFocus, Cardi.isDarkMode.value,Cardi.cinController),
+                          buildTextField(width * 0.5, height, "", _cinFocusNode, _cinHasFocus, Cardi.isDarkMode.value, Cardi.cinController, isValid: _isCinValid),
                         ],
                       ),
                     ),
@@ -269,7 +260,7 @@ class _SignupState extends State<Signup> {
                               style: TextStyle(color: Cardi.isDarkMode.value ? Colors.white : Colors.black),
                             ),
                           ),
-                          buildTextField(width * 0.5, height, "", _inpeFocusNode, _inpeHasFocus, Cardi.isDarkMode.value,Cardi.inpeController),
+                          buildTextField(width * 0.5, height, "", _inpeFocusNode, _inpeHasFocus, Cardi.isDarkMode.value, Cardi.inpeController, isNumber: true, isValid: _isInpeValid),
                         ],
                       ),
                     ),
@@ -286,7 +277,7 @@ class _SignupState extends State<Signup> {
                               style: TextStyle(color: Cardi.isDarkMode.value ? Colors.white : Colors.black),
                             ),
                           ),
-                          buildTextField(width * 0.5, height, "", _pprFocusNode, _pprHasFocus, Cardi.isDarkMode.value,Cardi.pprController),
+                          buildTextField(width * 0.5, height, "", _pprFocusNode, _pprHasFocus, Cardi.isDarkMode.value, Cardi.pprController, isNumber: true, isValid: _isPprValid),
                         ],
                       ),
                     ),
@@ -303,8 +294,9 @@ class _SignupState extends State<Signup> {
                 ),
               ),
               Container(
-                  margin: EdgeInsets.symmetric(horizontal: 20),
-                  child: buildTextField(width, height, "", _emailFocusNode, _emailHasFocus, Cardi.isDarkMode.value,Cardi.emailController)),
+                margin: const EdgeInsets.symmetric(horizontal: 20),
+                child: buildTextField(width, height, "", _emailFocusNode, _emailHasFocus, Cardi.isDarkMode.value, Cardi.emailController, isEmail: true, isValid: _isEmailValid),
+              ),
               const SizedBox(height: 10),
               Container(
                 height: height * 0.025,
@@ -315,8 +307,9 @@ class _SignupState extends State<Signup> {
                 ),
               ),
               Container(
-                  margin: EdgeInsets.symmetric(horizontal: 20),
-                  child: buildTextField(width, height, "", _numTeleFocusNode, _numTeleHasFocus, Cardi.isDarkMode.value,Cardi.teleController)),
+                margin: const EdgeInsets.symmetric(horizontal: 20),
+                child: buildTextField(width, height, "", _numTeleFocusNode, _numTeleHasFocus, Cardi.isDarkMode.value, Cardi.teleController, isNumber: true, isValid: _isTeleValid),
+              ),
               const SizedBox(height: 10),
               Column(
                 children: [
@@ -333,13 +326,25 @@ class _SignupState extends State<Signup> {
                       alignment: Alignment.center,
                       child: AutoSizeText(
                         appLocalizations.suivant,
-                        style: TextStyle(color: Colors.white, fontSize: 20),
+                        style: const TextStyle(color: Colors.white, fontSize: 20),
                       ),
                     ),
                     onPressed: () {
-                      Cardi.q = 0.45;
-                      Cardi.top = 0.25;
-                      widget.onContinueTapped();
+                      setState(() {
+                        _isEmailValid = validateEmail(Cardi.emailController.text);
+                        _isInpeValid = validateNumber(Cardi.inpeController.text);
+                        _isPprValid = validateNumber(Cardi.pprController.text);
+                        _isTeleValid = validateNumber(Cardi.teleController.text);
+                        _isCinValid = validateCin(Cardi.cinController.text);
+                        _isNomValid = validateName(Cardi.nomController.text);
+                        _isPrenomValid = validateName(Cardi.prenomController.text);
+                      });
+
+                      if (_isEmailValid && _isInpeValid && _isPprValid && _isTeleValid && _isCinValid && _isNomValid && _isPrenomValid) {
+                        Cardi.q = 0.45;
+                        Cardi.top = 0.25;
+                        widget.onContinueTapped();
+                      }
                     },
                   ),
                   Row(
