@@ -8,7 +8,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:e_esg/pages/espacejeune/SideBar/Settings.dart';
 
 class NavbarYouth extends StatefulWidget {
   final bool isSideBarClosed;
@@ -108,11 +107,10 @@ class _NavbarYouthState extends State<NavbarYouth> with TickerProviderStateMixin
       _locale = locale;
     });
   }
+
   List<int> pile=[];
   @override
   Widget build(BuildContext context) {
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
     return ValueListenableBuilder<bool>(
       valueListenable: SettingsYong.isDarkMode,
         builder: (context, isDarkMode, child) {
