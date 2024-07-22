@@ -9,27 +9,11 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class Signup extends StatefulWidget {
   final Function(double, double) onSigninTapped;
   final Function() onContinueTapped;
-  final TextEditingController lastnameController;
-  final TextEditingController firstnameController;
-  final TextEditingController emailController;
-  final TextEditingController numteleController;
-  final int value;
-  final int age;
-  final DateTime? selectedDateTime;
 
-  final Function(int value,int age, DateTime selectedDateTime, String lastname, String firstname, String email, String numtele) onFormChange;
 
   const Signup({
     required this.onSigninTapped,
     required this.onContinueTapped,
-    required this.lastnameController,
-    required this.firstnameController,
-    required this.emailController,
-    required this.numteleController,
-    required this.value,
-    required this.age,
-    required this.selectedDateTime,
-    required this.onFormChange,
     super.key,
   });
 
@@ -84,10 +68,10 @@ class _SignupState extends State<Signup> {
       });
     });
 
-    _value = widget.value;
-    selectedDateTime = widget.selectedDateTime;
-    label = widget.selectedDateTime != null
-        ? intl.DateFormat.yMMMMd().format(widget.selectedDateTime!)
+    _value = CardiJeune.value;
+    selectedDateTime = CardiJeune.selectedDateTime;
+    label = CardiJeune.selectedDateTime != null
+        ? intl.DateFormat.yMMMMd().format(CardiJeune.selectedDateTime!)
         : "date de naissance";
   }
 
@@ -293,7 +277,7 @@ class _SignupState extends State<Signup> {
                               style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
                             ),
                           ),
-                          buildTextField(width * 0.5, height, "", widget.lastnameController, _nomFocusNode, _nomHasFocus, isDarkMode, lastnamenull),
+                          buildTextField(width * 0.5, height, "", CardiJeune.lastnameController, _nomFocusNode, _nomHasFocus, isDarkMode, lastnamenull),
                         ],
                       ),
                     ),
@@ -310,7 +294,7 @@ class _SignupState extends State<Signup> {
                               style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
                             ),
                           ),
-                          buildTextField(width * 0.5, height, "", widget.firstnameController, _prenomFocusNode, _prenomHasFocus, isDarkMode, firstnamenull),
+                          buildTextField(width * 0.5, height, "", CardiJeune.firstnameController, _prenomFocusNode, _prenomHasFocus, isDarkMode, firstnamenull),
                         ],
                       ),
                     ),
@@ -445,7 +429,7 @@ class _SignupState extends State<Signup> {
               ),
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 20),
-                child: buildTextField(width, height, "", widget.emailController, _emailFocusNode, _emailHasFocus, isDarkMode, emailnull),
+                child: buildTextField(width, height, "", CardiJeune.emailController, _emailFocusNode, _emailHasFocus, isDarkMode, emailnull),
               ),
               SizedBox(height: height * 0.015),
               Container(
@@ -458,7 +442,7 @@ class _SignupState extends State<Signup> {
               ),
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 20),
-                child: buildTextField(width, height, "", widget.numteleController, _numTeleFocusNode, _numTeleHasFocus, isDarkMode, numtelenull),
+                child: buildTextField(width, height, "", CardiJeune.numteleController, _numTeleFocusNode, _numTeleHasFocus, isDarkMode, numtelenull),
               ),
             ],
           ),
@@ -492,12 +476,15 @@ class _SignupState extends State<Signup> {
                   ),
                 ),
                 onPressed: () {
-                  final lastname = widget.lastnameController.text;
-                  final firstname = widget.firstnameController.text;
-                  final email = widget.emailController.text;
-                  final numtele = widget.numteleController.text;
+                  final lastname = CardiJeune.lastnameController.text;
+                  final firstname = CardiJeune.firstnameController.text;
+                  final email = CardiJeune.emailController.text;
+                  final numtele = CardiJeune.numteleController.text;
                   final int age = (selectedDateTime != null) ? DateTime.now().year - selectedDateTime!.year : 0;
                   setState(() {
+                    CardiJeune.value=_value;
+                    CardiJeune.age=age;
+                    CardiJeune.selectedDateTime=selectedDateTime;
                     lastnamenull = lastname.isEmpty;
                     firstnamenull = firstname.isEmpty;
                     emailnull = email.isEmpty || !RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$').hasMatch(email);
@@ -516,15 +503,6 @@ class _SignupState extends State<Signup> {
                     }});
 
                   if (!(datenull||tooyoung||tooold || lastnamenull || firstnamenull || emailnull || numtelenull || _value == 0)) {
-                    widget.onFormChange(
-                        _value,
-                        age,
-                        selectedDateTime!,
-                        lastname,
-                        firstname,
-                        email,
-                        numtele
-                    );
                     CardiJeune.q = 0.45;
                     CardiJeune.top = 0.25;
                     widget.onContinueTapped();

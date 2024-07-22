@@ -9,17 +9,6 @@ class Activitiesinformations extends StatefulWidget {
   final Function(double, double) onScolarityTapped;
   final Function(double, double) onPasswordTapped;
   final Function(double, double) onLoginTapped;
-  final TextEditingController cneController;
-  final TextEditingController cinController;
-  final TextEditingController codemassarController;
-  final String? lastStud;
-  final String? stateActu;
-  final String? studActu;
-  final  bool scolarity;
-  final bool hasSelected;
-  final int value;
-  final int age;
-  final Function(int value, String cne, String cin, String codemassar, String lastStud,String stateActu,String studActu,bool scolarity,bool hasSelected) onFormChange;
 
   Activitiesinformations({
     Key? key,
@@ -27,17 +16,6 @@ class Activitiesinformations extends StatefulWidget {
     required this.onScolarityTapped,
     required this.onPasswordTapped,
     required this.onLoginTapped,
-    required this.cneController,
-    required this.cinController,
-    required this.codemassarController,
-    required this.lastStud,
-    required this.stateActu,
-    required this.studActu,
-    required this.value,
-    required this.age,
-    required this.scolarity,
-    required this.hasSelected,
-    required this.onFormChange,
   }) : super(key: key);
 
   @override
@@ -99,10 +77,10 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
         _codeMassarHasFocus = _codeMassarFocusNode.hasFocus;
       });
     });
-    _value = widget.value;
-    age=widget.age;
-    scolarity=widget.scolarity;
-    hasSelected=widget.hasSelected;
+    _value = CardiJeune.value1;
+    age=CardiJeune.age;
+    scolarity=CardiJeune.scolarity;
+    hasSelected=CardiJeune.hasSelected;
   }
 
   @override
@@ -203,7 +181,7 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                           style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
                         ),
                       ),
-                      buildTextField(width, height, "",widget.cinController, _cinFocusNode, _cinHasFocus, isDarkMode,cinnull),
+                      buildTextField(width, height, "",CardiJeune.cinController, _cinFocusNode, _cinHasFocus, isDarkMode,cinnull),
                     ],
                   ),
                 ),
@@ -373,7 +351,7 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                               style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
                             ),
                           ),
-                          buildTextField(width, height, "",widget.cneController, _cneFocusNode, _cneHasFocus, isDarkMode,cnenull),
+                          buildTextField(width, height, "",CardiJeune.cneController, _cneFocusNode, _cneHasFocus, isDarkMode,cnenull),
                         ],
                       ),
                     ),
@@ -390,7 +368,7 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                               style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
                             ),
                           ),
-                          buildTextField(width, height, "",widget.codemassarController, _codeMassarFocusNode, _codeMassarHasFocus, isDarkMode,codemassarnull),
+                          buildTextField(width, height, "",CardiJeune.codemassarController, _codeMassarFocusNode, _codeMassarHasFocus, isDarkMode,codemassarnull),
                         ],
                       ),
                     ),
@@ -576,6 +554,14 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                           ),
                         ),
                         onPressed: () {
+                          setState(() {
+                            CardiJeune.value1=_value;
+                            CardiJeune.lastStud=dropdownValue2;
+                            CardiJeune.stateActu=dropdownValue3;
+                            CardiJeune.stateActu=dropdownValue;
+                            CardiJeune.scolarity=scolarity;
+                            CardiJeune.hasSelected=hasSelected;
+                          });
                           widget.onBackTapped(0.8, 0.1);
                         },
                       ),
@@ -596,12 +582,18 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                           ),
                         ),
                         onPressed: () {
-                          final cne = widget.cneController.text;
-                          final cin = widget.cinController.text;
-                          final codemassar=widget.codemassarController.text;
+                          final cne = CardiJeune.cneController.text;
+                          final cin = CardiJeune.cinController.text;
+                          final codemassar=CardiJeune.codemassarController.text;
                           setState(() {
+                            CardiJeune.value1=_value;
+                            CardiJeune.lastStud=dropdownValue2;
+                            CardiJeune.stateActu=dropdownValue3;
+                            CardiJeune.stateActu=dropdownValue;
+                            CardiJeune.scolarity=scolarity;
+                            CardiJeune.hasSelected=hasSelected;
                             cnenull = ((dropdownValue == 'Secondaire')||(dropdownValue == 'Supérieur'))&&cne.isEmpty;
-                            cinnull = widget.age>=16&&cin.isEmpty;
+                            cinnull = CardiJeune.age>=16&&(cin.isEmpty );//|| cin.length != 7
                             codemassarnull=(dropdownValue == 'Primaire')&&codemassar.isEmpty;
                             laststudnull =(!scolarity && hasSelected)&&dropdownValue2 == '' ;
                             stateActunull=(!scolarity && hasSelected)&&dropdownValue3 == '';
@@ -612,17 +604,6 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                               errorText = "";
                             }});
                           if(!(cnenull || cinnull || codemassarnull || laststudnull || stateActunull || _value == 0||studActunull)){
-                            widget.onFormChange(
-                              _value,
-                              cne,
-                              cin,
-                              codemassar,
-                              dropdownValue2,
-                              dropdownValue3,
-                              dropdownValue,
-                              scolarity,
-                              hasSelected
-                            );
                             setState(() {
                               CardiJeune.q = 0.55;
                               CardiJeune.top = 0.1;

@@ -297,7 +297,7 @@ class _PasswordState extends State<Password> {
                 onPressed: () async {
                   if (passwordController.text == copasswordController.text) {
                     if (validatePassword(passwordController.text)) {
-                      final url = Uri.parse("$Url:8080/register/medecins");
+                      final url = Uri.parse("$Url/register/medecins");
 
                       Map<String, dynamic> data = {
                         "cin": Cardi.cinController.text,

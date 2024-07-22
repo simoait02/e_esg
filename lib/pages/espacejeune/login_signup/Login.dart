@@ -1,10 +1,15 @@
+import 'dart:convert';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:e_esg/Widgets/NavigationBarJeune.dart';
 import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../api.dart';
 import '../SideBar/SidebarController.dart';
 
 class Login extends StatefulWidget {
@@ -159,7 +164,7 @@ class _LoginState extends State<Login> {
                         appLocalizations.login,
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       )),
-                  onPressed: () {
+                  onPressed: () async {
                     final identifier=_identifierController.text;
                     final password=_passwordController.text;
                     if(identifier==""||password==""){
@@ -170,11 +175,39 @@ class _LoginState extends State<Login> {
                         passwordnull=true;
                       });
                     }
-                    else Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(builder: (context) => SideBarController()),
-                          (Route<dynamic> route) => false,
-                    );
+                    else{
+                      final url = Uri.parse("$Url/auth/login/jeunes");
+                      Map<String,dynamic> data={
+                        "username":_identifierController.text,
+                        "password":_passwordController.text
+
+                      };
+                      try{
+                        final response =await http.post(
+                          url,
+                          headers: {
+                            'Content-Type':'application/json',
+                          },
+                          body:json.encode(data)
+                        );
+                        if(response.statusCode==200){
+                          print('Data posted succesfully:${response.body} ');
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(builder: (context) => SideBarController()),
+                                (Route<dynamic> route) => false,
+                          );
+                        }
+                        else{
+                          print('failed to post data:${response.statusCode}');
+                          Fluttertoast.showToast(msg: response.body.toString(),backgroundColor: Colors.red);
+                          print('Response body:${response.body}');
+                        }
+                      } catch (e){
+                        Fluttertoast.showToast(msg: e.toString(),backgroundColor: Colors.red);
+                        print('Error: $e');
+                      }
+                    }
 
                   }),
             ),

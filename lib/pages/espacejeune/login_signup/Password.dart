@@ -4,14 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../IES/statistiques.dart';
+import 'Cardi.dart';
 
 class Password extends StatefulWidget {
   final Function(double,double) onBackTapped;
   final Function(double,double) onCreateTapped;
-  final TextEditingController passwordController;
-  final Function(String password) onFormChange;
 
-  Password({super.key, required this.onBackTapped, required this.onCreateTapped, required this.passwordController,required this.onFormChange});
+  Password({super.key, required this.onBackTapped, required this.onCreateTapped});
 
   @override
   State<Password> createState() => _PasswordState();
@@ -120,7 +119,7 @@ class _PasswordState extends State<Password> {
               children: [
                 Expanded(
                   child: CupertinoTextField(
-                    controller:widget.passwordController,
+                    controller:CardiJeune.passwordController,
                     style:TextStyle(
                       color: isDarkMode?Colors.white:Colors.black,
                     ),
@@ -261,20 +260,17 @@ class _PasswordState extends State<Password> {
               ),
               CupertinoButton(
                 onPressed: () {
-                  final password=widget.passwordController.text;
+                  final password=CardiJeune.passwordController.text;
                   final confirmpassword=confirmpasswordController.text;
                   setState(() {
-                    passwordwrong = !RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#%^&*\.])[A-Za-z\d!@#%^&*\.]{8,}$').hasMatch(password);
+                    passwordwrong = !RegExp(r'^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*\d)[A-Za-z\d!@#$%^&*(),.?":{}|<>]{8,16}$').hasMatch(password);
                     isnotconfirmed=password!=confirmpassword;
                     if (passwordwrong||isnotconfirmed) {
-                      errorText = "le mot de passe n'est pas valide";
+                      errorText = "le mot de passe n'est pas validé";
                     } else {
                       errorText = "";
                     }});
                   if (!(passwordwrong||isnotconfirmed)){
-                    widget.onFormChange(
-                       password
-                    );
                     widget.onCreateTapped(0.8,0.1);
                   }
                 },

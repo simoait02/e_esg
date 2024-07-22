@@ -1,44 +1,22 @@
+import 'dart:convert';
+
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:e_esg/api.dart';
+import 'package:e_esg/pages/espacejeune/login_signup/Cardi.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ConfirmInformations extends StatefulWidget {
   final Function(double, double) onLoginTapped;
   final Function(double, double) onConfirmTapped;
-  final String lastStud;
-  final String stateActu;
-  final String studActu;
-  final String cne;
-  final String cin;
-  final String codemassar;
-  final  bool scolarity;
-  final int value;
-  final int age;
-  final String numtele;
-  final String email;
-  final String firstname;
-  final String lastname;
-  final DateTime selectedDateTime;
 
   ConfirmInformations({
     Key? key,
     required this.onConfirmTapped,
     required this.onLoginTapped,
-    required this.lastStud,
-    required this.stateActu,
-    required this.studActu,
-    required this.cne,
-    required this.cin,
-    required this.codemassar,
-    required this.scolarity,
-    required this.value,
-    required this.age,
-    required this.numtele,
-    required this.email,
-    required this.firstname,
-    required this.lastname,
-    required this.selectedDateTime,
   }) : super(key: key);
 
   @override
@@ -58,6 +36,16 @@ class _ConfirmInformationsState extends State<ConfirmInformations> {
   void dispose() {
     _scrollController.dispose();
     super.dispose();
+  }
+
+  String convertToUpperCase(String word) {
+    Map<String, String> specialCases = {
+      "Aucun" : "AUCUN",
+      "Primaire": "PRIMAIRE",
+      "Supérieur": "SUPERIEUR",
+      "Secondaire": "SECONDAIRE"
+    };
+    return specialCases[word] ?? word.toUpperCase();
   }
 
   @override
@@ -105,34 +93,34 @@ class _ConfirmInformationsState extends State<ConfirmInformations> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      buildInfoRow(width, appLocalizations!.sex, widget.value==2?"Homme":"Femme",isDarkMode),
+                      buildInfoRow(width, appLocalizations!.sex, CardiJeune.value==2?"Homme":"Femme",isDarkMode),
                       const SizedBox(height: 10),
-                      buildInfoRow(width, appLocalizations.nom, widget.lastname,isDarkMode),
+                      buildInfoRow(width, appLocalizations.nom, CardiJeune.lastnameController.text,isDarkMode),
                       const SizedBox(height: 10),
-                      buildInfoRow(width, appLocalizations.prenom, widget.firstname,isDarkMode),
+                      buildInfoRow(width, appLocalizations.prenom, CardiJeune.firstnameController.text,isDarkMode),
                       const SizedBox(height: 10),
-                      buildInfoRow(width, appLocalizations.birthDay, "${widget.selectedDateTime.day}/${widget.selectedDateTime.month}/${widget.selectedDateTime.year}",isDarkMode),
+                      buildInfoRow(width, appLocalizations.birthDay, "${CardiJeune.selectedDateTime?.day}/${CardiJeune.selectedDateTime?.month}/${CardiJeune.selectedDateTime?.year}",isDarkMode),
                       const SizedBox(height: 10),
-                      buildInfoRow(width, appLocalizations.tele, widget.numtele,isDarkMode),
+                      buildInfoRow(width, appLocalizations.tele, CardiJeune.numteleController.text,isDarkMode),
                       const SizedBox(height: 10),
-                      buildInfoRow(width, appLocalizations.email, widget.email,isDarkMode),
+                      buildInfoRow(width, appLocalizations.email, CardiJeune.emailController.text,isDarkMode),
                       const SizedBox(height: 10),
-                      if(widget.age>=16) buildInfoRow(width, "Cin", widget.cin,isDarkMode),
+                      if(CardiJeune.age>=16) buildInfoRow(width, "Cin", CardiJeune.cinController.text,isDarkMode),
                       const SizedBox(height: 10),
-                      if(widget.scolarity)
+                      if(CardiJeune.scolarity)
                         ...[
-                          buildInfoRow(width, "Niveau d'etudes actuel", widget.studActu,isDarkMode),
+                          buildInfoRow(width, "Niveau d'etudes actuel", convertToUpperCase(CardiJeune.studActu),isDarkMode),
                           const SizedBox(height: 10),
-                          if(widget.studActu == 'Primaire')
-                            buildInfoRow(width, "Code massar", widget.codemassar,isDarkMode)
+                          if(CardiJeune.studActu == 'Primaire')
+                            buildInfoRow(width, "Code massar", CardiJeune.codemassarController.text,isDarkMode)
                           else
-                            buildInfoRow(width, "Cne", widget.cne,isDarkMode),
+                            buildInfoRow(width, "Cne", CardiJeune.cneController.text,isDarkMode),
                         ]
                       else
                         ...[
-                          buildInfoRow(width, "Dernier niveau d'etudes", widget.lastStud,isDarkMode),
+                          buildInfoRow(width, "Dernier niveau d'etudes", CardiJeune.lastStud,isDarkMode),
                           const SizedBox(height: 10),
-                          buildInfoRow(width, "Situation actuelle", widget.stateActu,isDarkMode),
+                          buildInfoRow(width, "Situation actuelle", CardiJeune.stateActu,isDarkMode),
                         ],
                     ],
                   ),
@@ -156,13 +144,94 @@ class _ConfirmInformationsState extends State<ConfirmInformations> {
                       appLocalizations.precedent,
                       style: TextStyle(color: Color(0xff4E57CD), fontSize: 20),
                     )),
-                onPressed: () {
+                onPressed: ()  {
                   widget.onLoginTapped(0.6, 0.1);
+
+
                 },
               ),
               CupertinoButton(
-                onPressed: () {
-                  widget.onConfirmTapped(0.6, 0.1);
+                onPressed: () async {
+                  if(CardiJeune.scolarity) {
+                    final url = Uri.parse("$Url/register/jeunes/scolarise");
+                    Map<String, dynamic> data = {
+                      "infoUser": {
+                        "nom":CardiJeune.lastnameController.text,
+                        "prenom": CardiJeune.firstnameController.text,
+                        "mail": CardiJeune.emailController.text,
+                        "numTel": CardiJeune.numteleController.text,
+                        "motDePasse": CardiJeune.passwordController.text
+                      },
+                      "sexe": CardiJeune.value==2?"MASCULIN":"FEMININ",
+                      "dateNaissance": "${CardiJeune.selectedDateTime?.year}-${CardiJeune.selectedDateTime?.month}-${CardiJeune.selectedDateTime?.day}",
+                      "scolarise": true,
+                      "cin": CardiJeune.cinController.text,
+                      "niveauEtudeActuel": CardiJeune.studActu,
+                      "cne": CardiJeune.cneController.text
+                    };
+                    try {
+                      final response = await http.post(
+                        url,
+                        headers: {
+                          'Content-Type': 'application/json',
+                        },
+                        body: json.encode(data),
+                      );
+                      if (response.statusCode == 200) {
+                        print('Data posted successfully: ${response.body}');
+                        widget.onConfirmTapped(0.6, 0.1);
+                      } else {
+                        print('Request data: ${json.encode(data)}');
+                        print('Failed to post data: ${response.statusCode}');
+                        Fluttertoast.showToast(msg: response.body.toString(), backgroundColor: Colors.red);
+                        print('Response body: ${response.body}');
+                      }
+                    } catch (e) {
+                      Fluttertoast.showToast(msg: e.toString(), backgroundColor: Colors.red);
+                      print('Error: $e');
+                    }
+                  }
+                  else {
+                    final url = Uri.parse("$Url/register/jeunes/nonscolarise");
+                    Map<String, dynamic> data = {
+                      "infoUser": {
+                        "nom":CardiJeune.lastnameController.text,
+                        "prenom": CardiJeune.firstnameController.text,
+                        "mail": CardiJeune.emailController.text,
+                        "numTel": CardiJeune.numteleController.text,
+                        "motDePasse": CardiJeune.passwordController.text
+                      },
+                      "sexe": CardiJeune.value==2?"MASCULIN":"FEMININ",
+                      "dateNaissance": "${CardiJeune.selectedDateTime?.year}-${CardiJeune.selectedDateTime?.month}-${CardiJeune.selectedDateTime?.day}",
+                      "scolarise": false,
+                      "cin":CardiJeune.cinController.text,
+                      "dernierNiveauEtudes": "SUPERIEUR",
+                      "enActivite": CardiJeune.stateActu=='En activité'
+
+                    };
+                    try {
+                      final response = await http.post(
+                        url,
+                        headers: {
+                          'Content-Type': 'application/json',
+                        },
+                        body: json.encode(data),
+                      );
+                      if (response.statusCode == 200) {
+                        print('Data posted successfully: ${response.body}');
+                        widget.onConfirmTapped(0.6, 0.1);
+                      } else {
+                        print('Request data: ${json.encode(data)}');
+                        print('Failed to post data: ${response.statusCode}');
+                        Fluttertoast.showToast(
+                            msg: response.body.toString(), backgroundColor: Colors.red);
+                        print('Response body: ${response.body}');
+                      }
+                    } catch (e) {
+                      Fluttertoast.showToast(msg: e.toString(), backgroundColor: Colors.red);
+                      print('Error: $e');
+                    }
+                  }
                 },
                 child: Container(
                     width: width * 0.4,
