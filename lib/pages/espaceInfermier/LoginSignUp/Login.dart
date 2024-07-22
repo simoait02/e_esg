@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:e_esg/Widgets/NavigationBarDoctor.dart';
+import 'package:e_esg/Widgets/NavigationBarPro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -69,7 +70,7 @@ class _LoginState extends State<Login> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               border: Border.all(
-                color: hasFocus ? Color(0xFF2E37A4) :error?Colors.red:isDarkMode?CupertinoColors.white.withOpacity(0.5): Color(0xFFEAEBF6),
+                color: hasFocus ? const Color(0xFF2E37A4) :error?Colors.red:isDarkMode?CupertinoColors.white.withOpacity(0.5): const Color(0xFFEAEBF6),
                 width: 2,
               ),
             ),
@@ -97,12 +98,12 @@ class _LoginState extends State<Login> {
     double height =MediaQuery.of(context).size.height;
     final appLocalizations = AppLocalizations.of(context);
     return  SingleChildScrollView(
-      physics: BouncingScrollPhysics(),
+      physics: const BouncingScrollPhysics(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              margin: EdgeInsets.symmetric(horizontal:30),
+              margin: const EdgeInsets.symmetric(horizontal:30),
               child:  Container(
                 height: height*0.07,
                 child: AutoSizeText(
@@ -119,12 +120,12 @@ class _LoginState extends State<Login> {
             buildLabel(appLocalizations.id,height*0.02,CardiInf.isDarkMode.value),
             const SizedBox(height: 5,),
             Container(
-                margin: EdgeInsets.symmetric(horizontal: 20),
+                margin: const EdgeInsets.symmetric(horizontal: 20),
                 child: buildTextField(width,height, "E-mail, CIN",_identifierController, _emailFocusNode, _emailHasFocus,CardiInf.isDarkMode.value,identifiernull)),
             buildLabel(appLocalizations.password,height*0.02,CardiInf.isDarkMode.value),
             const SizedBox(height: 5,),
             Container(
-                margin: EdgeInsets.symmetric(horizontal: 20),
+                margin: const EdgeInsets.symmetric(horizontal: 20),
                 child: buildTextField(width, height,"Password",_passwordController, _passwordFocusNode, _passwordHasFocus,CardiInf.isDarkMode.value,passwordnull)),
             const SizedBox(height: 10,),
             Padding(padding: EdgeInsets.symmetric(horizontal:width*0.05),
@@ -134,7 +135,7 @@ class _LoginState extends State<Login> {
                       fontWeight: FontWeight.w500,
                       fontSize: width * 0.04,
                       fontFamily: "Poppins",
-                      color: Color(0xff00D3C7)
+                      color: const Color(0xff00D3C7)
                   ),),
               ),),
             Align(
@@ -150,24 +151,30 @@ class _LoginState extends State<Login> {
                       alignment: Alignment.center,
                       child: AutoSizeText(
                         appLocalizations.login,
-                        style: TextStyle(color: Colors.white, fontSize: 20),
+                        style: const TextStyle(color: Colors.white, fontSize: 20),
                       )),
                   onPressed: () {
                     final identifier=_identifierController.text;
                     final password=_passwordController.text;
                     if(identifier==""||password==""){
-                      if(identifier=="") setState(() {
+                      if(identifier=="") {
+                        setState(() {
                         identifiernull=true;
                       });
-                      if(password=="") setState(() {
+                      }
+                      if(password=="") {
+                        setState(() {
                         passwordnull=true;
                       });
+                      }
                     }
-                    else Navigator.pushAndRemoveUntil(
+                    else {
+                      Navigator.pushAndRemoveUntil(
                       context,
-                      CupertinoPageRoute(builder: (context) => NavbarDoc()),
+                      CupertinoPageRoute(builder: (context) => const Navigationbarpro()),
                           (Route<dynamic> route) => false,
                     );
+                    }
 
                   }),
             ),
@@ -179,18 +186,20 @@ class _LoginState extends State<Login> {
                   const SizedBox(width: 20,),
                   AutoSizeText(
                     appLocalizations.needAcc,
-                    style: TextStyle(fontFamily: "Inter", color: CardiInf.isDarkMode.value?Colors.white:Colors.black,),
+                    style: TextStyle(fontSize: 10,
+                      fontFamily: "Inter", color: CardiInf.isDarkMode.value?Colors.white:Colors.black,),
                   ),
                   const SizedBox(width: 2,),
                   GestureDetector(
                     onTap: () {
-                      widget.onSignUpTapped(0.63, 0.1);
+                      widget.onSignUpTapped(0.7, 0.1);
                     },
                     child:  AutoSizeText(
                       appLocalizations.signUp,
                       style: TextStyle(
                           fontFamily: "Inter",
-                          color: CardiInf.isDarkMode.value? Color(0xff759cd8):Color(0xff3a01de)),
+                          fontSize: 10,
+                          color: CardiInf.isDarkMode.value? const Color(0xff759cd8):const Color(0xff3a01de)),
                     ),
                   ),
                 ],

@@ -9,6 +9,12 @@ class CardiInf extends StatefulWidget {
   static double q = 0.5;
   static double top = 0.25;
   static bool isContinueTapped = false;
+  static TextEditingController nomController = TextEditingController();
+  static TextEditingController prenomController = TextEditingController();
+  static TextEditingController cinController = TextEditingController();
+  static TextEditingController inpeController = TextEditingController();
+  static TextEditingController emailController = TextEditingController();
+  static TextEditingController numTeleController = TextEditingController();
   static ValueNotifier<bool> isDarkMode = ValueNotifier<bool>(true);
   CardiInf({super.key});
 

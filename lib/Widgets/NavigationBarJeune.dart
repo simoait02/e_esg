@@ -78,7 +78,7 @@ class _NavbarYouthState extends State<NavbarYouth> with TickerProviderStateMixin
   late AnimationController _controller;
   @override
   void initState() {
-    _controller=AnimationController(vsync: this,duration: Duration(milliseconds: 200));
+    _controller=AnimationController(vsync: this,duration: const Duration(milliseconds: 200));
     _loadPreferences();
     super.initState();
   }
@@ -112,8 +112,6 @@ class _NavbarYouthState extends State<NavbarYouth> with TickerProviderStateMixin
   List<int> pile=[];
   @override
   Widget build(BuildContext context) {
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
     return ValueListenableBuilder<bool>(
       valueListenable: SettingsYong.isDarkMode,
         builder: (context, isDarkMode, child) {
@@ -143,7 +141,7 @@ class _NavbarYouthState extends State<NavbarYouth> with TickerProviderStateMixin
                 child: Container(
                   decoration: BoxDecoration(
                     color: isDarkMode ? const Color(0xff141218) : Colors.white,
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(20),
                       topRight: Radius.circular(20),
                     ),
@@ -152,12 +150,12 @@ class _NavbarYouthState extends State<NavbarYouth> with TickerProviderStateMixin
                         color: isDarkMode ? Colors.black26 : Colors.grey.withOpacity(0.3),
                         spreadRadius: 3,
                         blurRadius: 7,
-                        offset: Offset(0, 3),
+                        offset: const Offset(0, 3),
                       ),
                     ],
                   ),
                   child: ClipRRect(
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(20),
                       topRight: Radius.circular(20),
                     ),
@@ -205,17 +203,17 @@ class _NavbarYouthState extends State<NavbarYouth> with TickerProviderStateMixin
                   child: Container(
                     width: 35,
                     height: 100,
-                    color: Color(0xff2e37a4),
+                    color: const Color(0xff2e37a4),
                     alignment: Alignment.centerLeft,
                     child: GestureDetector(
                       onTap: widget.onSidebarToggle,
                       child: widget.isSideBarClosed?Padding(
-                        padding: EdgeInsets.only(left: 5),
+                        padding: const EdgeInsets.only(left: 5),
                         child: SvgPicture.asset(
                           "assets/images/more.svg",
                           color: Colors.purple.shade100,
                         ),
-                      ):Icon(
+                      ):const Icon(
                         CupertinoIcons.clear_circled_solid,size: 40,color: Colors.white24,
                       ),
                     )
