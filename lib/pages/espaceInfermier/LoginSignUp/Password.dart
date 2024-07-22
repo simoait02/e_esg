@@ -58,8 +58,6 @@ class _PasswordState extends State<Password> {
   void dispose() {
     _focusNode.dispose();
     _focusNode2.dispose();
-    passwordController.dispose();
-    copasswordController.dispose();
     super.dispose();
   }
 
@@ -290,7 +288,7 @@ class _PasswordState extends State<Password> {
                   ),
                 ),
                 onPressed: () {
-                  widget.onBackTapped(0.5, 0.1);
+                  widget.onBackTapped(0.7, 0.1);
                 },
               ),
               CupertinoButton(

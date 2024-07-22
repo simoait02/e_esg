@@ -1,9 +1,13 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:e_esg/Widgets/NavigationBarDoctor.dart';
 import 'package:e_esg/Widgets/NavigationBarPro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'Cardi.dart';
 
 class Login extends StatefulWidget {
@@ -153,7 +157,7 @@ class _LoginState extends State<Login> {
                         appLocalizations.login,
                         style: const TextStyle(color: Colors.white, fontSize: 20),
                       )),
-                  onPressed: () {
+                  onPressed: () async {
                     final identifier=_identifierController.text;
                     final password=_passwordController.text;
                     if(identifier==""||password==""){
@@ -168,12 +172,39 @@ class _LoginState extends State<Login> {
                       });
                       }
                     }
-                    else {
-                      Navigator.pushAndRemoveUntil(
-                      context,
-                      CupertinoPageRoute(builder: (context) => const Navigationbarpro()),
-                          (Route<dynamic> route) => false,
-                    );
+                    else{
+                      final url = Uri.parse("http://192.168.1.10:8080/auth/login/professionelSante");
+                      Map<String, dynamic> data = {
+                        "username":_identifierController.text,
+                        "password":_passwordController.text
+
+                      };
+
+                      try {
+                        final response = await http.post(
+                          url,
+                          headers: {
+                            'Content-Type': 'application/json',
+                          },
+                          body: json.encode(data),
+                        );
+
+                        if (response.statusCode == 200) {
+                          print('Data posted successfully: ${response.body}');
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            CupertinoPageRoute(builder: (context) => Navigationbarpro()),
+                                (Route<dynamic> route) => false,
+                          );
+                        } else {
+                          print('Failed to post data: ${response.statusCode}');
+                          Fluttertoast.showToast(msg: response.body.toString(),backgroundColor: Colors.red);
+                          print('Response body: ${response.body}');
+                        }
+                      } catch (e) {
+                        Fluttertoast.showToast(msg: e.toString(),backgroundColor: Colors.red);
+                        print('Error: $e');
+                      }
                     }
 
                   }),
