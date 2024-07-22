@@ -116,6 +116,8 @@
   "paraMedical": "Paramédicale",
   "reference": "Référence",
   "coreference": "Contre référence",
-  "gamificatiom": "gamification"
+  "gamificatiom": "gamification",
+  "resetPass": "Réinitialiser",
+  "resetText": "fournissez l'e-mail de votre compte pour lequel vous souhaitez réinitialiser votre mot de passe"
 
 }

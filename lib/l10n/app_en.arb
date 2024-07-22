@@ -116,5 +116,7 @@
   "paraMedical": "Paramedical",
   "reference": "Reference",
   "coreference": "Against reference",
-  "gamificatiom": "gamification"
+  "gamificatiom": "gamification",
+  "resetPass": "Reset",
+  "resetText": "provide your account's email for which you want reset your password"
 }
