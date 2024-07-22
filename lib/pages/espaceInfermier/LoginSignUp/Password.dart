@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../api.dart';
 import '../../IES/statistiques.dart';
 import 'Cardi.dart';
 
@@ -295,7 +296,7 @@ class _PasswordState extends State<Password> {
                 onPressed: () async {
                   if (passwordController.text == copasswordController.text) {
                     if (validatePassword(passwordController.text)) {
-                      final url = Uri.parse("http://192.168.1.10:8080/register/professionnels");
+                      final url = Uri.parse("$Url/register/professionnels");
                       Map<String, dynamic> data = {
                         "cin": CardiInf.cinController.text,
                         "inpe": CardiInf.inpeController.text,

@@ -9,7 +9,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:e_esg/api.dart';
 class Login extends StatefulWidget {
   final Function(double, double) onSignUpTapped;
 
@@ -135,6 +135,9 @@ class _LoginState extends State<Login> {
           const SizedBox(height: 10,),
           Padding(padding: EdgeInsets.symmetric(horizontal:width*0.05),
             child: GestureDetector(
+              onTap: (){
+
+              },
               child: AutoSizeText(appLocalizations.forgotPassword,
                 style: TextStyle(
                     fontWeight: FontWeight.w500,
@@ -170,7 +173,7 @@ class _LoginState extends State<Login> {
                     });
                   }
                   else{
-                    final url = Uri.parse("http://192.168.1.10:8080/auth/login/medecins");
+                    final url = Uri.parse("$Url/auth/login/medecins");
                     Map<String, dynamic> data = {
                         "username":_identifierController.text,
                         "password":_passwordController.text

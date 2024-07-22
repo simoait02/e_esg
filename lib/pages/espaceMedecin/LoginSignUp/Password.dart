@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:e_esg/api.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 
@@ -296,7 +297,7 @@ class _PasswordState extends State<Password> {
                 onPressed: () async {
                   if (passwordController.text == copasswordController.text) {
                     if (validatePassword(passwordController.text)) {
-                      final url = Uri.parse("http://192.168.1.10:8080/register/medecins");
+                      final url = Uri.parse("$Url:8080/register/medecins");
 
                       Map<String, dynamic> data = {
                         "cin": Cardi.cinController.text,
