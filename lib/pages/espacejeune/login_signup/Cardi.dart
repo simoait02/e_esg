@@ -26,6 +26,55 @@ class CardiJeune extends StatefulWidget {
 class _CardiJeuneState extends State<CardiJeune> {
   bool showLogin = true;
 
+  final TextEditingController _lastnameController = TextEditingController();
+  final TextEditingController _firstnameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _numteleController = TextEditingController();
+  final TextEditingController _cneController = TextEditingController();
+  final TextEditingController _cinController = TextEditingController();
+  final TextEditingController _codemassarController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  String _lastStud ="";
+  String _stateActu="" ;
+  String _studActu ="";
+  int _value = 0;
+  int _value1=0;
+  int _age =0;
+  bool _scolarity=false;
+  bool _hasSelected=false;
+  DateTime _selectedDateTime=DateTime.now() ;
+  void onFormChange(int value,int age, DateTime selectedDateTime, String lastname, String firstname, String email, String numtele) {
+    setState(() {
+      this._value = value;
+      this._age=age;
+      this._selectedDateTime = selectedDateTime;
+      this._lastnameController.text=lastname;
+      this._firstnameController.text=firstname;
+      this._emailController.text=email;
+      this._numteleController.text=numtele;
+
+    });
+  }
+  void onFormChange1(int value, String cne, String cin, String codemassar, String lastStud,String stateActu,String studActu,bool scolarity,bool hasSelected) {
+    setState(() {
+      this._value1 = value;
+      this._cneController.text = cne;
+      this._cinController.text=cin;
+      this._codemassarController.text=codemassar;
+      this._lastStud=lastStud;
+      this._stateActu=stateActu;
+      this._studActu=studActu;
+      this._scolarity=scolarity;
+      this._hasSelected=hasSelected;
+
+    });
+  }
+  void onFormChange2(String password){
+    setState(() {
+      this._passwordController.text=password;
+    });
+  }
+
   void updateContainerSize(double newQ, double newTop) {
     setState(() {
       CardiJeune.q = newQ;
@@ -179,17 +228,36 @@ class _CardiJeuneState extends State<CardiJeune> {
                   updateContainerSize(newQ, newTop);
                   onLoginTapped(newQ, newTop);
                 },
+                age:_age,
+                value:_value1,
+                cneController:_cneController,
+                cinController:_cinController,
+                codemassarController:_codemassarController,
+                lastStud:_lastStud ,
+                stateActu:_stateActu,
+                studActu:_studActu,
+                onFormChange:onFormChange1,
+                scolarity: _scolarity,
+                hasSelected: _hasSelected,
+
               )
                   : CardiJeune.moveToPassword
                   ? Password(
                 onBackTapped: (newQ, newTop) {
                   updateContainerSize(newQ, newTop);
                   stayInActivitiesInformations();
+                  if(_hasSelected){
+                    updateContainerSize(0.7, 0.1);
+                    stayInActivitiesInformations();
+                  }
                 },
                 onCreateTapped: (newQ,newTop){
                   updateContainerSize(newQ, newTop);
                   navigateToConfirmInformations();
                 },
+                passwordController: _passwordController,
+                onFormChange: onFormChange2,
+
               )
                   : CardiJeune.moveToConfirmInformations
                   ? ConfirmInformations(
@@ -197,7 +265,8 @@ class _CardiJeuneState extends State<CardiJeune> {
                   updateContainerSize(newQ, newTop);
                   navigateToSuccess(); },
                 onLoginTapped: (newQ , newTop ) { updateContainerSize(newQ, newTop);
-              onLoginTapped(newQ, newTop); },)
+              onLoginTapped(newQ, newTop); },
+                scolarity: _scolarity, value: _value, age: _age, numtele: _numteleController.text, email: _emailController.text, firstname: _firstnameController.text, lastname: _lastnameController.text,lastStud: _lastStud,stateActu: _stateActu,cin: _cinController.text,cne: _cneController.text,codemassar: _codemassarController.text,studActu: _studActu, selectedDateTime: _selectedDateTime,)
                   : CardiJeune.moveToSuccess
                   ? Success()
                   : Signup(
@@ -207,12 +276,24 @@ class _CardiJeuneState extends State<CardiJeune> {
                 },
                 onContinueTapped: () {
                   navigateToActivitiesInformations();
+                  if(_hasSelected){
+                    updateContainerSize(0.7, 0.1);
+                    stayInActivitiesInformations();
+                  }
                 },
+                lastnameController: _lastnameController,
+                firstnameController: _firstnameController,
+                emailController: _emailController,
+                numteleController: _numteleController,
+                value: _value,
+                age: _age,
+                selectedDateTime: _selectedDateTime,
+                onFormChange: onFormChange,
+              ),
               ),
             ),
           ),
         ),
-      ),
-    );
+      );
   }
 }

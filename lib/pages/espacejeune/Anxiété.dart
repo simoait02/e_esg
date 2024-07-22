@@ -100,7 +100,7 @@ class AnxieteState extends State<Anxiete> {
     if (currentQuestionIndex > 0) {
       setState(() {
         currentQuestionIndex--;
-        jeuneAnswers.removeLast(); // Retire la dernière réponse enregistrée
+        jeuneAnswers.removeLast(); 
       });
     }
   }

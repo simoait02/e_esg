@@ -81,7 +81,7 @@ class ChatbotState extends State<Chatbot> {
                           color: Color(0xffEAEBF6),
                         ),
                       ),
-                      SizedBox(width: 4), // Reduced padding between icons
+                      SizedBox(width: 4), 
                       IconButton(
                         icon: Icon(Icons.copy, size: 16, color: Color(0xffEAEBF6)),
                         onPressed: () {
@@ -121,7 +121,6 @@ class ChatbotState extends State<Chatbot> {
         child: SafeArea(
           child: Column(
             children: [
-              // Add your drawer content here
               ListTile(
                 leading: Icon(Icons.home),
                 title: Text('Home'),
@@ -136,7 +135,6 @@ class ChatbotState extends State<Chatbot> {
                   Navigator.of(context).pop();
                 },
               ),
-              // Add more drawer items as needed
             ],
           ),
         ),
