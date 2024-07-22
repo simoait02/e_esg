@@ -9,8 +9,29 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class Signup extends StatefulWidget {
   final Function(double, double) onSigninTapped;
   final Function() onContinueTapped;
+  final TextEditingController lastnameController;
+  final TextEditingController firstnameController;
+  final TextEditingController emailController;
+  final TextEditingController numteleController;
+  final int value;
+  final int age;
+  final DateTime? selectedDateTime;
 
-  Signup({super.key, required this.onSigninTapped, required this.onContinueTapped});
+  final Function(int value,int age, DateTime selectedDateTime, String lastname, String firstname, String email, String numtele) onFormChange;
+
+  const Signup({
+    required this.onSigninTapped,
+    required this.onContinueTapped,
+    required this.lastnameController,
+    required this.firstnameController,
+    required this.emailController,
+    required this.numteleController,
+    required this.value,
+    required this.age,
+    required this.selectedDateTime,
+    required this.onFormChange,
+    super.key,
+  });
 
   @override
   State<Signup> createState() => _SignupState();
@@ -25,7 +46,19 @@ class _SignupState extends State<Signup> {
   bool _prenomHasFocus = false;
   bool _emailHasFocus = false;
   bool _numTeleHasFocus = false;
+  bool lastnamenull = false;
+  bool firstnamenull = false;
+  bool emailnull = false;
+  bool numtelenull = false;
+  bool datenull = false;
+  bool tooyoung=false;
+  bool tooold=false;
   int _value = 0;
+  String errorText="";
+
+  DateTime? selectedDateTime;
+  DateTime? tempSelectedDateTime;
+  late String label;
 
   @override
   void initState() {
@@ -50,6 +83,12 @@ class _SignupState extends State<Signup> {
         _numTeleHasFocus = _numTeleFocusNode.hasFocus;
       });
     });
+
+    _value = widget.value;
+    selectedDateTime = widget.selectedDateTime;
+    label = widget.selectedDateTime != null
+        ? intl.DateFormat.yMMMMd().format(widget.selectedDateTime!)
+        : "date de naissance";
   }
 
   @override
@@ -78,19 +117,33 @@ class _SignupState extends State<Signup> {
     );
   }
 
-  Widget buildTextField(double width, double height, String placeholder, FocusNode focusNode, bool hasFocus, bool isDarkMode) {
+  Widget buildTextField(
+      double width,
+      double height,
+      String placeholder,
+      TextEditingController controller,
+      FocusNode focusNode,
+      bool hasFocus,
+      bool isDarkMode,
+      bool error,
+      ) {
     return SizedBox(
       width: width * 0.8,
       height: height * 0.055,
       child: Directionality(
         textDirection: TextDirection.ltr,
         child: CupertinoTextField(
+          controller: controller,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
-              color: isDarkMode
-                  ? (hasFocus ? Color(0xFF2E37A4) : CupertinoColors.white.withOpacity(0.5))
-                  : (hasFocus ? Color(0xFF2E37A4) : Color(0xFFEAEBF6)),
+              color: hasFocus
+                  ? Color(0xFF2E37A4)
+                  : error
+                  ? Colors.red
+                  : isDarkMode
+                  ? CupertinoColors.white.withOpacity(0.5)
+                  : Color(0xFFEAEBF6),
               width: 2,
             ),
           ),
@@ -111,16 +164,13 @@ class _SignupState extends State<Signup> {
     );
   }
 
-  String label = "Choisir la date de naissance";
-  DateTime selectedDateTime = DateTime.now();
-  DateTime tempSelectedDateTime = DateTime.now();
-
   void updateDate(DateTime newDate) {
     setState(() {
       selectedDateTime = newDate;
-      label = intl.DateFormat.yMMMMd().format(selectedDateTime);
+      label = intl.DateFormat.yMMMMd().format(selectedDateTime!);
     });
   }
+
   bool isArabic(BuildContext context) {
     return Localizations.localeOf(context).languageCode == 'ar';
   }
@@ -131,7 +181,8 @@ class _SignupState extends State<Signup> {
     double height = MediaQuery.of(context).size.height;
     var brightness = MediaQuery.of(context).platformBrightness;
     bool isDarkMode = brightness == Brightness.dark;
-    final appLocalizations = AppLocalizations.of(context);
+    final appLocalizations = AppLocalizations.of(context)!;
+
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -140,11 +191,11 @@ class _SignupState extends State<Signup> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                margin: EdgeInsets.only(left: 20,right: 20),
+                margin: EdgeInsets.only(left: 20, right: 20),
                 child: Container(
                   height: height * 0.07,
                   child: AutoSizeText(
-                    appLocalizations!.signUp,
+                    appLocalizations.signUp,
                     style: TextStyle(
                       color: isDarkMode ? Colors.white : Colors.black,
                       fontWeight: FontWeight.bold,
@@ -242,7 +293,7 @@ class _SignupState extends State<Signup> {
                               style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
                             ),
                           ),
-                          buildTextField(width * 0.5, height, "", _nomFocusNode, _nomHasFocus, isDarkMode),
+                          buildTextField(width * 0.5, height, "", widget.lastnameController, _nomFocusNode, _nomHasFocus, isDarkMode, lastnamenull),
                         ],
                       ),
                     ),
@@ -259,7 +310,7 @@ class _SignupState extends State<Signup> {
                               style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
                             ),
                           ),
-                          buildTextField(width * 0.5, height, "", _prenomFocusNode, _prenomHasFocus, isDarkMode),
+                          buildTextField(width * 0.5, height, "", widget.firstnameController, _prenomFocusNode, _prenomHasFocus, isDarkMode, firstnamenull),
                         ],
                       ),
                     ),
@@ -280,7 +331,9 @@ class _SignupState extends State<Signup> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      tempSelectedDateTime = selectedDateTime;
+                      setState(() {
+                        tempSelectedDateTime = selectedDateTime;
+                      });
                       showCupertinoModalPopup(
                         context: context,
                         builder: (BuildContext context) {
@@ -308,7 +361,9 @@ class _SignupState extends State<Signup> {
                                         style: TextStyle(color: Color(0xff2E37A5)),
                                       ),
                                       onPressed: () {
-                                        updateDate(tempSelectedDateTime);
+                                        if (tempSelectedDateTime != null) {
+                                          updateDate(tempSelectedDateTime!);
+                                        }
                                         Navigator.pop(context);
                                       },
                                     ),
@@ -327,9 +382,11 @@ class _SignupState extends State<Signup> {
                                       ),
                                     ),
                                     child: CupertinoDatePicker(
-                                      initialDateTime: selectedDateTime,
+                                      initialDateTime: selectedDateTime ?? DateTime.now(),
                                       onDateTimeChanged: (DateTime newDate) {
-                                        tempSelectedDateTime = newDate;
+                                        setState(() {
+                                          tempSelectedDateTime = newDate;
+                                        });
                                       },
                                       mode: CupertinoDatePickerMode.date,
                                     ),
@@ -348,7 +405,7 @@ class _SignupState extends State<Signup> {
                       margin: EdgeInsets.symmetric(horizontal: 20),
                       decoration: BoxDecoration(
                         border: Border.all(
-                          color: isDarkMode
+                          color: datenull ? Colors.red : isDarkMode
                               ? CupertinoColors.white.withOpacity(0.5)
                               : Color(0xFFEAEBF6),
                           width: 2,
@@ -388,7 +445,7 @@ class _SignupState extends State<Signup> {
               ),
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 20),
-                child: buildTextField(width, height, "", _emailFocusNode, _emailHasFocus, isDarkMode),
+                child: buildTextField(width, height, "", widget.emailController, _emailFocusNode, _emailHasFocus, isDarkMode, emailnull),
               ),
               SizedBox(height: height * 0.015),
               Container(
@@ -400,12 +457,24 @@ class _SignupState extends State<Signup> {
                 ),
               ),
               Container(
-                  margin: EdgeInsets.symmetric(horizontal: 20),
-                  child: buildTextField(width, height, "", _numTeleFocusNode, _numTeleHasFocus, isDarkMode)),
+                margin: EdgeInsets.symmetric(horizontal: 20),
+                child: buildTextField(width, height, "", widget.numteleController, _numTeleFocusNode, _numTeleHasFocus, isDarkMode, numtelenull),
+              ),
             ],
           ),
           Column(
             children: [
+              Visibility(
+                visible: datenull ||tooyoung||tooold|| lastnamenull || firstnamenull || emailnull || numtelenull || _value == 0,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Center(child:AutoSizeText(
+                    errorText,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.red),
+                  )),
+                ),
+              ),
               CupertinoButton(
                 child: Container(
                   width: width * 0.3,
@@ -423,9 +492,43 @@ class _SignupState extends State<Signup> {
                   ),
                 ),
                 onPressed: () {
-                  CardiJeune.q = 0.45;
-                  CardiJeune.top = 0.25;
-                  widget.onContinueTapped();
+                  final lastname = widget.lastnameController.text;
+                  final firstname = widget.firstnameController.text;
+                  final email = widget.emailController.text;
+                  final numtele = widget.numteleController.text;
+                  final int age = (selectedDateTime != null) ? DateTime.now().year - selectedDateTime!.year : 0;
+                  setState(() {
+                    lastnamenull = lastname.isEmpty;
+                    firstnamenull = firstname.isEmpty;
+                    emailnull = email.isEmpty || !RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$').hasMatch(email);
+                    numtelenull = numtele.isEmpty || !RegExp(r'^\d{10}$').hasMatch(numtele);
+                    datenull = selectedDateTime == null;
+                    tooyoung = selectedDateTime != null && age < 10;
+                    tooold = selectedDateTime != null && age > 30;
+                    if (lastnamenull || firstnamenull || emailnull || numtelenull || datenull || _value == 0) {
+                      errorText = "Prière de valider vos informations";
+                    } else if (tooyoung) {
+                      errorText = "Vous devez avoir plus de 10 ans pour créer un compte";
+                    } else if (tooold) {
+                      errorText = "Vous devez avoir moins de 30 ans pour créer un compte";
+                    } else {
+                      errorText = "";
+                    }});
+
+                  if (!(datenull||tooyoung||tooold || lastnamenull || firstnamenull || emailnull || numtelenull || _value == 0)) {
+                    widget.onFormChange(
+                        _value,
+                        age,
+                        selectedDateTime!,
+                        lastname,
+                        firstname,
+                        email,
+                        numtele
+                    );
+                    CardiJeune.q = 0.45;
+                    CardiJeune.top = 0.25;
+                    widget.onContinueTapped();
+                  }
                 },
               ),
               Container(

@@ -9,6 +9,17 @@ class Activitiesinformations extends StatefulWidget {
   final Function(double, double) onScolarityTapped;
   final Function(double, double) onPasswordTapped;
   final Function(double, double) onLoginTapped;
+  final TextEditingController cneController;
+  final TextEditingController cinController;
+  final TextEditingController codemassarController;
+  final String? lastStud;
+  final String? stateActu;
+  final String? studActu;
+  final  bool scolarity;
+  final bool hasSelected;
+  final int value;
+  final int age;
+  final Function(int value, String cne, String cin, String codemassar, String lastStud,String stateActu,String studActu,bool scolarity,bool hasSelected) onFormChange;
 
   Activitiesinformations({
     Key? key,
@@ -16,6 +27,17 @@ class Activitiesinformations extends StatefulWidget {
     required this.onScolarityTapped,
     required this.onPasswordTapped,
     required this.onLoginTapped,
+    required this.cneController,
+    required this.cinController,
+    required this.codemassarController,
+    required this.lastStud,
+    required this.stateActu,
+    required this.studActu,
+    required this.value,
+    required this.age,
+    required this.scolarity,
+    required this.hasSelected,
+    required this.onFormChange,
   }) : super(key: key);
 
   @override
@@ -23,7 +45,6 @@ class Activitiesinformations extends StatefulWidget {
 }
 
 class _ActivitiesinformationsState extends State<Activitiesinformations> {
-  int _value = 0;
   String dropdownValue = '';
   String dropdownValue2 = '';
   String dropdownValue3 = '';
@@ -31,6 +52,15 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
   FocusNode _focusNode = FocusNode();
   bool hasSelected = false;
   bool scolarity = true;
+  bool cnenull = false;
+  bool cinnull = false;
+  bool codemassarnull = false;
+  bool laststudnull = false;
+  bool stateActunull = false;
+  bool studActunull = false;
+  int _value=0;
+  int age=0;
+  String errorText="";
 
   final FocusNode _cinFocusNode = FocusNode();
   final FocusNode _cneFocusNode = FocusNode();
@@ -41,8 +71,6 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
   bool _cinHasFocus = false;
   bool _cneHasFocus = false;
   bool _codeMassarHasFocus = false;
-  bool _lastStudHasFocus = false;
-  bool _stateActuHasFocus = false;
 
   @override
   void initState() {
@@ -71,18 +99,10 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
         _codeMassarHasFocus = _codeMassarFocusNode.hasFocus;
       });
     });
-
-    _lastStudFocusNode.addListener(() {
-      setState(() {
-        _lastStudHasFocus = _lastStudFocusNode.hasFocus;
-      });
-    });
-
-    _stateActuFocusNode.addListener(() {
-      setState(() {
-        _stateActuHasFocus = _stateActuFocusNode.hasFocus;
-      });
-    });
+    _value = widget.value;
+    age=widget.age;
+    scolarity=widget.scolarity;
+    hasSelected=widget.hasSelected;
   }
 
   @override
@@ -91,24 +111,27 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
     _cinFocusNode.dispose();
     _cneFocusNode.dispose();
     _codeMassarFocusNode.dispose();
-    _lastStudFocusNode.dispose();
-    _stateActuFocusNode.dispose();
     super.dispose();
   }
 
-  Widget buildTextField(double width, double height, String placeholder, FocusNode focusNode, bool hasFocus, bool isDarkMode) {
+  Widget buildTextField(double width, double height, String placeholder,TextEditingController controller, FocusNode focusNode, bool hasFocus, bool isDarkMode,bool error,) {
     return SizedBox(
       width: width * 0.8,
       height: height * 0.055,
       child: Directionality(
         textDirection: TextDirection.ltr,
         child: CupertinoTextField(
+          controller: controller,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
-              color: isDarkMode
-                  ? (hasFocus ? Color(0xFF2E37A4) : CupertinoColors.white.withOpacity(0.5))
-                  : (hasFocus ? Color(0xFF2E37A4) : Color(0xFFEAEBF6)),
+              color: hasFocus
+                  ? Color(0xFF2E37A4)
+                  : error
+                  ? Colors.red
+                  : isDarkMode
+                  ? CupertinoColors.white.withOpacity(0.5)
+                  : Color(0xFFEAEBF6),
               width: 2,
             ),
           ),
@@ -164,7 +187,7 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
               ),
               SizedBox(height: height * 0.01),
               Visibility(
-                visible: true,
+                visible: age>=16,
                 child: Container(
                   margin: EdgeInsets.symmetric(horizontal: 20),
                   alignment: Alignment.center,
@@ -180,7 +203,7 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                           style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
                         ),
                       ),
-                      buildTextField(width, height, "", _cinFocusNode, _cinHasFocus, isDarkMode),
+                      buildTextField(width, height, "",widget.cinController, _cinFocusNode, _cinHasFocus, isDarkMode,cinnull),
                     ],
                   ),
                 ),
@@ -338,7 +361,7 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                     ),
                     SizedBox(height: height * 0.02),
                     Visibility(
-                      visible: dropdownValue != 'Primaire',
+                      visible: (dropdownValue == 'Secondaire')||(dropdownValue == 'Supérieur'),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -350,7 +373,7 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                               style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
                             ),
                           ),
-                          buildTextField(width, height, "", _cneFocusNode, _cneHasFocus, isDarkMode),
+                          buildTextField(width, height, "",widget.cneController, _cneFocusNode, _cneHasFocus, isDarkMode,cnenull),
                         ],
                       ),
                     ),
@@ -367,7 +390,7 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                               style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
                             ),
                           ),
-                          buildTextField(width, height, "", _codeMassarFocusNode, _codeMassarHasFocus, isDarkMode),
+                          buildTextField(width, height, "",widget.codemassarController, _codeMassarFocusNode, _codeMassarHasFocus, isDarkMode,codemassarnull),
                         ],
                       ),
                     ),
@@ -524,6 +547,17 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
               ),
               Column(
                 children: [
+                  Visibility(
+                    visible: (cnenull || cinnull || codemassarnull || laststudnull || stateActunull || _value == 0||studActunull),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Center(child:AutoSizeText(
+                        errorText,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.red),
+                      )),
+                    ),
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -562,11 +596,39 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                           ),
                         ),
                         onPressed: () {
+                          final cne = widget.cneController.text;
+                          final cin = widget.cinController.text;
+                          final codemassar=widget.codemassarController.text;
                           setState(() {
-                            CardiJeune.q = 0.55;
-                            CardiJeune.top = 0.1;
-                            widget.onPasswordTapped(CardiJeune.q, CardiJeune.top);
-                          });
+                            cnenull = ((dropdownValue == 'Secondaire')||(dropdownValue == 'Supérieur'))&&cne.isEmpty;
+                            cinnull = widget.age>=16&&cin.isEmpty;
+                            codemassarnull=(dropdownValue == 'Primaire')&&codemassar.isEmpty;
+                            laststudnull =(!scolarity && hasSelected)&&dropdownValue2 == '' ;
+                            stateActunull=(!scolarity && hasSelected)&&dropdownValue3 == '';
+                            studActunull=(scolarity&&hasSelected)&&dropdownValue == '';
+                            if (cnenull || cinnull || codemassarnull || laststudnull || stateActunull || _value == 0||studActunull) {
+                              errorText = "Prière de valider vos informations";
+                            } else {
+                              errorText = "";
+                            }});
+                          if(!(cnenull || cinnull || codemassarnull || laststudnull || stateActunull || _value == 0||studActunull)){
+                            widget.onFormChange(
+                              _value,
+                              cne,
+                              cin,
+                              codemassar,
+                              dropdownValue2,
+                              dropdownValue3,
+                              dropdownValue,
+                              scolarity,
+                              hasSelected
+                            );
+                            setState(() {
+                              CardiJeune.q = 0.55;
+                              CardiJeune.top = 0.1;
+                              widget.onPasswordTapped(CardiJeune.q, CardiJeune.top);
+                            });
+                          }
                         },
                       ),
                     ],

@@ -6,11 +6,39 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class ConfirmInformations extends StatefulWidget {
   final Function(double, double) onLoginTapped;
   final Function(double, double) onConfirmTapped;
+  final String lastStud;
+  final String stateActu;
+  final String studActu;
+  final String cne;
+  final String cin;
+  final String codemassar;
+  final  bool scolarity;
+  final int value;
+  final int age;
+  final String numtele;
+  final String email;
+  final String firstname;
+  final String lastname;
+  final DateTime selectedDateTime;
 
   ConfirmInformations({
     Key? key,
     required this.onConfirmTapped,
     required this.onLoginTapped,
+    required this.lastStud,
+    required this.stateActu,
+    required this.studActu,
+    required this.cne,
+    required this.cin,
+    required this.codemassar,
+    required this.scolarity,
+    required this.value,
+    required this.age,
+    required this.numtele,
+    required this.email,
+    required this.firstname,
+    required this.lastname,
+    required this.selectedDateTime,
   }) : super(key: key);
 
   @override
@@ -77,40 +105,35 @@ class _ConfirmInformationsState extends State<ConfirmInformations> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      buildInfoRow(width, appLocalizations!.sex, "Femme",isDarkMode),
+                      buildInfoRow(width, appLocalizations!.sex, widget.value==2?"Homme":"Femme",isDarkMode),
                       const SizedBox(height: 10),
-                      buildInfoRow(width, appLocalizations.nom, "Bouti",isDarkMode),
+                      buildInfoRow(width, appLocalizations.nom, widget.lastname,isDarkMode),
                       const SizedBox(height: 10),
-                      buildInfoRow(width, appLocalizations.prenom, "Chaimae",isDarkMode),
+                      buildInfoRow(width, appLocalizations.prenom, widget.firstname,isDarkMode),
                       const SizedBox(height: 10),
-                      buildInfoRow(width, appLocalizations.birthDay, "26/02/2003",isDarkMode),
+                      buildInfoRow(width, appLocalizations.birthDay, "${widget.selectedDateTime.day}/${widget.selectedDateTime.month}/${widget.selectedDateTime.year}",isDarkMode),
                       const SizedBox(height: 10),
-                      buildInfoRow(width, appLocalizations.tele, "0632715685",isDarkMode),
-                      buildInfoRow(width, appLocalizations.email, "theofil888@gmail.com",isDarkMode),
-                      SizedBox(height: 10,),
-                      Visibility(
-                        child: buildInfoRow(width, "CIN :", "0632715685",isDarkMode),
-                      ),
-                      SizedBox(height: 10,),
-                      Visibility(
-                        child: buildInfoRow(width, appLocalizations.actuelLevel, "Superieur",isDarkMode),
-                      ),                      SizedBox(height: 10,),
-
-                      Visibility(
-                        child: buildInfoRow(width, "CNE :", "0632715685",isDarkMode),
-                      ),                      SizedBox(height: 10,),
-
-                      Visibility(
-                        child: buildInfoRow(width, "Code Massar :", "0632715685",isDarkMode),
-                      ),                      SizedBox(height: 10,),
-
-                      Visibility(
-                        child: buildInfoRow(width, appLocalizations.lastLevel, "0632715685",isDarkMode),
-                      ),                      SizedBox(height: 10,),
-
-                      Visibility(
-                        child: buildInfoRow(width, appLocalizations.currentState, "0632715685",isDarkMode),
-                      ),
+                      buildInfoRow(width, appLocalizations.tele, widget.numtele,isDarkMode),
+                      const SizedBox(height: 10),
+                      buildInfoRow(width, appLocalizations.email, widget.email,isDarkMode),
+                      const SizedBox(height: 10),
+                      if(widget.age>=16) buildInfoRow(width, "Cin", widget.cin,isDarkMode),
+                      const SizedBox(height: 10),
+                      if(widget.scolarity)
+                        ...[
+                          buildInfoRow(width, "Niveau d'etudes actuel", widget.studActu,isDarkMode),
+                          const SizedBox(height: 10),
+                          if(widget.studActu == 'Primaire')
+                            buildInfoRow(width, "Code massar", widget.codemassar,isDarkMode)
+                          else
+                            buildInfoRow(width, "Cne", widget.cne,isDarkMode),
+                        ]
+                      else
+                        ...[
+                          buildInfoRow(width, "Dernier niveau d'etudes", widget.lastStud,isDarkMode),
+                          const SizedBox(height: 10),
+                          buildInfoRow(width, "Situation actuelle", widget.stateActu,isDarkMode),
+                        ],
                     ],
                   ),
                 ),
