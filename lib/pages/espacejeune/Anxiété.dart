@@ -35,23 +35,61 @@ class AnxieteState extends State<Anxiete> {
     ['Jamais', 'Pas très souvent', 'Assez souvent', 'Vraiment très souvent'],
   ];
 
-  void nextQuestion() {
+  final List<int> answerScores = [0, 1, 2, 3];
+
+  List<int> jeuneAnswers = [];
+  int totalScore = 0;
+
+  void calculateTotalScore() {
+    totalScore = 0;
+    for (int i = 0; i < jeuneAnswers.length; i++) {
+      totalScore += answerScores[jeuneAnswers[i]];
+    }
+  }
+
+  String interpretScore(int score) {
+    if (score < 8) {
+      return "Votre évaluation indique que vous êtes en paix avec vous-même. Continuez à pratiquer des activités qui favorisent votre tranquillité et bien-être. Restez attentif à votre sérénité et n'hésitez pas à consulter nos ressources pour maintenir cet équilibre.";
+    } else if (score >= 8 && score < 10) {
+      return "Votre évaluation suggère que vous traversez peut-être une période de stress ou d'inquiétude. Il est important de prêter attention à vos sentiments et de prendre soin de vous. Considérez parler à un professionnel ou à un proche de confiance pour gérer les moments d'anxiété.";
+    } else {
+      return "Votre évaluation suggère que vous traversez peut-être une période d'anxiété. Il est important de prêter attention à vos sentiments et de prendre soin de vous. Considérez parler à un professionnel ou à un proche de confiance pour gérer les moments d'anxiété.";
+    }
+  }
+
+  void nextQuestion(int selectedIndex) {
     if (currentQuestionIndex < questions.length - 1) {
       setState(() {
+        if (jeuneAnswers.length > currentQuestionIndex) {
+          jeuneAnswers[currentQuestionIndex] = selectedIndex;
+        } else {
+          jeuneAnswers.add(selectedIndex);
+        }
         currentQuestionIndex++;
       });
     } else {
+      if (jeuneAnswers.length > currentQuestionIndex) {
+        jeuneAnswers[currentQuestionIndex] = selectedIndex;
+      } else {
+        jeuneAnswers.add(selectedIndex);
+      }
+      calculateTotalScore();
+      String interpretation = interpretScore(totalScore);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Vous avez terminé le test!'),
           backgroundColor: Colors.green,
         ),
       );
-      Future.delayed(Duration(seconds: 5), () {
+      Future.delayed(Duration(seconds: 2), () {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => Testpsy4(title: "Évaluation de la Paix Intérieure"),
+            builder: (context) => Testpsy4(
+              title: "Évaluation de la Paix Intérieure",
+              score: totalScore,
+              interpretation: interpretation,
+            ),
           ),
         );
       });
@@ -62,6 +100,7 @@ class AnxieteState extends State<Anxiete> {
     if (currentQuestionIndex > 0) {
       setState(() {
         currentQuestionIndex--;
+        jeuneAnswers.removeLast(); // Retire la dernière réponse enregistrée
       });
     }
   }
@@ -171,7 +210,7 @@ class AnxieteState extends State<Anxiete> {
                                   });
                                 },
                                 child: GestureDetector(
-                                  onTap: nextQuestion,
+                                  onTap: () => nextQuestion(index),
                                   child: Container(
                                     width: screenWidth * 0.4,
                                     height: screenHeight * 0.08,

@@ -16,14 +16,15 @@ class Cardi extends StatefulWidget {
   static bool stayinSpeciality = false;
   static bool moveToPassword = false;
   static TextEditingController emailController=TextEditingController();
-  static TextEditingController passwordController=TextEditingController();
-  static TextEditingController copasswordController=TextEditingController();
   static TextEditingController nomController=TextEditingController();
   static TextEditingController prenomController=TextEditingController();
   static TextEditingController cinController=TextEditingController();
   static TextEditingController inpeController=TextEditingController();
   static TextEditingController teleController=TextEditingController();
   static TextEditingController pprController=TextEditingController();
+  static TextEditingController specialiteeController=TextEditingController();
+  static bool isGeneralist=true;
+  static bool isEsgDoctor=false;
   static ValueNotifier<bool> isDarkMode = ValueNotifier<bool>(false);
   Cardi({super.key});
 

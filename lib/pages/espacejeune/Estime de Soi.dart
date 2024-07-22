@@ -28,23 +28,78 @@ class EstimedeSoiState extends State<EstimedeSoi> {
     "Il m'arrive de penser que je suis un bon à rien."
   ];
 
-  void nextQuestion() {
+  final List<List<int>> answerScores = [
+    [4, 3, 2, 1],  
+    [4, 3, 2, 1],  
+    [1, 2, 3, 4],  
+    [4, 3, 2, 1],  
+    [1, 2, 3, 4],  
+    [4, 3, 2, 1],  
+    [4, 3, 2, 1],  
+    [1, 2, 3, 4],  
+    [1, 2, 3, 4],  
+    [1, 2, 3, 4],  
+  ];
+
+  List<int> selfEsteemAnswers = [];
+  int totalScore = 0;
+
+  int calculateTotalScore() {
+    totalScore = 0;
+    for (int i = 0; i < selfEsteemAnswers.length; i++) {
+      totalScore += answerScores[i][selfEsteemAnswers[i]];
+    }
+    return totalScore;
+  }
+
+  String interpretScore(int score) {
+    if (score < 25) {
+      return "Vos résultats montrent quelques défis avec votre estime de soi. Il est important de se rappeler que ce test n'est qu'un instantané et ne définit pas votre valeur. Parler avec un professionnel peut vous aider à explorer des moyens pour renforcer votre confiance en vous.";
+    } else if (score >= 25 && score < 31) {
+      return "Votre estime de soi est faible. Un travail dans ce domaine serait bénéfique.";
+    } else if (score >= 31 && score < 34) {
+      return "Félicitez-vous pour tous vos petits succès, vous devriez développer davantage votre bonne estime de soi. Nous vous conseillons de prendre contact avec l'établissement de soins publique le plus proche pour des séances d'écoute et de soutien.";
+    } else if (score >= 34 && score <= 39) {
+      return "Bravo ! Votre estime de soi est forte.";
+    } else {
+      return "Bravo ! Votre estime de soi est très forte et vous avez tendance à être fortement affirmé.";
+    }
+  }
+
+  void nextQuestion(int selectedIndex) {
     if (currentQuestionIndex < questions.length - 1) {
       setState(() {
+        if (selfEsteemAnswers.length > currentQuestionIndex) {
+          selfEsteemAnswers[currentQuestionIndex] = selectedIndex;
+        } else {
+          selfEsteemAnswers.add(selectedIndex);
+        }
         currentQuestionIndex++;
       });
     } else {
+      if (selfEsteemAnswers.length > currentQuestionIndex) {
+        selfEsteemAnswers[currentQuestionIndex] = selectedIndex;
+      } else {
+        selfEsteemAnswers.add(selectedIndex);
+      }
+      int totalScore = calculateTotalScore();
+      String interpretation = interpretScore(totalScore);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Vous avez terminé le test!'),
           backgroundColor: Colors.green,
         ),
       );
-
-      Future.delayed(Duration(seconds: 5), () {
+      Future.delayed(Duration(seconds: 2), () {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => Testpsy4(title: "Evaluation de l'Estime de soi")),
+          MaterialPageRoute(
+            builder: (context) => Testpsy4(
+              title: "Evaluation de l'Estime de soi",
+              score: totalScore,
+              interpretation: interpretation,
+            ),
+          ),
         );
       });
     }
@@ -54,6 +109,7 @@ class EstimedeSoiState extends State<EstimedeSoi> {
     if (currentQuestionIndex > 0) {
       setState(() {
         currentQuestionIndex--;
+        selfEsteemAnswers.removeLast(); 
       });
     }
   }
@@ -67,7 +123,8 @@ class EstimedeSoiState extends State<EstimedeSoi> {
 
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: isDarkMode ? Color(0xff141218) : Color.fromARGB(255, 240, 235, 235),
+      backgroundColor:
+          isDarkMode ? Color(0xff141218) : Color.fromARGB(255, 240, 235, 235),
       body: CustomScrollView(
         slivers: [
           CustomSliverAppBar(
@@ -87,7 +144,8 @@ class EstimedeSoiState extends State<EstimedeSoi> {
                       padding: EdgeInsets.all(screenWidth * 0.05),
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(screenWidth * 0.04),
+                        borderRadius:
+                            BorderRadius.circular(screenWidth * 0.04),
                       ),
                       child: Center(
                         child: Text(
@@ -106,7 +164,8 @@ class EstimedeSoiState extends State<EstimedeSoi> {
                       padding: EdgeInsets.all(screenWidth * 0.05),
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(screenWidth * 0.04),
+                        borderRadius:
+                            BorderRadius.circular(screenWidth * 0.04),
                       ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -163,17 +222,20 @@ class EstimedeSoiState extends State<EstimedeSoi> {
                                   });
                                 },
                                 child: GestureDetector(
-                                  onTap: nextQuestion,
+                                  onTap: () => nextQuestion(index),
                                   child: Container(
                                     width: screenWidth * 0.4,
                                     height: screenHeight * 0.08,
-                                    margin: EdgeInsets.only(bottom: screenHeight * 0.02),
-                                    padding: EdgeInsets.all(screenWidth * 0.03),
+                                    margin: EdgeInsets.only(
+                                        bottom: screenHeight * 0.02),
+                                    padding:
+                                        EdgeInsets.all(screenWidth * 0.03),
                                     decoration: BoxDecoration(
                                       color: isHovered[index]
                                           ? Colors.blue
                                           : Color.fromARGB(255, 4, 79, 140),
-                                      borderRadius: BorderRadius.circular(screenWidth * 0.02),
+                                      borderRadius: BorderRadius.circular(
+                                          screenWidth * 0.02),
                                     ),
                                     child: Center(
                                       child: Text(

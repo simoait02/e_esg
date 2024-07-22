@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:e_esg/Widgets/NavigationBarDoctor.dart';
 import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
@@ -5,6 +7,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart' as http;
 
 class Login extends StatefulWidget {
   final Function(double, double) onSignUpTapped;
@@ -23,8 +27,9 @@ class _LoginState extends State<Login> {
   bool identifiernull=false;
   bool passwordnull=false;
 
-  final TextEditingController _identifierController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  static TextEditingController _identifierController = TextEditingController();
+  static TextEditingController _passwordController = TextEditingController();
+
 
   @override
   void initState() {
@@ -142,7 +147,7 @@ class _LoginState extends State<Login> {
             alignment: Alignment.center,
             child: CupertinoButton(
                 child: Container(
-                    width: width * 0.3,
+                    width: width * 0.4,
                     height: height*0.05,
                     decoration: BoxDecoration(
                         gradient: const LinearGradient(
@@ -153,7 +158,7 @@ class _LoginState extends State<Login> {
                       appLocalizations.login,
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     )),
-                onPressed: () {
+                onPressed: () async {
                   final identifier=_identifierController.text;
                   final password=_passwordController.text;
                   if(identifier==""||password==""){
@@ -164,11 +169,40 @@ class _LoginState extends State<Login> {
                       passwordnull=true;
                     });
                   }
-                  else Navigator.pushAndRemoveUntil(
-                    context,
-                    CupertinoPageRoute(builder: (context) => NavbarDoc()),
-                        (Route<dynamic> route) => false,
-                  );
+                  else{
+                    final url = Uri.parse("http://192.168.1.10:8080/auth/login/medecins");
+                    Map<String, dynamic> data = {
+                        "username":_identifierController.text,
+                        "password":_passwordController.text
+
+                        };
+
+                    try {
+                      final response = await http.post(
+                        url,
+                        headers: {
+                          'Content-Type': 'application/json',
+                        },
+                        body: json.encode(data),
+                      );
+
+                      if (response.statusCode == 200) {
+                        print('Data posted successfully: ${response.body}');
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          CupertinoPageRoute(builder: (context) => NavbarDoc()),
+                              (Route<dynamic> route) => false,
+                        );
+                      } else {
+                        print('Failed to post data: ${response.statusCode}');
+                        Fluttertoast.showToast(msg: response.body.toString(),backgroundColor: Colors.red);
+                        print('Response body: ${response.body}');
+                      }
+                    } catch (e) {
+                      Fluttertoast.showToast(msg: e.toString(),backgroundColor: Colors.red);
+                      print('Error: $e');
+                    }
+                  }
 
                 }),
           ),
@@ -180,17 +214,18 @@ class _LoginState extends State<Login> {
                 const SizedBox(width: 20,),
                 AutoSizeText(
                   appLocalizations.needAcc,
-                  style: TextStyle(fontFamily: "Inter", color: Cardi.isDarkMode.value?Colors.white:Colors.black,),
+                  style: TextStyle(fontFamily: "Inter", color: Cardi.isDarkMode.value?Colors.white:Colors.black,fontSize: 10),
                 ),
                 const SizedBox(width: 2,),
                 GestureDetector(
                   onTap: () {
-                    widget.onSignUpTapped(0.63, 0.1);
+                    widget.onSignUpTapped(0.75, 0.1);
                   },
                   child:  AutoSizeText(
                     appLocalizations.signUp,
                     style: TextStyle(
                         fontFamily: "Inter",
+                        fontSize: 10,
                         color: Cardi.isDarkMode.value? Color(0xff759cd8):Color(0xff3a01de)),
                   ),
                 ),

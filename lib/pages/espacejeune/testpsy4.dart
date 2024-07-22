@@ -8,8 +8,10 @@ import 'testpsy1.dart';
 
 class Testpsy4 extends StatefulWidget {
   final String title;
+  final int score;
+  final String interpretation;
 
-  const Testpsy4({super.key, required this.title});
+  const Testpsy4({super.key, required this.title ,required this.score , required this.interpretation});
 
   @override
   State<Testpsy4> createState() => Testpsy4State();
@@ -85,7 +87,7 @@ class Testpsy4State extends State<Testpsy4> {
                               onTap: () => Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => Testpsy5(title:widget.title))),
+                                      builder: (context) => Testpsy5(title: widget.title,score: widget.score,interpretation: widget.interpretation,),)),
                               child: Text(
                                 "Résultat du test",
                                 style: TextStyle(

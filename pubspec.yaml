@@ -32,6 +32,8 @@ dependencies:
     sdk: flutter
   video_player: ^2.2.18
   page_transition: ^2.0.0
+  flame: ^1.0.0
+  sensors: ^2.0.3
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -57,6 +59,8 @@ dependencies:
   timeline_tile: ^2.0.0
   image_picker: ^1.1.2
   marqueer: ^1.4.5
+  provider: ^6.1.2
+  http: ^1.2.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -105,5 +109,11 @@ flutter:
     - family: Inter
       fonts:
         - asset: fonts/Inter-Regular.ttf
+    - family: PressStart2P
+      fonts:
+          - asset: assets/fonts1/PressStart2P-Regular.ttf
+          - asset: assets/fonts1/Roboto-Black.ttf
+          - asset: assets/fonts1/Orbitron-VariableFont_wght.ttf
+          - asset: assets/fonts1/Roboto-Bold.ttf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
