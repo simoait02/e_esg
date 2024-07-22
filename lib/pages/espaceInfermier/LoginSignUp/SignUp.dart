@@ -367,7 +367,7 @@ class _SignupState extends State<Signup> {
                         const SizedBox(width: 2),
                         GestureDetector(
                           onTap: () {
-                            widget.onSigninTapped(0.5, 0.25);
+                            widget.onSigninTapped(0.55, 0.25);
                           },
                           child: Container(
                             height: height * 0.04,

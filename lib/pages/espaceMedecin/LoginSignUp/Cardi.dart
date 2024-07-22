@@ -10,7 +10,7 @@ import 'SignUp.dart';
 import 'Password.dart';
 
 class Cardi extends StatefulWidget {
-  static double q = 0.5;
+  static double q = 0.55;
   static double top = 0.25;
   static bool moveToSpeciality = false;
   static bool stayinSpeciality = false;

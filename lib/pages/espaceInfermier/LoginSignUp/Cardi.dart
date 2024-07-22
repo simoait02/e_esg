@@ -6,7 +6,7 @@ import 'SignUp.dart';
 import 'Password.dart';
 
 class CardiInf extends StatefulWidget {
-  static double q = 0.5;
+  static double q = 0.55;
   static double top = 0.25;
   static bool isContinueTapped = false;
   static TextEditingController nomController = TextEditingController();

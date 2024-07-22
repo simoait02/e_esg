@@ -288,7 +288,7 @@ class _PasswordState extends State<Password> {
                   ),
                 ),
                 onPressed: () {
-                  widget.onBackTapped(0.7, 0.1);
+                  widget.onBackTapped(0.8, 0.1);
                 },
               ),
               CupertinoButton(

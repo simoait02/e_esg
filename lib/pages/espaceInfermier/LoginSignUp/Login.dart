@@ -223,7 +223,7 @@ class _LoginState extends State<Login> {
                   const SizedBox(width: 2,),
                   GestureDetector(
                     onTap: () {
-                      widget.onSignUpTapped(0.7, 0.1);
+                      widget.onSignUpTapped(0.8, 0.1);
                     },
                     child:  AutoSizeText(
                       appLocalizations.signUp,
