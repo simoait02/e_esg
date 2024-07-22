@@ -3,11 +3,13 @@ import 'package:e_esg/Data/patient_list.dart';
 import 'package:e_esg/Widgets/custom_sliver_app_bar.dart';
 import 'package:e_esg/pages/espaceInfermier/LoginSignUp/Cardi.dart';
 import 'package:e_esg/pages/espaceInfermier/home/MesPatients/bottomSheetSort.dart';
+import 'package:e_esg/pages/espaceInfermier/home/Profile/Settings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../Widgets/search.dart';
 import '../../../../models/patient.dart';
 
@@ -29,9 +31,18 @@ class _MespatientsState extends State<Mespatients> {
   void initState() {
     _foundedpatients = List.from(patients)..sort((a, b) => b.consultation_date.compareTo(a.consultation_date));
     _searchedpatients = _foundedpatients;
+    _loadPreferences();
     super.initState();
   }
-
+  _loadPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      CardiInf.isDarkMode.value = prefs.getBool('isDarkModePro') ?? (MediaQuery.of(context).platformBrightness == Brightness.dark);
+      SettingsPro.isSystemSettings = prefs.getBool('isSystemSettingsPro') ?? true;
+      SettingsPro.isDark = prefs.getBool('isDarkPro') ?? false;
+      SettingsPro.isLight = prefs.getBool('isLightPro') ?? false;
+    });
+  }
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
