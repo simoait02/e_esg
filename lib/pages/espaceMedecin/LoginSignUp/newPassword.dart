@@ -81,25 +81,22 @@ class _NewpasswordState extends State<Newpassword> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          Container(
+          SizedBox(
             height: height * 0.05,
             width: width * 0.7,
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: AutoSizeText(
-                appLocalizations!.createPass,
-                maxLines: 2,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30,
-                  color: Cardi.isDarkMode.value ? Colors.white : Colors.black,
-                  fontFamily: "poppins",
-                ),
+            child: AutoSizeText(
+              appLocalizations!.createPass,
+              maxLines: 2,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 30,
+                color: Cardi.isDarkMode.value ? Colors.white : Colors.black,
+                fontFamily: "poppins",
               ),
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -113,8 +110,8 @@ class _NewpasswordState extends State<Newpassword> {
                   decoration: BoxDecoration(
                     border: Border.all(
                       color: tokenFocusNode.hasFocus
-                          ? Color(0xFF2E37A4)
-                          : (Cardi.isDarkMode.value ? CupertinoColors.white.withOpacity(0.5) : Color(0xFFEAEBF6)),
+                          ? const Color(0xFF2E37A4)
+                          : (Cardi.isDarkMode.value ? CupertinoColors.white.withOpacity(0.5) : const Color(0xFFEAEBF6)),
                       width: 2.0,
                     ),
                     borderRadius: BorderRadius.circular(10),
@@ -125,7 +122,7 @@ class _NewpasswordState extends State<Newpassword> {
                       color: Cardi.isDarkMode.value ? Colors.white : Colors.black,
                     ),
                     focusNode: tokenFocusNode,
-                    cursorColor: Color(0xFF2E37A4),
+                    cursorColor: const Color(0xFF2E37A4),
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.transparent, width: 0),
                     ),
@@ -139,7 +136,7 @@ class _NewpasswordState extends State<Newpassword> {
           ),
           SizedBox(height: height*0.02,),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -154,12 +151,12 @@ class _NewpasswordState extends State<Newpassword> {
                 Container(
                   height: 50,
                   alignment: Alignment.center,
-                  padding: EdgeInsets.symmetric(horizontal: 5),
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
                   decoration: BoxDecoration(
                     border: Border.all(
                       color: passwordFocusNode.hasFocus
                           ? (validatePassword(passwordController.text) ? Colors.green : Colors.red)
-                          : (Cardi.isDarkMode.value ? CupertinoColors.white.withOpacity(0.5) : Color(0xFFEAEBF6)),
+                          : (Cardi.isDarkMode.value ? CupertinoColors.white.withOpacity(0.5) : const Color(0xFFEAEBF6)),
                       width: 2.0,
                     ),
                     borderRadius: BorderRadius.circular(10),
@@ -174,7 +171,7 @@ class _NewpasswordState extends State<Newpassword> {
                           ),
                           focusNode: passwordFocusNode,
                           obscureText: !passwordVisible,
-                          cursorColor: Color(0xFF2E37A4),
+                          cursorColor: const Color(0xFF2E37A4),
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.transparent, width: 0),
                           ),
@@ -192,8 +189,8 @@ class _NewpasswordState extends State<Newpassword> {
                   ),
                 ),
                 if (!validatePassword(passwordController.text) && passwordController.text.isNotEmpty)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 5.0),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 5.0),
                     child: Text(
                       'Password must be at least 6 characters long and include at least one digit.',
                       style: TextStyle(color: Colors.red, fontSize: 12),
@@ -209,9 +206,9 @@ class _NewpasswordState extends State<Newpassword> {
               children: [
                 SvgPicture.asset(
                   "assets/images/warning.svg",
-                  color: Color(0xff59E2DB),
+                  color: const Color(0xff59E2DB),
                 ),
-                Expanded(
+                const Expanded(
                   child: Text(
                     "The password should be at least 6 characters long and contain at least one numerical character.",
                     style: TextStyle(fontSize: 10, color: Color(0xff9999A3)),
@@ -220,9 +217,9 @@ class _NewpasswordState extends State<Newpassword> {
               ],
             ),
           ),
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -237,14 +234,14 @@ class _NewpasswordState extends State<Newpassword> {
                 Container(
                   height: 50,
                   alignment: Alignment.center,
-                  padding: EdgeInsets.symmetric(horizontal: 5),
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
                   decoration: BoxDecoration(
                     border: Border.all(
                       color: error
                           ? Colors.red
                           : Cardi.isDarkMode.value
-                          ? (confirmPasswordFocusNode.hasFocus ? Color(0xFF2E37A4) : CupertinoColors.white.withOpacity(0.5))
-                          : (confirmPasswordFocusNode.hasFocus ? Color(0xFF2E37A4) : Color(0xFFEAEBF6)),
+                          ? (confirmPasswordFocusNode.hasFocus ? const Color(0xFF2E37A4) : CupertinoColors.white.withOpacity(0.5))
+                          : (confirmPasswordFocusNode.hasFocus ? const Color(0xFF2E37A4) : const Color(0xFFEAEBF6)),
                       width: 2.0,
                     ),
                     borderRadius: BorderRadius.circular(10),
@@ -259,7 +256,7 @@ class _NewpasswordState extends State<Newpassword> {
                           ),
                           focusNode: confirmPasswordFocusNode,
                           obscureText: !confirmPasswordVisible,
-                          cursorColor: Color(0xFF2E37A4),
+                          cursorColor: const Color(0xFF2E37A4),
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.transparent, width: 0),
                           ),
@@ -288,12 +285,12 @@ class _NewpasswordState extends State<Newpassword> {
                   height: height * 0.06,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(40),
-                    border: Border.all(color: Color(0xff4E57CD)),
+                    border: Border.all(color: const Color(0xff4E57CD)),
                   ),
                   alignment: Alignment.center,
                   child: Text(
                     appLocalizations.precedent,
-                    style: TextStyle(color: Color(0xff4E57CD), fontSize: 20),
+                    style: const TextStyle(color: Color(0xff4E57CD), fontSize: 20),
                   ),
                 ),
                 onPressed: () {
@@ -350,7 +347,7 @@ class _NewpasswordState extends State<Newpassword> {
                 child: Container(
                   width: width * 0.4,
                   height: height * 0.06,
-                  padding: EdgeInsets.all(4),
+                  padding: const EdgeInsets.all(4),
                   decoration: BoxDecoration(
                     gradient: const LinearGradient(
                       colors: [Color(0xff4E57CD), Color(0xff0c40a4)],
@@ -359,8 +356,8 @@ class _NewpasswordState extends State<Newpassword> {
                   ),
                   alignment: Alignment.center,
                   child: AutoSizeText(
-                    appLocalizations.createAcc,
-                    style: TextStyle(color: Colors.white, fontSize: 17),
+                    appLocalizations.resetPass,
+                    style: const TextStyle(color: Colors.white, fontSize: 17),
                   ),
                 ),
               ),

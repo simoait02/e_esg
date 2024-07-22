@@ -67,23 +67,20 @@ class _ResetpasswordState extends State<Resetpassword> {
           SizedBox(
             height: height * 0.07,
             width: width * 0.7,
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: AutoSizeText(
-                appLocalizations!.forgotPassword.split("?")[0],
-                maxLines: 2,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30,
-                  color: Cardi.isDarkMode.value ? Colors.white : Colors.black,
-                  fontFamily: "poppins",
-                ),
+            child: AutoSizeText(
+              appLocalizations!.forgotPassword.split("?")[0],
+              maxLines: 2,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 30,
+                color: Cardi.isDarkMode.value ? Colors.white : Colors.black,
+                fontFamily: "poppins",
               ),
             ),
           ),
           SizedBox(height: height * 0.03),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Text(
               appLocalizations.resetText,
               style: GoogleFonts.roboto(
@@ -96,7 +93,7 @@ class _ResetpasswordState extends State<Resetpassword> {
           ),
           SizedBox(height: height * 0.02),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -113,10 +110,10 @@ class _ResetpasswordState extends State<Resetpassword> {
                   decoration: BoxDecoration(
                     border: Border.all(
                       color: isFocused
-                          ? Color(0xFF2E37A4)
+                          ? const Color(0xFF2E37A4)
                           : (Cardi.isDarkMode.value
                           ? CupertinoColors.white.withOpacity(0.5)
-                          : Color(0xFFEAEBF6)),
+                          : const Color(0xFFEAEBF6)),
                       width: 2.0,
                     ),
                     borderRadius: BorderRadius.circular(10),
@@ -129,7 +126,7 @@ class _ResetpasswordState extends State<Resetpassword> {
                     ),
                     focusNode: focusNode,
                     autofocus: true,
-                    cursorColor: Color(0xFF2E37A4),
+                    cursorColor: const Color(0xFF2E37A4),
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.transparent, width: 0),
                     ),
@@ -144,7 +141,7 @@ class _ResetpasswordState extends State<Resetpassword> {
                     padding: const EdgeInsets.only(top: 5),
                     child: Text(
                       emailError!,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.red,
                         fontSize: 12,
                       ),
@@ -160,12 +157,12 @@ class _ResetpasswordState extends State<Resetpassword> {
                         height: height * 0.06,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(40),
-                          border: Border.all(color: Color(0xff4E57CD)),
+                          border: Border.all(color: const Color(0xff4E57CD)),
                         ),
                         alignment: Alignment.center,
                         child: Text(
                           appLocalizations.precedent,
-                          style: TextStyle(color: Color(0xff4E57CD), fontSize: 20),
+                          style: const TextStyle(color: Color(0xff4E57CD), fontSize: 20),
                         ),
                       ),
                       onPressed: () {
@@ -185,7 +182,7 @@ class _ResetpasswordState extends State<Resetpassword> {
                         alignment: Alignment.center,
                         child: AutoSizeText(
                           appLocalizations.suivant,
-                          style: TextStyle(color: Colors.white, fontSize: 20),
+                          style: const TextStyle(color: Colors.white, fontSize: 20),
                         ),
                       ),
                       onPressed: () async {
