@@ -116,6 +116,9 @@
   "paraMedical": "شبه طبية",
   "reference": "مرجع",
   "coreference": "ضد المرجعية",
-  "gamificatiom": "اللعب"
+  "gamificatiom": "اللعب",
+  "resetPass": "إعادة تعيين",
+  "resetText": "قم بتوفير البريد الإلكتروني لحسابك الذي تريد إعادة تعيين كلمة المرور الخاصة به"
+
 
 }
