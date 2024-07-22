@@ -8,8 +8,10 @@ import '../../IES/statistiques.dart';
 class Password extends StatefulWidget {
   final Function(double,double) onBackTapped;
   final Function(double,double) onCreateTapped;
+  final TextEditingController passwordController;
+  final Function(String password) onFormChange;
 
-  Password({super.key, required this.onBackTapped, required this.onCreateTapped});
+  Password({super.key, required this.onBackTapped, required this.onCreateTapped, required this.passwordController,required this.onFormChange});
 
   @override
   State<Password> createState() => _PasswordState();
@@ -18,6 +20,10 @@ class Password extends StatefulWidget {
 class _PasswordState extends State<Password> {
   bool passwordvisible=false;
   bool passwordvisible2=false;
+  bool passwordwrong=false;
+  bool isnotconfirmed=false;
+  TextEditingController confirmpasswordController=TextEditingController();
+  String errorText="";
 
   FocusNode _focusNode = FocusNode();
   bool _isFocused = false;
@@ -99,9 +105,13 @@ class _PasswordState extends State<Password> {
             padding: EdgeInsets.only(left: 15),
             decoration: BoxDecoration(
               border: Border.all(
-                color: isDarkMode
-                    ? (_isFocused ? Color(0xFF2E37A4) : CupertinoColors.white.withOpacity(0.5))
-                    : (_isFocused ? Color(0xFF2E37A4) : Color(0xFFEAEBF6)),
+                color: _isFocused
+                    ? Color(0xFF2E37A4)
+                    : passwordwrong
+                    ? Colors.red
+                    : isDarkMode
+                    ? CupertinoColors.white.withOpacity(0.5)
+                    : Color(0xFFEAEBF6),
                 width: 2.0,
               ),
               borderRadius: BorderRadius.circular(10),
@@ -110,6 +120,7 @@ class _PasswordState extends State<Password> {
               children: [
                 Expanded(
                   child: CupertinoTextField(
+                    controller:widget.passwordController,
                     style:TextStyle(
                       color: isDarkMode?Colors.white:Colors.black,
                     ),
@@ -172,9 +183,13 @@ class _PasswordState extends State<Password> {
                   padding: EdgeInsets.only(left: 15),
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: isDarkMode
-                          ? (_isFocused2 ? Color(0xFF2E37A4) : CupertinoColors.white.withOpacity(0.5))
-                          : (_isFocused2 ? Color(0xFF2E37A4) : Color(0xFFEAEBF6)),
+                      color: _isFocused2
+                          ? Color(0xFF2E37A4)
+                          : isnotconfirmed
+                          ? Colors.red
+                          : isDarkMode
+                          ? CupertinoColors.white.withOpacity(0.5)
+                          : Color(0xFFEAEBF6),
                       width: 2.0,
                     ),
                     borderRadius: BorderRadius.circular(10),
@@ -183,6 +198,7 @@ class _PasswordState extends State<Password> {
                     children: [
                       Expanded(
                         child: CupertinoTextField(
+                          controller:confirmpasswordController,
                           style:TextStyle(
                             color: isDarkMode?Colors.white:Colors.black,
                           ),
@@ -213,6 +229,17 @@ class _PasswordState extends State<Password> {
               ],
             ),
           ),
+          Visibility(
+            visible: (passwordwrong||isnotconfirmed),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Center(child:AutoSizeText(
+                errorText,
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.red),
+              )),
+            ),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -234,7 +261,22 @@ class _PasswordState extends State<Password> {
               ),
               CupertinoButton(
                 onPressed: () {
-                  widget.onCreateTapped(0.8,0.1);
+                  final password=widget.passwordController.text;
+                  final confirmpassword=confirmpasswordController.text;
+                  setState(() {
+                    passwordwrong = !RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#%^&*\.])[A-Za-z\d!@#%^&*\.]{8,}$').hasMatch(password);
+                    isnotconfirmed=password!=confirmpassword;
+                    if (passwordwrong||isnotconfirmed) {
+                      errorText = "le mot de passe n'est pas valide";
+                    } else {
+                      errorText = "";
+                    }});
+                  if (!(passwordwrong||isnotconfirmed)){
+                    widget.onFormChange(
+                       password
+                    );
+                    widget.onCreateTapped(0.8,0.1);
+                  }
                 },
                 child: Container(
                     width: width * 0.4,

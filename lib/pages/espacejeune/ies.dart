@@ -39,134 +39,132 @@ class IesState extends State<Ies> {
     return Scaffold(
         backgroundColor: SettingsYong.isDarkMode.value?Color(0xff141218):Color(0xffF5F5F6),
       body:SingleChildScrollView(
-        child: Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 60),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Text(
-                  "Lives pour cette semaine",
-                  style: TextStyle(
-                    fontSize: titleFontSize,
-                    fontWeight: FontWeight.bold,
-                  ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 60),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                "Lives pour cette semaine",
+                style: TextStyle(
+                  fontSize: titleFontSize,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 20),
-              SizedBox(
-                height: 300,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: thisWeekLives.length,
-                  itemBuilder: (context, index) {
-                    return liveComponent(live: thisWeekLives[index],isDarkMode: SettingsYong.isDarkMode.value);
-                  },
-                ),
-              ),
-              SizedBox(height: 10),
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Text(
-                      "Lives",
-                      style: TextStyle(
-                        fontSize: titleFontSize,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  Spacer(),
-                  IconButton(
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>Lives()));
-                    },
-                    icon: Container(
-                      width: iconButtonSize - 3,
-                      height: iconButtonSize - 3,
-                      child: SvgPicture.asset("assets/images/right-icon.svg"),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 20),
-              SizedBox(
-                height: 300,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: allLives.length,
-                  itemBuilder: (context, index) {
-                    return liveComponent(live: allLives[index],isDarkMode: SettingsYong.isDarkMode.value);
-                  },
-                ),
-              ),
-              SizedBox(height: 20),
-              GestureDetector(
-                onTap: (){
-                  showDialog(
-                      context: context,
-                      builder: (context) => AddPropositionDialog(
-                        onConfirm: addNewProposition,
-                      ));
+            ),
+            SizedBox(height: 20),
+            SizedBox(
+              height: 300,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: thisWeekLives.length,
+                itemBuilder: (context, index) {
+                  return liveComponent(live: thisWeekLives[index],isDarkMode: SettingsYong.isDarkMode.value);
                 },
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(screenWidth * 0.04),
-                    border: Border.all(
-                      color: Color(0xFFEAEBF6),
-                      width: 1.0,
-                    ),
-                    color: Color(0xff2F38A5)
-                  ),
-                  padding: EdgeInsets.all(sectionPadding),
-                  child: Center(
-                    child: AutoSizeText(
-                      'Proposer',
-                      style: TextStyle(
-                        fontSize: titleFontSize - 2,
-                        color: Colors.white,
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w500,
-                      ),
+              ),
+            ),
+            SizedBox(height: 10),
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    "Lives",
+                    style: TextStyle(
+                      fontSize: titleFontSize,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
+                Spacer(),
+                IconButton(
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Lives()));
+                  },
+                  icon: Container(
+                    width: iconButtonSize - 3,
+                    height: iconButtonSize - 3,
+                    child: SvgPicture.asset("assets/images/right-icon.svg"),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 20),
+            SizedBox(
+              height: 300,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: allLives.length,
+                itemBuilder: (context, index) {
+                  return liveComponent(live: allLives[index],isDarkMode: SettingsYong.isDarkMode.value);
+                },
               ),
-              SizedBox(height: screenHeight * 0.02),
-              GestureDetector(
-                onTap: (){showDialog(
+            ),
+            SizedBox(height: 20),
+            GestureDetector(
+              onTap: (){
+                showDialog(
                     context: context,
-                    builder: (context) => VoteDialog(
-                        onConfirm: addNewProposition));
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(screenWidth * 0.04),
-                    border: Border.all(
-                      color: Color(0xFFEAEBF6),
-                      width: 1.0,
-                    ),
-                      color: Color(0xff2F38A5)
+                    builder: (context) => AddPropositionDialog(
+                      onConfirm: addNewProposition,
+                    ));
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(screenWidth * 0.04),
+                  border: Border.all(
+                    color: Color(0xFFEAEBF6),
+                    width: 1.0,
                   ),
-                  padding: EdgeInsets.all(sectionPadding),
-                  child: Center(
-                    child: AutoSizeText(
-                      'Voter',
-                      style: TextStyle(
-                        fontSize: titleFontSize - 2,
-                        color: Colors.white,
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w500,
-                      ),
+                  color: Color(0xff2F38A5)
+                ),
+                padding: EdgeInsets.all(sectionPadding),
+                child: Center(
+                  child: AutoSizeText(
+                    'Proposer',
+                    style: TextStyle(
+                      fontSize: titleFontSize - 2,
+                      color: Colors.white,
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),
               ),
-              SizedBox(height: screenHeight*0.1,)
-            ],
-          ),
+            ),
+            SizedBox(height: screenHeight * 0.02),
+            GestureDetector(
+              onTap: (){showDialog(
+                  context: context,
+                  builder: (context) => VoteDialog(
+                      onConfirm: addNewProposition));
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(screenWidth * 0.04),
+                  border: Border.all(
+                    color: Color(0xFFEAEBF6),
+                    width: 1.0,
+                  ),
+                    color: Color(0xff2F38A5)
+                ),
+                padding: EdgeInsets.all(sectionPadding),
+                child: Center(
+                  child: AutoSizeText(
+                    'Voter',
+                    style: TextStyle(
+                      fontSize: titleFontSize - 2,
+                      color: Colors.white,
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: screenHeight*0.1,)
+          ],
         ),
       ),
       );
