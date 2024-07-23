@@ -1,3 +1,6 @@
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../SideBar/Settings.dart';
 import 'confirm_informations.dart';
 import 'success.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +36,7 @@ class CardiJeune extends StatefulWidget {
   static bool scolarity=false;
   static bool hasSelected=false;
   static DateTime? selectedDateTime ;
+  static ValueNotifier<bool> isDarkMode = ValueNotifier<bool>(false);
 
   CardiJeune({super.key});
 
@@ -50,6 +54,15 @@ class _CardiJeuneState extends State<CardiJeune> {
     setState(() {
       CardiJeune.q = newQ;
       CardiJeune.top = newTop;
+    });
+  }
+  Future<void> _loadPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      CardiJeune.isDarkMode.value = prefs.getBool('isDarkMode') ?? (MediaQuery.of(context).platformBrightness == Brightness.dark);
+      SettingsYong.isSystemSettings = prefs.getBool('isSystemSettings') ?? true;
+      SettingsYong.isDark = prefs.getBool('isDark') ?? false;
+      SettingsYong.isLight = prefs.getBool('isLight') ?? false;
     });
   }
 
@@ -143,8 +156,6 @@ class _CardiJeuneState extends State<CardiJeune> {
     ]);
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -161,7 +172,7 @@ class _CardiJeuneState extends State<CardiJeune> {
             width: width * 0.9,
             height: height * CardiJeune.q,
             decoration: BoxDecoration(
-              color: isDarkMode ? Color(0xff27272d) : Colors.white,
+              color: CardiJeune.isDarkMode.value ? Color(0xff27272d) : Colors.white,
               border: Border.all(color: Color(0xFF2E37A4)),
               borderRadius: BorderRadius.circular(20),
             ),

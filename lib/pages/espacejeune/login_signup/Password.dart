@@ -67,8 +67,6 @@ class _PasswordState extends State<Password> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height =MediaQuery.of(context).size.height;
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
     final appLocalizations = AppLocalizations.of(context);
     return SingleChildScrollView(
       child: Column(
@@ -82,7 +80,7 @@ class _PasswordState extends State<Password> {
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 30,
-                  color: isDarkMode?Colors.white:Colors.black,
+                  color: CardiJeune.isDarkMode.value?Colors.white:Colors.black,
                   fontFamily: "poppins"),
             ),
           ),
@@ -96,7 +94,7 @@ class _PasswordState extends State<Password> {
             style: TextStyle(
               fontFamily: 'Poppins',
               fontSize: titleFontSize+15,
-              color: isDarkMode?Colors.white:Colors.black,
+              color: CardiJeune.isDarkMode.value?Colors.white:Colors.black,
             ),
           ),
           Container(
@@ -108,7 +106,7 @@ class _PasswordState extends State<Password> {
                     ? Color(0xFF2E37A4)
                     : passwordwrong
                     ? Colors.red
-                    : isDarkMode
+                    : CardiJeune.isDarkMode.value
                     ? CupertinoColors.white.withOpacity(0.5)
                     : Color(0xFFEAEBF6),
                 width: 2.0,
@@ -121,7 +119,7 @@ class _PasswordState extends State<Password> {
                   child: CupertinoTextField(
                     controller:CardiJeune.passwordController,
                     style:TextStyle(
-                      color: isDarkMode?Colors.white:Colors.black,
+                      color: CardiJeune.isDarkMode.value?Colors.white:Colors.black,
                     ),
                     focusNode: _focusNode,
                     autofocus: false,
@@ -174,7 +172,7 @@ class _PasswordState extends State<Password> {
                   style: TextStyle(
                     fontFamily: 'Poppins',
                     fontSize: titleFontSize+15,
-                    color: isDarkMode?Colors.white:Colors.black,
+                    color: CardiJeune.isDarkMode.value?Colors.white:Colors.black,
                   ),
                 ),
                 Container(
@@ -186,7 +184,7 @@ class _PasswordState extends State<Password> {
                           ? Color(0xFF2E37A4)
                           : isnotconfirmed
                           ? Colors.red
-                          : isDarkMode
+                          : CardiJeune.isDarkMode.value
                           ? CupertinoColors.white.withOpacity(0.5)
                           : Color(0xFFEAEBF6),
                       width: 2.0,
@@ -199,7 +197,7 @@ class _PasswordState extends State<Password> {
                         child: CupertinoTextField(
                           controller:confirmpasswordController,
                           style:TextStyle(
-                            color: isDarkMode?Colors.white:Colors.black,
+                            color: CardiJeune.isDarkMode.value?Colors.white:Colors.black,
                           ),
                           focusNode: _focusNode2,
                           autofocus: false,

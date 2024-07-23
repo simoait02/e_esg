@@ -81,6 +81,9 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
     age=CardiJeune.age;
     scolarity=CardiJeune.scolarity;
     hasSelected=CardiJeune.hasSelected;
+    dropdownValue =CardiJeune.studActu;
+    dropdownValue2 =CardiJeune.lastStud;
+    dropdownValue3 =CardiJeune.stateActu;
   }
 
   @override
@@ -136,8 +139,6 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
     final appLocalizations = AppLocalizations.of(context);
 
     return SingleChildScrollView(
@@ -155,7 +156,7 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                   child: AutoSizeText(
                     appLocalizations!.signUp,
                     style: TextStyle(
-                      color: isDarkMode ? Colors.white : Colors.black,
+                      color: CardiJeune.isDarkMode.value ? Colors.white : Colors.black,
                       fontWeight: FontWeight.bold,
                       fontSize: 30,
                       fontFamily: "poppins",
@@ -178,10 +179,10 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                         margin: EdgeInsets.symmetric(horizontal: 10),
                         child: AutoSizeText(
                           "CIN",
-                          style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
+                          style: TextStyle(color: CardiJeune.isDarkMode.value ? Colors.white : Colors.black),
                         ),
                       ),
-                      buildTextField(width, height, "",CardiJeune.cinController, _cinFocusNode, _cinHasFocus, isDarkMode,cinnull),
+                      buildTextField(width, height, "",CardiJeune.cinController, _cinFocusNode, _cinHasFocus, CardiJeune.isDarkMode.value,cinnull),
                     ],
                   ),
                 ),
@@ -192,7 +193,7 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                 margin: EdgeInsets.symmetric(horizontal: 30),
                 child: AutoSizeText(
                   appLocalizations.scolarite,
-                  style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
+                  style: TextStyle(color: CardiJeune.isDarkMode.value ? Colors.white : Colors.black),
                 ),
               ),
               Container(
@@ -225,7 +226,7 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                         ),
                         AutoSizeText(
                           appLocalizations.oui,
-                          style: TextStyle(fontFamily: "Poppins", color: isDarkMode ? Colors.white : Colors.black),
+                          style: TextStyle(fontFamily: "Poppins", color: CardiJeune.isDarkMode.value ? Colors.white : Colors.black),
                         ),
                       ],
                     ),
@@ -256,7 +257,7 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                         const SizedBox(height: 4),
                         AutoSizeText(
                           appLocalizations.non,
-                          style: TextStyle(fontFamily: "Poppins", color: isDarkMode ? Colors.white : Colors.black),
+                          style: TextStyle(fontFamily: "Poppins", color: CardiJeune.isDarkMode.value ? Colors.white : Colors.black),
                         ),
                       ],
                     ),
@@ -276,7 +277,7 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                             appLocalizations.actuelLevel,
                             style: TextStyle(
                               fontFamily: 'poppins',
-                              color: isDarkMode ? Colors.white : Colors.black,
+                              color: CardiJeune.isDarkMode.value ? Colors.white : Colors.black,
                             ),
                           ),
                           SizedBox(height: 5,),
@@ -285,7 +286,7 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                             padding: EdgeInsets.symmetric(horizontal: 15),
                             decoration: BoxDecoration(
                               border: Border.all(
-                                color:isDarkMode ? CupertinoColors.white.withOpacity(0.5) : Color(0xFFEAEBF6),
+                                color:CardiJeune.isDarkMode.value ? CupertinoColors.white.withOpacity(0.5) : Color(0xFFEAEBF6),
                                 width: 2.0,
                               ),
                               borderRadius: BorderRadius.circular(10),
@@ -296,7 +297,7 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                                   dropdownValue,
                                   style: TextStyle(
                                     fontSize: 14,
-                                    color: isDarkMode ? Colors.white.withOpacity(0.5) : Colors.black.withOpacity(0.5),
+                                    color: CardiJeune.isDarkMode.value ? Colors.white.withOpacity(0.5) : Colors.black.withOpacity(0.5),
                                   ),
                                 ),
                                 Spacer(),
@@ -307,7 +308,7 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                                       "assets/images/flèche1.png",
                                       height: 15,
                                       width: 15,
-                                      color: isDarkMode ? CupertinoColors.white.withOpacity(0.5) : Color(0xFFEAEBF6),
+                                      color: CardiJeune.isDarkMode.value ? CupertinoColors.white.withOpacity(0.5) : Color(0xFFEAEBF6),
                                     ),
                                     dropdownColor: Colors.white,
                                     onChanged: (String? newValue) {
@@ -348,10 +349,10 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                             margin: EdgeInsets.only(left: 10),
                             child: AutoSizeText(
                               "CNE",
-                              style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
+                              style: TextStyle(color: CardiJeune.isDarkMode.value ? Colors.white : Colors.black),
                             ),
                           ),
-                          buildTextField(width, height, "",CardiJeune.cneController, _cneFocusNode, _cneHasFocus, isDarkMode,cnenull),
+                          buildTextField(width, height, "",CardiJeune.cneController, _cneFocusNode, _cneHasFocus, CardiJeune.isDarkMode.value,cnenull),
                         ],
                       ),
                     ),
@@ -365,10 +366,10 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                             margin: EdgeInsets.only(left: 10),
                             child: AutoSizeText(
                               "Code Massar",
-                              style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
+                              style: TextStyle(color: CardiJeune.isDarkMode.value ? Colors.white : Colors.black),
                             ),
                           ),
-                          buildTextField(width, height, "",CardiJeune.codemassarController, _codeMassarFocusNode, _codeMassarHasFocus, isDarkMode,codemassarnull),
+                          buildTextField(width, height, "",CardiJeune.codemassarController, _codeMassarFocusNode, _codeMassarHasFocus, CardiJeune.isDarkMode.value,codemassarnull),
                         ],
                       ),
                     ),
@@ -388,7 +389,7 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                             appLocalizations.lastLevel,
                             style: TextStyle(
                               fontFamily: 'poppins',
-                              color: isDarkMode ? Colors.white : Colors.black,
+                              color: CardiJeune.isDarkMode.value ? Colors.white : Colors.black,
                             ),
                           ),
                           SizedBox(height: 7),
@@ -397,7 +398,7 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                             padding: EdgeInsets.symmetric(horizontal: 15),
                             decoration: BoxDecoration(
                               border: Border.all(
-                                color: isDarkMode ? CupertinoColors.white.withOpacity(0.5) : Color(0xFFEAEBF6),
+                                color: CardiJeune.isDarkMode.value ? CupertinoColors.white.withOpacity(0.5) : Color(0xFFEAEBF6),
                                 width: 2.0,
                               ),
                               borderRadius: BorderRadius.circular(10),
@@ -408,7 +409,7 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                                   dropdownValue2,
                                   style: TextStyle(
                                     fontSize: 14,
-                                    color: isDarkMode ? Colors.white.withOpacity(0.5) : Colors.black.withOpacity(0.5),
+                                    color: CardiJeune.isDarkMode.value ? Colors.white.withOpacity(0.5) : Colors.black.withOpacity(0.5),
                                   ),
                                 ),
                                 Spacer(),
@@ -419,7 +420,7 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                                       "assets/images/flèche1.png",
                                       height: 15,
                                       width: 15,
-                                      color: isDarkMode ? CupertinoColors.white.withOpacity(0.5) : Color(0xFFEAEBF6),
+                                      color: CardiJeune.isDarkMode.value ? CupertinoColors.white.withOpacity(0.5) : Color(0xFFEAEBF6),
                                     ),
                                     dropdownColor: Colors.white,
                                     onChanged: (String? newValue) {
@@ -464,7 +465,7 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                             margin: EdgeInsets.only(left: 10),
                             child: AutoSizeText(
                               appLocalizations.currentState,
-                              style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
+                              style: TextStyle(color: CardiJeune.isDarkMode.value ? Colors.white : Colors.black),
                             ),
                           ),
                           Container(
@@ -472,7 +473,7 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                             padding: EdgeInsets.symmetric(horizontal: 15),
                             decoration: BoxDecoration(
                               border: Border.all(
-                                color: isDarkMode ? CupertinoColors.white.withOpacity(0.5) : Color(0xFFEAEBF6),
+                                color: CardiJeune.isDarkMode.value ? CupertinoColors.white.withOpacity(0.5) : Color(0xFFEAEBF6),
                                 width: 2.0,
                               ),
                               borderRadius: BorderRadius.circular(10),
@@ -483,7 +484,7 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                                   dropdownValue3,
                                   style: TextStyle(
                                     fontSize: 14,
-                                    color: isDarkMode ? Colors.white.withOpacity(0.5) : Colors.black.withOpacity(0.5),
+                                    color: CardiJeune.isDarkMode.value ? Colors.white.withOpacity(0.5) : Colors.black.withOpacity(0.5),
                                   ),
                                 ),
                                 Spacer(),
@@ -494,7 +495,7 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                                       "assets/images/flèche1.png",
                                       height: 15,
                                       width: 15,
-                                      color: isDarkMode ? CupertinoColors.white.withOpacity(0.5) : Color(0xFFEAEBF6),
+                                      color: CardiJeune.isDarkMode.value ? CupertinoColors.white.withOpacity(0.5) : Color(0xFFEAEBF6),
                                     ),
                                     dropdownColor: Colors.white,
                                     onChanged: (String? newValue) {
@@ -558,7 +559,7 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                             CardiJeune.value1=_value;
                             CardiJeune.lastStud=dropdownValue2;
                             CardiJeune.stateActu=dropdownValue3;
-                            CardiJeune.stateActu=dropdownValue;
+                            CardiJeune.studActu=dropdownValue;
                             CardiJeune.scolarity=scolarity;
                             CardiJeune.hasSelected=hasSelected;
                           });
@@ -589,7 +590,7 @@ class _ActivitiesinformationsState extends State<Activitiesinformations> {
                             CardiJeune.value1=_value;
                             CardiJeune.lastStud=dropdownValue2;
                             CardiJeune.stateActu=dropdownValue3;
-                            CardiJeune.stateActu=dropdownValue;
+                            CardiJeune.studActu=dropdownValue;
                             CardiJeune.scolarity=scolarity;
                             CardiJeune.hasSelected=hasSelected;
                             cnenull = ((dropdownValue == 'Secondaire')||(dropdownValue == 'Supérieur'))&&cne.isEmpty;

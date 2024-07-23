@@ -163,8 +163,6 @@ class _SignupState extends State<Signup> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
     final appLocalizations = AppLocalizations.of(context)!;
 
     return SingleChildScrollView(
@@ -181,7 +179,7 @@ class _SignupState extends State<Signup> {
                   child: AutoSizeText(
                     appLocalizations.signUp,
                     style: TextStyle(
-                      color: isDarkMode ? Colors.white : Colors.black,
+                      color: CardiJeune.isDarkMode.value ? Colors.white : Colors.black,
                       fontWeight: FontWeight.bold,
                       fontSize: 30,
                       fontFamily: "poppins",
@@ -194,7 +192,7 @@ class _SignupState extends State<Signup> {
                 margin: EdgeInsets.symmetric(horizontal: 30),
                 child: AutoSizeText(
                   appLocalizations.sex,
-                  style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
+                  style: TextStyle(color: CardiJeune.isDarkMode.value ? Colors.white : Colors.black),
                 ),
               ),
               Row(
@@ -223,7 +221,7 @@ class _SignupState extends State<Signup> {
                         appLocalizations.female,
                         style: TextStyle(
                           fontFamily: "Poppins",
-                          color: isDarkMode ? Colors.white.withOpacity(0.7) : Colors.black.withOpacity(0.7),
+                          color: CardiJeune.isDarkMode.value ? Colors.white.withOpacity(0.7) : Colors.black.withOpacity(0.7),
                         ),
                       ),
                     ],
@@ -252,7 +250,7 @@ class _SignupState extends State<Signup> {
                         appLocalizations.male,
                         style: TextStyle(
                           fontFamily: "Poppins",
-                          color: isDarkMode ? Colors.white.withOpacity(0.7) : Colors.black.withOpacity(0.7),
+                          color: CardiJeune.isDarkMode.value ? Colors.white.withOpacity(0.7) : Colors.black.withOpacity(0.7),
                         ),
                       ),
                     ],
@@ -274,10 +272,10 @@ class _SignupState extends State<Signup> {
                             margin: EdgeInsets.only(left: 10),
                             child: AutoSizeText(
                               appLocalizations.nom,
-                              style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
+                              style: TextStyle(color: CardiJeune.isDarkMode.value ? Colors.white : Colors.black),
                             ),
                           ),
-                          buildTextField(width * 0.5, height, "", CardiJeune.lastnameController, _nomFocusNode, _nomHasFocus, isDarkMode, lastnamenull),
+                          buildTextField(width * 0.5, height, "", CardiJeune.lastnameController, _nomFocusNode, _nomHasFocus, CardiJeune.isDarkMode.value, lastnamenull),
                         ],
                       ),
                     ),
@@ -291,10 +289,10 @@ class _SignupState extends State<Signup> {
                             margin: EdgeInsets.only(left: 10),
                             child: AutoSizeText(
                               appLocalizations.prenom,
-                              style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
+                              style: TextStyle(color: CardiJeune.isDarkMode.value ? Colors.white : Colors.black),
                             ),
                           ),
-                          buildTextField(width * 0.5, height, "", CardiJeune.firstnameController, _prenomFocusNode, _prenomHasFocus, isDarkMode, firstnamenull),
+                          buildTextField(width * 0.5, height, "", CardiJeune.firstnameController, _prenomFocusNode, _prenomHasFocus, CardiJeune.isDarkMode.value, firstnamenull),
                         ],
                       ),
                     ),
@@ -310,7 +308,7 @@ class _SignupState extends State<Signup> {
                     padding: EdgeInsets.symmetric(horizontal: 30),
                     child: AutoSizeText(
                       appLocalizations.birthDay,
-                      style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
+                      style: TextStyle(color: CardiJeune.isDarkMode.value ? Colors.white : Colors.black),
                     ),
                   ),
                   GestureDetector(
@@ -324,7 +322,7 @@ class _SignupState extends State<Signup> {
                           return Container(
                             width: width,
                             height: height * 0.35,
-                            color: isDarkMode ? CupertinoColors.black : CupertinoColors.white,
+                            color: CardiJeune.isDarkMode.value ? CupertinoColors.black : CupertinoColors.white,
                             child: Column(
                               children: [
                                 Row(
@@ -359,7 +357,7 @@ class _SignupState extends State<Signup> {
                                       textTheme: CupertinoTextThemeData(
                                         dateTimePickerTextStyle: GoogleFonts.poppins(
                                           textStyle: TextStyle(
-                                            color: isDarkMode ? Colors.white : Colors.black,
+                                            color: CardiJeune.isDarkMode.value ? Colors.white : Colors.black,
                                             fontSize: 20,
                                           ),
                                         ),
@@ -389,7 +387,7 @@ class _SignupState extends State<Signup> {
                       margin: EdgeInsets.symmetric(horizontal: 20),
                       decoration: BoxDecoration(
                         border: Border.all(
-                          color: datenull ? Colors.red : isDarkMode
+                          color: datenull ? Colors.red : CardiJeune.isDarkMode.value
                               ? CupertinoColors.white.withOpacity(0.5)
                               : Color(0xFFEAEBF6),
                           width: 2,
@@ -403,12 +401,12 @@ class _SignupState extends State<Signup> {
                             label,
                             style: TextStyle(
                               fontSize: 14,
-                              color: isDarkMode ? Colors.white.withOpacity(0.7) : Colors.black.withOpacity(0.7),
+                              color: CardiJeune.isDarkMode.value ? Colors.white.withOpacity(0.7) : Colors.black.withOpacity(0.7),
                             ),
                           ),
                           Icon(
                             CupertinoIcons.calendar,
-                            color: isDarkMode
+                            color: CardiJeune.isDarkMode.value
                                 ? CupertinoColors.white.withOpacity(0.5)
                                 : Color(0xFFEAEBF6),
                           ),
@@ -424,12 +422,12 @@ class _SignupState extends State<Signup> {
                 margin: EdgeInsets.symmetric(horizontal: 30),
                 child: AutoSizeText(
                   appLocalizations.email,
-                  style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
+                  style: TextStyle(color: CardiJeune.isDarkMode.value ? Colors.white : Colors.black),
                 ),
               ),
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 20),
-                child: buildTextField(width, height, "", CardiJeune.emailController, _emailFocusNode, _emailHasFocus, isDarkMode, emailnull),
+                child: buildTextField(width, height, "", CardiJeune.emailController, _emailFocusNode, _emailHasFocus, CardiJeune.isDarkMode.value, emailnull),
               ),
               SizedBox(height: height * 0.015),
               Container(
@@ -437,12 +435,12 @@ class _SignupState extends State<Signup> {
                 margin: EdgeInsets.symmetric(horizontal: 30),
                 child: AutoSizeText(
                   appLocalizations.tele,
-                  style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
+                  style: TextStyle(color: CardiJeune.isDarkMode.value ? Colors.white : Colors.black),
                 ),
               ),
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 20),
-                child: buildTextField(width, height, "", CardiJeune.numteleController, _numTeleFocusNode, _numTeleHasFocus, isDarkMode, numtelenull),
+                child: buildTextField(width, height, "", CardiJeune.numteleController, _numTeleFocusNode, _numTeleHasFocus, CardiJeune.isDarkMode.value, numtelenull),
               ),
             ],
           ),
@@ -533,7 +531,7 @@ class _SignupState extends State<Signup> {
                         appLocalizations.login,
                         style: TextStyle(
                           fontFamily: "Inter",
-                          color: isDarkMode ? Color(0xff759cd8) : Color(0xff3a01de),
+                          color: CardiJeune.isDarkMode.value ? Color(0xff759cd8) : Color(0xff3a01de),
                           fontWeight: FontWeight.w400,
                           fontSize: width * 0.04,
                         ),

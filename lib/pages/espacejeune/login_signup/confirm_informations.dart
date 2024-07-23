@@ -52,8 +52,6 @@ class _ConfirmInformationsState extends State<ConfirmInformations> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
     final appLocalizations = AppLocalizations.of(context);
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
@@ -69,7 +67,7 @@ class _ConfirmInformationsState extends State<ConfirmInformations> {
                 child: AutoSizeText(
                   "Confirmer vos informations",
                   style: TextStyle(
-                      color: isDarkMode ? Colors.white : Colors.black,
+                      color: CardiJeune.isDarkMode.value ? Colors.white : Colors.black,
                       fontWeight: FontWeight.bold,
                       fontSize: 30,
                       fontFamily: "poppins"),
@@ -93,34 +91,34 @@ class _ConfirmInformationsState extends State<ConfirmInformations> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      buildInfoRow(width, appLocalizations!.sex, CardiJeune.value==2?"Homme":"Femme",isDarkMode),
+                      buildInfoRow(width, appLocalizations!.sex, CardiJeune.value==2?"Homme":"Femme",CardiJeune.isDarkMode.value),
                       const SizedBox(height: 10),
-                      buildInfoRow(width, appLocalizations.nom, CardiJeune.lastnameController.text,isDarkMode),
+                      buildInfoRow(width, appLocalizations.nom, CardiJeune.lastnameController.text,CardiJeune.isDarkMode.value),
                       const SizedBox(height: 10),
-                      buildInfoRow(width, appLocalizations.prenom, CardiJeune.firstnameController.text,isDarkMode),
+                      buildInfoRow(width, appLocalizations.prenom, CardiJeune.firstnameController.text,CardiJeune.isDarkMode.value),
                       const SizedBox(height: 10),
-                      buildInfoRow(width, appLocalizations.birthDay, "${CardiJeune.selectedDateTime?.day}/${CardiJeune.selectedDateTime?.month}/${CardiJeune.selectedDateTime?.year}",isDarkMode),
+                      buildInfoRow(width, appLocalizations.birthDay, "${CardiJeune.selectedDateTime?.day}/${CardiJeune.selectedDateTime?.month}/${CardiJeune.selectedDateTime?.year}",CardiJeune.isDarkMode.value),
                       const SizedBox(height: 10),
-                      buildInfoRow(width, appLocalizations.tele, CardiJeune.numteleController.text,isDarkMode),
+                      buildInfoRow(width, appLocalizations.tele, CardiJeune.numteleController.text,CardiJeune.isDarkMode.value),
                       const SizedBox(height: 10),
-                      buildInfoRow(width, appLocalizations.email, CardiJeune.emailController.text,isDarkMode),
+                      buildInfoRow(width, appLocalizations.email, CardiJeune.emailController.text,CardiJeune.isDarkMode.value),
                       const SizedBox(height: 10),
-                      if(CardiJeune.age>=16) buildInfoRow(width, "Cin", CardiJeune.cinController.text,isDarkMode),
+                      if(CardiJeune.age>=16) buildInfoRow(width, "Cin", CardiJeune.cinController.text,CardiJeune.isDarkMode.value),
                       const SizedBox(height: 10),
                       if(CardiJeune.scolarity)
                         ...[
-                          buildInfoRow(width, "Niveau d'etudes actuel", convertToUpperCase(CardiJeune.studActu),isDarkMode),
+                          buildInfoRow(width, "Niveau d'etudes actuel", convertToUpperCase(CardiJeune.studActu),CardiJeune.isDarkMode.value),
                           const SizedBox(height: 10),
                           if(CardiJeune.studActu == 'Primaire')
-                            buildInfoRow(width, "Code massar", CardiJeune.codemassarController.text,isDarkMode)
+                            buildInfoRow(width, "Code massar", CardiJeune.codemassarController.text,CardiJeune.isDarkMode.value)
                           else
-                            buildInfoRow(width, "Cne", CardiJeune.cneController.text,isDarkMode),
+                            buildInfoRow(width, "Cne", CardiJeune.cneController.text,CardiJeune.isDarkMode.value),
                         ]
                       else
                         ...[
-                          buildInfoRow(width, "Dernier niveau d'etudes", CardiJeune.lastStud,isDarkMode),
+                          buildInfoRow(width, "Dernier niveau d'etudes", CardiJeune.lastStud,CardiJeune.isDarkMode.value),
                           const SizedBox(height: 10),
-                          buildInfoRow(width, "Situation actuelle", CardiJeune.stateActu,isDarkMode),
+                          buildInfoRow(width, "Situation actuelle", CardiJeune.stateActu,CardiJeune.isDarkMode.value),
                         ],
                     ],
                   ),
@@ -156,18 +154,18 @@ class _ConfirmInformationsState extends State<ConfirmInformations> {
                     final url = Uri.parse("$Url/register/jeunes/scolarise");
                     Map<String, dynamic> data = {
                       "infoUser": {
-                        "nom":CardiJeune.lastnameController.text,
-                        "prenom": CardiJeune.firstnameController.text,
-                        "mail": CardiJeune.emailController.text,
-                        "numTel": CardiJeune.numteleController.text,
-                        "motDePasse": CardiJeune.passwordController.text
+                        "nom": "CardiJeune.lastnameController.text",
+                        "prenom": "John",
+                        "mail": "dahhou.ily@gmail.com",
+                        "numTel": "0660213456",
+                        "motDePasse": "yourPassword123"
                       },
-                      "sexe": CardiJeune.value==2?"MASCULIN":"FEMININ",
-                      "dateNaissance": "${CardiJeune.selectedDateTime?.year}-${CardiJeune.selectedDateTime?.month}-${CardiJeune.selectedDateTime?.day}",
+                      "sexe": "MASCULIN",
+                      "dateNaissance": "2000-01-01",
                       "scolarise": true,
-                      "cin": CardiJeune.cinController.text,
-                      "niveauEtudeActuel": CardiJeune.studActu,
-                      "cne": CardiJeune.cneController.text
+                      "cin": "AB123456",
+                      "niveauEtudeActuel": "SUPERIEUR",
+                      "cne": "1233456"
                     };
                     try {
                       final response = await http.post(
@@ -192,7 +190,7 @@ class _ConfirmInformationsState extends State<ConfirmInformations> {
                     }
                   }
                   else {
-                    final url = Uri.parse("$Url/register/jeunes/nonscolarise");
+                    final url = Uri.parse("$Url/register/jeunes/scolarise");
                     Map<String, dynamic> data = {
                       "infoUser": {
                         "nom":CardiJeune.lastnameController.text,

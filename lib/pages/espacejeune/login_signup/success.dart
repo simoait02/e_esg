@@ -3,6 +3,8 @@ import 'package:e_esg/pages/espacejeune/DossierMedical/DocMedical.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import 'Cardi.dart';
 class Success extends StatefulWidget {
   const Success({super.key});
 
@@ -29,8 +31,6 @@ class _SuccessState extends State<Success> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height =MediaQuery.of(context).size.height;
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
     final appLocalizations = AppLocalizations.of(context);
     return Padding(
       padding: EdgeInsets.all(20),
@@ -45,7 +45,7 @@ class _SuccessState extends State<Success> {
               fontFamily: "poppins",
               fontWeight: FontWeight.w500,
               fontSize: 30,
-              color: isDarkMode?Colors.white:Colors.black
+              color: CardiJeune.isDarkMode.value?Colors.white:Colors.black
             ),
           ))
         ],
