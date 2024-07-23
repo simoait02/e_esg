@@ -91,7 +91,7 @@ class CalendrierState extends State<Calendrier> {
     double titleFontSize = screenWidth * 0.06;
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xffF5F5F6),
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
@@ -156,10 +156,7 @@ class CalendrierState extends State<Calendrier> {
                       height: screenHeight * 0.5,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(screenWidth * 0.04),
-                        border: Border.all(
-                          color: Color(0xFFEAEBF6),
-                          width: 2.0,
-                        ),
+                        color:Colors.white,
                       ),
                       padding: EdgeInsets.all(sectionPadding),
                       child: SizedBox(
@@ -286,10 +283,7 @@ class CalendrierState extends State<Calendrier> {
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(screenWidth * 0.04),
-                          border: Border.all(
-                            color: Color(0xFFEAEBF6),
-                            width: 1.0,
-                          ),
+                          color:Colors.white,
                         ),
                         padding: EdgeInsets.all(sectionPadding),
                         child: Row(
@@ -321,10 +315,7 @@ class CalendrierState extends State<Calendrier> {
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(screenWidth * 0.04),
-                          border: Border.all(
-                            color: Color(0xFFEAEBF6),
-                            width: 1.0,
-                          ),
+                          color:Colors.white,
                         ),
                         padding: EdgeInsets.all(sectionPadding),
                         child: Row(

@@ -10,6 +10,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../api.dart';
+import '../../IES/statistiques.dart';
 import '../SideBar/SidebarController.dart';
 import 'Cardi.dart';
 
@@ -30,6 +31,7 @@ class _LoginState extends State<Login> {
   bool remember=false;
   bool identifiernull=false;
   bool passwordnull=false;
+  bool passwordvisible=false;
 
   final TextEditingController _identifierController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -47,6 +49,12 @@ class _LoginState extends State<Login> {
       setState(() {
         _passwordHasFocus = _passwordFocusNode.hasFocus;
       });
+    });
+  }
+  void _showPassword(){
+    setState(() {
+      passwordvisible=!passwordvisible;
+      if(_passwordHasFocus) _passwordHasFocus=true;
     });
   }
 
@@ -129,7 +137,54 @@ class _LoginState extends State<Login> {
             buildLabel(appLocalizations.id,height*0.02,CardiJeune.isDarkMode.value),
             buildTextField(width,height, "E-mail, CIN, CNE, Code Massar",_identifierController, _emailFocusNode, _emailHasFocus,CardiJeune.isDarkMode.value,identifiernull),
             buildLabel(appLocalizations.password,height*0.02,CardiJeune.isDarkMode.value),
-            buildTextField(width, height,"",_passwordController, _passwordFocusNode, _passwordHasFocus,CardiJeune.isDarkMode.value,passwordnull),
+            Container(
+              height: 51,
+              padding: EdgeInsets.only(left: 15),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: _passwordHasFocus
+                      ? Color(0xFF2E37A4)
+                      : passwordnull
+                      ? Colors.red
+                      : CardiJeune.isDarkMode.value
+                      ? CupertinoColors.white.withOpacity(0.5)
+                      : Color(0xFFEAEBF6),
+                  width: 2.0,
+                ),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: CupertinoTextField(
+                      controller:_passwordController,
+                      style:TextStyle(
+                        color: CardiJeune.isDarkMode.value?Colors.white:Colors.black,
+                      ),
+                      focusNode: _passwordFocusNode,
+                      autofocus: false,
+                      obscureText: !passwordvisible,
+                      cursorColor: Color(0xFF2E37A4),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.transparent, width: 0),
+                      ),
+                      onTapOutside: (PointerDownEvent event) {
+                        _passwordFocusNode.unfocus();
+                      },
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: _showPassword,
+                    highlightColor: Colors.transparent,
+                    icon: Container(
+                      width: iconButtonSize+30,
+                      height: iconButtonSize+30,
+                      child:passwordvisible? Image.asset('assets/images/invisible.png'):Image.asset('assets/images/visible.png'),
+                    ),
+                  ),
+                ],
+              ),
+            ),
             SizedBox(height: height*0.01,),
             GestureDetector(
               child: Container(

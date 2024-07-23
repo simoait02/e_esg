@@ -487,7 +487,7 @@ class _SignupState extends State<Signup> {
                     lastnamenull = lastname.isEmpty;
                     firstnamenull = firstname.isEmpty;
                     emailnull = email.isEmpty || !RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$').hasMatch(email);
-                    numtelenull = numtele.isEmpty || !RegExp(r'^\d{10}$').hasMatch(numtele);
+                    numtelenull = numtele.isEmpty || !RegExp(r'^(06|07)\d{8}$').hasMatch(numtele);
                     datenull = selectedDateTime == null;
                     tooyoung = selectedDateTime != null && age < 10;
                     tooold = selectedDateTime != null && age > 30;

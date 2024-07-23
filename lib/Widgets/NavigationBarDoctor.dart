@@ -1,3 +1,4 @@
+import 'package:e_esg/pages/IES/espace_professionnel.dart';
 import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
 import 'package:e_esg/pages/espaceMedecin/home/IES.dart';
 import 'package:e_esg/pages/espaceMedecin/home/MesPatients/MesPatients.dart';
@@ -24,7 +25,7 @@ class _NavbarDocState extends State<NavbarDoc> {
   List<dynamic> selected = [
     const Mespatients(),
     const Newteleexpertise(),
-    const Ies(),
+    const EspaceProfessionnel(),
     const Chatbot(),
     const Profile(),
   ];
@@ -124,6 +125,7 @@ class _NavbarDocState extends State<NavbarDoc> {
           debugShowCheckedModeBanner: false,
           theme: isDarkMode ? ThemeData.dark() : ThemeData.light(),
           home: Scaffold(
+            backgroundColor: Colors.white,
             body: Stack(
               children: [
                 selected[_selectedItem],
