@@ -165,7 +165,8 @@ class _ConfirmInformationsState extends State<ConfirmInformations> {
                       "scolarise": true,
                       "cin": CardiJeune.cinController.text,
                       "niveauEtudeActuel": "SUPERIEUR",
-                      "cne": CardiJeune.cneController.text
+                      "cne": CardiJeune.cneController.text,
+                      "age":CardiJeune.age
                     };
                     try {
                       final response = await http.post(
@@ -200,11 +201,12 @@ class _ConfirmInformationsState extends State<ConfirmInformations> {
                         "motDePasse": CardiJeune.passwordController.text
                       },
                       "sexe": CardiJeune.value==2?"MASCULIN":"FEMININ",
-                      "dateNaissance": "${CardiJeune.selectedDateTime?.year}-${CardiJeune.selectedDateTime?.month}-${CardiJeune.selectedDateTime?.day}",
+                      "dateNaissance": CardiJeune.birthDay,
                       "scolarise": false,
                       "cin":CardiJeune.cinController.text,
                       "dernierNiveauEtudes": "SUPERIEUR",
-                      "enActivite": CardiJeune.stateActu=='En activité'
+                      "enActivite": CardiJeune.stateActu=='En activité',
+                      "age":CardiJeune.age
 
                     };
                     try {

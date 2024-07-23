@@ -58,8 +58,6 @@ class _PasswordState extends State<Password> {
   void dispose() {
     _focusNode.dispose();
     _focusNode2.dispose();
-    passwordController.dispose();
-    copasswordController.dispose();
     super.dispose();
   }
 
