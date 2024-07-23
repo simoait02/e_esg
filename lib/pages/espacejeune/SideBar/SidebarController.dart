@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:e_esg/Widgets/NavigationBarJeune.dart';
 import 'package:e_esg/pages/espacejeune/SideBar/Settings.dart';
+import 'package:e_esg/pages/espacejeune/gamification/widgets/game_app.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -76,7 +77,17 @@ class _SideBarControllerState extends State<SideBarController> with SingleTicker
           });
           },
         );
-      case 2:
+      case 2: return GameApp(isSideBarClosed: isSideBarClosed,
+        onSidebarToggle: () {
+          if (isSideBarClosed) {
+            _animationController.forward();
+          } else {
+            _animationController.reverse();
+          }
+          setState(() {
+            isSideBarClosed = !isSideBarClosed;
+          });
+        },);
         // // return Discussions(
         //   isSideBarClosed: isSideBarClosed,
         //   onSidebarToggle: () {
@@ -135,21 +146,22 @@ class _SideBarControllerState extends State<SideBarController> with SingleTicker
       ],
       home: Scaffold(
         backgroundColor: const Color(0xff2e37a4),
-        body: GestureDetector(
-              onHorizontalDragEnd: (details) {
-            if (details.primaryVelocity! > 0 && isSideBarClosed) {
-              _animationController.forward();
-              setState(() {
-                isSideBarClosed = !isSideBarClosed;
-              });
-            } else if (details.primaryVelocity! < 0 && !isSideBarClosed) {
-              _animationController.reverse();
-              setState(() {
-                isSideBarClosed = !isSideBarClosed;
-              });
-            }
-            },
-          child: Stack(
+        // body: GestureDetector(
+        //       onHorizontalDragEnd: (details) {
+        //     if (details.primaryVelocity! > 0 && isSideBarClosed) {
+        //       _animationController.forward();
+        //       setState(() {
+        //         isSideBarClosed = !isSideBarClosed;
+        //       });
+        //     } else if (details.primaryVelocity! < 0 && !isSideBarClosed) {
+        //       _animationController.reverse();
+        //       setState(() {
+        //         isSideBarClosed = !isSideBarClosed;
+        //       });
+        //     }
+        //     },
+        //   child:
+        body :Stack(
             children: [
               AnimatedPositioned(
                 duration: Duration(milliseconds: 200),
@@ -214,8 +226,7 @@ class _SideBarControllerState extends State<SideBarController> with SingleTicker
             ],
           ),
         ),
-      ),
-    );
+      );
   }
 }
 

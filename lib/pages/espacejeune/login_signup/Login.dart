@@ -112,22 +112,18 @@ class _LoginState extends State<Login> {
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 30),
+        margin: EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              margin: EdgeInsets.only(left:30),
-              child:  Container(
-                height: height*0.07,
-                child: AutoSizeText(
-                  appLocalizations!.login,
-                  style: TextStyle(
-                      color: isDarkMode?Colors.white:Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30,
-                      fontFamily: "poppins"
-                  ),
+              child:  AutoSizeText(
+                appLocalizations!.login,
+                style: TextStyle(
+                    color: isDarkMode?Colors.white:Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30,
+                    fontFamily: "poppins"
                 ),
               ),
             ),

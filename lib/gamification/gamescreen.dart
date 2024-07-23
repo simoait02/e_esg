@@ -5,8 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:sensors/sensors.dart';
 import 'Acceuil.dart';
 
-
-
 enum FoodType {
   FastFood,
   Cigarette,
@@ -70,10 +68,12 @@ class _GameScreenState extends State<GameScreen> with SingleTickerProviderStateM
 
     _animation = Tween<double>(begin: 0, end: jumpHeight).animate(_controller)
       ..addListener(() {
-        setState(() {
-          playerBottom = _animation.value;
-          checkCollision();
-        });
+        if (mounted) { // Ensure the widget is still mounted
+          setState(() {
+            playerBottom = _animation.value;
+            checkCollision();
+          });
+        }
       })
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
@@ -91,23 +91,12 @@ class _GameScreenState extends State<GameScreen> with SingleTickerProviderStateM
     });
 
     Timer.periodic(Duration(milliseconds: 100), (timer) {
-      setState(() {
-        final size = MediaQuery.of(context).size;
-        backgroundX1 -= 3;
-        backgroundX2 -= 3;
-
-        if (backgroundX1 <= -backgroundWidth) {
-          backgroundX1 = backgroundWidth;
-        }
-        if (backgroundX2 <= -backgroundWidth) {
-          backgroundX2 = backgroundWidth;
-        }
-
-        _moveFood();
-      });
+      if (mounted) { // Ensure the widget is still mounted
+        setState(() {
+          _moveFood();
+        });
+      }
     });
-
-    Timer(Duration(hours: 1), () {});
 
     accelerometerEvents.listen((AccelerometerEvent event) {});
   }
@@ -165,7 +154,7 @@ class _GameScreenState extends State<GameScreen> with SingleTickerProviderStateM
             }).toList(),
             Positioned(
               left: playerLeft,
-              bottom: groundLevel + playerBottom,
+              bottom: groundLevel + playerBottom + 40,
               child: GestureDetector(
                 onTap: () {
                   jump();
@@ -181,7 +170,7 @@ class _GameScreenState extends State<GameScreen> with SingleTickerProviderStateM
                 child: Column(
                   children: [
                     Text(
-                      'Score: $score',
+                      "Score: $score",
                       style: TextStyle(fontSize: 20, color: Colors.white),
                     ),
                     SizedBox(height: 10),
@@ -235,15 +224,17 @@ class _GameScreenState extends State<GameScreen> with SingleTickerProviderStateM
 
   void _descend() {
     Timer.periodic(Duration(milliseconds: 50), (timer) {
-      setState(() {
-        if (playerBottom > 0) {
-          playerBottom -= 2;
-        } else {
-          playerBottom = 0;
-          timer.cancel();
-        }
-        checkCollision();
-      });
+      if (mounted) { // Ensure the widget is still mounted
+        setState(() {
+          if (playerBottom > 0) {
+            playerBottom -= 2;
+          } else {
+            playerBottom = 0;
+            timer.cancel();
+          }
+          checkCollision();
+        });
+      }
     });
   }
 
@@ -322,6 +313,18 @@ class _GameScreenState extends State<GameScreen> with SingleTickerProviderStateM
     });
 
     if (score >= 50) {
+      if (mounted) { // Ensure the widget is still mounted
+        _showWinDialog();
+      }
+    } else if (score < 0) {
+      if (mounted) { // Ensure the widget is still mounted
+        _showGameOverDialog();
+      }
+    }
+  }
+
+  void _showWinDialog() {
+    if (mounted) {
       showDialog(
         context: context,
         barrierDismissible: false,
@@ -344,7 +347,7 @@ class _GameScreenState extends State<GameScreen> with SingleTickerProviderStateM
                       color: Colors.black.withOpacity(0.8),
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(
-                        color: const Color.fromARGB(255, 255, 239, 68),
+                        color: Colors.yellow,
                         width: 3,
                       ),
                     ),
@@ -381,6 +384,7 @@ class _GameScreenState extends State<GameScreen> with SingleTickerProviderStateM
                           children: [
                             ElevatedButton(
                               onPressed: () {
+                                Navigator.of(context).pop();
                                 RevenirGame();
                               },
                               child: Text('No'),
@@ -388,6 +392,7 @@ class _GameScreenState extends State<GameScreen> with SingleTickerProviderStateM
                             SizedBox(width: 10),
                             ElevatedButton(
                               onPressed: () {
+                                Navigator.of(context).pop();
                                 resetGame();
                               },
                               child: Text('Yes'),
@@ -403,77 +408,84 @@ class _GameScreenState extends State<GameScreen> with SingleTickerProviderStateM
           );
         },
       );
-    } else if (score < 0) {
-      showGameOverDialog();
     }
   }
 
-  void showGameOverDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(
-            'GAME OVER',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontFamily: 'PressStart2P',
-              fontSize: 28,
-              color: Colors.red,
+  void _showGameOverDialog() {
+    if (mounted) {
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(
+              'GAME OVER',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontFamily: 'PressStart2P',
+                fontSize: 28,
+                color: Colors.red,
+              ),
             ),
-          ),
-          content: Text(
-            'PLAY AGAIN?',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontFamily: 'PressStart2P',
-              fontSize: 20,
-              color: Colors.white,
+            content: Text(
+              'PLAY AGAIN?',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontFamily: 'PressStart2P',
+                fontSize: 20,
+                color: Colors.white,
+              ),
             ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                resetGame();
-              },
-              child: Text('YES', style: TextStyle(fontFamily: 'PressStart2P')),
-            ),
-            TextButton(
-              onPressed: () {
-                RevenirGame();
-              },
-              child: Text('NO', style: TextStyle(fontFamily: 'PressStart2P')),
-            ),
-          ],
-          backgroundColor: Colors.black,
-        );
-      },
-    );
-  }
-
-  void RevenirGame() {
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => Acceuil()),
-    );
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  resetGame();
+                },
+                child: Text('YES', style: TextStyle(fontFamily: 'PressStart2P')),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  RevenirGame();
+                },
+                child: Text('NO', style: TextStyle(fontFamily: 'PressStart2P')),
+              ),
+            ],
+            backgroundColor: Colors.black,
+          );
+        },
+      );
+    }
   }
 
   void resetGame() {
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => GameScreen()),
-    );
+    setState(() {
+      score = 0;
+      foods.clear();
+      playerBottom = 0;
+      playerLeft = MediaQuery.of(context).size.width / 2 - 35;
+      isJumping = false;
+    });
+  }
+
+  void RevenirGame() {
+    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Acceuil()));
   }
 
   void moveLeft() {
     setState(() {
-      playerLeft -= 9;
-      playerLeft = playerLeft.clamp(0, MediaQuery.of(context).size.width - 40);
+      if (playerLeft > 0) {
+        playerLeft -= 20;
+      }
     });
   }
 
   void moveRight() {
     setState(() {
-      playerLeft += 9;
-      playerLeft = playerLeft.clamp(0, MediaQuery.of(context).size.width - 40);
+      if (playerLeft < MediaQuery.of(context).size.width - 70) {
+        playerLeft += 20;
+      }
     });
   }
 

@@ -114,116 +114,130 @@ class _NavbarYouthState extends State<NavbarYouth> with TickerProviderStateMixin
   Widget build(BuildContext context) {
     return ValueListenableBuilder<bool>(
       valueListenable: SettingsYong.isDarkMode,
-        builder: (context, isDarkMode, child) {
-      return MaterialApp(
-        localizationsDelegates: [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate
-        ],
-        locale: _locale,
-        supportedLocales: const [
-          Locale('ar'),
-          Locale('fr'),
-          Locale('en')
-        ],
-        debugShowCheckedModeBanner: false,
-        theme: isDarkMode ? ThemeData.dark() : ThemeData.light(),
-        home: Scaffold(
-          body: Stack(
-            children: [
-              selected[_selectedItem],
-              Positioned(
-                left: 0,
-                right: 0,
-                bottom: 0,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: isDarkMode ? const Color(0xff141218) : Colors.white,
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: isDarkMode ? Colors.black26 : Colors.grey.withOpacity(0.3),
-                        spreadRadius: 3,
-                        blurRadius: 7,
-                        offset: const Offset(0, 3),
+      builder: (context, isDarkMode, child) {
+        return MaterialApp(
+          localizationsDelegates: [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate
+          ],
+          locale: _locale,
+          supportedLocales: const [
+            Locale('ar'),
+            Locale('fr'),
+            Locale('en')
+          ],
+          debugShowCheckedModeBanner: false,
+          theme: isDarkMode ? ThemeData.dark() : ThemeData.light(),
+          home: Scaffold(
+            body: Stack(
+              children: [
+                GestureDetector(
+                  onHorizontalDragEnd: (details) {
+                    if (details.primaryVelocity! > 0 && widget.isSideBarClosed) {
+                      widget.onSidebarToggle(); // Ensure to call the function
+                    } else if (details.primaryVelocity! < 0 && !widget.isSideBarClosed) {
+                      widget.onSidebarToggle(); // Ensure to call the function
+                    }
+                  },
+                  child: selected[_selectedItem],
+                ),
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: isDarkMode ? const Color(0xff141218) : Colors.white,
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
                       ),
-                    ],
-                  ),
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20),
-                    ),
-                    child: BottomNavigationBar(
-                      currentIndex: _selectedItem,
-                      onTap: (index) {
-                        setState(() {
-                          if(pile.contains(index)){
-                            pile.remove(index);
-                            pile.add(index);
-                          }else{
-                            pile.add(index);
-                          }
-                          print(selected.elementAt(index));
-                          print(pile);
-                          _selectedItem = index;
-                        });
-                      },
-                      showSelectedLabels: false,
-                      showUnselectedLabels: false,
-                      backgroundColor: isDarkMode ? const Color(0xff141218) : Colors.white,
-                      items: [
-                        BottomNavigationBarItem(
-                          icon: _buildNavItem("assets/images/dossierMedical.png", "Dossier médical", 0,isDarkMode),
-                          label: "",
-                        ),
-                        BottomNavigationBarItem(
-                          icon: _buildNavItem("assets/images/IES.png", "IES", 1,isDarkMode),
-                          label: "",
-                        ),
-                        BottomNavigationBarItem(
-                          icon: _buildNavItem("assets/images/testPsych.png", "Test psychologique",2,isDarkMode),
-                          label: "",
+                      boxShadow: [
+                        BoxShadow(
+                          color: isDarkMode ? Colors.black26 : Colors.grey.withOpacity(0.3),
+                          spreadRadius: 3,
+                          blurRadius: 7,
+                          offset: const Offset(0, 3),
                         ),
                       ],
                     ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 0,
-                top: 20,
-                child: ClipPath(
-                  clipper: CustomMenuClipper(),
-                  child: Container(
-                    width: 35,
-                    height: 100,
-                    color: const Color(0xff2e37a4),
-                    alignment: Alignment.centerLeft,
-                    child: GestureDetector(
-                      onTap: widget.onSidebarToggle,
-                      child: widget.isSideBarClosed?Padding(
-                        padding: const EdgeInsets.only(left: 5),
-                        child: SvgPicture.asset(
-                          "assets/images/more.svg",
-                          color: Colors.purple.shade100,
-                        ),
-                      ):const Icon(
-                        CupertinoIcons.clear_circled_solid,size: 40,color: Colors.white24,
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
                       ),
-                    )
+                      child: BottomNavigationBar(
+                        currentIndex: _selectedItem,
+                        onTap: (index) {
+                          setState(() {
+                            if (pile.contains(index)) {
+                              pile.remove(index);
+                              pile.add(index);
+                            } else {
+                              pile.add(index);
+                            }
+                            print(selected.elementAt(index));
+                            print(pile);
+                            _selectedItem = index;
+                          });
+                        },
+                        showSelectedLabels: false,
+                        showUnselectedLabels: false,
+                        backgroundColor: isDarkMode ? const Color(0xff141218) : Colors.white,
+                        items: [
+                          BottomNavigationBarItem(
+                            icon: _buildNavItem("assets/images/dossierMedical.png", "Dossier médical", 0, isDarkMode),
+                            label: "",
+                          ),
+                          BottomNavigationBarItem(
+                            icon: _buildNavItem("assets/images/IES.png", "IES", 1, isDarkMode),
+                            label: "",
+                          ),
+                          BottomNavigationBarItem(
+                            icon: _buildNavItem("assets/images/testPsych.png", "Test psychologique", 2, isDarkMode),
+                            label: "",
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
-              )
-            ],
+                Positioned(
+                  left: 0,
+                  top: 20,
+                  child: ClipPath(
+                    clipper: CustomMenuClipper(),
+                    child: Container(
+                      width: 35,
+                      height: 100,
+                      color: const Color(0xff2e37a4),
+                      alignment: Alignment.centerLeft,
+                      child: GestureDetector(
+                        onTap: widget.onSidebarToggle,
+                        child: widget.isSideBarClosed
+                            ? Padding(
+                          padding: const EdgeInsets.only(left: 5),
+                          child: SvgPicture.asset(
+                            "assets/images/more.svg",
+                            color: Colors.purple.shade100,
+                          ),
+                        )
+                            : const Icon(
+                          CupertinoIcons.clear_circled_solid,
+                          size: 40,
+                          color: Colors.white24,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-      );}
+        );
+      },
     );
   }
 }
