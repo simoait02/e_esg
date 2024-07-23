@@ -11,6 +11,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../api.dart';
 import '../SideBar/SidebarController.dart';
+import 'Cardi.dart';
 
 class Login extends StatefulWidget {
   final Function(double, double) onSignUpTapped;
@@ -106,8 +107,6 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
     final appLocalizations = AppLocalizations.of(context);
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
@@ -120,17 +119,17 @@ class _LoginState extends State<Login> {
               child:  AutoSizeText(
                 appLocalizations!.login,
                 style: TextStyle(
-                    color: isDarkMode?Colors.white:Colors.black,
+                    color: CardiJeune.isDarkMode.value?Colors.white:Colors.black,
                     fontWeight: FontWeight.bold,
                     fontSize: 30,
                     fontFamily: "poppins"
                 ),
               ),
             ),
-            buildLabel(appLocalizations.id,height*0.02,isDarkMode),
-            buildTextField(width,height, "E-mail, CIN, CNE, Code Massar",_identifierController, _emailFocusNode, _emailHasFocus,isDarkMode,identifiernull),
-            buildLabel(appLocalizations.password,height*0.02,isDarkMode),
-            buildTextField(width, height,"",_passwordController, _passwordFocusNode, _passwordHasFocus,isDarkMode,passwordnull),
+            buildLabel(appLocalizations.id,height*0.02,CardiJeune.isDarkMode.value),
+            buildTextField(width,height, "E-mail, CIN, CNE, Code Massar",_identifierController, _emailFocusNode, _emailHasFocus,CardiJeune.isDarkMode.value,identifiernull),
+            buildLabel(appLocalizations.password,height*0.02,CardiJeune.isDarkMode.value),
+            buildTextField(width, height,"",_passwordController, _passwordFocusNode, _passwordHasFocus,CardiJeune.isDarkMode.value,passwordnull),
             SizedBox(height: height*0.01,),
             GestureDetector(
               child: Container(
@@ -229,7 +228,7 @@ class _LoginState extends State<Login> {
                       appLocalizations.signUp,
                       style: TextStyle(
                         fontFamily: "Inter",
-                        color: isDarkMode ? Color(0xff759cd8) : Color(0xff3a01de),
+                        color: CardiJeune.isDarkMode.value ? Color(0xff759cd8) : Color(0xff3a01de),
                           fontWeight: FontWeight.w400,
                           fontSize: 15
                       ),

@@ -14,6 +14,7 @@ import 'Password.dart';
 class CardiJeune extends StatefulWidget {
   static double q = 0.55;
   static double top = 0.25;
+  static String birthDay="";
   static bool moveToActivitiesInformations = false;
   static bool stayinActivitiesInformations = false;
   static bool moveToPassword = false;

@@ -71,7 +71,7 @@ class _SignupState extends State<Signup> {
     _value = CardiJeune.value;
     selectedDateTime = CardiJeune.selectedDateTime;
     label = CardiJeune.selectedDateTime != null
-        ? intl.DateFormat.yMMMMd().format(CardiJeune.selectedDateTime!)
+        ? intl.DateFormat('yyyy-MM-dd').format(selectedDateTime!)
         : "date de naissance";
   }
 
@@ -151,7 +151,8 @@ class _SignupState extends State<Signup> {
   void updateDate(DateTime newDate) {
     setState(() {
       selectedDateTime = newDate;
-      label = intl.DateFormat.yMMMMd().format(selectedDateTime!);
+      label = intl.DateFormat('yyyy-MM-dd').format(selectedDateTime!);
+      CardiJeune.birthDay=label;
     });
   }
 
