@@ -4,6 +4,8 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:e_esg/Widgets/custom_sliver_app_bar.dart';
 import 'package:e_esg/models/live.dart';
 
+import '../espacejeune/SideBar/Settings.dart';
+
 class LiveInformationsPage extends StatefulWidget {
   const LiveInformationsPage({super.key});
 
@@ -34,26 +36,21 @@ class _LiveInformationsPageState extends State<LiveInformationsPage> {
     sectionPadding = screenWidth * 0.04;
     titleFontSize = screenWidth * 0.06;
     return Scaffold(
-      backgroundColor: Color(0xffF5F5F6),
+      backgroundColor: SettingsYong.isDarkMode.value?Color(0xff141218):Color(0xffF5F5F6),
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            CustomSliverAppBar(
-              name: "Chaimae Bouti",
-              role: "docteur",
-              imagePath: 'assets/images/boy.png',
-            ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.all(15),
+                padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 40),
                 child: Container(
                   padding: EdgeInsets.all(sectionPadding),
-                  decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(10)),
+                  decoration: BoxDecoration(color:SettingsYong.isDarkMode.value?Color(0xff333448): Colors.white,borderRadius: BorderRadius.circular(10)),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Container(
-                        padding: EdgeInsets.symmetric(vertical: 20),
+                        padding: EdgeInsets.only(bottom: 20),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10),
                           child: Container(

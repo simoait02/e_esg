@@ -7,6 +7,7 @@ import 'package:searchfield/searchfield.dart';
 
 import '../../Widgets/custom_sliver_app_bar.dart';
 import '../../Widgets/text_field.dart';
+import '../espacejeune/SideBar/Settings.dart';
 class Avisjeune extends StatefulWidget {
   const Avisjeune({super.key});
 
@@ -132,18 +133,17 @@ class _AvisjeuneState extends State<Avisjeune> {
     double iconButtonSize = screenWidth * 0.10;
     double sectionPadding = screenWidth * 0.04;
     double titleFontSize = screenWidth * 0.06;
-    return Scaffold(backgroundColor: Colors.white,
+    return Scaffold(backgroundColor: SettingsYong.isDarkMode.value ? Color(0xff141218) : Color(0xffF5F5F6),
     body: SafeArea(
       child: CustomScrollView(
         slivers: [
-          CustomSliverAppBar(name: "Liam Michael", role: "Jeune", imagePath: 'assets/images/boy.png'),
           SliverToBoxAdapter(
             child: Container(
               padding: EdgeInsets.all(sectionPadding),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: screenHeight * 0.03),
+                  SizedBox(height: 40),
                   Center(
                     child: Text(
                       "Ce que vous pensez du Live...",
@@ -156,7 +156,7 @@ class _AvisjeuneState extends State<Avisjeune> {
                   ),
                   SizedBox(height: 50),
                   Container(
-                    padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                    padding: EdgeInsets.only(left: 10, right: 10, bottom: 20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -217,7 +217,7 @@ class _AvisjeuneState extends State<Avisjeune> {
                                   ),
                                   offset: Offset(0, 50),
                                   suggestionsDecoration: SuggestionDecoration(
-                                    color: Colors.white,
+                                    color: SettingsYong.isDarkMode.value ? Color(0xff141218) : Color(0xffF5F5F6),
                                     borderRadius: BorderRadius.circular(10),
                                     width: MediaQuery.of(context).size.width - 100,
                                   ),
@@ -251,7 +251,7 @@ class _AvisjeuneState extends State<Avisjeune> {
                                     child: Container(
                                       width: 15,
                                       height: 15,
-                                      child: Image.asset("assets/images/flèche1.png"),
+                                      child: Image.asset("assets/images/flèche1.png",color:SettingsYong.isDarkMode.value ? Color(0xFFEAEBF6) : Color(0xff141218),),
                                     ),
                                   ),
                                 ),
@@ -263,7 +263,7 @@ class _AvisjeuneState extends State<Avisjeune> {
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                    padding: EdgeInsets.only(left: 10, right: 10, bottom: 20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -324,7 +324,7 @@ class _AvisjeuneState extends State<Avisjeune> {
                                   ),
                                   offset: Offset(0, 50),
                                   suggestionsDecoration: SuggestionDecoration(
-                                    color: Colors.white,
+                                    color: SettingsYong.isDarkMode.value ? Color(0xff141218) : Color(0xffF5F5F6),
                                     borderRadius: BorderRadius.circular(10),
                                     width: MediaQuery.of(context).size.width - 100,
                                   ),
@@ -358,7 +358,7 @@ class _AvisjeuneState extends State<Avisjeune> {
                                     child: Container(
                                       width: 15,
                                       height: 15,
-                                      child: Image.asset("assets/images/flèche1.png"),
+                                      child: Image.asset("assets/images/flèche1.png",color:SettingsYong.isDarkMode.value ? Color(0xFFEAEBF6) : Color(0xff141218),),
                                     ),
                                   ),
                                 ),
@@ -371,7 +371,7 @@ class _AvisjeuneState extends State<Avisjeune> {
                   ),
                   CustomTextField(title: "Y-a-t-il un sujet que vous aimeriez voir abordé en direct?",height: 15,),
                   Container(
-                    padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                    padding: EdgeInsets.only(left: 10, right: 10, bottom: 20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -443,7 +443,7 @@ class _AvisjeuneState extends State<Avisjeune> {
                           ),
                           style: ElevatedButton.styleFrom(
                             foregroundColor: Color(0xFF2E37A4),
-                            backgroundColor: Colors.white,
+                              backgroundColor: SettingsYong.isDarkMode.value ? Color(0xff141218) : Color(0xffF5F5F6),
                             padding: EdgeInsets.all(15),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),

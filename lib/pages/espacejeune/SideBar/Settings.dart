@@ -16,17 +16,46 @@ class SettingsYong extends StatefulWidget {
   static bool isDark = false;
   static bool isLight = false;
   static ValueNotifier<bool> isDarkMode = ValueNotifier<bool>(false);
-  const SettingsYong({super.key,required this.isSideBarClosed,required this.onSidebarToggle});
+
+  const SettingsYong({
+    super.key,
+    required this.isSideBarClosed,
+    required this.onSidebarToggle,
+  });
 
   @override
   State<SettingsYong> createState() => _SettingsYongState();
 }
 
-class _SettingsYongState extends State<SettingsYong> {
+class _SettingsYongState extends State<SettingsYong> with WidgetsBindingObserver {
   Color backgroundColor = SettingsYong.isDarkMode.value ? const Color(0xff181a1b) : Colors.white;
   Color textColor = SettingsYong.isDarkMode.value ? Colors.white : Colors.black;
   Color dividerColor = SettingsYong.isDarkMode.value ? Colors.white.withOpacity(0.2) : Colors.black.withOpacity(0.2);
   Color iconColor = SettingsYong.isDarkMode.value ? Colors.white.withOpacity(0.5) : Colors.black.withOpacity(0.5);
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    _loadPreferences();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangePlatformBrightness() {
+    super.didChangePlatformBrightness();
+    if (SettingsYong.isSystemSettings) {
+      setState(() {
+        SettingsYong.isDarkMode.value = WidgetsBinding.instance.window.platformBrightness == Brightness.dark;
+        _updateColors();
+      });
+    }
+  }
 
   _loadPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -35,7 +64,7 @@ class _SettingsYongState extends State<SettingsYong> {
       SettingsYong.isSystemSettings = prefs.getBool('isSystemSettingsYong') ?? true;
       SettingsYong.isDark = prefs.getBool('isDarkYong') ?? false;
       SettingsYong.isLight = prefs.getBool('isLightYong') ?? false;
-      SettingsYong.isDarkMode.value = prefs.getBool('isDarkModeYong') ?? (MediaQuery.of(context).platformBrightness == Brightness.dark);
+      SettingsYong.isDarkMode.value = prefs.getBool('isDarkModeYong') ?? (WidgetsBinding.instance.window.platformBrightness == Brightness.dark);
       _updateColors();
     });
   }
@@ -56,12 +85,6 @@ class _SettingsYongState extends State<SettingsYong> {
       dividerColor = SettingsYong.isDarkMode.value ? Colors.white.withOpacity(0.2) : Colors.black.withOpacity(0.2);
       iconColor = SettingsYong.isDarkMode.value ? Colors.white.withOpacity(0.5) : Colors.black.withOpacity(0.5);
     });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _loadPreferences();
   }
 
   @override
@@ -120,7 +143,8 @@ class _SettingsYongState extends State<SettingsYong> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(context, CupertinoPageRoute(builder: (context)=>Languageyouth()));
+                      Navigator.push(context,
+                          CupertinoPageRoute(builder: (context) => Languageyouth()));
                     },
                     child: Row(
                       children: [
@@ -204,9 +228,9 @@ class _SettingsYongState extends State<SettingsYong> {
                         GestureDetector(
                           onTap: () {
                             setState(() {
-                              SettingsYong.isDarkMode.value = MediaQuery.of(context)
-                                  .platformBrightness ==
-                                  Brightness.dark;
+                              SettingsYong.isDarkMode.value =
+                                  WidgetsBinding.instance.window.platformBrightness ==
+                                      Brightness.dark;
                               SettingsYong.isSystemSettings = true;
                               SettingsYong.isDark = false;
                               SettingsYong.isLight = false;
@@ -238,8 +262,7 @@ class _SettingsYongState extends State<SettingsYong> {
                               ),
                               SettingsYong.isSystemSettings
                                   ? Align(
-                                  alignment: AlignmentDirectional
-                                      .centerEnd,
+                                  alignment: AlignmentDirectional.centerEnd,
                                   child: Icon(
                                     Icons.check,
                                     color: iconColor,
@@ -287,8 +310,7 @@ class _SettingsYongState extends State<SettingsYong> {
                               ),
                               SettingsYong.isDark
                                   ? Align(
-                                  alignment: AlignmentDirectional
-                                      .centerEnd,
+                                  alignment: AlignmentDirectional.centerEnd,
                                   child: Icon(
                                     Icons.check,
                                     color: iconColor,
@@ -336,8 +358,7 @@ class _SettingsYongState extends State<SettingsYong> {
                               ),
                               SettingsYong.isLight
                                   ? Align(
-                                  alignment: AlignmentDirectional
-                                      .centerEnd,
+                                  alignment: AlignmentDirectional.centerEnd,
                                   child: Icon(
                                     Icons.check,
                                     color: iconColor,

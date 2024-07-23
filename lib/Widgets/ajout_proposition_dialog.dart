@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../pages/espacejeune/SideBar/Settings.dart';
+
 class AddPropositionDialog extends StatefulWidget {
 
   final Function(String) onConfirm;
@@ -46,7 +48,7 @@ class _AddPropositionDialogState extends State<AddPropositionDialog> {
             fontWeight: FontWeight.w600,
             fontSize: titleFontSize),),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor:SettingsYong.isDarkMode.value? Color(0xff333448):Colors.white,
       children: [
         Padding(
           padding: const EdgeInsets.all(20),
@@ -98,7 +100,7 @@ class _AddPropositionDialogState extends State<AddPropositionDialog> {
                   fontFamily: "Poppins",
                   fontWeight: FontWeight.w600,
                   fontSize: titleFontSize-4,
-                  color: Color(0xFF2E37A4)
+                  color: SettingsYong.isDarkMode.value?  Color(0xFFEAEBF6):Color(0xFF2E37A4)
               ),),
             ),
             TextButton(
@@ -113,7 +115,7 @@ class _AddPropositionDialogState extends State<AddPropositionDialog> {
                   fontFamily: "Poppins",
                   fontWeight: FontWeight.w600,
                   fontSize: titleFontSize-4,
-                  color: Color(0xFF2E37A4)
+                  color: SettingsYong.isDarkMode.value?  Color(0xFFEAEBF6):Color(0xFF2E37A4)
               ),),
             ),
             SizedBox(width: 20),
