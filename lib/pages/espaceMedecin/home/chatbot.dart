@@ -1,6 +1,9 @@
 import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
 
 class Chatbot extends StatefulWidget {
   const Chatbot({super.key});
@@ -15,21 +18,49 @@ class ChatbotState extends State<Chatbot> {
   int selectedIndex = 0;
 
   void sendMessage() {
-    if (controller.text.isNotEmpty) {
-      setState(() {
-        messages.add({"type": "user", "text": controller.text});
-        messages.add({"type": "bot", "text": "This is a response from the bot."});
-        controller.clear();
-      });
-    }
-  }
-
-  void resendMessage(String messageText) {
+  if (controller.text.isNotEmpty) {
+    String userMessage = controller.text;
     setState(() {
-      messages.add({"type": "user", "text": messageText});
-      messages.add({"type": "bot", "text": "This is a regenerated response from the bot."});
+      messages.add({"type": "user", "text": userMessage});
+    });
+    String url = 'Url/chatbot/ask';
+    http.post(Uri.parse(url), body: {'message': userMessage}).then((response) {
+      if (response.statusCode == 200) {
+        var responseData = jsonDecode(response.body);
+        setState(() {
+          messages.add({"type": "bot", "text": responseData['response']});
+        });
+      } else {
+        setState(() {
+          messages.add({"type": "bot", "text": "Error communicating with the bot"});
+        });
+      }
+      controller.clear();
+    }).catchError((error) {
+      setState(() {
+        messages.add({"type": "bot", "text": "Error: $error"});
+      });
+      controller.clear();
     });
   }
+}
+
+  void resendMessage(String messageText) {
+  setState(() {
+    var lastBotMessage;
+    for (var i = messages.length - 1; i >= 0; i--) {
+      if (messages[i]['type'] == 'bot' && messages[i]['text'] != null) {
+        lastBotMessage = messages[i];
+        break;
+      }
+    }
+    if (lastBotMessage != null && lastBotMessage['text'] != null) {
+      messages.add({"type": "bot", "text": lastBotMessage['text']});
+    } else {
+      print('No previous bot message found with non-null text.');
+    }
+  });
+}
 
   Widget buildMessage(Map<String, String> message, double screenWidth) {
     bool isUser = message['type'] == 'user';
