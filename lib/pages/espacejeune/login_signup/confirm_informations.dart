@@ -162,10 +162,9 @@ class _ConfirmInformationsState extends State<ConfirmInformations> {
                       },
                       "sexe": CardiJeune.value==2?"MASCULIN":"FEMININ",
                       "dateNaissance": CardiJeune.birthDay,
-                      "age" : CardiJeune.age,
                       "scolarise": true,
                       "cin": CardiJeune.cinController.text,
-                      "niveauEtudeActuel": convertToUpperCase(CardiJeune.studActu),
+                      "niveauEtudeActuel": "SUPERIEUR",
                       "cne": CardiJeune.cneController.text
                     };
                     try {
