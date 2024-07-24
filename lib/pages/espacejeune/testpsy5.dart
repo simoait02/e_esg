@@ -1,6 +1,14 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:flutter_email_sender/flutter_email_sender.dart';
+import 'package:path_provider/path_provider.dart';
 import '../../Widgets/custom_sliver_app_bar.dart';
 import 'SideBar/Settings.dart';
+import 'dart:typed_data';
+import 'package:flutter/services.dart' show rootBundle;
 
 class Testpsy5 extends StatefulWidget {
   final String title;
@@ -24,13 +32,68 @@ class Testpsy5State extends State<Testpsy5> {
   @override
   void initState() {
     super.initState();
-    infos = {
-      "Identifiant": "01", 
-      "Nom et Prénom": "Nom Prénom", 
-      "Date du test": "4/7/2024", 
-      "Score": widget.score.toString(),
-};
+      String currentDate = DateTime.now().toString(); 
+      String formattedDate = DateFormat('dd/MM/yyyy HH:mm').format(DateTime.now());
+      infos = {
+        "Identifiant": "01", 
+        "Nom et Prénom": "Nom Prénom", 
+        "Date du test": formattedDate, 
+        "Score": widget.score.toString(),
+     };
+  }
 
+
+  Future<File> generatePDF() async {
+    final pdf = pw.Document();
+
+    final Uint8List imageUint8List = (await rootBundle.load('assets/images/esjLogo.jpeg')).buffer.asUint8List();
+
+    pdf.addPage(
+      pw.Page(
+        build: (pw.Context context) => pw.Column(
+          crossAxisAlignment: pw.CrossAxisAlignment.start,
+          children: [
+            pw.Container(
+            padding: pw.EdgeInsets.only(bottom: 12),
+            alignment: pw.Alignment.topLeft,
+            child: pw.Image(pw.MemoryImage(imageUint8List), width: 90),
+            ),
+            pw.Text("Informations du test psychologique", style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+            pw.SizedBox(height: 12),
+            pw.Text("Identifiant: ${infos["Identifiant"]}"),
+            pw.Text("Nom et Prénom: ${infos["Nom et Prénom"]}"),
+            pw.Text("Date du test: ${infos["Date du test"]}"),
+            pw.Text("Score: ${infos["Score"]}"),
+            pw.SizedBox(height: 24),
+            pw.Text("Interprétation du résultat", style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+            pw.SizedBox(height: 12),
+            pw.Text(widget.interpretation),
+          ],
+        ),
+      ),
+    );
+
+    final output = await getTemporaryDirectory();
+    final file = File("${output.path}/test_results.pdf");
+    await file.writeAsBytes(await pdf.save());
+
+    return file;
+  }
+
+  void sendEmailWithPDF(File pdfFile) async {
+    final Email email = Email(
+      body: "Veuillez trouver ci-joint les résultats de votre test psychologique.",
+      subject: "${widget.title} - Résultats du test psychologique",
+      recipients: ['jeune@gmail.com'], 
+      attachmentPaths: [pdfFile.path],
+    );
+
+    try {
+      await FlutterEmailSender.send(email);
+      print("Email envoyé avec succès");
+    } catch (error) {
+      print("Erreur lors de l'envoi de l'email: $error");
+    }
   }
 
   @override
