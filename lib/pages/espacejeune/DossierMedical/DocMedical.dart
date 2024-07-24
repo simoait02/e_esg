@@ -72,7 +72,7 @@ class _DocMedicalState extends State<DocMedical> {
                 LinearProgressIndicator(
                   value: progress,
                   color: const Color(0xff65558f),
-                  backgroundColor: const Color(0xff00d3c7),
+                  backgroundColor: const Color(0xFFEAEBF6),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 SizedBox(height: height*0.03),

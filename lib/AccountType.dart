@@ -223,17 +223,15 @@ class _AccounttypeState extends State<Accounttype> {
                 ),
                 onPressed: () {
                   if (isDoctor) {
-                    Navigator.pushAndRemoveUntil(
+                    Navigator.push(
                       context,
                       CupertinoPageRoute(builder: (context) => Cardi()),
-                          (Route<dynamic> route) => false,
                     );
                   }
                   if(isJeune){
-                    Navigator.pushAndRemoveUntil(
+                    Navigator.push(
                       context,
                       CupertinoPageRoute(builder: (context) =>CardiJeune()),
-                          (Route<dynamic> route) => false,
                     );
                   };
                   if(isInfermier){

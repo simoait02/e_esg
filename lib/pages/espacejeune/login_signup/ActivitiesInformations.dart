@@ -8,14 +8,12 @@ class Activitiesinformations extends StatefulWidget {
   final Function(double, double) onBackTapped;
   final Function(double, double) onScolarityTapped;
   final Function(double, double) onPasswordTapped;
-  final Function(double, double) onLoginTapped;
 
   Activitiesinformations({
     Key? key,
     required this.onBackTapped,
     required this.onScolarityTapped,
     required this.onPasswordTapped,
-    required this.onLoginTapped,
   }) : super(key: key);
 
   @override

@@ -71,7 +71,7 @@ class _SignupState extends State<Signup> {
     _value = CardiJeune.value;
     selectedDateTime = CardiJeune.selectedDateTime;
     label = CardiJeune.selectedDateTime != null
-        ? intl.DateFormat.yMMMMd().format(CardiJeune.selectedDateTime!)
+        ? intl.DateFormat('yyyy-MM-dd').format(selectedDateTime!)
         : "date de naissance";
   }
 
@@ -151,7 +151,8 @@ class _SignupState extends State<Signup> {
   void updateDate(DateTime newDate) {
     setState(() {
       selectedDateTime = newDate;
-      label = intl.DateFormat.yMMMMd().format(selectedDateTime!);
+      label = intl.DateFormat('yyyy-MM-dd').format(selectedDateTime!);
+      CardiJeune.birthDay=label;
     });
   }
 
@@ -486,7 +487,7 @@ class _SignupState extends State<Signup> {
                     lastnamenull = lastname.isEmpty;
                     firstnamenull = firstname.isEmpty;
                     emailnull = email.isEmpty || !RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$').hasMatch(email);
-                    numtelenull = numtele.isEmpty || !RegExp(r'^\d{10}$').hasMatch(numtele);
+                    numtelenull = numtele.isEmpty || !RegExp(r'^(06|07)\d{8}$').hasMatch(numtele);
                     datenull = selectedDateTime == null;
                     tooyoung = selectedDateTime != null && age < 10;
                     tooold = selectedDateTime != null && age > 30;

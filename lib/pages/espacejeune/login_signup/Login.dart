@@ -1,8 +1,6 @@
 import 'dart:convert';
 
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:e_esg/Widgets/NavigationBarJeune.dart';
-import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -10,12 +8,15 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../api.dart';
+import '../../IES/statistiques.dart';
 import '../SideBar/SidebarController.dart';
+import 'Cardi.dart';
 
 class Login extends StatefulWidget {
   final Function(double, double) onSignUpTapped;
+  final Function(double, double) onResetPassTapped;
 
-  Login({super.key, required this.onSignUpTapped});
+  Login({super.key, required this.onSignUpTapped, required this.onResetPassTapped});
 
   @override
   State<Login> createState() => _LoginState();
@@ -29,6 +30,7 @@ class _LoginState extends State<Login> {
   bool remember=false;
   bool identifiernull=false;
   bool passwordnull=false;
+  bool passwordvisible=false;
 
   final TextEditingController _identifierController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -46,6 +48,12 @@ class _LoginState extends State<Login> {
       setState(() {
         _passwordHasFocus = _passwordFocusNode.hasFocus;
       });
+    });
+  }
+  void _showPassword(){
+    setState(() {
+      passwordvisible=!passwordvisible;
+      if(_passwordHasFocus) _passwordHasFocus=true;
     });
   }
 
@@ -106,8 +114,6 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
     final appLocalizations = AppLocalizations.of(context);
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
@@ -120,19 +126,67 @@ class _LoginState extends State<Login> {
               child:  AutoSizeText(
                 appLocalizations!.login,
                 style: TextStyle(
-                    color: isDarkMode?Colors.white:Colors.black,
+                    color: CardiJeune.isDarkMode.value?Colors.white:Colors.black,
                     fontWeight: FontWeight.bold,
                     fontSize: 30,
                     fontFamily: "poppins"
                 ),
               ),
             ),
-            buildLabel(appLocalizations.id,height*0.02,isDarkMode),
-            buildTextField(width,height, "E-mail, CIN, CNE, Code Massar",_identifierController, _emailFocusNode, _emailHasFocus,isDarkMode,identifiernull),
-            buildLabel(appLocalizations.password,height*0.02,isDarkMode),
-            buildTextField(width, height,"",_passwordController, _passwordFocusNode, _passwordHasFocus,isDarkMode,passwordnull),
+            buildLabel(appLocalizations.id,height*0.02,CardiJeune.isDarkMode.value),
+            buildTextField(width,height, "E-mail, CIN, CNE, Code Massar",_identifierController, _emailFocusNode, _emailHasFocus,CardiJeune.isDarkMode.value,identifiernull),
+            buildLabel(appLocalizations.password,height*0.02,CardiJeune.isDarkMode.value),
+            Container(
+              height: 51,
+              padding: EdgeInsets.only(left: 15),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: _passwordHasFocus
+                      ? Color(0xFF2E37A4)
+                      : passwordnull
+                      ? Colors.red
+                      : CardiJeune.isDarkMode.value
+                      ? CupertinoColors.white.withOpacity(0.5)
+                      : Color(0xFFEAEBF6),
+                  width: 2.0,
+                ),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: CupertinoTextField(
+                      controller:_passwordController,
+                      style:TextStyle(
+                        color: CardiJeune.isDarkMode.value?Colors.white:Colors.black,
+                      ),
+                      focusNode: _passwordFocusNode,
+                      autofocus: false,
+                      obscureText: !passwordvisible,
+                      cursorColor: Color(0xFF2E37A4),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.transparent, width: 0),
+                      ),
+                      onTapOutside: (PointerDownEvent event) {
+                        _passwordFocusNode.unfocus();
+                      },
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: _showPassword,
+                    highlightColor: Colors.transparent,
+                    icon: Container(
+                      width: iconButtonSize+30,
+                      height: iconButtonSize+30,
+                      child:passwordvisible? Image.asset('assets/images/invisible.png'):Image.asset('assets/images/visible.png'),
+                    ),
+                  ),
+                ],
+              ),
+            ),
             SizedBox(height: height*0.01,),
             GestureDetector(
+              onTap: ()=>widget.onResetPassTapped(0.5, 0.25),
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 15),
                 alignment: Alignment.centerRight,
@@ -229,7 +283,7 @@ class _LoginState extends State<Login> {
                       appLocalizations.signUp,
                       style: TextStyle(
                         fontFamily: "Inter",
-                        color: isDarkMode ? Color(0xff759cd8) : Color(0xff3a01de),
+                        color: CardiJeune.isDarkMode.value ? Color(0xff759cd8) : Color(0xff3a01de),
                           fontWeight: FontWeight.w400,
                           fontSize: 15
                       ),

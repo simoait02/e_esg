@@ -23,7 +23,7 @@ class ChatbotState extends State<Chatbot> {
     setState(() {
       messages.add({"type": "user", "text": userMessage});
     });
-    String url = 'Url/chatbot/ask';
+    String url = 'http://192.168.1.19:5000/Chatbot/ask';
     http.post(Uri.parse(url), body: {'message': userMessage}).then((response) {
       if (response.statusCode == 200) {
         var responseData = jsonDecode(response.body);

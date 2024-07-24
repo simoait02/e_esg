@@ -154,18 +154,18 @@ class _ConfirmInformationsState extends State<ConfirmInformations> {
                     final url = Uri.parse("$Url/register/jeunes/scolarise");
                     Map<String, dynamic> data = {
                       "infoUser": {
-                        "nom": "CardiJeune.lastnameController.text",
-                        "prenom": "John",
-                        "mail": "dahhou.ily@gmail.com",
-                        "numTel": "0660213456",
-                        "motDePasse": "yourPassword123"
+                        "nom": CardiJeune.lastnameController.text,
+                        "prenom": CardiJeune.firstnameController.text,
+                        "mail": CardiJeune.emailController.text,
+                        "numTel": CardiJeune.numteleController.text,
+                        "motDePasse": CardiJeune.passwordController.text
                       },
-                      "sexe": "MASCULIN",
-                      "dateNaissance": "2000-01-01",
+                      "sexe": CardiJeune.value==2?"MASCULIN":"FEMININ",
+                      "dateNaissance": CardiJeune.birthDay,
                       "scolarise": true,
-                      "cin": "AB123456",
+                      "cin": CardiJeune.cinController.text,
                       "niveauEtudeActuel": "SUPERIEUR",
-                      "cne": "1233456"
+                      "cne": CardiJeune.cneController.text
                     };
                     try {
                       final response = await http.post(

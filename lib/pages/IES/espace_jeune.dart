@@ -8,6 +8,7 @@ import '../../Data/live_list.dart';
 import '../../Widgets/ajout_proposition_dialog.dart';
 import '../../Widgets/custom_sliver_app_bar.dart';
 import '../../models/live.dart';
+import '../espacejeune/SideBar/Settings.dart';
 import 'ajoutLive.dart';
 import 'live_informations_page.dart';
 import 'lives.dart';
@@ -22,21 +23,17 @@ import 'lives.dart';
    double sectionPadding=0;
    double titleFontSize =0;
    double iconFontSize =0;
-   bool isDarkMode1=false;
    void addNewProposition(String subject) {
 
    }
    @override
    Widget build(BuildContext context) {
-     var brightness = MediaQuery.of(context).platformBrightness;
-     bool isDarkMode = brightness == Brightness.dark;
      final screenWidth = MediaQuery.of(context).size.width;
-     isDarkMode1=isDarkMode;
      sectionPadding = screenWidth*0.04;
      titleFontSize = screenWidth*0.035;
      iconFontSize = screenWidth*0.055;
      return Scaffold(
-       backgroundColor: isDarkMode ? Color(0xff141218) : Color(0xffF5F5F6),
+       backgroundColor: SettingsYong.isDarkMode.value ? Color(0xff141218) : Color(0xffF5F5F6),
        body: SafeArea(
          child: CustomScrollView(
            slivers: [
@@ -164,7 +161,7 @@ import 'lives.dart';
          margin: EdgeInsets.only(right: 8),
          padding: EdgeInsets.all(20),
          decoration: BoxDecoration(
-           color: isDarkMode1? Colors.black26.withOpacity(0.01):Colors.white,
+           color: SettingsYong.isDarkMode.value? Color(0xff333448):Colors.white,
            borderRadius: BorderRadius.circular(10),
            boxShadow: [
              BoxShadow(
@@ -230,8 +227,8 @@ import 'lives.dart';
              ),
              SizedBox(height: 20),
              buildPhaseRow("Phase:", "Avant-Questions des jeunes", width,Colors.green),
-             buildPhaseRow("Temps restant dans la phase:", "18 jrs 17h 6m", width,isDarkMode1?Colors.white:Colors.black),
-             buildPhaseRow("Temps restant pour le live:", "21 jrs 17h 6m", width,isDarkMode1?Colors.white:Colors.black),
+             buildPhaseRow("Temps restant dans la phase:", "18 jrs 17h 6m", width,SettingsYong.isDarkMode.value?Colors.white:Colors.black),
+             buildPhaseRow("Temps restant pour le live:", "21 jrs 17h 6m", width,SettingsYong.isDarkMode.value?Colors.white:Colors.black),
              SizedBox(height: 20),
              ElevatedButton(
                onPressed: () {
@@ -338,7 +335,7 @@ import 'lives.dart';
                  padding: EdgeInsets.all(8),
                  decoration: BoxDecoration(
                    borderRadius: BorderRadius.circular(10),
-                   color: isDarkMode1?Colors.black.withOpacity(0.5):Colors.white.withOpacity(0.7),
+                   color: SettingsYong.isDarkMode.value?Colors.black.withOpacity(0.5):Colors.white.withOpacity(0.7),
                  ),
                  height: 130,
                  width: double.infinity,

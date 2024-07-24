@@ -51,7 +51,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
     bool isDarkMode = brightness == Brightness.dark;
 
     return Container(
-      padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+      padding: EdgeInsets.only(left: 10, right: 10, bottom: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

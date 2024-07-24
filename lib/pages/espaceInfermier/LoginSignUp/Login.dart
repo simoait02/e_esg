@@ -13,8 +13,9 @@ import 'Cardi.dart';
 
 class Login extends StatefulWidget {
   final Function(double, double) onSignUpTapped;
+  final Function(double, double) onResetPassTapped;
 
-  Login({super.key, required this.onSignUpTapped});
+  Login({super.key, required this.onSignUpTapped, required this.onResetPassTapped});
 
   @override
   State<Login> createState() => _LoginState();
@@ -135,6 +136,7 @@ class _LoginState extends State<Login> {
             const SizedBox(height: 10,),
             Padding(padding: EdgeInsets.symmetric(horizontal:width*0.05),
               child: GestureDetector(
+                onTap: ()=>widget.onResetPassTapped(0.5, 0.25),
                 child: AutoSizeText(appLocalizations.forgotPassword,
                   style: TextStyle(
                       fontWeight: FontWeight.w500,

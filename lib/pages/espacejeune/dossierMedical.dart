@@ -49,12 +49,14 @@ class DossiermedicalState extends State<Dossiermedical> {
     var screenHeight = MediaQuery.of(context).size.height;
     var screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
+      backgroundColor: SettingsYong.isDarkMode.value ? Color(0xff141218) : Color(0xffF5F5F6),
       body:  SafeArea(
         child: Center(
             child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  SizedBox(height: 40,),
                   Container(
                     width: screenWidth * 1,
                     padding: EdgeInsets.all(screenWidth * 0.04),
@@ -117,6 +119,7 @@ class DossiermedicalState extends State<Dossiermedical> {
                       ],
                     ),
                   ),
+                  SizedBox(height: 100,)
                 ],
               ),
             ),

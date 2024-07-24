@@ -147,7 +147,7 @@ class _AjoutliveState extends State<Ajoutlive> {
     double titleFontSize = screenWidth * 0.06;
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xffF5F5F6),
       body: SafeArea(
         child: CustomScrollView(
           slivers: [

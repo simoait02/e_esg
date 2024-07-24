@@ -4,6 +4,7 @@ import 'package:e_esg/Data/live_list.dart';
 import 'package:e_esg/Widgets/custom_sliver_app_bar.dart';
 import 'package:e_esg/Widgets/search.dart';
 import 'package:e_esg/models/live.dart';
+import '../espacejeune/SideBar/Settings.dart';
 import 'live_informations_page.dart';
 class Lives extends StatefulWidget {
   const Lives({super.key});
@@ -37,27 +38,21 @@ class _LivesState extends State<Lives> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
 
     width=screenWidth;
     height=screenHeight;
     return Scaffold(
-      backgroundColor: isDarkMode?Color(0xff141218):Color(0xffF5F5F6),
+      backgroundColor: SettingsYong.isDarkMode.value?Color(0xff141218):Color(0xffF5F5F6),
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            CustomSliverAppBar(
-              name: "Chaimae Bouti",
-              role: "docteur",
-              imagePath: 'assets/images/boy.png',
-            ),
             SliverToBoxAdapter(
               child: Container(
                 padding: EdgeInsets.all(sectionPadding),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    SizedBox(height:40),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 20.0),
                       child: Center(
@@ -107,7 +102,7 @@ class _LivesState extends State<Lives> {
         width: 280,
         margin: EdgeInsets.all( 8),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: SettingsYong.isDarkMode.value?Colors.black26.withOpacity(0.01):Colors.white,
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(
