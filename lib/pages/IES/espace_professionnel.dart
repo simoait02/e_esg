@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 import '../../Widgets/custom_sliver_app_bar.dart';
 import '../../models/live.dart';
+import '../espaceMedecin/LoginSignUp/Cardi.dart';
 class EspaceProfessionnel extends StatefulWidget {
   const EspaceProfessionnel({super.key});
 
@@ -26,15 +27,13 @@ class _EspaceProfessionnelState extends State<EspaceProfessionnel> {
   int numberOfPages2 = (yourLives.length + 5) ~/ 6;
   @override
   Widget build(BuildContext context) {
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     sectionPadding = screenWidth*0.04;
     titleFontSize = screenWidth*0.035;
     iconFontSize = screenWidth*0.055;
     return Scaffold(
-      backgroundColor: isDarkMode ? Color(0xff141218) : Color(0xffF5F5F6),
+      backgroundColor: Cardi.isDarkMode.value ? const Color(0xff141218) : Colors.white,
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
@@ -48,7 +47,7 @@ class _EspaceProfessionnelState extends State<EspaceProfessionnel> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    SizedBox(height: 50,),
+                    SizedBox(height: 30,),
                     AutoSizeText(
                       "Lives que vous devez animer",
                       style: TextStyle(
@@ -71,7 +70,7 @@ class _EspaceProfessionnelState extends State<EspaceProfessionnel> {
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Icon(Icons.lightbulb_outline),
+                                Icon(Icons.lightbulb_outline,color: Cardi.isDarkMode.value?Colors.black54:Colors.white,),
                                 Expanded(
                                   child: RichText(
                                     textAlign: TextAlign.center,
@@ -116,7 +115,7 @@ class _EspaceProfessionnelState extends State<EspaceProfessionnel> {
                     SizedBox(height: 20,),
                     Container(
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color:Cardi.isDarkMode.value?const Color(0x3fc8d3f7): Colors.white,
                         borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
                       ),
                       padding: EdgeInsets.all(10),
@@ -177,7 +176,7 @@ class _EspaceProfessionnelState extends State<EspaceProfessionnel> {
                       height: 50,
                       padding: EdgeInsets.symmetric(vertical: 10,horizontal: 15),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: Cardi.isDarkMode.value?const Color(0x3fc8d3f7):Colors.white,
                         borderRadius: BorderRadius.vertical(bottom: Radius.circular(10))
                       ),
                       child: Row(
@@ -251,7 +250,7 @@ class _EspaceProfessionnelState extends State<EspaceProfessionnel> {
                         SizedBox(height: 20,),
                         Container(
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: Cardi.isDarkMode.value?const Color(0x3fc8d3f7):Colors.white,
                             borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
                           ),
                           padding: EdgeInsets.all(10),
@@ -306,68 +305,73 @@ class _EspaceProfessionnelState extends State<EspaceProfessionnel> {
               ),
             ),
             SliverToBoxAdapter(
-              child: Padding(
-                padding: EdgeInsets.only(left: sectionPadding,right: sectionPadding,bottom: 30),
-                child: Container(
-                  height: 50,
-                  padding: EdgeInsets.symmetric(vertical: 10,horizontal: 15),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.vertical(bottom: Radius.circular(10))
-                  ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("De ${index2+1} a ${min(index2+6,yourLives.length)} de ${yourLives.length} entrées",style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(left: sectionPadding,right: sectionPadding,bottom: 30),
+                    child: Container(
+                      height: 50,
+                      padding: EdgeInsets.symmetric(vertical: 10,horizontal: 15),
+                      decoration: BoxDecoration(
+                          color:Cardi.isDarkMode.value?const Color(0x3fc8d3f7): Colors.white,
+                          borderRadius: BorderRadius.vertical(bottom: Radius.circular(10))
                       ),
-                      ),
-                      Spacer(),
-                      Visibility(visible:!(pagenumber2==1),child: IconButton(onPressed: (){setState(() {
-                        pagenumber2--;
-                      });}, icon: Icon(Icons.navigate_before,color: Colors.black,))),
-                      GestureDetector(
-                        onTap: (){
-                          setState(() {
-                            index2=6*(pagenumber2-1);
-                          });
-                        },
-                        child: Container(
-                          width: 30,
-                          height: 35,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color:index2==6*(pagenumber2-1)?Color(0xff2E37A4):Colors.white
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("De ${index2+1} a ${min(index2+6,yourLives.length)} de ${yourLives.length} entrées",style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black
                           ),
-                          padding: EdgeInsets.all(5),
-                          child: Center(child: Text("$pagenumber2",style: TextStyle(color: index2==6*(pagenumber2-1)?Colors.white:Color(0xff2E37A4),fontWeight: FontWeight.w600),)),
-                        ),
-                      ),
-                      SizedBox(width: 5,),
-                      Visibility(visible:6*pagenumber2!=yourLives.length,child: GestureDetector(
-                        onTap: (){
-                          setState(() {
-                            index2=6*pagenumber;
-                          });
-                        },
-                        child: Container(
-                          width: 30,
-                          height: 35,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color:index2==6*pagenumber?Color(0xff2E37A4):Colors.white
                           ),
-                          padding: EdgeInsets.all(5),
-                          child: Center(child: Text("${pagenumber2+1}",style: TextStyle(color: index2==6*pagenumber2?Colors.white:Color(0xff2E37A4),fontWeight: FontWeight.w600),)),
-                        ),
-                      ),),
-                      Visibility(visible:!(pagenumber2==numberOfPages2||pagenumber2+1==numberOfPages2),child: IconButton(onPressed: (){setState(() {
-                        pagenumber2++;
-                      });}, icon: Icon(Icons.navigate_next,color: Colors.black,))),
-                    ],
+                          Spacer(),
+                          Visibility(visible:!(pagenumber2==1),child: IconButton(onPressed: (){setState(() {
+                            pagenumber2--;
+                          });}, icon: Icon(Icons.navigate_before,color: Colors.black,))),
+                          GestureDetector(
+                            onTap: (){
+                              setState(() {
+                                index2=6*(pagenumber2-1);
+                              });
+                            },
+                            child: Container(
+                              width: 30,
+                              height: 35,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color:index2==6*(pagenumber2-1)?Color(0xff2E37A4):Colors.white
+                              ),
+                              padding: EdgeInsets.all(5),
+                              child: Center(child: Text("$pagenumber2",style: TextStyle(color: index2==6*(pagenumber2-1)?Colors.white:Color(0xff2E37A4),fontWeight: FontWeight.w600),)),
+                            ),
+                          ),
+                          SizedBox(width: 5,),
+                          Visibility(visible:6*pagenumber2!=yourLives.length,child: GestureDetector(
+                            onTap: (){
+                              setState(() {
+                                index2=6*pagenumber;
+                              });
+                            },
+                            child: Container(
+                              width: 30,
+                              height: 35,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color:index2==6*pagenumber?Color(0xff2E37A4):Colors.white
+                              ),
+                              padding: EdgeInsets.all(5),
+                              child: Center(child: Text("${pagenumber2+1}",style: TextStyle(color: index2==6*pagenumber2?Colors.white:Color(0xff2E37A4),fontWeight: FontWeight.w600),)),
+                            ),
+                          ),),
+                          Visibility(visible:!(pagenumber2==numberOfPages2||pagenumber2+1==numberOfPages2),child: IconButton(onPressed: (){setState(() {
+                            pagenumber2++;
+                          });}, icon: Icon(Icons.navigate_next,color: Colors.black,))),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
+                  SizedBox(height: 60,)
+                ],
               ),
             )
           ],
@@ -379,7 +383,7 @@ class _EspaceProfessionnelState extends State<EspaceProfessionnel> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal:sectionPadding),
       child: Container(
-        color: Colors.white,
+        color:Cardi.isDarkMode.value?const Color(0x3fc8d3f7): Colors.white,
         padding: EdgeInsets.symmetric(horizontal: 10),
         child: Column(
           children: [
@@ -394,7 +398,7 @@ class _EspaceProfessionnelState extends State<EspaceProfessionnel> {
                       live.subject,
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
-                        color: Color(0xff2E37A4),
+                        color:Cardi.isDarkMode.value?Color(0xffE6E6FF): Color(0xff2E37A4),
                       ),
                     ),
                   ),

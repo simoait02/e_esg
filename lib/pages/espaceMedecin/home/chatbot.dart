@@ -23,7 +23,7 @@ class ChatbotState extends State<Chatbot> {
     setState(() {
       messages.add({"type": "user", "text": userMessage});
     });
-    String url = 'http://192.168.1.19:5000/Chatbot/ask';
+    String url = 'http://192.168.1.13:5000/Chatbot/ask';
     http.post(Uri.parse(url), body: {'message': userMessage}).then((response) {
       if (response.statusCode == 200) {
         var responseData = jsonDecode(response.body);
@@ -179,7 +179,7 @@ class ChatbotState extends State<Chatbot> {
                   child: CustomScrollView(
                     slivers: [
                       SliverPadding(
-                        padding: EdgeInsets.only(right: 10, left: 10, top: 10),
+                        padding: EdgeInsets.only(right: 10, left: 10, top: 50),
                         sliver: SliverList(
                           delegate: SliverChildBuilderDelegate(
                                 (context, index) => buildMessage(messages[index], screenWidth),
