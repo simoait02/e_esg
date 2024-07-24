@@ -84,7 +84,7 @@ class Testpsy5State extends State<Testpsy5> {
     final Email email = Email(
       body: "Veuillez trouver ci-joint les résultats de votre test psychologique.",
       subject: "${widget.title} - Résultats du test psychologique",
-      recipients: ['jeune@gmail.com'], 
+      recipients: ['yasmine.elmoudene2003@gmail.com'], 
       attachmentPaths: [pdfFile.path],
     );
 
@@ -93,6 +93,16 @@ class Testpsy5State extends State<Testpsy5> {
       print("Email envoyé avec succès");
     } catch (error) {
       print("Erreur lors de l'envoi de l'email: $error");
+    }
+  }
+
+
+  void onDownloadPDF() async {
+    try {
+      File pdfFile = await generatePDF();
+      sendEmailWithPDF(pdfFile);
+    } catch (error) {
+      print("Erreur lors de la génération du PDF: $error");
     }
   }
 
@@ -216,7 +226,7 @@ class Testpsy5State extends State<Testpsy5> {
                       SizedBox(height: 5),
                       TextButton(
                         onPressed: () {
-                          print("Télécharger le PDF");
+                          onDownloadPDF();
                         },
                         child: Text(
                           "Télécharger le PDF",
