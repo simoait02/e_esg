@@ -16,7 +16,6 @@ class _SuccessState extends State<Success> {
   void initState() {
     super.initState();
 
-    // Navigate to another page after 3 seconds
     Future.delayed(Duration(seconds: 4), () {
       Navigator.pushReplacement(
         context,
