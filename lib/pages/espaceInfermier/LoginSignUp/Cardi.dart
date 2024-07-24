@@ -1,3 +1,5 @@
+import 'package:e_esg/pages/espaceInfermier/LoginSignUp/new_password.dart';
+import 'package:e_esg/pages/espaceInfermier/LoginSignUp/reset_pasword.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,7 +10,9 @@ import 'Password.dart';
 class CardiInf extends StatefulWidget {
   static double q = 0.55;
   static double top = 0.25;
-  static bool isContinueTapped = false;
+  bool isContinueTapped = false;
+  bool moveToforgotPassword = false;
+  bool moveToNewPassword =false;
   static TextEditingController nomController = TextEditingController();
   static TextEditingController prenomController = TextEditingController();
   static TextEditingController cinController = TextEditingController();
@@ -32,21 +36,45 @@ class _CardiInfState extends State<CardiInf> {
     });
   }
 
-  void toggleLoginSignUp() {
-    setState(() {
-      showLogin = !showLogin;
-    });
-  }
-
   void navigateToPassword() {
     setState(() {
-      CardiInf.isContinueTapped = true;
+      widget.isContinueTapped = true;
+      widget.moveToNewPassword=false;
+      widget.moveToforgotPassword=false;
+      showLogin=false;
     });
   }
 
   void navigateToSignup() {
     setState(() {
-      CardiInf.isContinueTapped = false;
+      widget.isContinueTapped = false;
+      widget.moveToNewPassword=false;
+      widget.moveToforgotPassword=false;
+      showLogin=false;
+    });
+  }
+  void navigateToLogin(){
+    setState(() {
+      widget.isContinueTapped = false;
+      widget.moveToNewPassword=false;
+      widget.moveToforgotPassword=false;
+      showLogin=true;
+    });
+  }
+  void navigateToResetPassword(){
+    setState(() {
+      widget.isContinueTapped = false;
+      widget.moveToNewPassword=false;
+      widget.moveToforgotPassword=true;
+      showLogin=false;
+    });
+  }
+  void navigateToNewPassword(){
+    setState(() {
+      widget.isContinueTapped = false;
+      widget.moveToNewPassword=true;
+      widget.moveToforgotPassword=false;
+      showLogin=false;
     });
   }
   @override
@@ -83,17 +111,36 @@ class _CardiInfState extends State<CardiInf> {
                 child: showLogin
                     ? Login(onSignUpTapped: (newQ, newTop) {
                   updateContainerSize(newQ, newTop);
-                  toggleLoginSignUp();
-                })
-                    : CardiInf.isContinueTapped
+                  navigateToLogin();
+                }, onResetPassTapped: (newQ, newTop ) {
+                  updateContainerSize(newQ, newTop);
+                  navigateToResetPassword();
+                },)
+                    : widget.isContinueTapped
                     ? Password(onBackTapped: (newQ,newTop) {
                   updateContainerSize(newQ, newTop);
                   navigateToSignup();
                 })
+                    :widget.moveToforgotPassword
+                    ? ResetPassword(onBackTapped: (newQ,newTop){
+                  updateContainerSize(newQ, newTop);
+                  navigateToLogin();
+                }, onContinueTapped: (newQ,newTop){
+                  updateContainerSize(newQ, newTop);
+                  navigateToNewPassword();
+                })
+                    :widget.moveToNewPassword
+                    ? NewPassword(onBackTapped: (newQ,newTop){
+                  updateContainerSize(newQ, newTop);
+                  navigateToResetPassword();
+                }, onValidTapped: (newQ,newTop){
+                  updateContainerSize(newQ, newTop);
+                  navigateToLogin();
+                })
                     : Signup(
                     onSigninTapped: (newQ, newTop) {
                       updateContainerSize(newQ, newTop);
-                      toggleLoginSignUp();
+                      navigateToLogin();
                     },
                     onContinueTapped: () {
                       navigateToPassword();

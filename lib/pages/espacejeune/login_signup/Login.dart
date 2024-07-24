@@ -1,8 +1,6 @@
 import 'dart:convert';
 
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:e_esg/Widgets/NavigationBarJeune.dart';
-import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -16,8 +14,9 @@ import 'Cardi.dart';
 
 class Login extends StatefulWidget {
   final Function(double, double) onSignUpTapped;
+  final Function(double, double) onResetPassTapped;
 
-  Login({super.key, required this.onSignUpTapped});
+  Login({super.key, required this.onSignUpTapped, required this.onResetPassTapped});
 
   @override
   State<Login> createState() => _LoginState();
@@ -187,6 +186,7 @@ class _LoginState extends State<Login> {
             ),
             SizedBox(height: height*0.01,),
             GestureDetector(
+              onTap: ()=>widget.onResetPassTapped(0.5, 0.25),
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 15),
                 alignment: Alignment.centerRight,
