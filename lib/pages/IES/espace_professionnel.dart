@@ -20,10 +20,10 @@ class _EspaceProfessionnelState extends State<EspaceProfessionnel> {
   double titleFontSize =0;
   double iconFontSize =0;
   int pagenumber=1;
-  int index1=0;
+  int index1=6;
   int numberOfPages = (yourLives.length + 5) ~/ 6;
   int pagenumber2=1;
-  int index2=0;
+  int index2=6;
   int numberOfPages2 = (yourLives.length + 5) ~/ 6;
   @override
   Widget build(BuildContext context) {
@@ -146,10 +146,6 @@ class _EspaceProfessionnelState extends State<EspaceProfessionnel> {
                               ),
                             ],
                           ),
-                          Divider(
-                            color: Color(0xffF5F5F6),
-
-                          )
                         ],
                       ),
                     )
@@ -160,11 +156,11 @@ class _EspaceProfessionnelState extends State<EspaceProfessionnel> {
             ),
             SliverList(
               delegate: SliverChildBuilderDelegate(
-                    (context,index) {
-                      int itemIndex=index1+index;
+                    (context, index) {
+                  int itemIndex = index;
                   return liveComponent(live: yourLives[itemIndex]);
                 },
-                childCount:min(6, yourLives.length-index1),
+                childCount: min(index1, yourLives.length),
               ),
             ),
             SliverToBoxAdapter(
@@ -173,67 +169,23 @@ class _EspaceProfessionnelState extends State<EspaceProfessionnel> {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: sectionPadding),
                     child: Container(
-                      height: 50,
                       padding: EdgeInsets.symmetric(vertical: 10,horizontal: 15),
                       decoration: BoxDecoration(
                         color: Cardi.isDarkMode.value?const Color(0x3fc8d3f7):Colors.white,
                         borderRadius: BorderRadius.vertical(bottom: Radius.circular(10))
                       ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("De ${index1+1} a ${min(index1+6,yourLives.length)} de ${yourLives.length} entrées",style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black
-                          ),
-                          ),
-                          Spacer(),
-                          Visibility(visible:!(pagenumber==1),child: IconButton(onPressed: (){setState(() {
-                            pagenumber--;
-                          });}, icon: Icon(Icons.navigate_before,color: Colors.black,))),
-                          GestureDetector(
-                            onTap: (){
-                              setState(() {
-                                index1=6*(pagenumber-1);
-                              });
-                            },
-                            child: Container(
-                              width: 30,
-                              height: 35,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color:index1==6*(pagenumber-1)?Color(0xff2E37A4):Colors.white
-                              ),
-                              padding: EdgeInsets.all(5),
-                              child: Center(child: Text("$pagenumber",style: TextStyle(color: index1==6*(pagenumber-1)?Colors.white:Color(0xff2E37A4),fontWeight: FontWeight.w600),)),
+                      child:Center(
+                          child: (index1 < yourLives.length)?GestureDetector(
+                            onTap: ()=>setState(() {
+                              index1+=6;
+                            }),
+                            child: AutoSizeText(
+                              "See more"
                             ),
-                          ),
-                          SizedBox(width: 5,),
-                          Visibility(visible:6*pagenumber!=yourLives.length,child: GestureDetector(
-                            onTap: (){
-                              setState(() {
-                                index1=6*pagenumber;
-                              });
-                            },
-                            child: Container(
-                              width: 30,
-                              height: 35,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color:index1==6*pagenumber?Color(0xff2E37A4):Colors.white
-                              ),
-                              padding: EdgeInsets.all(5),
-                              child: Center(child: Text("${pagenumber+1}",style: TextStyle(color: index1==6*pagenumber?Colors.white:Color(0xff2E37A4),fontWeight: FontWeight.w600),)),
-                            ),
-                          ),),
-                          Visibility(visible:!(pagenumber==numberOfPages||pagenumber+1==numberOfPages),child: IconButton(onPressed: (){setState(() {
-                            pagenumber++;
-                          });}, icon: Icon(Icons.navigate_next,color: Colors.black,))),
-                        ],
-                      ),
+                          ):SizedBox(width: 10,),
+                        ),
                     ),
                   ),
-                  SizedBox(),
                   Container(
                     padding: EdgeInsets.only(left: sectionPadding ,right: sectionPadding,top: sectionPadding),
                     child: Column(
@@ -281,10 +233,6 @@ class _EspaceProfessionnelState extends State<EspaceProfessionnel> {
                                   ),
                                 ],
                               ),
-                              Divider(
-                                color: Color(0xffF5F5F6),
-
-                              )
                             ],
                           ),
                         )
@@ -298,79 +246,36 @@ class _EspaceProfessionnelState extends State<EspaceProfessionnel> {
             SliverList(
               delegate: SliverChildBuilderDelegate(
                     (context,index) {
-                  int itemIndex=index2+index;
+                  int itemIndex=index;
                   return liveComponent(live: yourLives[itemIndex]);
                 },
-                childCount:min(6, yourLives.length-index2),
+                childCount:min(index2, yourLives.length),
               ),
             ),
             SliverToBoxAdapter(
               child: Column(
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(left: sectionPadding,right: sectionPadding,bottom: 30),
+                    padding: EdgeInsets.symmetric(horizontal: sectionPadding),
                     child: Container(
-                      height: 50,
                       padding: EdgeInsets.symmetric(vertical: 10,horizontal: 15),
                       decoration: BoxDecoration(
-                          color:Cardi.isDarkMode.value?const Color(0x3fc8d3f7): Colors.white,
+                          color: Cardi.isDarkMode.value?const Color(0x3fc8d3f7):Colors.white,
                           borderRadius: BorderRadius.vertical(bottom: Radius.circular(10))
                       ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("De ${index2+1} a ${min(index2+6,yourLives.length)} de ${yourLives.length} entrées",style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black
+                      child:Center(
+                        child: (index2 < yourLives.length)?GestureDetector(
+                          onTap: ()=>setState(() {
+                            index2+=6;
+                          }),
+                          child: AutoSizeText(
+                              "See more"
                           ),
-                          ),
-                          Spacer(),
-                          Visibility(visible:!(pagenumber2==1),child: IconButton(onPressed: (){setState(() {
-                            pagenumber2--;
-                          });}, icon: Icon(Icons.navigate_before,color: Colors.black,))),
-                          GestureDetector(
-                            onTap: (){
-                              setState(() {
-                                index2=6*(pagenumber2-1);
-                              });
-                            },
-                            child: Container(
-                              width: 30,
-                              height: 35,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color:index2==6*(pagenumber2-1)?Color(0xff2E37A4):Colors.white
-                              ),
-                              padding: EdgeInsets.all(5),
-                              child: Center(child: Text("$pagenumber2",style: TextStyle(color: index2==6*(pagenumber2-1)?Colors.white:Color(0xff2E37A4),fontWeight: FontWeight.w600),)),
-                            ),
-                          ),
-                          SizedBox(width: 5,),
-                          Visibility(visible:6*pagenumber2!=yourLives.length,child: GestureDetector(
-                            onTap: (){
-                              setState(() {
-                                index2=6*pagenumber;
-                              });
-                            },
-                            child: Container(
-                              width: 30,
-                              height: 35,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color:index2==6*pagenumber?Color(0xff2E37A4):Colors.white
-                              ),
-                              padding: EdgeInsets.all(5),
-                              child: Center(child: Text("${pagenumber2+1}",style: TextStyle(color: index2==6*pagenumber2?Colors.white:Color(0xff2E37A4),fontWeight: FontWeight.w600),)),
-                            ),
-                          ),),
-                          Visibility(visible:!(pagenumber2==numberOfPages2||pagenumber2+1==numberOfPages2),child: IconButton(onPressed: (){setState(() {
-                            pagenumber2++;
-                          });}, icon: Icon(Icons.navigate_next,color: Colors.black,))),
-                        ],
+                        ):SizedBox(width: 10,),
                       ),
                     ),
                   ),
-                  SizedBox(height: 60,)
+                  SizedBox(height: 100,)
                 ],
               ),
             )
@@ -387,6 +292,10 @@ class _EspaceProfessionnelState extends State<EspaceProfessionnel> {
         padding: EdgeInsets.symmetric(horizontal: 10),
         child: Column(
           children: [
+            Divider(
+              color: Color(0xffF5F5F6),
+
+            ),
             SizedBox(height: 10,),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -476,10 +385,6 @@ class _EspaceProfessionnelState extends State<EspaceProfessionnel> {
               ],
             ),
             SizedBox(height: 10,),
-            Divider(
-              color: Color(0xffF5F5F6),
-
-            )
           ],
         ),
       ),

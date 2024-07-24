@@ -3,6 +3,7 @@ import 'package:chiclet/chiclet.dart';
 import 'package:e_esg/AccountType.dart';
 import 'package:e_esg/Widgets/NavigationBarDoctor.dart';
 import 'package:e_esg/Widgets/pulse_animation.dart';
+import 'package:e_esg/e_esj.dart';
 import 'package:e_esg/main.dart';
 import 'package:e_esg/pages/espacejeune/SideBar/SidebarController.dart';
 import 'package:flutter/cupertino.dart';
@@ -21,12 +22,14 @@ class MyApp extends StatefulWidget {
 
   @override
   State<MyApp> createState() => _MyAppState();
+  static _MyAppState? of(BuildContext context) =>
+      context.findAncestorStateOfType<_MyAppState>();
 }
 
 class _MyAppState extends State<MyApp> {
   Locale _locale = const Locale('ar');
 
-  void _setLocale(Locale locale) {
+  void setLocale(Locale locale) {
     setState(() {
       _locale = locale;
     });
@@ -48,7 +51,7 @@ class _MyAppState extends State<MyApp> {
         Locale('en')
       ],
       debugShowCheckedModeBanner: false,
-      home:Chooselanguage(onLanguageChanged: (Locale locale) { _setLocale(locale); },),
+      home:const EEsj(),
     );
   }
 }
