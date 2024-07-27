@@ -1,14 +1,18 @@
-import 'dart:convert';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dio/dio.dart';
 import 'package:e_esg/Widgets/NavigationBarDoctor.dart';
+import 'package:e_esg/api/Dio_Consumer.dart';
+import 'package:e_esg/api/api_Comsumer.dart';
+import 'package:e_esg/api/end_points.dart';
+import 'package:e_esg/api/errors/Exceptions.dart';
+import 'package:e_esg/models/SignIn_modelDoc.dart';
 import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:http/http.dart' as http;
-import 'package:e_esg/api.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 
 class Login extends StatefulWidget {
   final Function(double, double) onSignUpTapped;
@@ -27,9 +31,10 @@ class _LoginState extends State<Login> {
   bool _passwordHasFocus = false;
   bool identifiernull = false;
   bool passwordnull = false;
-
+  final ApiComsumer api=DioConsumer(dio: Dio());
   static TextEditingController _identifierController = TextEditingController();
   static TextEditingController _passwordController = TextEditingController();
+  SigninModeldoc? userDoc;
 
   @override
   void initState() {
@@ -179,36 +184,24 @@ class _LoginState extends State<Login> {
                     passwordnull = password.isEmpty;
                   });
                 } else {
-                  final url = Uri.parse("$Url/auth/login/medecins");
-                  Map<String, dynamic> data = {
-                    "username": _identifierController.text,
-                    "password": _passwordController.text
-                  };
-
                   try {
-                    final response = await http.post(
-                      url,
-                      headers: {
-                        'Content-Type': 'application/json',
+                    final response =await api.post(
+                      EndPoints.LoginMedecin,
+                      data:{
+                        "username": _identifierController.text,
+                        "password": _passwordController.text
                       },
-                      body: json.encode(data),
                     );
-
-                    if (response.statusCode == 200) {
-                      print('Data posted successfully: ${response.body}');
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        CupertinoPageRoute(builder: (context) => const NavbarDoc()),
-                            (Route<dynamic> route) => false,
-                      );
-                    } else {
-                      print('Failed to post data: ${response.statusCode}');
-                      Fluttertoast.showToast(msg: response.body.toString(), backgroundColor: Colors.red);
-                      print('Response body: ${response.body}');
-                    }
-                  } catch (e) {
-                    Fluttertoast.showToast(msg: e.toString(), backgroundColor: Colors.red);
-                    print('Error: $e');
+                    userDoc=SigninModeldoc.fromJson(response);
+                    final decodedToken= JwtDecoder.decode(userDoc!.token);
+                    print(decodedToken);
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context)=>NavbarDoc()),
+                          (Route<dynamic> route) => false,);
+                  } on ServerException catch (e) {
+                    print("dfffffffffffffffffffffffffffffffffffffffffffffffffffff");
+                    Fluttertoast.showToast(msg: e.errormodel.errorMsg,backgroundColor: Colors.red);
                   }
                 }
               },
