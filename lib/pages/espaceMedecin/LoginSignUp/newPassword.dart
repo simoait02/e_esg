@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:e_esg/api.dart';
+import 'package:e_esg/api/end_points.dart';
+import 'package:e_esg/api/errors/Exceptions.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
@@ -299,38 +301,51 @@ class _NewpasswordState extends State<Newpassword> {
               ),
               CupertinoButton(
                 onPressed: () async {
-                  Fluttertoast.showToast(msg:passwordController.text);
                   if (passwordController.text == confirmPasswordController.text) {
                     if (validatePassword(passwordController.text)) {
-                      final url = Uri.parse("$Url/password/reset");
-
-                      Map<String, dynamic> data = {
-                        "token": tokenController.text,
-                        "newPassword": passwordController.text
-                      };
-
                       try {
-                        final response = await http.post(
-                          url,
-                          headers: {
-                            'Content-Type': 'application/json',
+                        final response=await api.post(
+                          EndPoints.ResetPass,
+                          data:{
+                            "token": tokenController.text,
+                            "newPassword": passwordController.text
                           },
-                          body: json.encode(data),
                         );
-
-                        if (response.statusCode == 200) {
-                          print('Data posted successfully: ${response.body}');
-                          Fluttertoast.showToast(msg: response.body.toString(), backgroundColor: Colors.greenAccent,textColor: Colors.black);
-                          widget.onValidTrapped(0.55,0.25);
-                        } else {
-                          print('Failed to post data: ${response.statusCode}');
-                          Fluttertoast.showToast(msg: response.body.toString(), backgroundColor: Colors.red);
-                          print('Response body: ${response.body}');
-                        }
-                      } catch (e) {
-                        Fluttertoast.showToast(msg: e.toString(), backgroundColor: Colors.red);
-                        print('Error: $e');
+                        Fluttertoast.showToast(msg: response,backgroundColor: Colors.greenAccent,textColor: Colors.black);
+                        widget.onValidTrapped(0.55,0.25);
+                      } on ServerException catch (e) {
+                        print("dfffffffffffffffffffffffffffffffffffffffffffffffffffff");
+                        Fluttertoast.showToast(msg: e.errormodel.errorMsg,backgroundColor: Colors.red);
                       }
+                      // final url = Uri.parse("$Url/password/reset");
+                      //
+                      // Map<String, dynamic> data = {
+                      //   "token": tokenController.text,
+                      //   "newPassword": passwordController.text
+                      // };
+                      //
+                      // try {
+                      //   final response = await http.post(
+                      //     url,
+                      //     headers: {
+                      //       'Content-Type': 'application/json',
+                      //     },
+                      //     body: json.encode(data),
+                      //   );
+                      //
+                      //   if (response.statusCode == 200) {
+                      //     print('Data posted successfully: ${response.body}');
+                      //     Fluttertoast.showToast(msg: response.body.toString(), backgroundColor: Colors.greenAccent,textColor: Colors.black);
+                      //     widget.onValidTrapped(0.55,0.25);
+                      //   } else {
+                      //     print('Failed to post data: ${response.statusCode}');
+                      //     Fluttertoast.showToast(msg: response.body.toString(), backgroundColor: Colors.red);
+                      //     print('Response body: ${response.body}');
+                      //   }
+                      // } catch (e) {
+                      //   Fluttertoast.showToast(msg: e.toString(), backgroundColor: Colors.red);
+                      //   print('Error: $e');
+                      // }
                     } else {
                       setState(() {
                         error = true;

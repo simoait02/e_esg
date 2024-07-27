@@ -305,14 +305,14 @@ class _NewPasswordState extends State<NewPassword> {
                   if (passwordController.text == confirmPasswordController.text) {
                     if (validatePassword(passwordController.text)) {
                       try {
-                        final response =await api.post(
+                        final response=await api.post(
                           EndPoints.ResetPass,
                           data:{
                             "token": tokenController.text,
-                            "password": passwordController.text
+                            "newPassword": passwordController.text
                           },
                         );
-
+                        Fluttertoast.showToast(msg: response,backgroundColor: Colors.greenAccent,textColor: Colors.black);
                         widget.onValidTapped(0.55,0.25);
                       } on ServerException catch (e) {
                         print("dfffffffffffffffffffffffffffffffffffffffffffffffffffff");

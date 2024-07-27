@@ -195,12 +195,13 @@ class _ResetPasswordState extends State<ResetPassword> {
                         validateEmail();
                         if (emailError == null) {
                           try {
-                            final response =await api.post(
+                            final response=await api.post(
                               EndPoints.ForgotPass,
                               data:{
                                 "email": emailController.text,
                               },
                             );
+                            Fluttertoast.showToast(msg: response,backgroundColor: Colors.greenAccent,textColor: Colors.black);
                             widget.onContinueTapped(0.6, 0.25);
                           } on ServerException catch (e) {
                         print("dfffffffffffffffffffffffffffffffffffffffffffffffffffff");
