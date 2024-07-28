@@ -16,14 +16,7 @@ import 'Password.dart';
 class CardiJeune extends StatefulWidget {
   static double q = 0.55;
   static double top = 0.25;
-  static String birthDay="";
-  bool moveToActivitiesInformations = false;
-  bool stayinActivitiesInformations = false;
-  bool moveToPassword = false;
-  bool moveToforgotPassword = false;
-  bool moveToNewPassword =false;
-  bool moveToConfirmInformations = false;
-  bool moveToSuccess = false;
+  static String birthDay = "";
   static TextEditingController lastnameController = TextEditingController();
   static TextEditingController firstnameController = TextEditingController();
   static TextEditingController emailController = TextEditingController();
@@ -32,15 +25,15 @@ class CardiJeune extends StatefulWidget {
   static TextEditingController cinController = TextEditingController();
   static TextEditingController codemassarController = TextEditingController();
   static TextEditingController passwordController = TextEditingController();
-  static String lastStud ="";
-  static String stateActu="" ;
-  static String studActu ="";
+  static String lastStud = "";
+  static String stateActu = "";
+  static String studActu = "";
   static int value = 0;
-  static int value1=0;
-  static int age =0;
-  static bool scolarity=false;
-  static bool hasSelected=false;
-  static DateTime? selectedDateTime ;
+  static int value1 = 0;
+  static int age = 0;
+  static bool scolarity = false;
+  static bool hasSelected = false;
+  static DateTime? selectedDateTime;
   static ValueNotifier<bool> isDarkMode = ValueNotifier<bool>(false);
 
   CardiJeune({super.key});
@@ -51,16 +44,20 @@ class CardiJeune extends StatefulWidget {
 
 class _CardiJeuneState extends State<CardiJeune> {
   bool showLogin = true;
+  bool moveToActivitiesInformations = false;
+  bool stayinActivitiesInformations = false;
+  bool moveToPassword = false;
+  bool moveToForgotPassword = false;
+  bool moveToNewPassword = false;
+  bool moveToConfirmInformations = false;
+  bool moveToSuccess = false;
 
-
-
-
-  void updateContainerSize(double newQ, double newTop) {
-    setState(() {
-      CardiJeune.q = newQ;
-      CardiJeune.top = newTop;
-    });
+  @override
+  void initState() {
+    super.initState();
+    _loadPreferences();
   }
+
   Future<void> _loadPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -71,118 +68,127 @@ class _CardiJeuneState extends State<CardiJeune> {
     });
   }
 
+  void updateContainerSize(double newQ, double newTop) {
+    setState(() {
+      CardiJeune.q = newQ;
+      CardiJeune.top = newTop;
+    });
+  }
 
   void navigateToActivitiesInformations() {
     setState(() {
       showLogin = false;
-      widget.moveToActivitiesInformations = true;
-      widget.stayinActivitiesInformations = false;
-      widget.moveToPassword = false;
-      widget.moveToConfirmInformations=false;
-      widget.moveToSuccess=false;
-      widget.moveToforgotPassword = false;
-      widget.moveToNewPassword=false;
+      moveToActivitiesInformations = true;
+      stayinActivitiesInformations = false;
+      moveToPassword = false;
+      moveToConfirmInformations = false;
+      moveToSuccess = false;
+      moveToForgotPassword = false;
+      moveToNewPassword = false;
     });
   }
+
   void navigateToSuccess() {
     setState(() {
       showLogin = false;
-      widget.moveToActivitiesInformations = false;
-      widget.stayinActivitiesInformations = false;
-      widget.moveToPassword = false;
-      widget.moveToConfirmInformations=false;
-      widget.moveToSuccess=true;
-      widget.moveToforgotPassword = false;
-      widget.moveToNewPassword=false;
+      moveToActivitiesInformations = false;
+      stayinActivitiesInformations = false;
+      moveToPassword = false;
+      moveToConfirmInformations = false;
+      moveToSuccess = true;
+      moveToForgotPassword = false;
+      moveToNewPassword = false;
     });
   }
+
   void navigateToConfirmInformations() {
     setState(() {
       showLogin = false;
-      widget.moveToActivitiesInformations = false;
-      widget.stayinActivitiesInformations = false;
-      widget.moveToPassword = false;
-      widget.moveToConfirmInformations=true;
-      widget.moveToSuccess=false;
-      widget.moveToforgotPassword = false;
-      widget.moveToNewPassword=false;
+      moveToActivitiesInformations = false;
+      stayinActivitiesInformations = false;
+      moveToPassword = false;
+      moveToConfirmInformations = true;
+      moveToSuccess = false;
+      moveToForgotPassword = false;
+      moveToNewPassword = false;
     });
   }
 
   void stayInActivitiesInformations() {
     setState(() {
       showLogin = false;
-      widget.stayinActivitiesInformations = true;
-      widget.moveToActivitiesInformations = false;
-      widget.moveToPassword = false;
-      widget.moveToConfirmInformations=false;
-      widget.moveToSuccess=false;
-      widget.moveToforgotPassword = false;
-      widget.moveToNewPassword=false;
+      stayinActivitiesInformations = true;
+      moveToActivitiesInformations = false;
+      moveToPassword = false;
+      moveToConfirmInformations = false;
+      moveToSuccess = false;
+      moveToForgotPassword = false;
+      moveToNewPassword = false;
     });
   }
-  void navigateToForgotPassword(){
+
+  void navigateToForgotPassword() {
     setState(() {
       showLogin = false;
-      widget.stayinActivitiesInformations = false;
-      widget.moveToActivitiesInformations = false;
-      widget.moveToPassword = false;
-      widget.moveToConfirmInformations=false;
-      widget.moveToSuccess=false;
-      widget.moveToforgotPassword = true;
-      widget.moveToNewPassword=false;
+      stayinActivitiesInformations = false;
+      moveToActivitiesInformations = false;
+      moveToPassword = false;
+      moveToConfirmInformations = false;
+      moveToSuccess = false;
+      moveToForgotPassword = true;
+      moveToNewPassword = false;
     });
   }
 
   void navigateToPassword() {
     setState(() {
       showLogin = false;
-      widget.stayinActivitiesInformations = false;
-      widget.moveToActivitiesInformations = false;
-      widget.moveToPassword = true;
-      widget.moveToConfirmInformations=false;
-      widget.moveToSuccess=false;
-      widget.moveToforgotPassword = false;
-      widget.moveToNewPassword=false;
+      stayinActivitiesInformations = false;
+      moveToActivitiesInformations = false;
+      moveToPassword = true;
+      moveToConfirmInformations = false;
+      moveToSuccess = false;
+      moveToForgotPassword = false;
+      moveToNewPassword = false;
     });
   }
 
   void navigateToSignup() {
     setState(() {
       showLogin = false;
-      widget.stayinActivitiesInformations = false;
-      widget.moveToActivitiesInformations = false;
-      widget.moveToPassword = false;
-      widget.moveToConfirmInformations=false;
-      widget.moveToSuccess=false;
-      widget.moveToforgotPassword = false;
-      widget.moveToNewPassword=false;
+      stayinActivitiesInformations = false;
+      moveToActivitiesInformations = false;
+      moveToPassword = false;
+      moveToConfirmInformations = false;
+      moveToSuccess = false;
+      moveToForgotPassword = false;
+      moveToNewPassword = false;
     });
   }
 
   void navigateToLogin() {
     setState(() {
       showLogin = true;
-      widget.stayinActivitiesInformations = false;
-      widget.moveToActivitiesInformations = false;
-      widget.moveToPassword = false;
-      widget.moveToConfirmInformations=false;
-      widget.moveToSuccess=false;
-      widget.moveToforgotPassword = false;
-      widget.moveToNewPassword=false;
+      stayinActivitiesInformations = false;
+      moveToActivitiesInformations = false;
+      moveToPassword = false;
+      moveToConfirmInformations = false;
+      moveToSuccess = false;
+      moveToForgotPassword = false;
+      moveToNewPassword = false;
     });
   }
 
-  void navigateToNewPassword(){
+  void navigateToNewPassword() {
     setState(() {
       showLogin = false;
-      widget.stayinActivitiesInformations = false;
-      widget.moveToActivitiesInformations = false;
-      widget.moveToPassword = false;
-      widget.moveToConfirmInformations=false;
-      widget.moveToSuccess=false;
-      widget.moveToforgotPassword = false;
-      widget.moveToNewPassword=true;
+      stayinActivitiesInformations = false;
+      moveToActivitiesInformations = false;
+      moveToPassword = false;
+      moveToConfirmInformations = false;
+      moveToSuccess = false;
+      moveToForgotPassword = false;
+      moveToNewPassword = true;
     });
   }
 
@@ -192,6 +198,7 @@ class _CardiJeuneState extends State<CardiJeune> {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
+
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
 
@@ -227,32 +234,35 @@ class _CardiJeuneState extends State<CardiJeune> {
                 onSignUpTapped: (newQ, newTop) {
                   updateContainerSize(newQ, newTop);
                   navigateToSignup();
-                }, onResetPassTapped: (newQ , newTop ) {
+                },
+                onResetPassTapped: (newQ, newTop) {
                   updateContainerSize(newQ, newTop);
                   navigateToForgotPassword();
-              },
+                },
               )
-                  :widget.moveToforgotPassword
+                  : moveToForgotPassword
                   ? ResetPassword(
-                  onBackTapped: (newQ, newTop) {
-                    updateContainerSize(newQ, newTop);
-                    navigateToLogin();
-                  },
-                  onContinueTapped:(newQ, newTop) {
-                    updateContainerSize(newQ, newTop);
-                    navigateToNewPassword();}
+                onBackTapped: (newQ, newTop) {
+                  updateContainerSize(newQ, newTop);
+                  navigateToLogin();
+                },
+                onContinueTapped: (newQ, newTop) {
+                  updateContainerSize(newQ, newTop);
+                  navigateToNewPassword();
+                },
               )
-                  :widget.moveToNewPassword
-                  ?NewPassword(
+                  : moveToNewPassword
+                  ? NewPassword(
                 onBackTapped: (newQ, newTop) {
                   updateContainerSize(newQ, newTop);
                   navigateToForgotPassword();
-                }, onValidTapped: (newQ, newTop) {
-                updateContainerSize(newQ, newTop);
-                navigateToLogin();},
+                },
+                onValidTapped: (newQ, newTop) {
+                  updateContainerSize(newQ, newTop);
+                  navigateToLogin();
+                },
               )
-              :widget.moveToActivitiesInformations ||
-                  widget.stayinActivitiesInformations
+                  : moveToActivitiesInformations || stayinActivitiesInformations
                   ? Activitiesinformations(
                 onBackTapped: (newQ, newTop) {
                   updateContainerSize(newQ, newTop);
@@ -266,34 +276,38 @@ class _CardiJeuneState extends State<CardiJeune> {
                   updateContainerSize(newQ, newTop);
                   navigateToPassword();
                 },
-
               )
-                  : widget.moveToPassword
+                  : moveToPassword
                   ? Password(
                 onBackTapped: (newQ, newTop) {
                   updateContainerSize(newQ, newTop);
                   stayInActivitiesInformations();
-                  if(CardiJeune.hasSelected){
+                  if (CardiJeune.hasSelected) {
                     updateContainerSize(0.7, 0.1);
                     stayInActivitiesInformations();
                   }
                 },
-                onCreateTapped: (newQ,newTop){
+                onCreateTapped: (newQ, newTop) {
                   updateContainerSize(newQ, newTop);
                   navigateToConfirmInformations();
                 },
-
               )
-                  : widget.moveToConfirmInformations
+                  : moveToConfirmInformations
                   ? ConfirmInformations(
-                onConfirmTapped: (newQ , newTop) {
+                onConfirmTapped: (newQ, newTop) {
                   updateContainerSize(newQ, newTop);
-                  navigateToSuccess(); },
-                onLoginTapped: (newQ , newTop ) { updateContainerSize(newQ, newTop);
-                navigateToLogin(); },
-                )
-                  : widget.moveToSuccess
-                  ? Success()
+                  navigateToSuccess();
+                },
+                onLoginTapped: (newQ, newTop) {
+                  updateContainerSize(newQ, newTop);
+                  navigateToLogin();
+                },
+              )
+                  : moveToSuccess
+                  ? Success(onValidTapped: (newQ, newTop) {
+                updateContainerSize(newQ, newTop);
+                navigateToLogin();
+              },)
                   : Signup(
                 onSigninTapped: (newQ, newTop) {
                   updateContainerSize(newQ, newTop);
@@ -301,16 +315,16 @@ class _CardiJeuneState extends State<CardiJeune> {
                 },
                 onContinueTapped: () {
                   navigateToActivitiesInformations();
-                  if(CardiJeune.hasSelected){
+                  if (CardiJeune.hasSelected) {
                     updateContainerSize(0.7, 0.1);
                     stayInActivitiesInformations();
                   }
                 },
               ),
-              ),
             ),
           ),
         ),
-      );
+      ),
+    );
   }
 }

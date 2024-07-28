@@ -1,17 +1,14 @@
-import 'dart:convert';
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:e_esg/api/end_points.dart';
 import 'package:e_esg/api/errors/Exceptions.dart';
 import 'package:e_esg/models/SignIn_modelJeune.dart';
+import 'package:e_esg/pages/espacejeune/DossierMedical/DocMedical.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
-
-import '../../../api.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../IES/statistiques.dart';
 import '../SideBar/SidebarController.dart';
 import 'Cardi.dart';
@@ -20,7 +17,7 @@ class Login extends StatefulWidget {
   final Function(double, double) onSignUpTapped;
   final Function(double, double) onResetPassTapped;
 
-  Login({super.key, required this.onSignUpTapped, required this.onResetPassTapped});
+  const Login({super.key, required this.onSignUpTapped, required this.onResetPassTapped});
 
   @override
   State<Login> createState() => _LoginState();
@@ -90,7 +87,7 @@ class _LoginState extends State<Login> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               border: Border.all(
-                color: hasFocus ? Color(0xFF2E37A4) :error?Colors.red:isDarkMode?CupertinoColors.white.withOpacity(0.5): Color(0xFFEAEBF6),
+                color: hasFocus ? const Color(0xFF2E37A4) :error?Colors.red:isDarkMode?CupertinoColors.white.withOpacity(0.5): const Color(0xFFEAEBF6),
                 width: 2,
               ),
             ),
@@ -121,9 +118,9 @@ class _LoginState extends State<Login> {
     double height = MediaQuery.of(context).size.height;
     final appLocalizations = AppLocalizations.of(context);
     return SingleChildScrollView(
-      physics: BouncingScrollPhysics(),
+      physics: const BouncingScrollPhysics(),
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 20),
+        margin: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -143,16 +140,16 @@ class _LoginState extends State<Login> {
             buildLabel(appLocalizations.password,height*0.02,CardiJeune.isDarkMode.value),
             Container(
               height: 51,
-              padding: EdgeInsets.only(left: 15),
+              padding: const EdgeInsets.only(left: 15),
               decoration: BoxDecoration(
                 border: Border.all(
                   color: _passwordHasFocus
-                      ? Color(0xFF2E37A4)
+                      ? const Color(0xFF2E37A4)
                       : passwordnull
                       ? Colors.red
                       : CardiJeune.isDarkMode.value
                       ? CupertinoColors.white.withOpacity(0.5)
-                      : Color(0xFFEAEBF6),
+                      : const Color(0xFFEAEBF6),
                   width: 2.0,
                 ),
                 borderRadius: BorderRadius.circular(10),
@@ -168,7 +165,7 @@ class _LoginState extends State<Login> {
                       focusNode: _passwordFocusNode,
                       autofocus: false,
                       obscureText: !passwordvisible,
-                      cursorColor: Color(0xFF2E37A4),
+                      cursorColor: const Color(0xFF2E37A4),
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.transparent, width: 0),
                       ),
@@ -180,7 +177,7 @@ class _LoginState extends State<Login> {
                   IconButton(
                     onPressed: _showPassword,
                     highlightColor: Colors.transparent,
-                    icon: Container(
+                    icon: SizedBox(
                       width: iconButtonSize+30,
                       height: iconButtonSize+30,
                       child:passwordvisible? Image.asset('assets/images/invisible.png'):Image.asset('assets/images/visible.png'),
@@ -193,14 +190,14 @@ class _LoginState extends State<Login> {
             GestureDetector(
               onTap: ()=>widget.onResetPassTapped(0.5, 0.25),
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 15),
                 alignment: Alignment.centerRight,
                 child: AutoSizeText(appLocalizations.forgotPassword,
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: width * 0.04,
                   fontFamily: "Poppins",
-                  color: Color(0xff00D3C7)
+                  color: const Color(0xff00D3C7)
                 ),),
               ),
             ),
@@ -217,18 +214,22 @@ class _LoginState extends State<Login> {
                       alignment: Alignment.center,
                       child: AutoSizeText(
                         appLocalizations.login,
-                        style: TextStyle(color: Colors.white, fontSize: 20),
+                        style: const TextStyle(color: Colors.white, fontSize: 20),
                       )),
                   onPressed: () async {
                     final identifier=_identifierController.text;
                     final password=_passwordController.text;
                     if(identifier==""||password==""){
-                      if(identifier=="") setState(() {
+                      if(identifier=="") {
+                        setState(() {
                         identifiernull=true;
                       });
-                      if(password=="") setState(() {
+                      }
+                      if(password=="") {
+                        setState(() {
                         passwordnull=true;
                       });
+                      }
                     }
                     else{
                       try {
@@ -240,14 +241,26 @@ class _LoginState extends State<Login> {
                           },
                         );
                         userJeune=SigninModeljeune.fromJson(response);
-                        final decodedToken= JwtDecoder.decode(userJeune!.token);
+                        Map<String, dynamic> decodedToken= JwtDecoder.decode(userJeune!.token);
+                        print("-*******************************************************");
                         print(decodedToken);
-                        Navigator.pushAndRemoveUntil(
+                        SharedPreferences prefs = await SharedPreferences.getInstance();
+                        prefs.setString('token', "Bearer ${userJeune!.token}");
+                        bool isFirstAuth= decodedToken["claims"]["isFirstAuth"];
+                        isFirstAuth? Navigator.pushAndRemoveUntil(
                           context,
-                          MaterialPageRoute(builder: (context)=>SideBarController()),
+                          MaterialPageRoute(builder: (context)=>const DocMedical()),
+                              (Route<dynamic> route) => false,)
+                          : Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (context)=>const SideBarController()),
                               (Route<dynamic> route) => false,);
+                        // final get=await api.get(EndPoints.GetJeuneViaId+decodedToken["claims"]["id"].toString(),headers:{
+                        //   "Authorization":"Bearer ${userJeune!.token}"
+                        // });
+                        // print(get["firstAuth"]);
+
                       } on ServerException catch (e) {
-                        print("dfffffffffffffffffffffffffffffffffffffffffffffffffffff");
                         Fluttertoast.showToast(msg: e.errormodel.errorMsg,backgroundColor: Colors.red);
                       }
 
@@ -287,17 +300,17 @@ class _LoginState extends State<Login> {
                   }),
             ),
             const SizedBox(height: 5),
-            Container(
+            SizedBox(
               height: height * 0.04,
               width: width*0.9,
               child: Wrap(
                 children: [
                   AutoSizeText(
                     appLocalizations.needAcc,
-                    style: TextStyle(fontFamily: "Inter",
+                    style: const TextStyle(fontFamily: "Inter",
                     color: Color(0xff9999A3),
                     fontWeight: FontWeight.w400,
-                    fontSize: 15),
+                    fontSize: 1),
                   ),
                   const SizedBox(width: 2),
                   GestureDetector(
@@ -308,9 +321,9 @@ class _LoginState extends State<Login> {
                       appLocalizations.signUp,
                       style: TextStyle(
                         fontFamily: "Inter",
-                        color: CardiJeune.isDarkMode.value ? Color(0xff759cd8) : Color(0xff3a01de),
+                        color: CardiJeune.isDarkMode.value ? const Color(0xff759cd8) : const Color(0xff3a01de),
                           fontWeight: FontWeight.w400,
-                          fontSize: 15
+                          fontSize: 10
                       ),
                     ),
                   ),

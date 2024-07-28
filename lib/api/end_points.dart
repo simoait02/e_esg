@@ -14,6 +14,7 @@ class EndPoints{
   static String LoginJeune="/auth/login/jeunes";
   static String RegisterJeuneScola="/register/jeunes/scolarise";
   static String RegisterJeuneUnScola="/register/jeunes/nonscolarise";
+  static String GetJeuneViaId="/jeunes/";
 
 
 }
