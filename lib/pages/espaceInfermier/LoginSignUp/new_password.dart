@@ -300,7 +300,6 @@ class _NewPasswordState extends State<NewPassword> {
               ),
               CupertinoButton(
                 onPressed: () async {
-                  Fluttertoast.showToast(msg:passwordController.text);
                   if (passwordController.text == confirmPasswordController.text) {
                     if (validatePassword(passwordController.text)) {
                       try {
