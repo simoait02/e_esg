@@ -1,11 +1,15 @@
 import 'dart:convert';
 
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:e_esg/api/end_points.dart';
+import 'package:e_esg/api/errors/Exceptions.dart';
+import 'package:e_esg/models/SignIn_modelJeune.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 
 import '../../../api.dart';
 import '../../IES/statistiques.dart';
@@ -31,6 +35,7 @@ class _LoginState extends State<Login> {
   bool identifiernull=false;
   bool passwordnull=false;
   bool passwordvisible=false;
+  SigninModeljeune? userJeune;
 
   final TextEditingController _identifierController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -226,37 +231,57 @@ class _LoginState extends State<Login> {
                       });
                     }
                     else{
-                      final url = Uri.parse("$Url/auth/login/jeunes");
-                      Map<String,dynamic> data={
-                        "username":_identifierController.text,
-                        "password":_passwordController.text
-
-                      };
-                      try{
-                        final response =await http.post(
-                          url,
-                          headers: {
-                            'Content-Type':'application/json',
+                      try {
+                        final response =await api.post(
+                          EndPoints.LoginJeune,
+                          data:{
+                            "username": _identifierController.text,
+                            "password": _passwordController.text
                           },
-                          body:json.encode(data)
                         );
-                        if(response.statusCode==200){
-                          print('Data posted succesfully:${response.body} ');
-                          Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(builder: (context) => SideBarController()),
-                                (Route<dynamic> route) => false,
-                          );
-                        }
-                        else{
-                          print('failed to post data:${response.statusCode}');
-                          Fluttertoast.showToast(msg: response.body.toString(),backgroundColor: Colors.red);
-                          print('Response body:${response.body}');
-                        }
-                      } catch (e){
-                        Fluttertoast.showToast(msg: e.toString(),backgroundColor: Colors.red);
-                        print('Error: $e');
+                        userJeune=SigninModeljeune.fromJson(response);
+                        final decodedToken= JwtDecoder.decode(userJeune!.token);
+                        print(decodedToken);
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (context)=>SideBarController()),
+                              (Route<dynamic> route) => false,);
+                      } on ServerException catch (e) {
+                        print("dfffffffffffffffffffffffffffffffffffffffffffffffffffff");
+                        Fluttertoast.showToast(msg: e.errormodel.errorMsg,backgroundColor: Colors.red);
                       }
+
+                      // final url = Uri.parse("$Url/auth/login/jeunes");
+                      // Map<String,dynamic> data={
+                      //   "username":_identifierController.text,
+                      //   "password":_passwordController.text
+                      //
+                      // };
+                      // try{
+                      //   final response =await http.post(
+                      //     url,
+                      //     headers: {
+                      //       'Content-Type':'application/json',
+                      //     },
+                      //     body:json.encode(data)
+                      //   );
+                      //   if(response.statusCode==200){
+                      //     print('Data posted succesfully:${response.body} ');
+                      //     Navigator.pushAndRemoveUntil(
+                      //       context,
+                      //       MaterialPageRoute(builder: (context) => SideBarController()),
+                      //           (Route<dynamic> route) => false,
+                      //     );
+                      //   }
+                      //   else{
+                      //     print('failed to post data:${response.statusCode}');
+                      //     Fluttertoast.showToast(msg: response.body.toString(),backgroundColor: Colors.red);
+                      //     print('Response body:${response.body}');
+                      //   }
+                      // } catch (e){
+                      //   Fluttertoast.showToast(msg: e.toString(),backgroundColor: Colors.red);
+                      //   print('Error: $e');
+                      // }
                     }
 
                   }),

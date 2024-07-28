@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:e_esg/api.dart';
 import 'package:e_esg/api/end_points.dart';
 import 'package:e_esg/api/errors/Exceptions.dart';
-import 'package:e_esg/models/SinIn_modelInf.dart';
+import 'package:e_esg/models/SingIn_modelInf.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:auto_size_text/auto_size_text.dart';

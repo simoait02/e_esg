@@ -11,6 +11,9 @@ class EndPoints{
   static String ResetPass="/password/reset";
   static String RegisterInfermier="/register/professionnels";
   static String LoginInfermier="/auth/login/professionelSante";
+  static String LoginJeune="/auth/login/jeunes";
+  static String RegisterJeuneScola="/register/jeunes/scolarise";
+  static String RegisterJeuneUnScola="/register/jeunes/nonscolarise";
 
 
 }
