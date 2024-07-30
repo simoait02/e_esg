@@ -5,6 +5,7 @@ import 'package:e_esg/Widgets/NavigationBarDoctor.dart';
 import 'package:e_esg/Widgets/pulse_animation.dart';
 import 'package:e_esg/e_esj.dart';
 import 'package:e_esg/main.dart';
+import 'package:e_esg/pages/espacejeune/DossierMedical/DocMedical.dart';
 import 'package:e_esg/pages/espacejeune/SideBar/SidebarController.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Locale _locale = const Locale('ar');
+  Locale _locale = const Locale('fr');
 
   void setLocale(Locale locale) {
     setState(() {
@@ -51,7 +52,7 @@ class _MyAppState extends State<MyApp> {
         Locale('en')
       ],
       debugShowCheckedModeBanner: false,
-      home:const EEsj(),
+      home:const NavbarDoc(),
     );
   }
 }

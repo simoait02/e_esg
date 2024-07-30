@@ -1,12 +1,11 @@
+import 'package:e_esg/pages/espacejeune/login_signup/Cardi.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import 'docMedical01.dart';
 import 'docMedical02.dart';
 import 'docMedical03.dart';
-import 'docMedical04.dart';
 import 'docMedical05.dart';
 
 class DocMedical extends StatefulWidget {
@@ -28,7 +27,6 @@ class _DocMedicalState extends State<DocMedical> {
     Docmedical01(),
     Docmedical02(),
     Docmedical03(),
-    Docmedical04(),
     Docmedical05()
   ];
   int index=0;
@@ -48,25 +46,13 @@ class _DocMedicalState extends State<DocMedical> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     final appLocalizations = AppLocalizations.of(context);
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: true,
-        backgroundColor: isDarkMode ? Color(0xff141218) : Colors.white,
-        appBar: AppBar(
-          backgroundColor: isDarkMode ? Color(0xff141318) : Colors.white,
-          title: Text(appLocalizations!.docMedical,
-            style: GoogleFonts.inter(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: Color(0xff2e37a4)
-            ),
-          ),
-        ),
+        backgroundColor: CardiJeune.isDarkMode.value ? const Color(0xff141218) : Colors.white,
         body: SingleChildScrollView(
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 10),
+            padding: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
             child: Column(
               children: [
                 LinearProgressIndicator(

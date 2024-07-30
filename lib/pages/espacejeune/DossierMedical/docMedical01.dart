@@ -1,13 +1,13 @@
 import 'dart:io';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:e_esg/pages/espacejeune/DossierMedical/DocMedical.dart';
+import 'package:e_esg/pages/espacejeune/login_signup/Cardi.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:image_picker/image_picker.dart';
-
+import 'data.dart';
 class Docmedical01 extends StatefulWidget {
   const Docmedical01({super.key});
 
@@ -16,127 +16,259 @@ class Docmedical01 extends StatefulWidget {
 }
 
 class _Docmedical01State extends State<Docmedical01> {
-  File? _selectedImage;
   bool isSelectedImage = false;
+  static List<String> conditions = [
+    "Asthme",
+    "Diabète",
+    "Épilepsie",
+    "Troubles du spectre de l'autisme (TSA)",
+    "Troubles du sommeil"
+  ];
+  static List<bool> selectedConditions = [false, false, false, false, false];
+  static List<String> conditions1 = ["Oui", "Non"];
+  static int selectedConditionIndex = -1;
 
-  Future<void> addImage() async {
-    final imagePicker = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (imagePicker == null) return;
-    setState(() {
-      _selectedImage = File(imagePicker.path);
-      isSelectedImage = true;
+  TextEditingController controller = TextEditingController();
+  FocusNode focusNode = FocusNode();
+  bool hasFocus = false;
+  bool error = false;
+
+  @override
+  void initState() {
+    super.initState();
+    controller.text=typeMedicaments;
+    focusNode.addListener(() {
+      setState(() {
+        hasFocus = focusNode.hasFocus;
+      });
     });
   }
 
   @override
+  void dispose() {
+    controller.dispose();
+    focusNode.dispose();
+    super.dispose();
+  }
+
+
+  @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context);
-    double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Center(
-          child: CircleAvatar(
-            radius: 70,
-            backgroundImage: isSelectedImage ? FileImage(_selectedImage!) : null,
-            child: isSelectedImage ? null : Icon(CupertinoIcons.person, size: 70,),
+        AutoSizeText(
+          "Antécédents Personnels Médicaux",
+          maxLines: 2,
+          style: GoogleFonts.inter(
+            color: const Color(0xff2e37a4),
+            fontSize: 25,
+            fontWeight: FontWeight.w600,
           ),
         ),
-        Align(
-          alignment: Alignment.center,
-          child: GestureDetector(
-            onTap: addImage,
-            child: AutoSizeText(
-              appLocalizations!.addImage,
-              style: GoogleFonts.aBeeZee(
-                fontWeight: FontWeight.w400,
-                fontSize: 18,
-                color: const Color(0xff00d3c7),
-              ),
-            ),
+        SizedBox(height: height * 0.01),
+        AutoSizeText(
+          "Veuillez saisir les informations suivantes",
+          maxLines: 1,
+          style: GoogleFonts.inter(
+            color: const Color(0xff5c00ff),
+            fontSize: 17,
+            fontWeight: FontWeight.w200,
           ),
         ),
         SizedBox(height: height * 0.05),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            buildInfoRow(width, appLocalizations.nom, "simo", isDarkMode),
-            SizedBox(height: height * 0.02),
-            buildInfoRow(width, appLocalizations.prenom, "simo", isDarkMode),
-            SizedBox(height: height * 0.02),
-            buildInfoRow(width, appLocalizations.sex, appLocalizations.male, isDarkMode),
-            SizedBox(height: height * 0.02),
-            buildInfoRow(width, appLocalizations.birthDay, "dd/mm/yyyy", isDarkMode),
-            SizedBox(height: height * 0.02),
-            buildInfoRow(width, "CIN", "xxxxxxxx", isDarkMode),
-            SizedBox(height: height * 0.02),
-            buildInfoRow(width, appLocalizations.email, "xxxxxxxxxxxx@exemple.com", isDarkMode),
-            SizedBox(height: height * 0.02),
-            buildInfoRow(width, appLocalizations.tele, "1234567890", isDarkMode),
-            SizedBox(height: height * 0.02),
-          ],
+        AutoSizeText(
+          "Souffrez-vous des maladies chroniques suivantes?",
+          maxLines: 2,
+          style: GoogleFonts.inter(
+            color: CardiJeune.isDarkMode.value ? Colors.white : Colors.black,
+            fontSize: 20,
+            fontWeight: FontWeight.w400,
+          ),
         ),
+        SizedBox(height: height * 0.01),
+        AutoSizeText(
+          "Vous pouvez sélectionner aucune ou plusieurs.",
+          maxLines: 1,
+          style: GoogleFonts.inter(
+            color: CardiJeune.isDarkMode.value ? Colors.white : Colors.black,
+            fontSize: 17,
+            fontWeight: FontWeight.w200,
+          ),
+        ),
+        SizedBox(height: height * 0.02),
+        Wrap(
+          spacing: 8.0,
+          runSpacing: 8.0,
+          children: List<Widget>.generate(conditions.length, (int index) {
+            return ChoiceChip(
+              checkmarkColor: Colors.greenAccent,
+              backgroundColor: CardiJeune.isDarkMode.value ? const Color(0xff141218) : Colors.white,
+              selectedColor: const Color(0xff5c00ff),
+              label: Text(
+                conditions[index],
+                style: GoogleFonts.aBeeZee(
+                  color: selectedConditions[index] ? Colors.white : Colors.black,
+                ),
+              ),
+              selected: selectedConditions[index],
+              onSelected: (bool selected) {
+                setState(() {
+                  selectedConditions[index] = selected;
+                  if (selected) {
+                    chronique.add(conditions[index]);
+                  } else {
+                    chronique.remove(conditions[index]);
+                  }
+                  print(chronique); // For debugging purposes
+                });
+              },
+            );
+          }),
+        ),
+        SizedBox(height: height * 0.02),
+        AutoSizeText(
+          "Utilisez-vous des médicaments?",
+          maxLines: 2,
+          style: GoogleFonts.inter(
+            color: CardiJeune.isDarkMode.value ? Colors.white : Colors.black,
+            fontSize: 20,
+            fontWeight: FontWeight.w400,
+          ),
+        ),
+        SizedBox(height: height * 0.01),
         Align(
           alignment: Alignment.center,
-          child: CupertinoButton(
-            child: Container(
-              width: width * 0.3,
-              height: height * 0.05,
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [Color(0xff4E57CD), Color(0xff2F38A5)],
+          child: Wrap(
+            spacing: 8.0,
+            runSpacing: 8.0,
+            children: List<Widget>.generate(conditions1.length, (int index) {
+              return ChoiceChip(
+                checkmarkColor: Colors.greenAccent,
+                backgroundColor: CardiJeune.isDarkMode.value
+                    ? const Color(0xff141218)
+                    : Colors.white,
+                selectedColor: const Color(0xff5c00ff),
+                label: Text(
+                  conditions1[index],
+                  style: GoogleFonts.aBeeZee(
+                    color: selectedConditionIndex == index
+                        ? Colors.white
+                        : Colors.black,
+                  ),
                 ),
-                borderRadius: BorderRadius.circular(40),
-              ),
-              alignment: Alignment.center,
-              child: AutoSizeText(
-                appLocalizations.suivant,
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
-            ),
-            onPressed: () {
-              if(isSelectedImage){
-                DocMedical.setIndex(context, 1);
-                DocMedical.setProgress(context, 0.25);
-              }else(
-                Fluttertoast.showToast(
-                  msg: appLocalizations.addImage,
-                  backgroundColor: Colors.red
-                )
+                selected: selectedConditionIndex == index,
+                onSelected: (bool selected) {
+                  setState(() {
+                    selectedConditionIndex = selected ? index : -1;
+                    if (!selected) {
+                      controller.clear();
+                    }
+                  });
+                },
               );
-            },
+            }),
           ),
         ),
-      ],
-    );
-  }
-
-  Widget buildInfoRow(double width, String label, String value, bool isDarkMode) {
-    return Row(
-      children: [
-        Container(
-          width: width * 0.3,
-          child: AutoSizeText(
-            label,
-            style: GoogleFonts.aBeeZee(
-              color: isDarkMode ? Colors.white : Colors.black,
-              fontSize: 16,
-            ),
+        SizedBox(height: height * 0.02),
+        Visibility(
+          visible: selectedConditionIndex == 0,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AutoSizeText(
+                "Type de médicaments",
+                maxLines: 2,
+                style: GoogleFonts.inter(
+                  color: CardiJeune.isDarkMode.value
+                      ? Colors.white
+                      : Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              SizedBox(height: height * 0.01),
+              SizedBox(
+                height: 45,
+                child: CupertinoTextField(
+                  controller: controller,
+                  focusNode: focusNode,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                      color: hasFocus
+                          ? const Color(0xFF2E37A4)
+                          : error
+                          ? Colors.red
+                          : CardiJeune.isDarkMode.value
+                          ? CupertinoColors.white.withOpacity(0.5)
+                          : CupertinoColors.black.withOpacity(0.2),
+                      width: 2,
+                    ),
+                  ),
+                  placeholder: "Entrez le type de médicaments",
+                  placeholderStyle: TextStyle(
+                    color: CardiJeune.isDarkMode.value
+                        ? Colors.white.withOpacity(0.5)
+                        : Colors.black.withOpacity(0.5),
+                  ),
+                  style: TextStyle(
+                    color: CardiJeune.isDarkMode.value
+                        ? Colors.white
+                        : Colors.black,
+                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  onTapOutside: (event) {
+                    setState(() {
+                      focusNode.unfocus();
+                    });
+                  },
+                ),
+              ),
+            ],
           ),
         ),
-        Expanded(
-          child: AutoSizeText(
-            value,
-            style: GoogleFonts.aBeeZee(
-              color: isDarkMode ? Colors.white70 : Colors.black54,
-              fontSize: 16,
+        SizedBox(height: height * 0.02),
+        CupertinoButton(
+          child: Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              gradient:selectedConditionIndex==-1?const LinearGradient(
+                colors: [Colors.grey, Colors.grey],
+              ): const LinearGradient(
+                colors: [Color(0xff4E57CD), Color(0xff2F38A5)],
+              ),
+              borderRadius: BorderRadius.circular(40),
+            ),
+            alignment: Alignment.center,
+            child: AutoSizeText(
+              appLocalizations!.suivant,
+              style: const TextStyle(color: Colors.white, fontSize: 20),
             ),
           ),
-        )
+          onPressed: () {
+            switch(selectedConditionIndex){
+              case 0:{
+                if(controller.text.isEmpty){
+                  Fluttertoast.showToast(msg: "Entrez les médicaments");
+                }else{
+                  typeMedicaments=controller.text;
+                  DocMedical.setProgress(context, 0.25);
+                  DocMedical.setIndex(context, 1);
+                }
+                break;
+              }
+              case 1:{
+                typeMedicaments=controller.text;
+                DocMedical.setProgress(context, 0.25);
+                DocMedical.setIndex(context, 1);
+              }
+            }
+          },
+        ),
       ],
     );
   }
