@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:e_esg/pages/espacejeune/DossierMedical/DocMedical.dart';
 import 'package:e_esg/pages/espacejeune/login_signup/Cardi.dart';
@@ -61,7 +60,7 @@ class _Docmedical01State extends State<Docmedical01> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         AutoSizeText(
-          "Antécédents Personnels Médicaux",
+          appLocalizations!.medical_history,
           maxLines: 2,
           style: GoogleFonts.inter(
             color: const Color(0xff2e37a4),
@@ -71,7 +70,7 @@ class _Docmedical01State extends State<Docmedical01> {
         ),
         SizedBox(height: height * 0.01),
         AutoSizeText(
-          "Veuillez saisir les informations suivantes",
+          appLocalizations.enter_information,
           maxLines: 1,
           style: GoogleFonts.inter(
             color: const Color(0xff5c00ff),
@@ -81,7 +80,7 @@ class _Docmedical01State extends State<Docmedical01> {
         ),
         SizedBox(height: height * 0.05),
         AutoSizeText(
-          "Souffrez-vous des maladies chroniques suivantes?",
+          appLocalizations.chronic_diseases,
           maxLines: 2,
           style: GoogleFonts.inter(
             color: CardiJeune.isDarkMode.value ? Colors.white : Colors.black,
@@ -91,7 +90,7 @@ class _Docmedical01State extends State<Docmedical01> {
         ),
         SizedBox(height: height * 0.01),
         AutoSizeText(
-          "Vous pouvez sélectionner aucune ou plusieurs.",
+          appLocalizations.select_none_or_multiple,
           maxLines: 1,
           style: GoogleFonts.inter(
             color: CardiJeune.isDarkMode.value ? Colors.white : Colors.black,
@@ -131,7 +130,7 @@ class _Docmedical01State extends State<Docmedical01> {
         ),
         SizedBox(height: height * 0.02),
         AutoSizeText(
-          "Utilisez-vous des médicaments?",
+          appLocalizations.use_medication,
           maxLines: 2,
           style: GoogleFonts.inter(
             color: CardiJeune.isDarkMode.value ? Colors.white : Colors.black,
@@ -180,7 +179,7 @@ class _Docmedical01State extends State<Docmedical01> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AutoSizeText(
-                "Type de médicaments",
+                appLocalizations.type_of_medication,
                 maxLines: 2,
                 style: GoogleFonts.inter(
                   color: CardiJeune.isDarkMode.value
@@ -209,7 +208,7 @@ class _Docmedical01State extends State<Docmedical01> {
                       width: 2,
                     ),
                   ),
-                  placeholder: "Entrez le type de médicaments",
+                  placeholder: appLocalizations.enter_type_of_medication,
                   placeholderStyle: TextStyle(
                     color: CardiJeune.isDarkMode.value
                         ? Colors.white.withOpacity(0.5)
@@ -245,7 +244,7 @@ class _Docmedical01State extends State<Docmedical01> {
             ),
             alignment: Alignment.center,
             child: AutoSizeText(
-              appLocalizations!.suivant,
+              appLocalizations.suivant,
               style: const TextStyle(color: Colors.white, fontSize: 20),
             ),
           ),
@@ -253,7 +252,7 @@ class _Docmedical01State extends State<Docmedical01> {
             switch(selectedConditionIndex){
               case 0:{
                 if(controller.text.isEmpty){
-                  Fluttertoast.showToast(msg: "Entrez les médicaments");
+                  Fluttertoast.showToast(msg: appLocalizations.enter_type_of_medication);
                 }else{
                   typeMedicaments=controller.text;
                   DocMedical.setProgress(context, 0.25);

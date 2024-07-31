@@ -28,7 +28,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Locale _locale = const Locale('fr');
+  Locale _locale = const Locale('ar');
 
   void setLocale(Locale locale) {
     setState(() {
@@ -52,7 +52,7 @@ class _MyAppState extends State<MyApp> {
         Locale('en')
       ],
       debugShowCheckedModeBanner: false,
-      home:const NavbarDoc(),
+      home:const DocMedical(),
     );
   }
 }

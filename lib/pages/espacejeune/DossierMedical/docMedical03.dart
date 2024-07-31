@@ -31,7 +31,8 @@ class _Docmedical03State extends State<Docmedical03> {
     "autre"
   ];
   static List<bool> selectedConditions = [false, false, false, false, false,false];
-@override
+
+  @override
   void initState() {
     super.initState();
     autreFocusNode.addListener(() {
@@ -40,6 +41,7 @@ class _Docmedical03State extends State<Docmedical03> {
       });
     });
   }
+
   @override
   void dispose() {
     controller.dispose();
@@ -56,7 +58,7 @@ class _Docmedical03State extends State<Docmedical03> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         AutoSizeText(
-          "Antécédents Personnels Médicaux",
+          appLocalizations!.medical_history,
           maxLines: 2,
           style: GoogleFonts.inter(
             color: const Color(0xff2e37a4),
@@ -66,7 +68,7 @@ class _Docmedical03State extends State<Docmedical03> {
         ),
         SizedBox(height: height * 0.01),
         AutoSizeText(
-          "Veuillez saisir les informations suivantes",
+          appLocalizations.enter_information,
           maxLines: 1,
           style: GoogleFonts.inter(
             color: const Color(0xff5c00ff),
@@ -76,7 +78,7 @@ class _Docmedical03State extends State<Docmedical03> {
         ),
         SizedBox(height: height * 0.05),
         AutoSizeText(
-          "Est-ce que vous avez un membre de la famille souffrant de l'une des maladies suivantes?",
+          appLocalizations.family_member_diseases,
           maxLines: 3,
           style: GoogleFonts.inter(
             color: CardiJeune.isDarkMode.value ? Colors.white : Colors.black,
@@ -85,14 +87,14 @@ class _Docmedical03State extends State<Docmedical03> {
           ),
         ),
         AutoSizeText(
-          "Vous pouvez sélectionner plusieurs ou aucune si aucun de vos proches souffrent de l'une de ces maladies.",
+          appLocalizations.select_multiple_or_none,
           style: GoogleFonts.inter(
             color: CardiJeune.isDarkMode.value ? Colors.white : Colors.black,
             fontSize: 14,
             fontWeight: FontWeight.w200,
           ),
         ),
-        SizedBox(height: height*0.02,),
+        SizedBox(height: height * 0.02),
         Wrap(
           spacing: 8.0,
           runSpacing: 8.0,
@@ -125,7 +127,7 @@ class _Docmedical03State extends State<Docmedical03> {
             children: [
               SizedBox(height: height * 0.02),
               AutoSizeText(
-                "Autre",
+                appLocalizations.other,
                 maxLines: 2,
                 style: GoogleFonts.inter(
                   color: CardiJeune.isDarkMode.value ? Colors.white : Colors.black,
@@ -152,7 +154,7 @@ class _Docmedical03State extends State<Docmedical03> {
                       width: 2,
                     ),
                   ),
-                  placeholder: "Entrez la maladie",
+                  placeholder: appLocalizations.enter_disease,
                   placeholderStyle: TextStyle(
                     color: CardiJeune.isDarkMode.value
                         ? Colors.white.withOpacity(0.5)
@@ -175,45 +177,47 @@ class _Docmedical03State extends State<Docmedical03> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            CupertinoButton(
-              child: Container(
-                width: width * 0.3,
-                height: height * 0.05,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(40),
-                  border: Border.all(color: const Color(0xff4E57CD)),
-                ),
-                alignment: Alignment.center,
-                child: Text(
-                  appLocalizations?.precedent ?? "Précédent",
-                  style: const TextStyle(color: Color(0xff4E57CD), fontSize: 20),
-                ),
-              ),
-              onPressed: () {
-                DocMedical.setProgress(context, 0.25);
-                DocMedical.setIndex(context, 1);
-              },
-            ),
-            CupertinoButton(
-              child: Container(
-                width: width * 0.3,
-                height: height * 0.05,
-                decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: [Color(0xff4E57CD), Color(0xff2F38A5)],
+            Expanded(
+              child: CupertinoButton(
+                child: Container(
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(40),
+                    border: Border.all(color: const Color(0xff4E57CD)),
                   ),
-                  borderRadius: BorderRadius.circular(40),
+                  alignment: Alignment.center,
+                  child: Text(
+                    appLocalizations.precedent,
+                    style: const TextStyle(color: Color(0xff4E57CD), fontSize: 20),
+                  ),
                 ),
-                alignment: Alignment.center,
-                child: AutoSizeText(
-                  appLocalizations?.suivant ?? "Suivant",
-                  style: const TextStyle(color: Colors.white, fontSize: 20),
-                ),
+                onPressed: () {
+                  DocMedical.setProgress(context, 0.25);
+                  DocMedical.setIndex(context, 1);
+                },
               ),
-              onPressed: () {
-                DocMedical.setProgress(context, 0.75);
-                DocMedical.setIndex(context, 3);
-              },
+            ),
+            Expanded(
+              child: CupertinoButton(
+                child: Container(
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      colors: [Color(0xff4E57CD), Color(0xff2F38A5)],
+                    ),
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                  alignment: Alignment.center,
+                  child: AutoSizeText(
+                    appLocalizations.suivant,
+                    style: const TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                ),
+                onPressed: () {
+                  DocMedical.setProgress(context, 0.75);
+                  DocMedical.setIndex(context, 3);
+                },
+              ),
             ),
           ],
         ),

@@ -4,6 +4,7 @@ import 'package:e_esg/pages/espacejeune/login_signup/Cardi.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Docmedical02 extends StatefulWidget {
   const Docmedical02({super.key});
@@ -80,11 +81,13 @@ class _Docmedical02State extends State<Docmedical02> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+    final appLocalizations = AppLocalizations.of(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         AutoSizeText(
-          "Antécédents Personnels Médicaux",
+          appLocalizations!.medical_history,
           maxLines: 2,
           style: GoogleFonts.inter(
             color: const Color(0xff2e37a4),
@@ -94,7 +97,7 @@ class _Docmedical02State extends State<Docmedical02> {
         ),
         SizedBox(height: height * 0.01),
         AutoSizeText(
-          "Veuillez saisir les informations suivantes",
+          appLocalizations.enter_information,
           maxLines: 1,
           style: GoogleFonts.inter(
             color: const Color(0xff5c00ff),
@@ -104,7 +107,7 @@ class _Docmedical02State extends State<Docmedical02> {
         ),
         SizedBox(height: height * 0.05),
         AutoSizeText(
-          "Souffrez-vous de maladies chirurgicaux?",
+          appLocalizations.suffer_surgical_diseases,
           maxLines: 2,
           style: GoogleFonts.inter(
             color: CardiJeune.isDarkMode.value ? Colors.white : Colors.black,
@@ -153,7 +156,7 @@ class _Docmedical02State extends State<Docmedical02> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AutoSizeText(
-                "Type d'opération",
+                appLocalizations.operation_type,
                 maxLines: 2,
                 style: GoogleFonts.inter(
                   color: CardiJeune.isDarkMode.value
@@ -182,7 +185,7 @@ class _Docmedical02State extends State<Docmedical02> {
                       width: 2,
                     ),
                   ),
-                  placeholder: "Entrez le type de médicaments",
+                  placeholder: appLocalizations.enter_operation_type,
                   placeholderStyle: TextStyle(
                     color: CardiJeune.isDarkMode.value
                         ? Colors.white.withOpacity(0.5)
@@ -203,7 +206,7 @@ class _Docmedical02State extends State<Docmedical02> {
               ),
               SizedBox(height: height * 0.02),
               AutoSizeText(
-                "Année de l'opération",
+                appLocalizations.operation_year,
                 maxLines: 2,
                 style: GoogleFonts.inter(
                   color: CardiJeune.isDarkMode.value
@@ -232,7 +235,7 @@ class _Docmedical02State extends State<Docmedical02> {
                       width: 2,
                     ),
                   ),
-                  placeholder: "Entrez l'année de l'opération",
+                  placeholder: appLocalizations.enter_operation_year,
                   placeholderStyle: TextStyle(
                     color: CardiJeune.isDarkMode.value
                         ? Colors.white.withOpacity(0.5)
@@ -256,7 +259,7 @@ class _Docmedical02State extends State<Docmedical02> {
         ),
         SizedBox(height: height * 0.02),
         AutoSizeText(
-          "Avez-vous certaines de ces habitudes?",
+          appLocalizations.habits_question,
           maxLines: 2,
           style: GoogleFonts.inter(
             color: CardiJeune.isDarkMode.value
@@ -267,7 +270,7 @@ class _Docmedical02State extends State<Docmedical02> {
           ),
         ),
         AutoSizeText(
-          "Vous pouvez sélectionner aucune ou plusieurs.",
+          appLocalizations.select_none_or_multiple,
           maxLines: 1,
           style: GoogleFonts.inter(
             color: CardiJeune.isDarkMode.value ? Colors.white : Colors.black,
@@ -311,7 +314,7 @@ class _Docmedical02State extends State<Docmedical02> {
               children: [
                 SizedBox(height: height*0.02,),
                 AutoSizeText(
-                  "Combien de cigarettes fumez-vous par jour?",
+                  appLocalizations.cigarettes_per_day,
                   maxLines: 2,
                   style: GoogleFonts.inter(
                     color: CardiJeune.isDarkMode.value
@@ -340,7 +343,7 @@ class _Docmedical02State extends State<Docmedical02> {
                         width: 2,
                       ),
                     ),
-                    placeholder: "Entrez le nombre de cigarettes fumées par jeur",
+                    placeholder: appLocalizations.enter_cigarettes_per_day,
                     placeholderStyle: TextStyle(
                       color: CardiJeune.isDarkMode.value
                           ? Colors.white.withOpacity(0.5)
@@ -369,7 +372,7 @@ class _Docmedical02State extends State<Docmedical02> {
             children: [
               SizedBox(height: height*0.02,),
               AutoSizeText(
-                "Consomation d'alcool?",
+                appLocalizations.alcohol_consumption,
                 maxLines: 2,
                 style: GoogleFonts.inter(
                   color: CardiJeune.isDarkMode.value
@@ -422,7 +425,7 @@ class _Docmedical02State extends State<Docmedical02> {
             children: [
               SizedBox(height: height*0.02,),
               AutoSizeText(
-                "Combien de temps passez-vous devant un écran par jour?",
+                appLocalizations.screen_time,
                 maxLines: 2,
                 style: GoogleFonts.inter(
                   color: CardiJeune.isDarkMode.value
@@ -480,7 +483,7 @@ class _Docmedical02State extends State<Docmedical02> {
                   ),
                   alignment: Alignment.center,
                   child: Text(
-                    "Précédent",
+                    appLocalizations.precedent,
                     style: const TextStyle(
                         color: Color(0xff4E57CD), fontSize: 20),
                   ),
@@ -503,7 +506,7 @@ class _Docmedical02State extends State<Docmedical02> {
                   ),
                   alignment: Alignment.center,
                   child: AutoSizeText(
-                    "Suivant",
+                    appLocalizations.suivant,
                     style: const TextStyle(color: Colors.white, fontSize: 20),
                   ),
                 ),
