@@ -149,88 +149,91 @@ class _ConfirmInformationsState extends State<ConfirmInformations> {
                 },
               ),
               CupertinoButton(
-                onPressed: () async {
-                  if(CardiJeune.scolarity) {
-                    final url = Uri.parse("$Url/register/jeunes/scolarise");
-                    Map<String, dynamic> data = {
-                      "infoUser": {
-                        "nom": CardiJeune.lastnameController.text,
-                        "prenom": CardiJeune.firstnameController.text,
-                        "mail": CardiJeune.emailController.text,
-                        "numTel": CardiJeune.numteleController.text,
-                        "motDePasse": CardiJeune.passwordController.text
-                      },
-                      "sexe": CardiJeune.value==2?"MASCULIN":"FEMININ",
-                      "dateNaissance": CardiJeune.birthDay,
-                      "scolarise": true,
-                      "cin": CardiJeune.cinController.text,
-                      "niveauEtudeActuel": "SUPERIEUR",
-                      "cne": CardiJeune.cneController.text
-                    };
-                    try {
-                      final response = await http.post(
-                        url,
-                        headers: {
-                          'Content-Type': 'application/json',
-                        },
-                        body: json.encode(data),
-                      );
-                      if (response.statusCode == 200) {
-                        print('Data posted successfully: ${response.body}');
-                        widget.onConfirmTapped(0.6, 0.1);
-                      } else {
-                        print('Request data: ${json.encode(data)}');
-                        print('Failed to post data: ${response.statusCode}');
-                        Fluttertoast.showToast(msg: response.body.toString(), backgroundColor: Colors.red);
-                        print('Response body: ${response.body}');
-                      }
-                    } catch (e) {
-                      Fluttertoast.showToast(msg: e.toString(), backgroundColor: Colors.red);
-                      print('Error: $e');
-                    }
-                  }
-                  else {
-                    final url = Uri.parse("$Url/register/jeunes/scolarise");
-                    Map<String, dynamic> data = {
-                      "infoUser": {
-                        "nom":CardiJeune.lastnameController.text,
-                        "prenom": CardiJeune.firstnameController.text,
-                        "mail": CardiJeune.emailController.text,
-                        "numTel": CardiJeune.numteleController.text,
-                        "motDePasse": CardiJeune.passwordController.text
-                      },
-                      "sexe": CardiJeune.value==2?"MASCULIN":"FEMININ",
-                      "dateNaissance": "${CardiJeune.selectedDateTime?.year}-${CardiJeune.selectedDateTime?.month}-${CardiJeune.selectedDateTime?.day}",
-                      "scolarise": false,
-                      "cin":CardiJeune.cinController.text,
-                      "dernierNiveauEtudes": "SUPERIEUR",
-                      "enActivite": CardiJeune.stateActu=='En activité'
-
-                    };
-                    try {
-                      final response = await http.post(
-                        url,
-                        headers: {
-                          'Content-Type': 'application/json',
-                        },
-                        body: json.encode(data),
-                      );
-                      if (response.statusCode == 200) {
-                        print('Data posted successfully: ${response.body}');
-                        widget.onConfirmTapped(0.6, 0.1);
-                      } else {
-                        print('Request data: ${json.encode(data)}');
-                        print('Failed to post data: ${response.statusCode}');
-                        Fluttertoast.showToast(
-                            msg: response.body.toString(), backgroundColor: Colors.red);
-                        print('Response body: ${response.body}');
-                      }
-                    } catch (e) {
-                      Fluttertoast.showToast(msg: e.toString(), backgroundColor: Colors.red);
-                      print('Error: $e');
-                    }
-                  }
+                onPressed: (){
+                  widget.onConfirmTapped(0.6, 0.1);
                 },
+                // onPressed: () async {
+                //   if(CardiJeune.scolarity) {
+                //     final url = Uri.parse("$Url/register/jeunes/scolarise");
+                //     Map<String, dynamic> data = {
+                //       "infoUser": {
+                //         "nom": CardiJeune.lastnameController.text,
+                //         "prenom": CardiJeune.firstnameController.text,
+                //         "mail": CardiJeune.emailController.text,
+                //         "numTel": CardiJeune.numteleController.text,
+                //         "motDePasse": CardiJeune.passwordController.text
+                //       },
+                //       "sexe": CardiJeune.value==2?"MASCULIN":"FEMININ",
+                //       "dateNaissance": CardiJeune.birthDay,
+                //       "scolarise": true,
+                //       "cin": CardiJeune.cinController.text,
+                //       "niveauEtudeActuel": "SUPERIEUR",
+                //       "cne": CardiJeune.cneController.text
+                //     };
+                //     try {
+                //       final response = await http.post(
+                //         url,
+                //         headers: {
+                //           'Content-Type': 'application/json',
+                //         },
+                //         body: json.encode(data),
+                //       );
+                //       if (response.statusCode == 200) {
+                //         print('Data posted successfully: ${response.body}');
+                //         widget.onConfirmTapped(0.6, 0.1);
+                //       } else {
+                //         print('Request data: ${json.encode(data)}');
+                //         print('Failed to post data: ${response.statusCode}');
+                //         Fluttertoast.showToast(msg: response.body.toString(), backgroundColor: Colors.red);
+                //         print('Response body: ${response.body}');
+                //       }
+                //     } catch (e) {
+                //       Fluttertoast.showToast(msg: e.toString(), backgroundColor: Colors.red);
+                //       print('Error: $e');
+                //     }
+                //   }
+                //   else {
+                //     final url = Uri.parse("$Url/register/jeunes/scolarise");
+                //     Map<String, dynamic> data = {
+                //       "infoUser": {
+                //         "nom":CardiJeune.lastnameController.text,
+                //         "prenom": CardiJeune.firstnameController.text,
+                //         "mail": CardiJeune.emailController.text,
+                //         "numTel": CardiJeune.numteleController.text,
+                //         "motDePasse": CardiJeune.passwordController.text
+                //       },
+                //       "sexe": CardiJeune.value==2?"MASCULIN":"FEMININ",
+                //       "dateNaissance": "${CardiJeune.selectedDateTime?.year}-${CardiJeune.selectedDateTime?.month}-${CardiJeune.selectedDateTime?.day}",
+                //       "scolarise": false,
+                //       "cin":CardiJeune.cinController.text,
+                //       "dernierNiveauEtudes": "SUPERIEUR",
+                //       "enActivite": CardiJeune.stateActu=='En activité'
+                //
+                //     };
+                //     try {
+                //       final response = await http.post(
+                //         url,
+                //         headers: {
+                //           'Content-Type': 'application/json',
+                //         },
+                //         body: json.encode(data),
+                //       );
+                //       if (response.statusCode == 200) {
+                //         print('Data posted successfully: ${response.body}');
+                //         widget.onConfirmTapped(0.6, 0.1);
+                //       } else {
+                //         print('Request data: ${json.encode(data)}');
+                //         print('Failed to post data: ${response.statusCode}');
+                //         Fluttertoast.showToast(
+                //             msg: response.body.toString(), backgroundColor: Colors.red);
+                //         print('Response body: ${response.body}');
+                //       }
+                //     } catch (e) {
+                //       Fluttertoast.showToast(msg: e.toString(), backgroundColor: Colors.red);
+                //       print('Error: $e');
+                //     }
+                //   }
+                // },
                 child: Container(
                     width: width * 0.4,
                     height: height * 0.06,

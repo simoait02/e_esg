@@ -5,6 +5,7 @@ import 'package:e_esg/Widgets/NavigationBarDoctor.dart';
 import 'package:e_esg/Widgets/pulse_animation.dart';
 import 'package:e_esg/e_esj.dart';
 import 'package:e_esg/main.dart';
+import 'package:e_esg/pages/IES/espace_admin.dart';
 import 'package:e_esg/pages/espacejeune/SideBar/SidebarController.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -51,7 +52,7 @@ class _MyAppState extends State<MyApp> {
         Locale('en')
       ],
       debugShowCheckedModeBanner: false,
-      home:const EEsj(),
+      home:EspaceAdmin(),
     );
   }
 }
