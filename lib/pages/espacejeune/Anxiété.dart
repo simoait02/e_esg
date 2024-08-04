@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../Widgets/custom_sliver_app_bar.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'testpsy4.dart';
 
 class Anxiete extends StatefulWidget {
@@ -15,25 +16,7 @@ class AnxieteState extends State<Anxiete> {
   int currentQuestionIndex = 0;
   List<bool> isHovered = List.generate(4, (index) => false);
 
-  final List<String> questions = [
-    "Je me sens tendu ou énervé.",
-    "J'ai une sensation de peur comme si quelque chose d'horrible allait m'arriver.",
-    "Je me fais du souci.",
-    "Je peux rester tranquillement assis à ne rien faire et me sentir décontracté.",
-    "J'éprouve des sensations de peur et j'ai l'estomac noué.",
-    "J'ai la bougeotte et n'arrive pas à tenir en place.",
-    "J'éprouve des sensations soudaines de panique.",
-  ];
-
-  final List<List<String>> answers = [
-    ['Jamais', 'De temps en temps', 'Souvent', 'La plupart du temps'],
-    ['Pas du tout', "Un peu mais cela ne m'inquiète pas", "Oui, mais ce n'est pas trop grave", "Oui, mais ce n'est pas trop grave"],
-    ['Très occasionnellement', 'Occasionnellement', 'Assez souvent', 'Très souvent'],
-    ["Oui, quoi qu'il arrive", 'Oui, en général', 'Rarement', 'Jamais'],
-    ['Jamais', 'Parfois', 'Assez souvent', 'Très souvent'],
-    ['Pas du tout', 'Pas tellement', 'Un peu', "Oui, c'est tout à fait le cas"],
-    ['Jamais', 'Pas très souvent', 'Assez souvent', 'Vraiment très souvent'],
-  ];
+  final List<String> questions = [];
 
   final List<int> answerScores = [0, 1, 2, 3];
 
@@ -48,16 +31,19 @@ class AnxieteState extends State<Anxiete> {
   }
 
   String interpretScore(int score) {
+    final appLocalizations = AppLocalizations.of(context)!;
+
     if (score < 8) {
-      return "Votre évaluation indique que vous êtes en paix avec vous-même. Continuez à pratiquer des activités qui favorisent votre tranquillité et bien-être. Restez attentif à votre sérénité et n'hésitez pas à consulter nos ressources pour maintenir cet équilibre.";
+      return appLocalizations.interpretation_low;
     } else if (score >= 8 && score < 10) {
-      return "Votre évaluation suggère que vous traversez peut-être une période de stress ou d'inquiétude. Il est important de prêter attention à vos sentiments et de prendre soin de vous. Considérez parler à un professionnel ou à un proche de confiance pour gérer les moments d'anxiété.";
+      return appLocalizations.interpretation_moderate;
     } else {
-      return "Votre évaluation suggère que vous traversez peut-être une période d'anxiété. Il est important de prêter attention à vos sentiments et de prendre soin de vous. Considérez parler à un professionnel ou à un proche de confiance pour gérer les moments d'anxiété.";
+      return appLocalizations.interpretation_high;
     }
   }
 
   void nextQuestion(int selectedIndex) {
+    final appLocalizations = AppLocalizations.of(context)!;
     if (currentQuestionIndex < questions.length - 1) {
       setState(() {
         if (jeuneAnswers.length > currentQuestionIndex) {
@@ -77,7 +63,7 @@ class AnxieteState extends State<Anxiete> {
       String interpretation = interpretScore(totalScore);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Vous avez terminé le test!'),
+          content: Text(AppLocalizations.of(context)!.testCompleted),
           backgroundColor: Colors.green,
         ),
       );
@@ -86,7 +72,7 @@ class AnxieteState extends State<Anxiete> {
           context,
           MaterialPageRoute(
             builder: (context) => Testpsy4(
-              title: "Évaluation de la Paix Intérieure",
+              title: appLocalizations.paixTitle,
               score: totalScore,
               interpretation: interpretation,
             ),
@@ -100,7 +86,7 @@ class AnxieteState extends State<Anxiete> {
     if (currentQuestionIndex > 0) {
       setState(() {
         currentQuestionIndex--;
-        jeuneAnswers.removeLast(); 
+        jeuneAnswers.removeLast();
       });
     }
   }
@@ -111,10 +97,69 @@ class AnxieteState extends State<Anxiete> {
     var screenWidth = MediaQuery.of(context).size.width;
     var brightness = MediaQuery.of(context).platformBrightness;
     bool isDarkMode = brightness == Brightness.dark;
+    final appLocalizations = AppLocalizations.of(context)!;
+
+    if (questions.isEmpty) {
+      questions.addAll([
+        appLocalizations.question_1,
+        appLocalizations.question_2,
+        appLocalizations.question_3,
+        appLocalizations.question_4,
+        appLocalizations.question_5,
+        appLocalizations.question_6,
+        appLocalizations.question_7,
+      ]);
+    }
+
+    final List<List<String>> answers = [
+      [
+        appLocalizations.answer_1_1,
+        appLocalizations.answer_1_2,
+        appLocalizations.answer_1_3,
+        appLocalizations.answer_1_4
+      ],
+      [
+        appLocalizations.answer_2_1,
+        appLocalizations.answer_2_2,
+        appLocalizations.answer_2_3,
+        appLocalizations.answer_2_4
+      ],
+      [
+        appLocalizations.answer_3_1,
+        appLocalizations.answer_3_2,
+        appLocalizations.answer_3_3,
+        appLocalizations.answer_3_4
+      ],
+      [
+        appLocalizations.answer_4_1,
+        appLocalizations.answer_4_2,
+        appLocalizations.answer_4_3,
+        appLocalizations.answer_4_4
+      ],
+      [
+        appLocalizations.answer_5_1,
+        appLocalizations.answer_5_2,
+        appLocalizations.answer_5_3,
+        appLocalizations.answer_5_4
+      ],
+      [
+        appLocalizations.answer_6_1,
+        appLocalizations.answer_6_2,
+        appLocalizations.answer_6_3,
+        appLocalizations.answer_6_4
+      ],
+      [
+        appLocalizations.answer_7_1,
+        appLocalizations.answer_7_2,
+        appLocalizations.answer_7_3,
+        appLocalizations.answer_7_4
+      ],
+    ];
 
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: isDarkMode ? Color(0xff141218) : Color.fromARGB(255, 240, 235, 235),
+      backgroundColor:
+          isDarkMode ? Color(0xff141218) : Color.fromARGB(255, 240, 235, 235),
       body: CustomScrollView(
         slivers: [
           CustomSliverAppBar(
@@ -138,7 +183,7 @@ class AnxieteState extends State<Anxiete> {
                       ),
                       child: Center(
                         child: Text(
-                          "Evaluation de la Paix Intérieure",
+                          appLocalizations.anxiete_title,
                           style: TextStyle(
                             fontSize: screenWidth * 0.04,
                             fontWeight: FontWeight.bold,
@@ -169,7 +214,7 @@ class AnxieteState extends State<Anxiete> {
                                 ),
                                 SizedBox(width: screenWidth * 0.01),
                                 Text(
-                                  "Précédent",
+                                  appLocalizations.previous_button,
                                   style: TextStyle(
                                     fontSize: screenWidth * 0.039,
                                     color: Color.fromARGB(255, 4, 79, 140),
@@ -214,13 +259,15 @@ class AnxieteState extends State<Anxiete> {
                                   child: Container(
                                     width: screenWidth * 0.4,
                                     height: screenHeight * 0.08,
-                                    margin: EdgeInsets.only(bottom: screenHeight * 0.02),
+                                    margin: EdgeInsets.only(
+                                        bottom: screenHeight * 0.02),
                                     padding: EdgeInsets.all(screenWidth * 0.03),
                                     decoration: BoxDecoration(
                                       color: isHovered[index]
                                           ? Colors.blue
                                           : Color.fromARGB(255, 4, 79, 140),
-                                      borderRadius: BorderRadius.circular(screenWidth * 0.02),
+                                      borderRadius: BorderRadius.circular(
+                                          screenWidth * 0.02),
                                     ),
                                     child: Center(
                                       child: Text(

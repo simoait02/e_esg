@@ -1,6 +1,65 @@
 import 'package:flutter/material.dart';
 import '../../Widgets/custom_sliver_app_bar.dart';
 import 'testpsy4.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+
+
+const List<Map<String, dynamic>> tests = [
+  {
+    'title': "RONFLEMENT",
+    'parts': [
+      {
+        'title': "FREQUENCE",
+        'choix': ["Ronfle souvent", "Ronfle en permanence"]
+      },
+      {
+        'title': "QUALITE",
+        'choix': ["Ronflement intense", "Respiration bruyante"]
+      },
+    ],
+  },
+  {
+    'title': "DIFFICULTES RESPIRATOIRES",
+    'parts': [
+      {
+        'choix': ["Respiration irrégulière", "Apnées constatées"]
+      },
+    ],
+  },
+  {
+    'title': "RESPIRATION BUCCALE",
+    'parts': [
+      {
+        'choix': ["Bouche ouverte pendant la journée", "Bouche sèche au réveil"]
+      },
+    ],
+  },
+  {
+    'title': "SOMNOLENCE DIURNE",
+    'parts': [
+      {
+        'choix': ["Fatigue au réveil", "Endormissement diurne", "Endormissement à l'école", "Difficulté à se réveiller"]
+      },
+    ],
+  },
+  {
+    'title': "TROUBLES ATTENTION / HYPERACTIVITE",
+    'parts': [
+      {
+        'choix': ["N'écoute pas", "Inorganisé", "Aisément distrait", "Bouge", "Toujours actif", "S'interrompt au cours d'une activité"]
+      },
+    ],
+  },
+  {
+    'title': "AUTRES",
+    'parts': [
+      {
+        'choix': ["Enurésie nocturne", "Maux de tête", "Retard de croissance", "Obésité"]
+      },
+    ],
+  },
+];
 
 class Sommeil extends StatefulWidget {
   const Sommeil({Key? key}) : super(key: key);
@@ -12,69 +71,38 @@ class Sommeil extends StatefulWidget {
 class SommeilState extends State<Sommeil> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  int currentQuestionIndex = 0;
-  List<bool> isHovered = List.generate(2, (index) => false);
+  int currentTestIndex = 0;
+  List<List<List<int>>> responses = []; 
+  List<bool> testCompleted = []; 
 
-  final List<String> questions = [
-    "Ronflez-vous fréquemment la nuit ?",
-    "Ronflez-vous en continu pendant la nuit ?",
-    "Votre ronflement est-il très bruyant ?",
-    "Avez-vous une respiration bruyante pendant le sommeil ?",
-    "Avez-vous une respiration irrégulière pendant le sommeil ?",
-    "Avez-vous déjà été observé(e) en train de faire des pauses respiratoires pendant le sommeil ?",
-    "Avez-vous tendance à garder la bouche ouverte pendant la journée ?",
-    "Votre bouche est-elle souvent sèche lorsque vous vous réveillez ?",
-    "Vous sentez-vous fatigué(e) au réveil ?",
-    "Avez-vous tendance à vous endormir pendant la journée ?",
-    "Vous endormez-vous souvent à l'école ou au travail ?",
-    "Avez-vous des difficultés à vous réveiller le matin ?",
-    "Avez-vous des difficultés à écouter et à prêter attention ?",
-    "Avez-vous tendance à être désorganisé(e) ?",
-    "Êtes-vous facilement distrait(e) ?",
-    "Avez-vous du mal à rester immobile ?",
-    "Êtes-vous toujours en mouvement ?",
-    "Interrompez-vous souvent vos activités ?",
-    "Avez-vous des épisodes d'énurésie nocturne (fait d'uriner involontairement pendant le sommeil) ?",
-    "Souffrez-vous souvent de maux de tête ?",
-    "Avez-vous un retard de croissance ?",
-    "Avez-vous des problèmes de poids ou d'obésité ?",
-  ];
-
-  final List<List<String>> answers = [
-    ['oui', 'non'],
-    ['oui', 'non'],
-    ['oui', 'non'],
-    ['oui', 'non'],
-    ['oui', 'non'],
-    ['oui', 'non'],
-    ['oui', 'non'],
-    ['oui', 'non'],
-    ['oui', 'non'],
-    ['oui', 'non'],
-    ['oui', 'non'],
-    ['oui', 'non'],
-    ['oui', 'non'],
-    ['oui', 'non'],
-    ['oui', 'non'],
-    ['oui', 'non'],
-    ['oui', 'non'],
-    ['oui', 'non'],
-    ['oui', 'non'],
-    ['oui', 'non'],
-    ['oui', 'non'],
-    ['oui', 'non'],
-  ];
-
-  final List<int> answerScores = [1, 0];
-
-  List<int> sommeilAnswers = [];
+  final List<int> answerScores = [0, 1]; 
   int totalScore = 0;
 
-  void calculateTotalScore() {
-    totalScore = 0;
-    for (int i = 0; i < sommeilAnswers.length; i++) {
-      totalScore += answerScores[sommeilAnswers[i]];
+  @override
+  void initState() {
+    super.initState();
+    for (var test in tests) {
+      responses.add(List.generate(
+          test['parts'].length,
+          (_) => List.filled(test['parts'][0]['choix'].length, -1))); 
+      testCompleted.add(false);
     }
+  }
+
+  void calculateTotalScore() {
+    totalScore = 0; 
+
+    for (var testResponses in responses) {
+      for (var partResponses in testResponses) {
+        for (var response in partResponses) {
+          if (response == 1) { 
+            totalScore += answerScores[response];
+          }
+        }
+      }
+    }
+
+    print("Total Score: $totalScore"); 
   }
 
   String interpretScore(int score) {
@@ -85,30 +113,31 @@ class SommeilState extends State<Sommeil> {
     }
   }
 
-  void nextQuestion(int selectedIndex) {
-    if (currentQuestionIndex < questions.length - 1) {
+  void recordResponse(int partIndex, int choiceIndex, int subChoiceIndex) {
+    setState(() {
+      responses[currentTestIndex][partIndex][subChoiceIndex] = choiceIndex;
+
+      bool allAnswered = responses[currentTestIndex][partIndex].every((response) => response != -1);
+      testCompleted[currentTestIndex] = allAnswered;
+    });
+  }
+
+  void nextTest() {
+    if (currentTestIndex < tests.length - 1) {
       setState(() {
-        if (sommeilAnswers.length > currentQuestionIndex) {
-          sommeilAnswers[currentQuestionIndex] = selectedIndex;
-        } else {
-          sommeilAnswers.add(selectedIndex);
-        }
-        currentQuestionIndex++;
+        currentTestIndex++;
       });
     } else {
-      if (sommeilAnswers.length > currentQuestionIndex) {
-        sommeilAnswers[currentQuestionIndex] = selectedIndex;
-      } else {
-        sommeilAnswers.add(selectedIndex);
-      }
       calculateTotalScore();
       String interpretation = interpretScore(totalScore);
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Vous avez terminé le test!'),
           backgroundColor: Colors.green,
         ),
       );
+
       Future.delayed(Duration(seconds: 2), () {
         Navigator.pushReplacement(
           context,
@@ -124,14 +153,13 @@ class SommeilState extends State<Sommeil> {
     }
   }
 
-  void previousQuestion() {
-    if (currentQuestionIndex > 0) {
-      setState(() {
-        currentQuestionIndex--;
-        sommeilAnswers.removeLast();
-      });
-    }
+  void previousTest() {
+  if (currentTestIndex > 0) {
+    setState(() {
+      currentTestIndex--;
+    });
   }
+ }
 
   @override
   Widget build(BuildContext context) {
@@ -139,6 +167,9 @@ class SommeilState extends State<Sommeil> {
     var screenWidth = MediaQuery.of(context).size.width;
     var brightness = MediaQuery.of(context).platformBrightness;
     bool isDarkMode = brightness == Brightness.dark;
+
+    var currentTest = tests[currentTestIndex];
+    var parts = currentTest['parts'];
 
     return Scaffold(
       key: _scaffoldKey,
@@ -155,7 +186,7 @@ class SommeilState extends State<Sommeil> {
               padding: EdgeInsets.all(screenWidth * 0.05),
               child: Center(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                       width: screenWidth * 0.9,
@@ -166,7 +197,7 @@ class SommeilState extends State<Sommeil> {
                       ),
                       child: Center(
                         child: Text(
-                          "Evaluation de la qualité de sommeil",
+                          "Évaluation de la qualité de sommeil",
                           style: TextStyle(
                             fontSize: screenWidth * 0.04,
                             fontWeight: FontWeight.bold,
@@ -184,85 +215,163 @@ class SommeilState extends State<Sommeil> {
                         borderRadius: BorderRadius.circular(screenWidth * 0.04),
                       ),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          GestureDetector(
-                            onTap: previousQuestion,
-                            child: Row(
-                              children: [
-                                Image.asset(
-                                  "assets/images/fleche.png",
-                                  width: screenWidth * 0.03,
-                                  height: screenWidth * 0.03,
-                                ),
-                                SizedBox(width: screenWidth * 0.01),
-                                Text(
-                                  "Précédent",
-                                  style: TextStyle(
-                                    fontSize: screenWidth * 0.039,
-                                    color: Color.fromARGB(255, 4, 79, 140),
-                                  ),
-                                ),
-                                SizedBox(width: screenWidth * 0.48),
-                                Text(
-                                  '${currentQuestionIndex + 1}/${questions.length}',
-                                  style: TextStyle(
-                                    fontSize: screenWidth * 0.03,
-                                    color: Color.fromARGB(255, 4, 79, 140),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: screenHeight * 0.02),
+                          Row(
+                            children: [
+                              GestureDetector(
+      onTap: previousTest,
+      child: Row(
+        children: [
+          Image.asset(
+            "assets/images/fleche.png",
+            width: screenWidth * 0.025,
+            height: screenWidth * 0.025,
+          ),
+          SizedBox(width: screenWidth * 0.01),
+          Text(
+            "Précédent",
+            style: TextStyle(
+              fontSize: screenWidth * 0.039,
+              color: Color.fromARGB(255, 4, 79, 140),
+            ),
+          ),
+        ],
+      ),
+    ),
+    SizedBox(width: screenWidth * 0.48),
+    Text(
+      '${currentTestIndex + 1}/${tests.length}',
+      style: TextStyle(
+        fontSize: screenWidth * 0.03,
+        color: Color.fromARGB(255, 4, 79, 140),
+      ),
+    ),
+  ],
+),
+                          SizedBox(height: screenHeight * 0.03),
                           Text(
-                            questions[currentQuestionIndex],
+                            currentTest['title'],
                             style: TextStyle(
                               fontSize: screenWidth * 0.03,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                           SizedBox(height: screenHeight * 0.02),
-                          ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: answers[currentQuestionIndex].length,
-                            itemBuilder: (context, index) {
-                              return MouseRegion(
-                                onEnter: (_) {
-                                  setState(() {
-                                    isHovered[index] = true;
-                                  });
-                                },
-                                onExit: (_) {
-                                  setState(() {
-                                    isHovered[index] = false;
-                                  });
-                                },
-                                child: GestureDetector(
-                                  onTap: () => nextQuestion(index),
-                                  child: Container(
-                                    width: screenWidth * 0.4,
-                                    height: screenHeight * 0.08,
-                                    margin: EdgeInsets.only(bottom: screenHeight * 0.02),
-                                    padding: EdgeInsets.all(screenWidth * 0.03),
-                                    decoration: BoxDecoration(
-                                      color: isHovered[index] ? Colors.blue : Color.fromARGB(255, 4, 79, 140),
-                                      borderRadius: BorderRadius.circular(screenWidth * 0.02),
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        answers[currentQuestionIndex][index],
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: screenWidth * 0.03,
-                                          fontWeight: FontWeight.bold,
+                          for (int i = 0; i < parts.length; i++) ...[
+                            if (i > 0) SizedBox(height: screenHeight * 0.02),
+                            Text(
+                              parts[i]['title'] ?? '',
+                              style: TextStyle(
+                                fontSize: screenWidth * 0.03,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(height: screenHeight * 0.02),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: List.generate(parts[i]['choix'].length, (subChoiceIndex) {
+                                String choice = parts[i]['choix'][subChoiceIndex];
+                                return Container(
+                                  width: screenWidth * 0.9,
+                                  margin: EdgeInsets.only(bottom: screenHeight * 0.02),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          choice,
+                                          style: TextStyle(
+                                            fontSize: screenWidth * 0.03,
+                                          ),
                                         ),
                                       ),
-                                    ),
+                                      SizedBox(width: screenWidth * 0.02),
+                                      Row(
+                                        children: [
+                                          GestureDetector(
+                                            onTap: () => recordResponse(i, 1, subChoiceIndex),
+                                            child: Row(
+                                              children: [
+                                                Icon(
+                                                  responses[currentTestIndex][i][subChoiceIndex] == 1
+                                                      ? Icons.radio_button_checked
+                                                      : Icons.radio_button_unchecked,
+                                                  size: screenWidth * 0.05,
+                                                  color: Colors.blue,
+                                                ),
+                                                SizedBox(width: screenWidth * 0.02),
+                                                Text(
+                                                  'Oui',
+                                                  style: TextStyle(
+                                                    fontSize: screenWidth * 0.03,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          SizedBox(width: screenWidth * 0.04),
+                                          GestureDetector(
+                                            onTap: () => recordResponse(i, 0, subChoiceIndex),
+                                            child: Row(
+                                              children: [
+                                                Icon(
+                                                  responses[currentTestIndex][i][subChoiceIndex] == 0
+                                                      ? Icons.radio_button_checked
+                                                      : Icons.radio_button_unchecked,
+                                                  size: screenWidth * 0.05,
+                                                  color: Colors.blue,
+                                                ),
+                                                SizedBox(width: screenWidth * 0.02),
+                                                Text(
+                                                  'Non',
+                                                  style: TextStyle(
+                                                    fontSize: screenWidth * 0.03,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
                                   ),
-                                ),
-                              );
-                            },
-                          ),
+                                );
+                              }),
+                            ),
+                          ],
+                          SizedBox(height: screenHeight * 0.02),
+                          Row(children: [
+                            Row(
+  children: [
+    GestureDetector(
+      onTap: () {
+        if (testCompleted[currentTestIndex]) {
+          nextTest();
+        }
+      },
+      child: Row(
+        children: [
+          SizedBox(width: screenWidth * 0.55),
+          Text(
+            "Suivant",
+            style: TextStyle(
+              fontSize: screenWidth * 0.039,
+              color: Color.fromARGB(255, 4, 79, 140),
+            ),
+          ),
+          SizedBox(width: screenWidth * 0.02),
+          Icon(
+            Icons.arrow_forward,
+            size: screenWidth * 0.05,
+            color: Colors.blue,
+          ),
+        ],
+      ),
+    ),
+  ],
+)
+
+                          ],)
                         ],
                       ),
                     ),
