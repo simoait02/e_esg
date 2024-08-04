@@ -32,35 +32,12 @@ class _Creatediscussion02State extends State<Creatediscussion02> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(height: height*0.05),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(appLocalizations!.motifDiscussion),
-            SizedBox(
-              width: width,
-              child: CupertinoTextField(
-                style: TextStyle(
-                  color:Cardi.isDarkMode.value?CupertinoColors.white.withOpacity(0.5): CupertinoColors.black.withOpacity(0.5),
-                ),
-                minLines: 1,
-                maxLines: 4,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    color:Cardi.isDarkMode.value?CupertinoColors.white.withOpacity(0.5): CupertinoColors.black.withOpacity(0.5),
-                    width: 1,
-                  ),
-                ),
-                padding: const EdgeInsets.all(16.0),
-              ),
-            )
-          ],
-        ),
+
         const SizedBox(height: 20),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(appLocalizations.traitement),
+              Text(appLocalizations!.commentOnImportedFiles),
             SizedBox(
               width: width,
               child: CupertinoTextField(

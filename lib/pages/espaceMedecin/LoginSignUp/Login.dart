@@ -13,6 +13,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
   final Function(double, double) onSignUpTapped;
@@ -193,6 +194,8 @@ class _LoginState extends State<Login> {
                       },
                     );
                     userDoc=SigninModeldoc.fromJson(response);
+                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                    prefs.setString('tokenDoc', "Bearer ${userDoc!.token}");
                     final decodedToken= JwtDecoder.decode(userDoc!.token);
                     print(decodedToken);
                     Navigator.pushAndRemoveUntil(

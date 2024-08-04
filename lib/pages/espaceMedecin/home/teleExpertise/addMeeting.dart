@@ -11,6 +11,14 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 class AddMeeting extends StatefulWidget {
+  static setIndex(BuildContext context,int index){
+    _AddMeetingState? state = context.findAncestorStateOfType<_AddMeetingState>();
+    state!.setIndex(index);
+  }
+  static setProgress(BuildContext context,double progress){
+    _AddMeetingState? state = context.findAncestorStateOfType<_AddMeetingState>();
+    state!.setProgress(progress);
+  }
   const AddMeeting({Key? key}) : super(key: key);
 
   @override
@@ -21,7 +29,16 @@ class _AddMeetingState extends State<AddMeeting> {
   bool isChecked = false;
   int index = 0;
   double progress = 0.25;
-
+  void setProgress(double newProgress){
+    setState(() {
+      progress=newProgress;
+    });
+  }
+  void setIndex(int index){
+    setState(() {
+      this.index=index;
+    });
+  }
   void updateInfo(bool value) {
     setState(() {
       isChecked = value;
@@ -47,9 +64,9 @@ class _AddMeetingState extends State<AddMeeting> {
     final appLocalizations = AppLocalizations.of(context);
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      backgroundColor: Cardi.isDarkMode.value?Color(0xff141218):Colors.white,
+      backgroundColor: Cardi.isDarkMode.value?const Color(0xff141218):Colors.white,
       appBar: CupertinoNavigationBar(
-        backgroundColor: Cardi.isDarkMode.value ? Color(0xff181a1b) : Colors.white,
+        backgroundColor: Cardi.isDarkMode.value ? const Color(0xff181a1b) : Colors.white,
         previousPageTitle: appLocalizations!.precedent,
         middle: Text(
           appLocalizations.createDiscussion,
@@ -73,66 +90,6 @@ class _AddMeetingState extends State<AddMeeting> {
                 borderRadius: BorderRadius.circular(10),
               ),
               list[index],
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  index != 0
-                      ? CupertinoButton(
-                    child: Container(
-                      width: width * 0.3,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Color(0xff0b40ff)),
-                        borderRadius: BorderRadius.circular(40),
-                      ),
-                      alignment: Alignment.center,
-                      child: AutoSizeText(
-                        appLocalizations.precedent,
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        if (index > 0) {
-                          index--;
-                          progress -= 0.25;
-                        }
-                      });
-                    },
-                  )
-                      : Container(),
-                  CupertinoButton(
-                    child: Container(
-                      width: width * 0.3,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        gradient: !isChecked && index==3
-                            ? LinearGradient(colors: [Color(0xff7a7a7f),Color(0xff696969)])
-                            : const LinearGradient(
-                          colors: [Color(0xff0b40ff), Color(0xff0c40a4)],
-                        ),
-                        borderRadius: BorderRadius.circular(40),
-                      ),
-                      alignment: Alignment.center,
-                      child: AutoSizeText(
-                        index == 3 ? appLocalizations.valide : appLocalizations.suivant,
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      ),
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        if (index == 3 && isChecked) {
-                          Navigator.pop(context);
-                        }
-                        if (index < 3) {
-                          index++;
-                          progress += 0.25;
-                        }
-                      });
-                    },
-                  ),
-                ],
-              ),
             ],
           ),
         ),
