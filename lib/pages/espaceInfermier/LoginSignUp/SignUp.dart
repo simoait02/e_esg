@@ -204,189 +204,186 @@ class _SignupState extends State<Signup> {
     final appLocalizations = AppLocalizations.of(context);
     return SingleChildScrollView(
       child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: height*0.05,),
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 30),
+            height: height * 0.07,
+            child: AutoSizeText(
+              appLocalizations!.signUp,
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30,
+                  fontFamily: "poppins",
+                  color: CardiInf.isDarkMode.value ? Colors.white : Colors.black),
+            ),
+          ),
+          SizedBox(height: height * 0.01),
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 30),
-                  height: height * 0.07,
-                  child: AutoSizeText(
-                    appLocalizations!.signUp,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30,
-                        fontFamily: "poppins",
-                        color: CardiInf.isDarkMode.value ? Colors.white : Colors.black),
-                  ),
-                ),
-                SizedBox(height: height * 0.01),
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  width: width * 0.37,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        width: width * 0.37,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                                height: height * 0.025,
-                                margin: const EdgeInsets.only(left: 10),
-                                child: AutoSizeText(
-                                  appLocalizations.nom,
-                                  style: TextStyle(color: CardiInf.isDarkMode.value ? Colors.white : Colors.black),
-                                )),
-                            buildTextField(width * 0.5, height, "", _nomFocusNode, _nomHasFocus, CardiInf.isDarkMode.value, CardiInf.nomController, _nomError),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        width: width * 0.37,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                                height: height * 0.025,
-                                margin: const EdgeInsets.only(left: 10),
-                                child: AutoSizeText(
-                                  appLocalizations.prenom,
-                                  style: TextStyle(color: CardiInf.isDarkMode.value ? Colors.white : Colors.black),
-                                )),
-                            buildTextField(width * 0.5, height, "", _prenomFocusNode, _prenomHasFocus, CardiInf.isDarkMode.value, CardiInf.prenomController, _prenomError),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        width: width * 0.37,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                                height: height * 0.025,
-                                margin: const EdgeInsets.only(left: 10),
-                                child: AutoSizeText(
-                                  "CIN",
-                                  style: TextStyle(color: CardiInf.isDarkMode.value ? Colors.white : Colors.black),
-                                )),
-                            buildTextField(width * 0.5, height, "", _cinFocusNode, _cinHasFocus, CardiInf.isDarkMode.value, CardiInf.cinController, _cinError),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        width: width * 0.37,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                                height: height * 0.025,
-                                margin: const EdgeInsets.only(left: 10),
-                                child: AutoSizeText(
-                                  "INPE",
-                                  style: TextStyle(color: CardiInf.isDarkMode.value ? Colors.white : Colors.black),
-                                )),
-                            buildTextField(width * 0.5, height, "", _inpeFocusNode, _inpeHasFocus, CardiInf.isDarkMode.value, CardiInf.inpeController, _inpeError),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Container(
-                    height: height * 0.025,
-                    margin: const EdgeInsets.symmetric(horizontal: 30),
-                    child: AutoSizeText(
-                      appLocalizations.email,
-                      style: TextStyle(color: CardiInf.isDarkMode.value ? Colors.white : Colors.black),
-                    )),
-                Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 20),
-                    child: buildTextField(width, height, "", _emailFocusNode, _emailHasFocus, CardiInf.isDarkMode.value, CardiInf.emailController, _emailError)),
-
-                const SizedBox(height: 10),
-                Container(
-                    height: height * 0.025,
-                    margin: const EdgeInsets.symmetric(horizontal: 30),
-                    child: AutoSizeText(
-                      appLocalizations.tele,
-                      style: TextStyle(color: CardiInf.isDarkMode.value ? Colors.white : Colors.black),
-                    )),
-                Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 20),
-                    child: buildTextField(width, height, "", _numTeleFocusNode, _numTeleHasFocus, CardiInf.isDarkMode.value, CardiInf.numTeleController, _numTeleError)),
-
-                const SizedBox(height: 10),
-                Column(
-                  children: [
-                    CupertinoButton(
-                        child: Container(
-                            width: width * 0.3,
-                            height: height * 0.05,
-                            decoration: BoxDecoration(
-                                gradient: const LinearGradient(
-                                    colors: [Color(0xff4E57CD), Color(0xff2F38A5)]),
-                                borderRadius: BorderRadius.circular(40)),
-                            alignment: Alignment.center,
-                            child: AutoSizeText(
-                              appLocalizations.suivant,
-                              style: const TextStyle(color: Colors.white, fontSize: 20),
-                            )),
-                        onPressed: () {
-                          if (validateForm()) {
-                            CardiInf.q = 0.45;
-                            CardiInf.top = 0.25;
-                            widget.onContinueTapped();
-                          }
-                        }),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const SizedBox(width: 20),
-                        SizedBox(
-                          height: height * 0.04,
+                          height: height * 0.025,
+                          margin: const EdgeInsets.only(left: 10),
                           child: AutoSizeText(
-                            appLocalizations.haveAcc,
-                            style: TextStyle(
-                                fontFamily: "Inter",
-                                fontSize: 10,
-                                color: CardiInf.isDarkMode.value ? Colors.white : Colors.black),
-                          ),
-                        ),
-                        const SizedBox(width: 2),
-                        GestureDetector(
-                          onTap: () {
-                            widget.onSigninTapped(0.55, 0.25);
-                          },
-                          child: Container(
-                            height: height * 0.04,
-                            child: AutoSizeText(
-                              appLocalizations.login,
-                              style: TextStyle(
-                                  fontSize: 10,
-                                  fontFamily: "Inter",
-                                  color: CardiInf.isDarkMode.value ? const Color(0xff759cd8) : const Color(0xff3a01de)),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+                            appLocalizations.nom,
+                            style: TextStyle(color: CardiInf.isDarkMode.value ? Colors.white : Colors.black),
+                          )),
+                      buildTextField(width * 0.5, height, "", _nomFocusNode, _nomHasFocus, CardiInf.isDarkMode.value, CardiInf.nomController, _nomError),
+                    ],
+                  ),
+                ),
+                Container(
+                  width: width * 0.37,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                          height: height * 0.025,
+                          margin: const EdgeInsets.only(left: 10),
+                          child: AutoSizeText(
+                            appLocalizations.prenom,
+                            style: TextStyle(color: CardiInf.isDarkMode.value ? Colors.white : Colors.black),
+                          )),
+                      buildTextField(width * 0.5, height, "", _prenomFocusNode, _prenomHasFocus, CardiInf.isDarkMode.value, CardiInf.prenomController, _prenomError),
+                    ],
+                  ),
                 ),
               ],
             ),
-          ]),
+          ),
+          const SizedBox(height: 10),
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  width: width * 0.37,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                          height: height * 0.025,
+                          margin: const EdgeInsets.only(left: 10),
+                          child: AutoSizeText(
+                            "CIN",
+                            style: TextStyle(color: CardiInf.isDarkMode.value ? Colors.white : Colors.black),
+                          )),
+                      buildTextField(width * 0.5, height, "", _cinFocusNode, _cinHasFocus, CardiInf.isDarkMode.value, CardiInf.cinController, _cinError),
+                    ],
+                  ),
+                ),
+                Container(
+                  width: width * 0.37,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                          height: height * 0.025,
+                          margin: const EdgeInsets.only(left: 10),
+                          child: AutoSizeText(
+                            "INPE",
+                            style: TextStyle(color: CardiInf.isDarkMode.value ? Colors.white : Colors.black),
+                          )),
+                      buildTextField(width * 0.5, height, "", _inpeFocusNode, _inpeHasFocus, CardiInf.isDarkMode.value, CardiInf.inpeController, _inpeError),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 10),
+          Container(
+              height: height * 0.025,
+              margin: const EdgeInsets.symmetric(horizontal: 30),
+              child: AutoSizeText(
+                appLocalizations.email,
+                style: TextStyle(color: CardiInf.isDarkMode.value ? Colors.white : Colors.black),
+              )),
+          Container(
+              margin: const EdgeInsets.symmetric(horizontal: 20),
+              child: buildTextField(width, height, "", _emailFocusNode, _emailHasFocus, CardiInf.isDarkMode.value, CardiInf.emailController, _emailError)),
+
+          const SizedBox(height: 10),
+          Container(
+              height: height * 0.025,
+              margin: const EdgeInsets.symmetric(horizontal: 30),
+              child: AutoSizeText(
+                appLocalizations.tele,
+                style: TextStyle(color: CardiInf.isDarkMode.value ? Colors.white : Colors.black),
+              )),
+          Container(
+              margin: const EdgeInsets.symmetric(horizontal: 20),
+              child: buildTextField(width, height, "", _numTeleFocusNode, _numTeleHasFocus, CardiInf.isDarkMode.value, CardiInf.numTeleController, _numTeleError)),
+
+          const SizedBox(height: 10),
+          Column(
+            children: [
+              CupertinoButton(
+                  child: Container(
+                      width: width * 0.3,
+                      height: height * 0.05,
+                      decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                              colors: [Color(0xff4E57CD), Color(0xff2F38A5)]),
+                          borderRadius: BorderRadius.circular(40)),
+                      alignment: Alignment.center,
+                      child: AutoSizeText(
+                        appLocalizations.suivant,
+                        style: const TextStyle(color: Colors.white, fontSize: 20),
+                      )),
+                  onPressed: () {
+                    if (validateForm()) {
+                      CardiInf.q = 0.45;
+                      CardiInf.top = 0.25;
+                      widget.onContinueTapped();
+                    }
+                  }),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const SizedBox(width: 20),
+                  SizedBox(
+                    height: height * 0.04,
+                    child: AutoSizeText(
+                      appLocalizations.haveAcc,
+                      style: TextStyle(
+                          fontFamily: "Inter",
+                          fontSize: 10,
+                          color: CardiInf.isDarkMode.value ? Colors.white : Colors.black),
+                    ),
+                  ),
+                  const SizedBox(width: 2),
+                  GestureDetector(
+                    onTap: () {
+                      widget.onSigninTapped(0.55, 0.25);
+                    },
+                    child: Container(
+                      height: height * 0.04,
+                      child: AutoSizeText(
+                        appLocalizations.login,
+                        style: TextStyle(
+                            fontSize: 10,
+                            fontFamily: "Inter",
+                            color: CardiInf.isDarkMode.value ? const Color(0xff759cd8) : const Color(0xff3a01de)),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

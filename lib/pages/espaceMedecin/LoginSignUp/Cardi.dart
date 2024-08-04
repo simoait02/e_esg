@@ -55,6 +55,8 @@ class _CardiState extends State<Cardi> {
 
   @override
   void initState() {
+    Cardi.q=0.55;
+    Cardi.top=0.25;
     super.initState();
     _loadPreferences();
   }

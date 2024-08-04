@@ -185,40 +185,39 @@ class _ResetPasswordState extends State<ResetPassword> {
                           style: const TextStyle(color: Colors.white, fontSize: 20),
                         ),
                       ),
-                      onPressed: (){widget.onContinueTapped(0.6, 0.25);},
-                      // onPressed: () async {
-                      //   validateEmail();
-                      //   if (emailError == null) {
-                      //     final url = Uri.parse("$Url/password/forgot");
-                      //     Map<String, dynamic> data = {
-                      //       "email": emailController.text,
-                      //     };
-                      //     try {
-                      //       final response = await http.post(
-                      //         url,
-                      //         headers: {
-                      //           'Content-Type': 'application/json',
-                      //         },
-                      //         body: json.encode(data),
-                      //       );
-                      //
-                      //       if (response.statusCode == 200) {
-                      //         print('Data posted successfully: ${response.body}');
-                      //         Fluttertoast.showToast(msg: response.body.toString(), backgroundColor: Colors.greenAccent,textColor: Colors.black);
-                      //         widget.onContinueTapped(0.6, 0.25);
-                      //       } else {
-                      //         print('Failed to post data: ${response.statusCode}');
-                      //         Fluttertoast.showToast(msg: response.body.toString(), backgroundColor: Colors.red);
-                      //         print('Response body: ${response.body}');
-                      //       }
-                      //     } catch (e) {
-                      //       Fluttertoast.showToast(msg: e.toString(), backgroundColor: Colors.red);
-                      //       print('Error: $e');
-                      //     }
-                      //   } else {
-                      //     Fluttertoast.showToast(msg: emailError.toString(), backgroundColor: Colors.red);
-                      //   }
-                      // },
+                      onPressed: () async {
+                        validateEmail();
+                        if (emailError == null) {
+                          final url = Uri.parse("$Url/password/forgot");
+                          Map<String, dynamic> data = {
+                            "email": emailController.text,
+                          };
+                          try {
+                            final response = await http.post(
+                              url,
+                              headers: {
+                                'Content-Type': 'application/json',
+                              },
+                              body: json.encode(data),
+                            );
+
+                            if (response.statusCode == 200) {
+                              print('Data posted successfully: ${response.body}');
+                              Fluttertoast.showToast(msg: response.body.toString(), backgroundColor: Colors.greenAccent,textColor: Colors.black);
+                              widget.onContinueTapped(0.6, 0.25);
+                            } else {
+                              print('Failed to post data: ${response.statusCode}');
+                              Fluttertoast.showToast(msg: response.body.toString(), backgroundColor: Colors.red);
+                              print('Response body: ${response.body}');
+                            }
+                          } catch (e) {
+                            Fluttertoast.showToast(msg: e.toString(), backgroundColor: Colors.red);
+                            print('Error: $e');
+                          }
+                        } else {
+                          Fluttertoast.showToast(msg: emailError.toString(), backgroundColor: Colors.red);
+                        }
+                      },
                     ),
                   ],
                 ),

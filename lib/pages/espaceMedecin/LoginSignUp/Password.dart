@@ -292,72 +292,67 @@ class _PasswordState extends State<Password> {
                 },
               ),
               CupertinoButton(
-                onPressed: ()=>Navigator.pushAndRemoveUntil(
-                               context,
-                               CupertinoPageRoute(builder: (context) => NavbarDoc()),
-                                   (Route<dynamic> route) => false,
-                             ),
-                // onPressed: () async {
-                //   if (passwordController.text == copasswordController.text) {
-                //     if (validatePassword(passwordController.text)) {
-                //       final url = Uri.parse("$Url/register/medecins");
-                //
-                //       Map<String, dynamic> data = {
-                //         "cin": Cardi.cinController.text,
-                //         "inpe": Cardi.inpeController.text,
-                //         "ppr": Cardi.pprController.text,
-                //         "estMedcinESJ": Cardi.isEsgDoctor,
-                //         "estGeneraliste": Cardi.isGeneralist,
-                //         "specialite": Cardi.specialiteeController.text,
-                //         "infoUser": {
-                //           "nom": Cardi.nomController.text,
-                //           "prenom": Cardi.prenomController.text,
-                //           "numTel": Cardi.teleController.text,
-                //           "mail": Cardi.emailController.text,
-                //           "motDePasse": passwordController.text
-                //         }
-                //       };
-                //
-                //       try {
-                //         final response = await http.post(
-                //           url,
-                //           headers: {
-                //             'Content-Type': 'application/json',
-                //           },
-                //           body: json.encode(data),
-                //         );
-                //
-                //         if (response.statusCode == 200) {
-                //           print('Data posted successfully: ${response.body}');
-                //           Navigator.pushAndRemoveUntil(
-                //             context,
-                //             CupertinoPageRoute(builder: (context) => NavbarDoc()),
-                //                 (Route<dynamic> route) => false,
-                //           );
-                //         } else {
-                //           print('Failed to post data: ${response.statusCode}');
-                //           Fluttertoast.showToast(msg: response.body.toString(), backgroundColor: Colors.red);
-                //           print('Response body: ${response.body}');
-                //         }
-                //       } catch (e) {
-                //         Fluttertoast.showToast(msg: e.toString(), backgroundColor: Colors.red);
-                //         print('Error: $e');
-                //       }
-                //
-                //     } else {
-                //       setState(() {
-                //         error = true;
-                //       });
-                //       Fluttertoast.showToast(msg: "Password does not meet the criteria", backgroundColor: Colors.red);
-                //     }
-                //
-                //   } else {
-                //     setState(() {
-                //       error = true;
-                //     });
-                //     Fluttertoast.showToast(msg: "Passwords do not match", backgroundColor: Colors.red);
-                //   }
-                // },
+                onPressed: () async {
+                  if (passwordController.text == copasswordController.text) {
+                    if (validatePassword(passwordController.text)) {
+                      final url = Uri.parse("$Url/register/medecins");
+
+                      Map<String, dynamic> data = {
+                        "cin": Cardi.cinController.text,
+                        "inpe": Cardi.inpeController.text,
+                        "ppr": Cardi.pprController.text,
+                        "estMedcinESJ": Cardi.isEsgDoctor,
+                        "estGeneraliste": Cardi.isGeneralist,
+                        "specialite": Cardi.specialiteeController.text,
+                        "infoUser": {
+                          "nom": Cardi.nomController.text,
+                          "prenom": Cardi.prenomController.text,
+                          "numTel": Cardi.teleController.text,
+                          "mail": Cardi.emailController.text,
+                          "motDePasse": passwordController.text
+                        }
+                      };
+
+                      try {
+                        final response = await http.post(
+                          url,
+                          headers: {
+                            'Content-Type': 'application/json',
+                          },
+                          body: json.encode(data),
+                        );
+
+                        if (response.statusCode == 200) {
+                          print('Data posted successfully: ${response.body}');
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            CupertinoPageRoute(builder: (context) => NavbarDoc()),
+                                (Route<dynamic> route) => false,
+                          );
+                        } else {
+                          print('Failed to post data: ${response.statusCode}');
+                          Fluttertoast.showToast(msg: response.body.toString(), backgroundColor: Colors.red);
+                          print('Response body: ${response.body}');
+                        }
+                      } catch (e) {
+                        Fluttertoast.showToast(msg: e.toString(), backgroundColor: Colors.red);
+                        print('Error: $e');
+                      }
+
+                    } else {
+                      setState(() {
+                        error = true;
+                      });
+                      Fluttertoast.showToast(msg: "Password does not meet the criteria", backgroundColor: Colors.red);
+                    }
+
+                  } else {
+                    setState(() {
+                      error = true;
+                    });
+                    Fluttertoast.showToast(msg: "Passwords do not match", backgroundColor: Colors.red);
+                  }
+                },
                 child: Container(
                   width: width * 0.4,
                   height: height * 0.06,

@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:e_esg/Widgets/NavigationBarPro.dart';
+import 'package:e_esg/api/end_points.dart';
+import 'package:e_esg/api/errors/Exceptions.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 
@@ -296,44 +298,69 @@ class _PasswordState extends State<Password> {
                 onPressed: () async {
                   if (passwordController.text == copasswordController.text) {
                     if (validatePassword(passwordController.text)) {
-                      final url = Uri.parse("$Url/register/professionnels");
-                      Map<String, dynamic> data = {
-                        "cin": CardiInf.cinController.text,
-                        "inpe": CardiInf.inpeController.text,
-                        "infoUser": {
-                          "nom": CardiInf.nomController.text,
-                          "prenom": CardiInf.prenomController.text,
-                          "numTel": CardiInf.numTeleController.text,
-                          "mail": CardiInf.emailController.text,
-                          "motDePasse": passwordController.text
-                        }
-                      };
-
                       try {
-                        final response = await http.post(
-                          url,
-                          headers: {
-                            'Content-Type': 'application/json',
-                          },
-                          body: json.encode(data),
+                        final response =await api.post(
+                          EndPoints.RegisterInfermier,
+                          data:{
+                            "cin": CardiInf.cinController.text,
+                            "inpe": CardiInf.inpeController.text,
+                            "infoUser": {
+                              "nom": CardiInf.nomController.text,
+                              "prenom": CardiInf.prenomController.text,
+                              "numTel": CardiInf.numTeleController.text,
+                              "mail": CardiInf.emailController.text,
+                              "motDePasse": passwordController.text
+                            }
+                          }
                         );
-
-                        if (response.statusCode == 200) {
-                          print('Data posted successfully: ${response.body}');
-                          Navigator.pushAndRemoveUntil(
-                            context,
-                            CupertinoPageRoute(builder: (context) => Navigationbarpro()),
-                                (Route<dynamic> route) => false,
-                          );
-                        } else {
-                          print('Failed to post data: ${response.statusCode}');
-                          Fluttertoast.showToast(msg: response.body.toString(), backgroundColor: Colors.red);
-                          print('Response body: ${response.body}');
-                        }
-                      } catch (e) {
-                        Fluttertoast.showToast(msg: e.toString(), backgroundColor: Colors.red);
-                        print('Error: $e');
+                        Fluttertoast.showToast(msg: "success",backgroundColor: Colors.greenAccent,textColor: Colors.black);
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (context)=>NavbarDoc()),
+                              (Route<dynamic> route) => false,);
+                      } on ServerException catch (e) {
+                        print("dfffffffffffffffffffffffffffffffffffffffffffffffffffff");
+                        Fluttertoast.showToast(msg: e.errormodel.errorMsg,backgroundColor: Colors.red);
                       }
+
+                      // final url = Uri.parse("$Url/register/professionnels");
+                      // Map<String, dynamic> data = {
+                      //   "cin": CardiInf.cinController.text,
+                      //   "inpe": CardiInf.inpeController.text,
+                      //   "infoUser": {
+                      //     "nom": CardiInf.nomController.text,
+                      //     "prenom": CardiInf.prenomController.text,
+                      //     "numTel": CardiInf.numTeleController.text,
+                      //     "mail": CardiInf.emailController.text,
+                      //     "motDePasse": passwordController.text
+                      //   }
+                      // };
+                      //
+                      // try {
+                      //   final response = await http.post(
+                      //     url,
+                      //     headers: {
+                      //       'Content-Type': 'application/json',
+                      //     },
+                      //     body: json.encode(data),
+                      //   );
+                      //
+                      //   if (response.statusCode == 200) {
+                      //     print('Data posted successfully: ${response.body}');
+                      //     Navigator.pushAndRemoveUntil(
+                      //       context,
+                      //       CupertinoPageRoute(builder: (context) => Navigationbarpro()),
+                      //           (Route<dynamic> route) => false,
+                      //     );
+                      //   } else {
+                      //     print('Failed to post data: ${response.statusCode}');
+                      //     Fluttertoast.showToast(msg: response.body.toString(), backgroundColor: Colors.red);
+                      //     print('Response body: ${response.body}');
+                      //   }
+                      // } catch (e) {
+                      //   Fluttertoast.showToast(msg: e.toString(), backgroundColor: Colors.red);
+                      //   print('Error: $e');
+                      // }
 
                     } else {
                       setState(() {

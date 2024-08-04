@@ -118,7 +118,27 @@
   "coreference": "ضد المرجعية",
   "gamificatiom": "اللعب",
   "resetPass": "إعادة تعيين",
-  "resetText": "قم بتوفير البريد الإلكتروني لحسابك الذي تريد إعادة تعيين كلمة المرور الخاصة به"
-
-
+  "resetText": "قم بتوفير البريد الإلكتروني لحسابك الذي تريد إعادة تعيين كلمة المرور الخاصة به",
+  "medical_history": "التاريخ الطبي الشخصي",
+  "enter_information": "يرجى إدخال المعلومات التالية",
+  "chronic_diseases": "هل تعاني من الأمراض المزمنة التالية؟",
+  "select_none_or_multiple": "يمكنك اختيار لا شيء أو عدة خيارات.",
+  "use_medication": "هل تستخدم أي أدوية؟",
+  "type_of_medication": "نوع الدواء",
+  "enter_type_of_medication": "أدخل نوع الدواء",
+  "enter_medications": "أدخل الأدوية",
+  "suffer_surgical_diseases": "هل تعاني من الأمراض الجراحية؟",
+  "operation_type": "نوع العملية",
+  "enter_operation_type": "أدخل نوع العملية",
+  "operation_year": "سنة العملية",
+  "enter_operation_year": "أدخل سنة العملية",
+  "habits_question": "هل لديك أي من هذه العادات؟",
+  "cigarettes_per_day": "كم عدد السجائر التي تدخنها في اليوم؟",
+  "enter_cigarettes_per_day": "أدخل عدد السجائر المدخنة في اليوم",
+  "alcohol_consumption": "استهلاك الكحول؟",
+  "screen_time": "كم من الوقت تقضي أمام الشاشة في اليوم؟",
+  "family_member_diseases": "هل لديك فرد من العائلة يعاني من أي من الأمراض التالية؟",
+  "select_multiple_or_none": "يمكنك اختيار عدة خيارات أو لا شيء إذا لم يكن أحد أقاربك يعاني من أي من هذه الأمراض.",
+  "other": "أخرى",
+  "enter_disease": "أدخل المرض"
 }

@@ -1,12 +1,12 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:e_esg/pages/espacejeune/DossierMedical/DocMedical.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'Cardi.dart';
 class Success extends StatefulWidget {
-  const Success({super.key});
+  final Function(double, double) onValidTapped;
+  const Success({super.key, required this.onValidTapped});
 
   @override
   State<Success> createState() => _SuccessState();
@@ -17,12 +17,7 @@ class _SuccessState extends State<Success> {
     super.initState();
 
     Future.delayed(Duration(seconds: 4), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => DocMedical(),
-        ),
-      );
+      widget.onValidTapped(0.55,0.25);
     });
   }
 

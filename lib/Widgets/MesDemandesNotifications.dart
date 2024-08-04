@@ -129,32 +129,30 @@ class MesDemandesNotificationsState extends State<MesDemandesNotifications> {
 
     return Scaffold(
       appBar: AppBar(
-        leading: Row(
-          children: [
-            SizedBox(width: 10,),
-            IconButton(
-              icon: Icon(Icons.arrow_back_ios),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            AutoSizeText(appLocalizations!.notification,
-            style: GoogleFonts.aBeeZee(
-              fontSize: 20
-            ),)
-          ],
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
         ),
-        title: Hero(
-          tag: "notification",
-          child: Container(
-            margin: isArabic(context)?
-            EdgeInsets.only(left: screenWidth * 0.4, right: screenWidth * 0.3):
-            EdgeInsets.only(left: screenWidth * 0.26, right: screenWidth * 0.4),
-            child: SvgPicture.asset(
-              'assets/images/note_icon.svg',
-              width: 40,
-              height: 40,
-            ),
+        flexibleSpace: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Hero(
+                tag: "notification",
+                child: SvgPicture.asset(
+                  'assets/images/note_icon.svg',
+                  width: 30,
+                  height: 30,
+                ),
+              ),
+              // Remove SizedBox to eliminate space between icon and text
+              AutoSizeText(
+                appLocalizations!.notification,
+                style: GoogleFonts.aBeeZee(fontSize: 20),
+              ),
+            ],
           ),
         ),
       ),
