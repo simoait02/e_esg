@@ -9,6 +9,7 @@ import '../../Widgets/custom_sliver_app_bar.dart';
 import 'SideBar/Settings.dart';
 import 'dart:typed_data';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Testpsy5 extends StatefulWidget {
   final String title;
@@ -160,7 +161,7 @@ class Testpsy5State extends State<Testpsy5> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Vos informations",
+                              AppLocalizations.of(context)!.vos_informations,
                               style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold,
@@ -206,7 +207,7 @@ class Testpsy5State extends State<Testpsy5> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Interprétation du résultat",
+                              AppLocalizations.of(context)!.interpretation_du_resultat,
                               style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold,
@@ -229,7 +230,7 @@ class Testpsy5State extends State<Testpsy5> {
                           onDownloadPDF();
                         },
                         child: Text(
-                          "Télécharger le PDF",
+                          AppLocalizations.of(context)!.telecharger_le_PDF,
                           style: TextStyle(
                             fontSize: 14,
                             color: Colors.blue, 

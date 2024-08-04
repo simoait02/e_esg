@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../Widgets/custom_sliver_app_bar.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'testpsy4.dart';
 
 class EstimedeSoi extends StatefulWidget {
@@ -15,18 +16,7 @@ class EstimedeSoiState extends State<EstimedeSoi> {
   int currentQuestionIndex = 0;
   List<bool> isHovered = List.generate(4, (index) => false);
 
-  final List<String> questions = [
-    "Je pense que je suis une personne de valeur, au moins égale à n'importe qui d'autre.",
-    "Je pense que je possède un certain nombre de belles qualités.",
-    "Tout bien considéré, je suis porté à me considérer comme un raté.",
-    "Je suis capable de faire les choses aussi bien que la majorité des gens.",
-    "Je sens peu de raisons d'être fier de moi.",
-    "J'ai une attitude positive vis-à-vis moi-même.",
-    "Dans l'ensemble, je suis satisfait de moi.",
-    "J'aimerais avoir plus de respect pour moi-même.",
-    "Parfois je me sens vraiment inutile.",
-    "Il m'arrive de penser que je suis un bon à rien."
-  ];
+  final List<String> questions = [];
 
   final List<List<int>> answerScores = [
     [4, 3, 2, 1],  
@@ -54,19 +44,20 @@ class EstimedeSoiState extends State<EstimedeSoi> {
 
   String interpretScore(int score) {
     if (score < 25) {
-      return "Vos résultats montrent quelques défis avec votre estime de soi. Il est important de se rappeler que ce test n'est qu'un instantané et ne définit pas votre valeur. Parler avec un professionnel peut vous aider à explorer des moyens pour renforcer votre confiance en vous.";
+      return AppLocalizations.of(context)!.lowSelfEsteemMessage;
     } else if (score >= 25 && score < 31) {
-      return "Votre estime de soi est faible. Un travail dans ce domaine serait bénéfique.";
+      return AppLocalizations.of(context)!.mediumLowSelfEsteemMessage;
     } else if (score >= 31 && score < 34) {
-      return "Félicitez-vous pour tous vos petits succès, vous devriez développer davantage votre bonne estime de soi. Nous vous conseillons de prendre contact avec l'établissement de soins publique le plus proche pour des séances d'écoute et de soutien.";
+      return AppLocalizations.of(context)!.mediumHighSelfEsteemMessage;
     } else if (score >= 34 && score <= 39) {
-      return "Bravo ! Votre estime de soi est forte.";
+      return AppLocalizations.of(context)!.highSelfEsteemMessage;
     } else {
-      return "Bravo ! Votre estime de soi est très forte et vous avez tendance à être fortement affirmé.";
+      return AppLocalizations.of(context)!.veryHighSelfEsteemMessage;
     }
   }
 
   void nextQuestion(int selectedIndex) {
+    final appLocalizations = AppLocalizations.of(context)!;
     if (currentQuestionIndex < questions.length - 1) {
       setState(() {
         if (selfEsteemAnswers.length > currentQuestionIndex) {
@@ -86,7 +77,7 @@ class EstimedeSoiState extends State<EstimedeSoi> {
       String interpretation = interpretScore(totalScore);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Vous avez terminé le test!'),
+          content: Text(AppLocalizations.of(context)!.testCompleted),
           backgroundColor: Colors.green,
         ),
       );
@@ -95,7 +86,7 @@ class EstimedeSoiState extends State<EstimedeSoi> {
           context,
           MaterialPageRoute(
             builder: (context) => Testpsy4(
-              title: "Evaluation de l'Estime de soi",
+              title: appLocalizations.evaluationTitle,
               score: totalScore,
               interpretation: interpretation,
             ),
@@ -120,6 +111,22 @@ class EstimedeSoiState extends State<EstimedeSoi> {
     var screenWidth = MediaQuery.of(context).size.width;
     var brightness = MediaQuery.of(context).platformBrightness;
     bool isDarkMode = brightness == Brightness.dark;
+    final appLocalizations = AppLocalizations.of(context)!;
+
+     if (questions.isEmpty) {
+      questions.addAll([
+        appLocalizations.question1,
+        appLocalizations.question2,
+        appLocalizations.question3,
+        appLocalizations.question4,
+        appLocalizations.question5,
+        appLocalizations.question6,
+        appLocalizations.question7,
+        appLocalizations.question8,
+        appLocalizations.question9,
+        appLocalizations.question10,
+      ]);
+    }
 
     return Scaffold(
       key: _scaffoldKey,
@@ -149,7 +156,7 @@ class EstimedeSoiState extends State<EstimedeSoi> {
                       ),
                       child: Center(
                         child: Text(
-                          "Evaluation de l'Estime de soi",
+                          appLocalizations.evaluationTitle,
                           style: TextStyle(
                             fontSize: screenWidth * 0.04,
                             fontWeight: FontWeight.bold,
@@ -181,7 +188,7 @@ class EstimedeSoiState extends State<EstimedeSoi> {
                                 ),
                                 SizedBox(width: screenWidth * 0.01),
                                 Text(
-                                  "Précédent",
+                                  appLocalizations.previous_button,
                                   style: TextStyle(
                                     fontSize: screenWidth * 0.039,
                                     color: Color.fromARGB(255, 4, 79, 140),
@@ -240,12 +247,12 @@ class EstimedeSoiState extends State<EstimedeSoi> {
                                     child: Center(
                                       child: Text(
                                         index == 0
-                                            ? 'Tout à fait en désaccord.'
+                                            ?  appLocalizations.stronglyDisagree
                                             : index == 1
-                                                ? 'Plutôt en désaccord.'
+                                                ? appLocalizations.disagree
                                                 : index == 2
-                                                    ? 'Plutôt en accord.'
-                                                    : 'Tout à fait en accord.',
+                                                    ? appLocalizations.agree
+                                                    : appLocalizations.stronglyAgree,
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontSize: screenWidth * 0.035,

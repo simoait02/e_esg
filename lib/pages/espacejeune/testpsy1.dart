@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'SideBar/Settings.dart';
 import 'testpsy2.dart';
 import '../../Widgets/custom_sliver_app_bar.dart';  
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Testpsy1 extends StatefulWidget {
   const Testpsy1({Key? key}) : super(key: key);
@@ -16,6 +17,7 @@ class Testpsy1State extends State<Testpsy1> {
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
     var screenWidth = MediaQuery.of(context).size.width;
+    final appLocalizations = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: SettingsYong.isDarkMode.value ? Color(0xff141218) : Color(0xffF5F5F6),
       body: SafeArea(
@@ -41,7 +43,7 @@ class Testpsy1State extends State<Testpsy1> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             AutoSizeText(
-                              'Soutien Psychologique et Bien être',
+                              appLocalizations.soutienPsychologique,
                               style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.bold,
@@ -63,7 +65,7 @@ class Testpsy1State extends State<Testpsy1> {
                             Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                "Lire plus",
+                                appLocalizations.lirePlus,
                                 style: TextStyle(
                                   fontSize: 10,
                                   color: Color.fromARGB(255, 213, 213, 213),
@@ -74,7 +76,7 @@ class Testpsy1State extends State<Testpsy1> {
                             SizedBox(height: screenHeight * 0.01),
                             Center(
                               child:Text(
-                                "Prenez un moment pour vous, pour votre bien-être. Nos tests interactifs sont conçus pour vous aider à explorer votre état émotionnel de manière douce et positive. En répondant à quelques questions simples, vous obtiendrez des insights précieux sur votre santé mentale et des conseils personnalisés pour vous sentir mieux au quotidien.Ce petit geste peut avoir un grand impact sur votre qualité de vie.",
+                                appLocalizations.bienEtreDescription,
                                 style: TextStyle(
                                   fontSize: 10,
                                 ),
@@ -82,7 +84,7 @@ class Testpsy1State extends State<Testpsy1> {
                             ),
                             SizedBox(height: 12),
                             Text(
-                              "Commencez dès maintenant et découvrez des chemins vers une vie plus épanouie et équilibrée. Vous méritez de vous sentir bien.",
+                              appLocalizations.commencezMaintenant,
                               style: TextStyle(
                                   fontSize: 10,
                                 ),
@@ -104,7 +106,7 @@ class Testpsy1State extends State<Testpsy1> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             AutoSizeText(
-                              'Nos Tests Psychologiques :',
+                              appLocalizations.nosTestsPsychologiques,
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
@@ -118,15 +120,15 @@ class Testpsy1State extends State<Testpsy1> {
                             ),
                             SizedBox(height: screenHeight * 0.02),
                             PsychologicalTestButton(
-                              buttonText: "Estime de soi",
-                              questionText: 'Est-ce que Vous Avez Confiance en Vous-Même ?',
-                              title: "Evaluation de l'Estime de soi",
-                              description: "L’estime de soi est définie comme le jugement ou l’évaluation que l’on fait de soi-même, de sa valeur personnelle. De façon plus simple, l’estime de soi peut-être également assimilée à l’affirmation de soi. L’estime de soi est un facteur essentiel dans la performance sportive.",
+                              buttonText: appLocalizations.estimeDeSoi, 
+                              questionText: appLocalizations.estimeDeSoiQuestion,
+                              title: appLocalizations.estimeDeSoiTitle,
+                              description: appLocalizations.estimeDeSoiDescription,
                               imagePath: 'assets/images/estime_de_soi.png',
                               context: context,
                               route: Testpsy2(
-                                title: "Evaluation de l'Estime de Soi",
-                                description: "L’estime de soi est définie comme le jugement ou l’évaluation que l’on fait de soi-même, de sa valeur personnelle. De façon plus simple, l’estime de soi peut-être également assimilée à l’affirmation de soi. L’estime de soi est un facteur essentiel dans la performance sportive.",
+                                title: appLocalizations.estimeDeSoiTitle,
+                                description: appLocalizations.estimeDeSoiDescription,
                                 imagePath: 'assets/images/estime_de_soi.png',
                               ),
                             ),
@@ -137,15 +139,15 @@ class Testpsy1State extends State<Testpsy1> {
                               height: screenHeight * 0.02,
                             ),
                             PsychologicalTestButton(
-                              buttonText: 'Paix',
-                              questionText: 'Êtes-vous en Paix avec Vous-Même ?',
-                              title: "Evaluation de la Paix Intérieure",
-                              description: "Plongez dans votre tranquillité intérieure pour comprendre et maîtriser votre niveau d'anxiété.",
+                              buttonText: appLocalizations.paix,
+                              questionText: appLocalizations.paixQuestion,
+                              title: appLocalizations.paixTitle,
+                              description: appLocalizations.paixDescription,
                               imagePath: 'assets/images/paix_interieure.jpg',
                               context: context,
                               route: Testpsy2(
-                                title: "Evaluation de la Paix Intérieure",
-                                description: "Plongez dans votre tranquillité intérieure pour comprendre et maîtriser votre niveau d'anxiété.",
+                                title: appLocalizations.paixTitle,
+                                description: appLocalizations.paixDescription,
                                 imagePath: 'assets/images/paix_interieure.jpg',
                               ),
                             ),
@@ -156,15 +158,15 @@ class Testpsy1State extends State<Testpsy1> {
                               height: screenHeight * 0.02,
                             ),
                             PsychologicalTestButton(
-                              buttonText: 'Humeur',
-                              questionText: 'Est-ce que Votre Humeur et Vitalité sont Équilibrées ?',
-                              title: "Evaluation de l'Humeur et de la Vitalité",
-                              description: "Explorez votre humeur et découvrez des moyens de retrouver votre vitalité émotionnelle pour une vie plus équilibrée.",
+                              buttonText: appLocalizations.humeur,
+                              questionText: appLocalizations.humeurQuestion,
+                              title: appLocalizations.humeurTitle,
+                              description: appLocalizations.humeurDescription,
                               imagePath: 'assets/images/humeur_vitalite.jpg',
                               context: context,
                               route: Testpsy2(
-                                title: "Evaluation de l'Humeur et de la Vitalité",
-                                description: "Explorez votre humeur et découvrez des moyens de retrouver votre vitalité émotionnelle pour une vie plus équilibrée.",
+                                title: appLocalizations.humeurTitle,
+                                description:appLocalizations.humeurDescription,
                                 imagePath: 'assets/images/humeur_vitalite.jpg',
                               ),
                             ),
@@ -175,15 +177,15 @@ class Testpsy1State extends State<Testpsy1> {
                               height: screenHeight * 0.02,
                             ),
                             PsychologicalTestButton(
-                              buttonText: 'Sommeil',
-                              questionText: 'Est-ce que Votre Qualité de Sommeil Est Satisfaisante ?',
-                              title: "Evaluation de la qualité de sommeil ",
-                              description: "Évaluez votre sommeil pour mieux comprendre ses impacts sur votre bien-être quotidien et trouver des solutions pour améliorer votre repos.",
+                              buttonText: appLocalizations.sommeil,
+                              questionText: appLocalizations.sommeilQuestion,
+                              title: appLocalizations.sommeilTitle,
+                              description:  appLocalizations.sommeilDescription,
                               imagePath: 'assets/images/sommeil.jpg',
                               context: context,
                               route: Testpsy2(
-                                title: "Evaluation de la qualité de sommeil ",
-                                description: "Évaluez votre sommeil pour mieux comprendre ses impacts sur votre bien-être quotidien et trouver des solutions pour améliorer votre repos.",
+                                title: appLocalizations.sommeilTitle,
+                                description: appLocalizations.sommeilDescription,
                                 imagePath: 'assets/images/sommeil.jpg',
                               ),
                             ),
