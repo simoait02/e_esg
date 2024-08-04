@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../Widgets/custom_sliver_app_bar.dart';
 import 'SideBar/Settings.dart';
 import 'testpsy1.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Testpsy4 extends StatefulWidget {
   final String title;
@@ -71,7 +72,7 @@ class Testpsy4State extends State<Testpsy4> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "Merci d'avoir complété le test",
+                              AppLocalizations.of(context)!.merciTestComplete,
                               style: TextStyle(
                                 fontSize: 16,
                               ),
@@ -89,7 +90,7 @@ class Testpsy4State extends State<Testpsy4> {
                                   MaterialPageRoute(
                                       builder: (context) => Testpsy5(title: widget.title,score: widget.score,interpretation: widget.interpretation,),)),
                               child: Text(
-                                "Résultat du test",
+                                AppLocalizations.of(context)!.resultatTest,
                                 style: TextStyle(
                                   fontSize: 13,
                                   color: Color(0xff9196CD),
@@ -103,7 +104,7 @@ class Testpsy4State extends State<Testpsy4> {
                                   MaterialPageRoute(
                                       builder: (context) => Testpsy1())),
                               child: Text(
-                                "Revenir aux tests psychologiques",
+                                AppLocalizations.of(context)!.revenirTestsPsychologiques,
                                 style: TextStyle(
                                   fontSize: 13,
                                   color: Color(0xff00D3C7),

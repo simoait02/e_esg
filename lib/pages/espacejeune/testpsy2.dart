@@ -6,6 +6,7 @@ import 'Anxiété.dart';
 import 'Humeur.dart';
 import 'Sommeil.dart';
 import 'testpsy4.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Testpsy2 extends StatefulWidget {
   final String title;
@@ -27,15 +28,16 @@ class Testpsy2State extends State<Testpsy2> {
   bool isHovered = false;
 
   void _navigateBasedOnTitle() {
+    final appLocalizations = AppLocalizations.of(context)!;
     Widget destination;
     switch (widget.title) {
-      case "Evaluation de l'Estime de Soi":
+      case "Évaluation de l'Estime de soi" || "تقييم تقدير الذات" || "Self-Esteem Evaluation":
         destination = EstimedeSoi();
         break;
-      case "Evaluation de la Paix Intérieure":
+      case "Évaluation de la Paix Intérieure" || "تقييم السلام الداخلي" || "Inner Peace Assessment":
         destination = Anxiete();
         break;
-      case "Evaluation de l'Humeur et de la Vitalité":
+      case "Evaluation de l'Humeur et de la Vitalité" || "تقييم المزاج والحيوية" || "Mood and Vitality Assessment":
         destination = Humeur();
         break;
       default:
@@ -140,7 +142,7 @@ class Testpsy2State extends State<Testpsy2> {
                                     borderRadius: BorderRadius.circular(20),
                                   ),
                                   child: Text(
-                                    'Commencer le test',
+                                    AppLocalizations.of(context)!.commencerLeTest,
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: isHovered

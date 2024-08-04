@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../Widgets/custom_sliver_app_bar.dart';
 import 'testpsy4.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Humeur extends StatefulWidget {
   const Humeur({Key? key}) : super(key: key);
@@ -15,25 +16,7 @@ class HumeurState extends State<Humeur> {
   int currentQuestionIndex = 0;
   List<bool> isHovered = List.generate(4, (index) => false);
 
-  final List<String> questions = [
-    "Je prends plaisir aux mêmes choses qu'autrefois.",
-    "Je ris facilement et vois le bon côté des choses.",
-    "Je suis de bonne humeur.",
-    "J'ai l'impression de fonctionner au ralenti.",
-    "Je ne m'intéresse plus à mon apparence.",
-    "Je me réjouis d'avance à l'idée de faire certaines choses.",
-    "Je peux prendre plaisir à un bon livre ou à une bonne émission radio ou télévision.", 
-  ];
-
-  final List<List<String>> answers = [
-    ['Oui, tout autant', 'Pas autant', 'Un peu seulement', 'Presque plus'],
-    ['Autant que par le passé', "Plus autant qu'avant", "Vraiment moins qu'avant", "Plus du tout"],
-    ['La plupart du temps', 'Assez souvent', 'Rarement', 'Jamais'],
-    ["J'y prête autant d'attention que par le passé", "Il se peut que je n'y fasse plus autant attention", "Je n'y accorde pas autant d'attention que je devrais", 'Plus du tout'],
-    ['Jamais', 'Parfois', 'Très souvent', 'Presque toujours'],
-    ["Autant qu'avant", "Un peu moins qu'avant", "Bien moins qu'avant", "Presque jamais"],
-    ['Souvent', 'Parfois', 'Rarement', 'Très rarement'],
-  ];
+  final List<String> questions = [];
 
   final List<int> answerScores = [0, 1, 2, 3];
 
@@ -48,16 +31,18 @@ class HumeurState extends State<Humeur> {
   }
 
   String interpretScore(int score) {
+    final appLocalizations = AppLocalizations.of(context)!;
     if (score < 8) {
-      return  "Votre évaluation indique que vous avez un bon état émotionnel. Continuez à prendre soin de vous et à pratiquer des activités qui vous apportent joie et satisfaction. Restez attentif à votre bien-être et n'hésitez pas à consulter nos ressources pour maintenir cet équilibre.";
+      return  appLocalizations.resultGoodMood;
     } else if (score >= 8 && score < 10) {
-      return "Votre évaluation suggère que vous traversez peut-être une période de changements émotionnels. Il est important de prêter attention à vos sentiments et de prendre soin de vous. Considérez parler à un professionnel ou à un proche de confiance, et explorez nos conseils pour gérer les moments de stress ou de tristesse.";
+      return appLocalizations.resultModerateMood;
     } else {
-      return "Votre évaluation suggère que vous traversez peut-être une période de préoccupations émotionnelles. Il est important de prêter attention à vos sentiments et de prendre soin de vous. Considérez parler à un professionnel ou à un proche de confiance, et explorez nos conseils pour gérer les moments de stress ou de tristesse.";
+      return appLocalizations.resultConcernedMood;
     }
   }
 
   void nextQuestion(int selectedIndex) {
+    final appLocalizations = AppLocalizations.of(context)!;
     if (currentQuestionIndex < questions.length - 1) {
       setState(() {
         if (humeurAnswers.length > currentQuestionIndex) {
@@ -77,7 +62,7 @@ class HumeurState extends State<Humeur> {
       String interpretation = interpretScore(totalScore);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Vous avez terminé le test!'),
+          content:  Text(AppLocalizations.of(context)!.testCompleted),
           backgroundColor: Colors.green,
         ),
       );
@@ -86,7 +71,7 @@ class HumeurState extends State<Humeur> {
           context,
           MaterialPageRoute(
             builder: (context) => Testpsy4(
-              title: "Évaluation de l'Humeur et de la Vitalité",
+              title:appLocalizations.humeurTitle,
               score: totalScore,
               interpretation: interpretation,
             ),
@@ -111,6 +96,30 @@ class HumeurState extends State<Humeur> {
     var screenWidth = MediaQuery.of(context).size.width;
     var brightness = MediaQuery.of(context).platformBrightness;
     bool isDarkMode = brightness == Brightness.dark;
+    final appLocalizations = AppLocalizations.of(context)!;
+
+
+    
+    if (questions.isEmpty) {
+      questions.addAll([
+        appLocalizations.question1H,
+        appLocalizations.question2H,
+        appLocalizations.question3H,
+        appLocalizations.question4H,
+        appLocalizations.question5H,
+        appLocalizations.question6H,
+        appLocalizations.question7H,
+      ]);
+    }
+    final List<List<String>> answers = [
+        [appLocalizations.answer1Option0, appLocalizations.answer1Option1, appLocalizations.answer1Option2, appLocalizations.answer1Option3],
+        [appLocalizations.answer2Option0, appLocalizations.answer2Option1, appLocalizations.answer2Option2, appLocalizations.answer2Option3],
+        [appLocalizations.answer3Option0, appLocalizations.answer3Option1, appLocalizations.answer3Option2, appLocalizations.answer3Option3],
+        [appLocalizations.answer4Option0, appLocalizations.answer4Option1, appLocalizations.answer4Option2, appLocalizations.answer4Option3],
+        [appLocalizations.answer5Option0, appLocalizations.answer5Option1, appLocalizations.answer5Option2, appLocalizations.answer5Option3],
+        [appLocalizations.answer6Option0, appLocalizations.answer6Option1, appLocalizations.answer6Option2, appLocalizations.answer6Option3],
+        [appLocalizations.answer7Option0, appLocalizations.answer7Option1, appLocalizations.answer7Option2, appLocalizations.answer7Option3],
+    ];
 
     return Scaffold(
       key: _scaffoldKey,
@@ -138,7 +147,7 @@ class HumeurState extends State<Humeur> {
                       ),
                       child: Center(
                         child: Text(
-                          "Évaluation de l'Humeur et de la Vitalité",
+                          appLocalizations.humeurTitle,
                           style: TextStyle(
                             fontSize: screenWidth * 0.04,
                             fontWeight: FontWeight.bold,
@@ -169,7 +178,7 @@ class HumeurState extends State<Humeur> {
                                 ),
                                 SizedBox(width: screenWidth * 0.01),
                                 Text(
-                                  "Précédent",
+                                  appLocalizations.previous_button,
                                   style: TextStyle(
                                     fontSize: screenWidth * 0.039,
                                     color: Color.fromARGB(255, 4, 79, 140),
