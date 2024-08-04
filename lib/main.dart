@@ -52,7 +52,7 @@ class _MyAppState extends State<MyApp> {
         Locale('en')
       ],
       debugShowCheckedModeBanner: false,
-      home:const EEsj(),
+      home:const NavbarDoc(),
     );
   }
 }

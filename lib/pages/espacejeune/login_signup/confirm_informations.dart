@@ -164,6 +164,7 @@ class _ConfirmInformationsState extends State<ConfirmInformations> {
                             "numTel": CardiJeune.numteleController.text,
                             "motDePasse": CardiJeune.passwordController.text
                           },
+                          "age":CardiJeune.age,
                           "sexe": CardiJeune.value==2?"MASCULIN":"FEMININ",
                           "dateNaissance": CardiJeune.birthDay,
                           "scolarise": true,
@@ -229,6 +230,7 @@ class _ConfirmInformationsState extends State<ConfirmInformations> {
                             "numTel": CardiJeune.numteleController.text,
                             "motDePasse": CardiJeune.passwordController.text
                           },
+                          "age":CardiJeune.age,
                           "sexe": CardiJeune.value==2?"MASCULIN":"FEMININ",
                           "dateNaissance": CardiJeune.birthDay,
                           "scolarise": false,

@@ -1,11 +1,13 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'addMeeting.dart';
 
 
 class Creatediscussion04 extends StatefulWidget {
-  final bool isChecked;
-  final Function(bool)updateInfo;
-  Creatediscussion04({super.key, required this.isChecked,required this.updateInfo});
+
+  Creatediscussion04({super.key});
 
   @override
   State<Creatediscussion04> createState() => _Creatediscussion04State();
@@ -14,15 +16,12 @@ class Creatediscussion04 extends StatefulWidget {
 class _Creatediscussion04State extends State<Creatediscussion04> {
   late bool boxCheck;
 
-  @override
-  void initState() {
-    super.initState();
-    boxCheck = widget.isChecked;
-  }
 
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
+    final appLocalizations = AppLocalizations.of(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -100,7 +99,6 @@ class _Creatediscussion04State extends State<Creatediscussion04> {
               onChanged: (value) {
                 setState(() {
                   boxCheck = value!;
-                  widget.updateInfo(boxCheck);
                 });
               },
             ),
@@ -111,6 +109,53 @@ class _Creatediscussion04State extends State<Creatediscussion04> {
                 style: TextStyle(
                   color: Colors.deepPurpleAccent,
                 ),
+              ),
+            ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: CupertinoButton(
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(40),
+                    border: Border.all(color: const Color(0xff4E57CD)),
+                  ),
+                  alignment: Alignment.center,
+                  child: Text(
+                    appLocalizations!.precedent,
+                    style: const TextStyle(
+                        color: Color(0xff4E57CD), fontSize: 20),
+                  ),
+                ),
+                onPressed: () {
+                  AddMeeting.setProgress(context, 0.75);
+                  AddMeeting.setIndex(context, 2);
+                },
+              ),
+            ),
+            Expanded(
+              child: CupertinoButton(
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    gradient:  LinearGradient(
+                      colors: !boxCheck?[CupertinoColors.inactiveGray,Colors.grey]: [Color(0xff4E57CD), Color(0xff2F38A5)],
+                    ),
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                  alignment: Alignment.center,
+                  child: AutoSizeText(
+                    appLocalizations.valide,
+                    style: const TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                ),
+                onPressed: () {
+
+                },
               ),
             ),
           ],

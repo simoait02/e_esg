@@ -382,6 +382,7 @@ class _CreatediscussionState extends State<Creatediscussion> {
           ),
           onPressed: () {
             AddMeeting.setIndex(context,1);
+            AddMeeting.setProgress(context, 0.5);
             // switch(selectedConditionIndex){
             //   case 0:{
             //     if(controller.text.isEmpty){
