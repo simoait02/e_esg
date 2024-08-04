@@ -13,11 +13,11 @@ class ConfirmInformations extends StatefulWidget {
   final Function(double, double) onLoginTapped;
   final Function(double, double) onConfirmTapped;
 
-  ConfirmInformations({
-    Key? key,
+  const ConfirmInformations({
+    super.key,
     required this.onConfirmTapped,
     required this.onLoginTapped,
-  }) : super(key: key);
+  });
 
   @override
   State<ConfirmInformations> createState() => _ConfirmInformationsState();
