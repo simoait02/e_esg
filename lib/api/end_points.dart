@@ -15,6 +15,8 @@ class EndPoints{
   static String RegisterJeuneScola="/register/jeunes/scolarise";
   static String RegisterJeuneUnScola="/register/jeunes/nonscolarise";
   static String GetJeuneViaId="/jeunes/";
+  static String GetAllMedecins="/medecins";
+  static String CreateDiscussion="/discussion";
 
 
 }

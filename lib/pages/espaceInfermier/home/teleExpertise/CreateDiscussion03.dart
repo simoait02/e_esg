@@ -43,7 +43,7 @@ class _Creatediscussion03State extends State<Creatediscussion03> {
   bool male = false;
   bool female = false;
   int discType = 0;
-
+  List<Doctor> doctorList=[];
   @override
   void initState() {
     super.initState();

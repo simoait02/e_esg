@@ -329,5 +329,15 @@
   "high_score_message": "Vos résultats indiquent des problèmes potentiels de sommeil. Il est recommandé de consulter un professionnel de la santé pour une évaluation plus approfondie et des conseils personnalisés. Entre-temps, explorez nos ressources pour des conseils sur l'amélioration de la qualité du sommeil.",
   "completed_test_message": "Vous avez terminé le test!",
   "evaluation_sommeil_title": "Évaluation de la qualité du sommeil",
-  "s_interrompt_cours_activite": "s'interrompt au cours d'une activité"
+  "s_interrompt_cours_activite": "s'interrompt au cours d'une activité",
+  "errorNom": "Le nom ne peut pas être vide",
+  "errorPrenom": "Le prénom ne peut pas être vide",
+  "errorAge": "L'âge ne peut pas être vide",
+  "errorSurgicalHistory": "Les antécédents chirurgicaux ne peuvent pas être vides",
+  "errorHabitsDetails": "Les détails des habitudes ne peuvent pas être vides",
+  "errorFamilyHistoryDetails": "Les détails des antécédents familiaux ne peuvent pas être vides",
+  "errorEtatClinique": "L'état clinique ne peut pas être vide",
+  "errorTitleDiscussion": "Le titre de la discussion ne peut pas être vide",
+  "errorMotifDiscussion": "Le motif de la discussion ne peut pas être vide",
+  "toastEdit": "Modification réussie"
 }

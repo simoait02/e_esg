@@ -58,12 +58,13 @@ class DioConsumer extends ApiComsumer {
   }
 
   @override
-  post(String path, {Object? data, Map<String, dynamic>? queryParameters}) async {
+  post(String path, {Object? data, Map<String, dynamic>? queryParameters, Map<String, dynamic>? headers}) async {
     try {
       final response = await dio.post(
         path,
         data: data,
         queryParameters: queryParameters,
+        options: Options(headers: headers),
       );
       return response.data;
     } on DioException catch (e) {

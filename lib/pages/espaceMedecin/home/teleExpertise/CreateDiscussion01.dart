@@ -2,11 +2,13 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import 'addMeeting.dart';
+import 'teleExpertise_Entry.dart';
 
 class Creatediscussion extends StatefulWidget {
   const Creatediscussion({super.key});
@@ -16,10 +18,45 @@ class Creatediscussion extends StatefulWidget {
 }
 
 class _CreatediscussionState extends State<Creatediscussion> {
-  DateTime selectedTime = DateTime.now();
-  DateTime tempSelectedTime = DateTime.now();
-  List<String> consomation = [];
+  final TextEditingController nomController = TextEditingController();
+  final TextEditingController prenomController = TextEditingController();
+  final TextEditingController surgicalHistoryController = TextEditingController();
+  final TextEditingController habitsDetailsController = TextEditingController();
+  final TextEditingController familyHistoryDetailsController = TextEditingController();
+  final TextEditingController etatCliniqueController = TextEditingController();
+  final TextEditingController titleDiscussionController = TextEditingController();
+  final TextEditingController motifDiscussionController = TextEditingController();
+  final TextEditingController ageController = TextEditingController();
 
+  @override
+  void initState() {
+    super.initState();
+    nomController.text=nomPatient;
+    prenomController.text=prenomPatient;
+    surgicalHistoryController.text=antecedentsChirurgicaux;
+    habitsDetailsController.text=descriptionDesHabitudes;
+    familyHistoryList=antecedentsFamiliaux;
+    medicalHistoryList=antecedentsMedicaux;
+    surgicalHistoryList=habitude;
+    etatCliniqueController.text=descriptionEtatClinique;
+    titleDiscussionController.text=titre;
+    motifDiscussionController.text=motifDeTeleExpertise;
+    ageController.text=age.toString();
+  }
+  @override
+  void dispose() {
+    nomController.dispose();
+    prenomController.dispose();
+    surgicalHistoryController.dispose();
+    habitsDetailsController.dispose();
+    familyHistoryDetailsController.dispose();
+    etatCliniqueController.dispose();
+    titleDiscussionController.dispose();
+    motifDiscussionController.dispose();
+    super.dispose();
+  }
+
+  List<String> consomation = [];
   List<String> medicalHistoryList = [];
   List<String> surgicalHistoryList = [];
   List<String> familyHistoryList = [];
@@ -133,6 +170,7 @@ class _CreatediscussionState extends State<Creatediscussion> {
                   height: height * 0.06,
                   width: width * 0.42,
                   child: CupertinoTextField(
+                    controller: nomController,
                     style: TextStyle(
                       color: Cardi.isDarkMode.value ? CupertinoColors.white.withOpacity(0.5) : CupertinoColors.black.withOpacity(0.5),
                     ),
@@ -157,6 +195,7 @@ class _CreatediscussionState extends State<Creatediscussion> {
                   height: height * 0.06,
                   width: width * 0.42,
                   child: CupertinoTextField(
+                    controller: prenomController,
                     style: TextStyle(
                       color: Cardi.isDarkMode.value ? CupertinoColors.white.withOpacity(0.5) : CupertinoColors.black.withOpacity(0.5),
                     ),
@@ -173,6 +212,32 @@ class _CreatediscussionState extends State<Creatediscussion> {
                 )
               ],
             ),
+          ],
+        ),
+        SizedBox(height: height*0.01,),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(appLocalizations.agePatient, style: const TextStyle(fontSize: 16)),
+            SizedBox(
+              height: height * 0.06,
+              width: width,
+              child: CupertinoTextField(
+                controller: ageController,
+                style: TextStyle(
+                  color: Cardi.isDarkMode.value ? CupertinoColors.white.withOpacity(0.5) : CupertinoColors.black.withOpacity(0.5),
+                ),
+                placeholder: appLocalizations.prenom,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    color: Cardi.isDarkMode.value ? CupertinoColors.white.withOpacity(0.5) : CupertinoColors.black.withOpacity(0.5),
+                    width: 1,
+                  ),
+                ),
+                padding: const EdgeInsets.all(10),
+              ),
+            )
           ],
         ),
         SizedBox(
@@ -235,7 +300,7 @@ class _CreatediscussionState extends State<Creatediscussion> {
             }),
             const SizedBox(height: 10),
             buildTextField('2- ${appLocalizations.antecedantChirugi}', appLocalizations.surgicalHistoryDetails, (value) {
-            },true),
+            },true,surgicalHistoryController),
             const SizedBox(height: 10),
             buildDropdown('3- ${appLocalizations.habitudes}', appLocalizations.select, habitudes, selectedHabitude, (value) {
               setState(() {
@@ -249,7 +314,7 @@ class _CreatediscussionState extends State<Creatediscussion> {
             Visibility(
               visible: visiHab,
               child: buildTextField('', appLocalizations.moreDetailsHabits, (value) {
-              },false),
+              },false,habitsDetailsController),
             ),
             buildChipList(surgicalHistoryList, (index) {
               setState(() {
@@ -275,7 +340,7 @@ class _CreatediscussionState extends State<Creatediscussion> {
             Visibility(
               visible: visiFam,
               child: buildTextField('', appLocalizations.moreDetailsFamilyHistory, (value) {
-              },false),
+              },false,familyHistoryDetailsController),
             ),
             buildChipList(familyHistoryList, (index) {
               setState(() {
@@ -296,6 +361,7 @@ class _CreatediscussionState extends State<Creatediscussion> {
             SizedBox(
               width: width,
               child: CupertinoTextField(
+                controller: etatCliniqueController,
                 style: TextStyle(
                   color: Cardi.isDarkMode.value ? CupertinoColors.white.withOpacity(0.5) : CupertinoColors.black.withOpacity(0.5),
                 ),
@@ -314,6 +380,7 @@ class _CreatediscussionState extends State<Creatediscussion> {
             )
           ],
         ),
+        SizedBox(height: height * 0.01),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -321,6 +388,7 @@ class _CreatediscussionState extends State<Creatediscussion> {
             SizedBox(
               width: width,
               child: CupertinoTextField(
+                controller: titleDiscussionController,
                 style: TextStyle(
                   color: Cardi.isDarkMode.value ? CupertinoColors.white.withOpacity(0.5) : CupertinoColors.black.withOpacity(0.5),
                 ),
@@ -346,6 +414,7 @@ class _CreatediscussionState extends State<Creatediscussion> {
             SizedBox(
               width: width,
               child: CupertinoTextField(
+                controller: motifDiscussionController,
                 style: TextStyle(
                   color: Cardi.isDarkMode.value ? CupertinoColors.white.withOpacity(0.5) : CupertinoColors.black.withOpacity(0.5),
                 ),
@@ -381,27 +450,53 @@ class _CreatediscussionState extends State<Creatediscussion> {
             ),
           ),
           onPressed: () {
-            AddMeeting.setIndex(context,1);
+            if (nomController.text.isEmpty) {
+              Fluttertoast.showToast(msg: appLocalizations.errorNom);
+              return;
+            }
+            if (prenomController.text.isEmpty) {
+              Fluttertoast.showToast(msg: appLocalizations.errorPrenom);
+              return;
+            }
+            if (ageController.text.isEmpty) {
+              Fluttertoast.showToast(msg: appLocalizations.errorAge);
+              return;
+            }
+            if (etatCliniqueController.text.isEmpty) {
+              Fluttertoast.showToast(msg: appLocalizations.errorEtatClinique);
+              return;
+            }
+            if (titleDiscussionController.text.isEmpty) {
+              Fluttertoast.showToast(msg: appLocalizations.errorTitleDiscussion);
+              return;
+            }
+            if (motifDiscussionController.text.isEmpty) {
+              Fluttertoast.showToast(msg: appLocalizations.errorMotifDiscussion);
+              return;
+            }
+            if (selectedConsomation == -1) {
+              Fluttertoast.showToast(msg: "${appLocalizations.sex} ?");
+              return;
+            }
+
+            titre = titleDiscussionController.text;
+            motifDeTeleExpertise = motifDiscussionController.text;
+            prenomPatient = prenomController.text;
+            nomPatient = nomController.text;
+            sexe = consomation[selectedConsomation];
+            age = int.parse(ageController.text);
+            habitude = surgicalHistoryList;
+            antecedentsMedicaux = medicalHistoryList;
+            antecedentsChirurgicaux = surgicalHistoryController.text;
+            antecedentsFamiliaux = familyHistoryList;
+            descriptionEtatClinique = etatCliniqueController.text;
+            descriptionDesHabitudes = habitsDetailsController.text;
+
+            AddMeeting.setIndex(context, 1);
             AddMeeting.setProgress(context, 0.5);
-            // switch(selectedConditionIndex){
-            //   case 0:{
-            //     if(controller.text.isEmpty){
-            //       Fluttertoast.showToast(msg: appLocalizations.enter_type_of_medication);
-            //     }else{
-            //       typeMedicaments=controller.text;
-            //       DocMedical.setProgress(context, 0.25);
-            //       DocMedical.setIndex(context, 1);
-            //     }
-            //     break;
-            //   }
-            //   case 1:{
-            //     typeMedicaments=controller.text;
-            //     DocMedical.setProgress(context, 0.25);
-            //     DocMedical.setIndex(context, 1);
-            //   }
-            // }
           },
         ),
+
       ],
     );
   }
@@ -444,7 +539,7 @@ class _CreatediscussionState extends State<Creatediscussion> {
     );
   }
 
-  Widget buildTextField(String label, String placeholder, ValueChanged<String?> onChanged,bool visibility) {
+  Widget buildTextField(String label, String placeholder, ValueChanged<String?> onChanged,bool visibility,TextEditingController controller) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -453,6 +548,7 @@ class _CreatediscussionState extends State<Creatediscussion> {
             child: Text(label, style: GoogleFonts.inter(textStyle: const TextStyle(fontSize: 16)))),
         const SizedBox(height: 5),
         CupertinoTextField(
+          controller: controller,
           maxLines: 2,
           placeholder: placeholder,
           style: TextStyle(color: Cardi.isDarkMode.value ? Colors.white.withOpacity(0.5) : Colors.black.withOpacity(0.5)),

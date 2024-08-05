@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:e_esg/api/end_points.dart';
 import 'package:e_esg/models/doctor.dart';
 import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,8 +10,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../../../Data/doctor_list.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'addMeeting.dart';
+import 'teleExpertise_Entry.dart';
 
 class Creatediscussion03 extends StatefulWidget {
   const Creatediscussion03({super.key});
@@ -30,9 +34,10 @@ class _Creatediscussion03State extends State<Creatediscussion03> {
     "Surgery",
   ];
 
-  List<Doctor> filteredDoctors = [];
+  List filteredDoctors = [];
   List<String> filteredSpecialties = [];
-  List<Doctor> selectedDoctors = [];
+  List<String> selectedDoctors = [];
+  List<int> selectedDoctorsId = [];
   List<String> selectedSpecialties = [];
   TextEditingController searchController = TextEditingController();
   TextEditingController searchSpecialtyController = TextEditingController();
@@ -45,10 +50,34 @@ class _Creatediscussion03State extends State<Creatediscussion03> {
   bool male = false;
   bool female = false;
   int discType = 0;
+  List doctorList=[];
+  Future<List> getMedecinsViaNom(String nom) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('tokenDoc');
 
+    try {
+      final response = await api.get(
+        EndPoints.GetAllMedecins,
+        queryParameters: {"nom": nom},
+        headers: {
+          "Authorization": "$token",
+        },
+      );
+
+        List medecins =response;
+        doctorList=medecins;
+        print("****************$doctorList");
+        return medecins;}
+      catch (e) {
+      // Handle any exceptions during the API call
+      print('Error fetching medecins: $e');
+      return [];
+    }
+  }
   @override
   void initState() {
     super.initState();
+    fetchDoctors();
     filteredDoctors = doctorList;
     filteredSpecialties = specialtiesList;
     searchController.addListener(() {
@@ -57,14 +86,20 @@ class _Creatediscussion03State extends State<Creatediscussion03> {
     searchSpecialtyController.addListener(() {
       filterSpecialties();
     });
-  }
 
+  }
+  Future<void> fetchDoctors() async {
+    doctorList = await getMedecinsViaNom(searchController.text);
+    print(doctorList);
+    setState(() {});
+  }
   void filterDoctors() {
     String query = searchController.text.toLowerCase();
     setState(() {
+      print("yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
       filteredDoctors = doctorList.where((doctor) {
-        return doctor.name.toLowerCase().contains(query) &&
-            !selectedDoctors.contains(doctor);
+        return doctor["nom"].toLowerCase().contains(query) &&
+            !selectedDoctorsId.contains(doctor["id"]);
       }).toList();
     });
   }
@@ -104,12 +139,14 @@ class _Creatediscussion03State extends State<Creatediscussion03> {
     });
   }
 
-  void handleDoctorSelection(Doctor selectedDoctor) {
+  void handleDoctorSelection(String selectedDoctor,int id) {
     setState(() {
       searchController.text = "";
       filteredDoctors.clear();
-      if (!selectedDoctors.contains(selectedDoctor)) {
+      if (!selectedDoctorsId.contains(id)) {
         selectedDoctors.add(selectedDoctor);
+        selectedDoctorsId.add(id);
+        print(selectedDoctorsId);
       }
     });
   }
@@ -124,9 +161,11 @@ class _Creatediscussion03State extends State<Creatediscussion03> {
     });
   }
 
-  void handleDoctorRemoval(Doctor doctorToRemove) {
+  void handleDoctorRemoval(String doctorToRemove,int id) {
     setState(() {
       selectedDoctors.remove(doctorToRemove);
+      selectedDoctorsId.remove(id);
+      print(selectedDoctorsId);
       filterDoctors();
     });
   }
@@ -159,25 +198,23 @@ class _Creatediscussion03State extends State<Creatediscussion03> {
                     ? CupertinoColors.white.withOpacity(0.2)
                     : CupertinoColors.black.withOpacity(0.2),
                 children: {
-                  0: Container(
-                      child: Text(
-                        appLocalizations!.private,
-                        style: GoogleFonts.poppins(
-                            textStyle: TextStyle(
-                                color: Cardi.isDarkMode.value
-                                    ? CupertinoColors.white
-                                    : CupertinoColors.black,
-                                fontWeight: FontWeight.w500)),
-                      )),
-                  1: Container(
-                      child: Text(appLocalizations.public,
-                          style: GoogleFonts.poppins(
-                              textStyle: TextStyle(
-                                  color: Cardi.isDarkMode.value
-                                      ? CupertinoColors.white
-                                      : CupertinoColors.black,
-                                  fontWeight: FontWeight.w500))
-                      )),
+                  0: Text(
+                    appLocalizations!.private,
+                    style: GoogleFonts.poppins(
+                        textStyle: TextStyle(
+                            color: Cardi.isDarkMode.value
+                                ? CupertinoColors.white
+                                : CupertinoColors.black,
+                            fontWeight: FontWeight.w500)),
+                  ),
+                  1: Text(appLocalizations.public,
+                      style: GoogleFonts.poppins(
+                          textStyle: TextStyle(
+                              color: Cardi.isDarkMode.value
+                                  ? CupertinoColors.white
+                                  : CupertinoColors.black,
+                              fontWeight: FontWeight.w500))
+                  ),
                 },
                 onValueChanged: (int value) {
                   setState(() {
@@ -252,10 +289,10 @@ class _Creatediscussion03State extends State<Creatediscussion03> {
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Chip(
-                          label: Text(selectedDoctors[index].name),
-                          deleteIcon: Icon(Icons.close),
+                          label: Text(selectedDoctors[index]),
+                          deleteIcon: const Icon(Icons.close),
                           onDeleted: () {
-                            handleDoctorRemoval(selectedDoctors[index]);
+                            handleDoctorRemoval(selectedDoctors[index],selectedDoctorsId[index]);
                           },
                         ),
                       );
@@ -329,7 +366,7 @@ class _Creatediscussion03State extends State<Creatediscussion03> {
                         padding: const EdgeInsets.all(8.0),
                         child: Chip(
                           label: Text(selectedSpecialties[index]),
-                          deleteIcon: Icon(Icons.close),
+                          deleteIcon: const Icon(Icons.close),
                           onDeleted: () {
                             handleSpecialtyRemoval(selectedSpecialties[index]);
                           },
@@ -361,7 +398,7 @@ class _Creatediscussion03State extends State<Creatediscussion03> {
                               CupertinoButton(
                                 child: Text(
                                   appLocalizations.cancel,
-                                  style: TextStyle(color: Colors.red),
+                                  style: const TextStyle(color: Colors.red),
                                 ),
                                 onPressed: () {
                                   Navigator.pop(context);
@@ -370,7 +407,7 @@ class _Creatediscussion03State extends State<Creatediscussion03> {
                               CupertinoButton(
                                 child: Text(
                                   appLocalizations.done,
-                                  style: TextStyle(color: Colors.blue),
+                                  style: const TextStyle(color: Colors.blue),
                                 ),
                                 onPressed: () {
                                   if (tempSelectedDateTime.weekday == DateTime.wednesday ||
@@ -607,12 +644,17 @@ class _Creatediscussion03State extends State<Creatediscussion03> {
                       ),
                     ),
                     onPressed: () {
+                      genre=discType == 0?"PRIVEE":"OUVERTE";
+                      date=DateFormat('yyyy-MM-dd').format(selectedDateTime).toString();
+                      heure=DateFormat.Hm().format(selectedTime);
+                      specialtiesList=selectedSpecialties;
                       AddMeeting.setProgress(context, 1);
                       AddMeeting.setIndex(context, 3);
                     },
                   ),
                 ),
               ],
+
             ),
           ],
         ),
@@ -634,9 +676,10 @@ class _Creatediscussion03State extends State<Creatediscussion03> {
                   itemCount: filteredDoctors.length,
                   itemBuilder: (context, index) {
                     return ListTile(
-                      title: Text(filteredDoctors[index].name),
+                      title: Text(filteredDoctors[index]["nom"]),
+                      leading:Text("id:${filteredDoctors[index]["id"].toString()}") ,
                       onTap: () {
-                        handleDoctorSelection(filteredDoctors[index]);
+                        handleDoctorSelection(filteredDoctors[index]["nom"],filteredDoctors[index]["id"]);
                       },
                     );
                   },
@@ -674,6 +717,5 @@ class _Creatediscussion03State extends State<Creatediscussion03> {
           ),
       ],
     );
-
   }
 }

@@ -329,5 +329,15 @@
   "high_score_message": "تشير نتائجك إلى مشاكل محتملة في النوم. يُوصى بالتشاور مع متخصص في الصحة لتقييم أعمق ونصائح شخصية. في هذه الأثناء، استعرض مواردنا للحصول على نصائح لتحسين جودة النوم.",
   "completed_test_message": "لقد أكملت الاختبار!",
   "evaluation_sommeil_title": "تقييم جودة النوم",
-  "s_interrompt_cours_activite": "يتوقف خلال نشاط ما"
+  "s_interrompt_cours_activite": "يتوقف خلال نشاط ما",
+  "errorNom": "الاسم لا يمكن أن يكون فارغًا",
+  "errorPrenom": "الاسم الأول لا يمكن أن يكون فارغًا",
+  "errorAge": "العمر لا يمكن أن يكون فارغًا",
+  "errorSurgicalHistory": "التاريخ الجراحي لا يمكن أن يكون فارغًا",
+  "errorHabitsDetails": "تفاصيل العادات لا يمكن أن تكون فارغة",
+  "errorFamilyHistoryDetails": "تفاصيل التاريخ العائلي لا يمكن أن تكون فارغة",
+  "errorEtatClinique": "الحالة السريرية لا يمكن أن تكون فارغة",
+  "errorTitleDiscussion": "عنوان المناقشة لا يمكن أن يكون فارغًا",
+  "errorMotifDiscussion": "سبب المناقشة لا يمكن أن يكون فارغًا",
+  "toastEdit": "تم التعديل بنجاح"
 }

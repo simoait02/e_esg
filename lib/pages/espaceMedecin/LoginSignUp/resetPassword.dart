@@ -195,7 +195,8 @@ class _ResetpasswordState extends State<Resetpassword> {
                               EndPoints.ForgotPass,
                               data:{
                                 "email": emailController.text,
-                              },
+                              },                          headers: {}
+
                             );
                             Fluttertoast.showToast(msg: response,backgroundColor: Colors.greenAccent,textColor: Colors.black);
                             widget.onContinueTapped(0.6, 0.25);

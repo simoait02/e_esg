@@ -329,5 +329,15 @@
   "low_score_message": "Your assessment indicates that you do not have significant signs of sleep disorders. Continue maintaining good sleep habits to ensure your well-being. If you experience disturbing symptoms, consult a health professional.",
   "high_score_message": "Your results indicate potential sleep problems. It is recommended to consult a health professional for a more in-depth assessment and personalized advice. Meanwhile, explore our resources for tips on improving sleep quality.",
   "completed_test_message": "You have completed the test!",
-  "evaluation_sommeil_title": "Sleep Quality Assessment"
+  "evaluation_sommeil_title": "Sleep Quality Assessment",
+  "errorNom": "Name cannot be empty",
+  "errorPrenom": "First name cannot be empty",
+  "errorAge": "Age cannot be empty",
+  "errorSurgicalHistory": "Surgical history cannot be empty",
+  "errorHabitsDetails": "Habits details cannot be empty",
+  "errorFamilyHistoryDetails": "Family history details cannot be empty",
+  "errorEtatClinique": "Clinical state cannot be empty",
+  "errorTitleDiscussion": "Discussion title cannot be empty",
+  "errorMotifDiscussion": "Discussion reason cannot be empty",
+  "toastEdit": "Successfully edited"
 }
