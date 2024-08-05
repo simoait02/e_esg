@@ -173,7 +173,7 @@ class _ConfirmInformationsState extends State<ConfirmInformations> {
                           if(CardiJeune.studActu == 'Primaire')"codeMassare":CardiJeune.codemassarController.text
                           else "cne": CardiJeune.cneController.text
 
-                        },
+                        }, headers: {},
                       );
                       widget.onConfirmTapped(0.6, 0.1);
                     } on ServerException catch (e) {
@@ -239,7 +239,7 @@ class _ConfirmInformationsState extends State<ConfirmInformations> {
                           if(CardiJeune.age>=16)"cin": CardiJeune.cinController.text,
                           "derniereNiveauEtudes": convertToUpperCase(CardiJeune.lastStud),
                           "enActivite": CardiJeune.stateActu=='En activité'
-                        },
+                        }, headers: {},
                       );
                       widget.onConfirmTapped(0.6, 0.1);
                     } on ServerException catch (e) {
