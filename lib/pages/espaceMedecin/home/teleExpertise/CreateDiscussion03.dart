@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:e_esg/models/doctor.dart';
 import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../Data/doctor_list.dart';
+import 'addMeeting.dart';
 
 class Creatediscussion03 extends StatefulWidget {
   const Creatediscussion03({super.key});
@@ -564,6 +566,54 @@ class _Creatediscussion03State extends State<Creatediscussion03> {
               ),
             ),
             const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: CupertinoButton(
+                    child: Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(40),
+                        border: Border.all(color: const Color(0xff4E57CD)),
+                      ),
+                      alignment: Alignment.center,
+                      child: Text(
+                        appLocalizations.precedent,
+                        style: const TextStyle(
+                            color: Color(0xff4E57CD), fontSize: 20),
+                      ),
+                    ),
+                    onPressed: () {
+                      AddMeeting.setProgress(context, 0.5);
+                      AddMeeting.setIndex(context, 1);
+                    },
+                  ),
+                ),
+                Expanded(
+                  child: CupertinoButton(
+                    child: Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                          colors: [Color(0xff4E57CD), Color(0xff2F38A5)],
+                        ),
+                        borderRadius: BorderRadius.circular(40),
+                      ),
+                      alignment: Alignment.center,
+                      child: AutoSizeText(
+                        appLocalizations.suivant,
+                        style: const TextStyle(color: Colors.white, fontSize: 20),
+                      ),
+                    ),
+                    onPressed: () {
+                      AddMeeting.setProgress(context, 1);
+                      AddMeeting.setIndex(context, 3);
+                    },
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
         if (searchController.text.isNotEmpty)
@@ -624,5 +674,6 @@ class _Creatediscussion03State extends State<Creatediscussion03> {
           ),
       ],
     );
+
   }
 }

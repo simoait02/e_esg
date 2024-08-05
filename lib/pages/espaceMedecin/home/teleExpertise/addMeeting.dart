@@ -46,10 +46,10 @@ class _AddMeetingState extends State<AddMeeting> {
   }
 
   List<Widget> get list => [
-    Creatediscussion(),
-    Creatediscussion02(),
-    Creatediscussion03(),
-    Creatediscussion04(isChecked: isChecked, updateInfo: updateInfo),
+    const Creatediscussion(),
+    const Creatediscussion02(),
+    const Creatediscussion03(),
+    Creatediscussion04(),
   ];
 
   @override
