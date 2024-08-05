@@ -296,6 +296,7 @@ class _NewpasswordState extends State<Newpassword> {
                 },
               ),
               CupertinoButton(
+
                 onPressed: () async {
                   if (passwordController.text == confirmPasswordController.text) {
                     if (validatePassword(passwordController.text)) {

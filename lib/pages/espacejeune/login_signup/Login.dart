@@ -193,12 +193,12 @@ class _LoginState extends State<Login> {
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 alignment: Alignment.centerRight,
                 child: AutoSizeText(appLocalizations.forgotPassword,
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: width * 0.04,
-                  fontFamily: "Poppins",
-                  color: const Color(0xff00D3C7)
-                ),),
+                  style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: width * 0.04,
+                      fontFamily: "Poppins",
+                      color: const Color(0xff00D3C7)
+                  ),),
               ),
             ),
             Align(
@@ -222,13 +222,13 @@ class _LoginState extends State<Login> {
                     if(identifier==""||password==""){
                       if(identifier=="") {
                         setState(() {
-                        identifiernull=true;
-                      });
+                          identifiernull=true;
+                        });
                       }
                       if(password=="") {
                         setState(() {
-                        passwordnull=true;
-                      });
+                          passwordnull=true;
+                        });
                       }
                     }
                     else{
@@ -252,7 +252,7 @@ class _LoginState extends State<Login> {
                           context,
                           MaterialPageRoute(builder: (context)=>const DocMedical()),
                               (Route<dynamic> route) => false,)
-                          : Navigator.pushAndRemoveUntil(
+                            : Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(builder: (context)=>const SideBarController()),
                               (Route<dynamic> route) => false,);
@@ -309,9 +309,9 @@ class _LoginState extends State<Login> {
                   AutoSizeText(
                     appLocalizations.needAcc,
                     style: const TextStyle(fontFamily: "Inter",
-                    color: Color(0xff9999A3),
-                    fontWeight: FontWeight.w400,
-                    fontSize: 1),
+                        color: Color(0xff9999A3),
+                        fontWeight: FontWeight.w400,
+                        fontSize: 1),
                   ),
                   const SizedBox(width: 2),
                   GestureDetector(
@@ -321,8 +321,8 @@ class _LoginState extends State<Login> {
                     child: AutoSizeText(
                       appLocalizations.signUp,
                       style: TextStyle(
-                        fontFamily: "Inter",
-                        color: CardiJeune.isDarkMode.value ? const Color(0xff759cd8) : const Color(0xff3a01de),
+                          fontFamily: "Inter",
+                          color: CardiJeune.isDarkMode.value ? const Color(0xff759cd8) : const Color(0xff3a01de),
                           fontWeight: FontWeight.w400,
                           fontSize: 10
                       ),

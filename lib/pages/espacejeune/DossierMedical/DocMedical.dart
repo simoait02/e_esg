@@ -2,7 +2,12 @@ import 'package:e_esg/pages/espacejeune/login_signup/Cardi.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../api/end_points.dart';
+import '../../../api/errors/Exceptions.dart';
 import 'docMedical01.dart';
 import 'docMedical02.dart';
 import 'docMedical03.dart';

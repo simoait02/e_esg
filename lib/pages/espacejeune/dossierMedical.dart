@@ -1,8 +1,16 @@
+import 'dart:convert';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:e_esg/pages/espacejeune/SideBar/Settings.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../api/end_points.dart';
+import '../../api/errors/Exceptions.dart';
+import 'login_signup/Cardi.dart';
 
 class Dossiermedical extends StatefulWidget {
   const Dossiermedical({super.key});
@@ -15,16 +23,14 @@ class DossiermedicalState extends State<Dossiermedical> {
   int selectedIndex = 0;
 
   final Map<String, String> infos = {
-    "Nom": "Marquina",
-    "Prénom": "Sergio",
-    "Sexe": "Masculin",
-    "Né le": "20/07/2000",
-    "E-mail": "sergiomarquina@gmail.com",
-    "Telephone": "0685123456",
-    "Scolarité": "Non",
-    "CIN": "XD465264",
+    "Nom": "",
+    "Prénom": "",
+    "Sexe": "",
+    "Né le": "",
+    "E-mail": "",
+    "Telephone": "",
     "Antécédants Médicaux":
-        "De 10/07/2023 a 24/07/2024 \n -hépatique \n -fievre",
+    "De 10/07/2023 a 24/07/2024 \n -hépatique \n -fievre",
     "Antécédants Chirurgicaux": "Oui",
     "Antécédants familiaux": "tttt",
   };
@@ -41,8 +47,70 @@ class DossiermedicalState extends State<Dossiermedical> {
 @override
   void initState() {
   _loadPreferences();
+  _fetchData();
   super.initState();
   }
+
+  Future<void> _fetchData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+    if (token != null) {
+      print("Token: $token");
+      Map<String, dynamic> decodedToken;
+      try {
+        decodedToken = JwtDecoder.decode(token);
+        print("Decoded Token: $decodedToken");
+      } catch (e) {
+        print("Token decoding error: $e");
+        Fluttertoast.showToast(msg: "Invalid token", backgroundColor: Colors.red);
+        return;
+      }
+      if (decodedToken.containsKey('claims') && decodedToken['claims'].containsKey('id')) {
+        try {
+          final get = await api.get(
+            EndPoints.GetJeuneViaId + decodedToken['claims']['id'].toString(),
+            headers: {
+              "Authorization": token
+            },
+          );
+
+          setState(() {
+            infos["Nom"] = get["nom"];
+            infos["Prénom"] = get["prenom"];
+            infos["Sexe"] = get["sexe"];
+            infos["Né le"] = get["dateNaissance"];
+            infos["E-mail"] = get["mail"];
+            infos["Telephone"] = get["numTele"];
+            if (get['age'] >= 16) {
+              infos.addEntries([MapEntry("CIN", get["cin"] ?? "")]);
+            }
+            if(!get.containsKey("enActivite")){
+              infos.addEntries([MapEntry("Niveau d'études actuel", get["niveauEtudesActuel"])]);
+              if (get['codeMASSAR'] != null) {
+                infos.addEntries([MapEntry("Code massar", get['codeMASSAR'])]);
+              } else {
+                infos.addEntries([MapEntry("Cne", get['cne'] ?? "")]);
+              }
+            }
+            else{
+              infos.addEntries([MapEntry("Dernier niveau d'études", get["dernierNiveauEtudes"])]);
+              infos.addEntries([MapEntry("En activité", get["enActivite"]?"OUI":"NON")]);
+            }
+
+          });
+        } on ServerException catch (e) {
+          Fluttertoast.showToast(msg: e.errormodel.errorMsg, backgroundColor: Colors.red);
+        }
+      } else {
+        print("Invalid token structure");
+        Fluttertoast.showToast(msg: "Invalid token structure", backgroundColor: Colors.red);
+      }
+    } else {
+      print("Token is null");
+      Fluttertoast.showToast(msg: "Token is null", backgroundColor: Colors.red);
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
