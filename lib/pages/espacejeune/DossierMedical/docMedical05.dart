@@ -134,7 +134,7 @@ class _Docmedical05State extends State<Docmedical05> {
               ),
               onPressed: () {
                 DocMedical.setProgress(context, 0.75);
-                DocMedical.setIndex(context, 3);
+                DocMedical.setIndex(context, 2);
               },
             ),
             CupertinoButton(

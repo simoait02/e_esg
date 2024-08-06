@@ -26,7 +26,7 @@ class _CreatediscussionState extends State<Creatediscussion> {
   final TextEditingController etatCliniqueController = TextEditingController();
   final TextEditingController titleDiscussionController = TextEditingController();
   final TextEditingController motifDiscussionController = TextEditingController();
-  final TextEditingController ageController = TextEditingController();
+  static final TextEditingController ageController = TextEditingController();
 
   @override
   void initState() {
@@ -41,7 +41,6 @@ class _CreatediscussionState extends State<Creatediscussion> {
     etatCliniqueController.text=descriptionEtatClinique;
     titleDiscussionController.text=titre;
     motifDiscussionController.text=motifDeTeleExpertise;
-    ageController.text=age.toString();
   }
   @override
   void dispose() {
@@ -227,7 +226,7 @@ class _CreatediscussionState extends State<Creatediscussion> {
                 style: TextStyle(
                   color: Cardi.isDarkMode.value ? CupertinoColors.white.withOpacity(0.5) : CupertinoColors.black.withOpacity(0.5),
                 ),
-                placeholder: appLocalizations.prenom,
+                placeholder: appLocalizations.agePatient,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(

@@ -110,7 +110,7 @@ class _Docmedical01State extends State<Docmedical01> {
               label: Text(
                 conditions[index],
                 style: GoogleFonts.aBeeZee(
-                  color: selectedConditions[index] ? Colors.white : Colors.black,
+                  color: selectedConditions[index] ? Colors.white :  CardiJeune.isDarkMode.value?Colors.white.withOpacity(0.5): Colors.black.withOpacity(0.5),
                 ),
               ),
               selected: selectedConditions[index],
@@ -156,7 +156,7 @@ class _Docmedical01State extends State<Docmedical01> {
                   style: GoogleFonts.aBeeZee(
                     color: selectedConditionIndex == index
                         ? Colors.white
-                        : Colors.black,
+                        : CardiJeune.isDarkMode.value?Colors.white.withOpacity(0.5): Colors.black.withOpacity(0.5),
                   ),
                 ),
                 selected: selectedConditionIndex == index,

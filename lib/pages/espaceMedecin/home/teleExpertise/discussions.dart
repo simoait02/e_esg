@@ -1,10 +1,12 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:e_esg/api/end_points.dart';
 import 'package:e_esg/pages/espaceMedecin/home/teleExpertise/plus_infos.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../LoginSignUp/Cardi.dart';
 
 class Discussions extends StatefulWidget {
@@ -22,6 +24,16 @@ class Discussions extends StatefulWidget {
 }
 
 class _DiscussionsState extends State<Discussions> {
+
+  Future<void> getInvitation(int id) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('tokenDoc');
+    final get=await api.get(EndPoints.GetInvitationViaId+"{1}",headers:{
+        "Authorization":"$token"
+      });
+    print(get);
+  }
+
   Widget buildSegmentedControlItem(String text) {
     return Container(
       padding: const EdgeInsets.all(8),
@@ -49,7 +61,7 @@ class _DiscussionsState extends State<Discussions> {
     double height = MediaQuery.of(context).size.height;
     final appLocalizations = AppLocalizations.of(context);
     final textDirection = isArabic(context) ? TextDirection.rtl : TextDirection.ltr;
-
+    getInvitation(1);
     return Directionality(
       textDirection: TextDirection.ltr,
       child: CustomScrollView(

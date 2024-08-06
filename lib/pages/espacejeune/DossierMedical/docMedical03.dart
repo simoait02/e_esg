@@ -108,7 +108,7 @@ class _Docmedical03State extends State<Docmedical03> {
               label: Text(
                 conditions[index],
                 style: GoogleFonts.aBeeZee(
-                  color: selectedConditions[index] ? Colors.white : Colors.black,
+                  color: selectedConditions[index] ? Colors.white : CardiJeune.isDarkMode.value?Colors.white.withOpacity(0.5): Colors.black.withOpacity(0.5),
                 ),
               ),
               selected: selectedConditions[index],

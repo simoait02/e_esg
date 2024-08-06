@@ -190,6 +190,7 @@ class _Creatediscussion04State extends State<Creatediscussion04> {
                     "Authorization": "$token",
                   },
                   );
+                  Navigator.of(context).pop();
                 },
               ),
             ),
