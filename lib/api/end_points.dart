@@ -17,7 +17,8 @@ class EndPoints{
   static String GetJeuneViaId="/jeunes/";
   static String GetAllMedecins="/medecins";
   static String CreateDiscussion="/discussion";
-  static String GetInvitationViaId="/invitation/";
+  static String GetInvitation="/invitation/all";
+  static String GetDiscussionViaId="/discussion";
 
 
 }

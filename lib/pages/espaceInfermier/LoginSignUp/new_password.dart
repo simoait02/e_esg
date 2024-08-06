@@ -8,10 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../api.dart';
 import 'Cardi.dart';
 class NewPassword extends StatefulWidget {
   final Function(double, double) onBackTapped;

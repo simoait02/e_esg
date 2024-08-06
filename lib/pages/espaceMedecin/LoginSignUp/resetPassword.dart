@@ -1,13 +1,12 @@
 import 'dart:convert';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:e_esg/api/end_points.dart';
+import 'package:e_esg/api/errors/Exceptions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:http/http.dart' as http;
-
-import '../../../api.dart';
 import 'Cardi.dart';
 
 class Resetpassword extends StatefulWidget {
@@ -188,32 +187,45 @@ class _ResetpasswordState extends State<Resetpassword> {
                       onPressed: () async {
                         validateEmail();
                         if (emailError == null) {
-                          final url = Uri.parse("$Url/password/forgot");
-                          Map<String, dynamic> data = {
-                            "email": emailController.text,
-                          };
                           try {
-                            final response = await http.post(
-                              url,
-                              headers: {
-                                'Content-Type': 'application/json',
-                              },
-                              body: json.encode(data),
+                            final response=await api.post(
+                              EndPoints.ForgotPass,
+                              data:{
+                                "email": emailController.text,
+                              }, headers: {},
                             );
-
-                            if (response.statusCode == 200) {
-                              print('Data posted successfully: ${response.body}');
-                              Fluttertoast.showToast(msg: response.body.toString(), backgroundColor: Colors.greenAccent,textColor: Colors.black);
-                              widget.onContinueTapped(0.6, 0.25);
-                            } else {
-                              print('Failed to post data: ${response.statusCode}');
-                              Fluttertoast.showToast(msg: response.body.toString(), backgroundColor: Colors.red);
-                              print('Response body: ${response.body}');
-                            }
-                          } catch (e) {
-                            Fluttertoast.showToast(msg: e.toString(), backgroundColor: Colors.red);
-                            print('Error: $e');
+                            Fluttertoast.showToast(msg: response,backgroundColor: Colors.greenAccent,textColor: Colors.black);
+                            widget.onContinueTapped(0.6, 0.25);
+                          } on ServerException catch (e) {
+                            print("dfffffffffffffffffffffffffffffffffffffffffffffffffffff");
+                            Fluttertoast.showToast(msg: e.errormodel.errorMsg,backgroundColor: Colors.red);
                           }
+                          // final url = Uri.parse("$Url/password/forgot");
+                          // Map<String, dynamic> data = {
+                          //   "email": emailController.text,
+                          // };
+                          // try {
+                          //   final response = await http.post(
+                          //     url,
+                          //     headers: {
+                          //       'Content-Type': 'application/json',
+                          //     },
+                          //     body: json.encode(data),
+                          //   );
+                          //
+                          //   if (response.statusCode == 200) {
+                          //     print('Data posted successfully: ${response.body}');
+                          //     Fluttertoast.showToast(msg: response.body.toString(), backgroundColor: Colors.greenAccent,textColor: Colors.black);
+                          //     widget.onContinueTapped(0.6, 0.25);
+                          //   } else {
+                          //     print('Failed to post data: ${response.statusCode}');
+                          //     Fluttertoast.showToast(msg: response.body.toString(), backgroundColor: Colors.red);
+                          //     print('Response body: ${response.body}');
+                          //   }
+                          // } catch (e) {
+                          //   Fluttertoast.showToast(msg: e.toString(), backgroundColor: Colors.red);
+                          //   print('Error: $e');
+                          // }
                         } else {
                           Fluttertoast.showToast(msg: emailError.toString(), backgroundColor: Colors.red);
                         }

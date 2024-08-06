@@ -1,7 +1,9 @@
-import 'dart:convert';
-import 'package:e_esg/api.dart';
+import 'package:dio/dio.dart';
+import 'package:e_esg/api/Dio_Consumer.dart';
+import 'package:e_esg/api/api_Comsumer.dart';
+import 'package:e_esg/api/end_points.dart';
+import 'package:e_esg/api/errors/Exceptions.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:http/http.dart' as http;
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:e_esg/Widgets/NavigationBarDoctor.dart';
@@ -53,6 +55,7 @@ class _PasswordState extends State<Password> {
       setState(() {}); // Rebuild the UI on every text change
     });
   }
+  final ApiComsumer api=DioConsumer(dio: Dio());
 
   @override
   void dispose() {
@@ -295,50 +298,35 @@ class _PasswordState extends State<Password> {
                 onPressed: () async {
                   if (passwordController.text == copasswordController.text) {
                     if (validatePassword(passwordController.text)) {
-                      final url = Uri.parse("$Url/register/medecins");
-
-                      Map<String, dynamic> data = {
-                        "cin": Cardi.cinController.text,
-                        "inpe": Cardi.inpeController.text,
-                        "ppr": Cardi.pprController.text,
-                        "estMedcinESJ": Cardi.isEsgDoctor,
-                        "estGeneraliste": Cardi.isGeneralist,
-                        "specialite": Cardi.specialiteeController.text,
-                        "infoUser": {
-                          "nom": Cardi.nomController.text,
-                          "prenom": Cardi.prenomController.text,
-                          "numTel": Cardi.teleController.text,
-                          "mail": Cardi.emailController.text,
-                          "motDePasse": passwordController.text
-                        }
-                      };
-
                       try {
-                        final response = await http.post(
-                          url,
-                          headers: {
-                            'Content-Type': 'application/json',
+                        final response =await api.post(
+                          EndPoints.RegisterMedecin,
+                          data:{
+                            "cin": Cardi.cinController.text,
+                            "inpe": Cardi.inpeController.text,
+                            "ppr": Cardi.pprController.text,
+                            "estMedcinESJ": Cardi.isEsgDoctor,
+                            "estGeneraliste": Cardi.isGeneralist,
+                            "specialite": Cardi.specialiteeController.text,
+                            "infoUser": {
+                              "nom": Cardi.nomController.text,
+                              "prenom": Cardi.prenomController.text,
+                              "numTel": Cardi.teleController.text,
+                              "mail": Cardi.emailController.text,
+                              "motDePasse": passwordController.text
+                            }
                           },
-                          body: json.encode(data),
+                          headers: {},
                         );
-
-                        if (response.statusCode == 200) {
-                          print('Data posted successfully: ${response.body}');
-                          Navigator.pushAndRemoveUntil(
-                            context,
-                            CupertinoPageRoute(builder: (context) => NavbarDoc()),
-                                (Route<dynamic> route) => false,
-                          );
-                        } else {
-                          print('Failed to post data: ${response.statusCode}');
-                          Fluttertoast.showToast(msg: response.body.toString(), backgroundColor: Colors.red);
-                          print('Response body: ${response.body}');
-                        }
-                      } catch (e) {
-                        Fluttertoast.showToast(msg: e.toString(), backgroundColor: Colors.red);
-                        print('Error: $e');
+                        Fluttertoast.showToast(msg: "success",backgroundColor: Colors.greenAccent,textColor: Colors.black);
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (context)=>NavbarDoc()),
+                              (Route<dynamic> route) => false,);
+                      } on ServerException catch (e) {
+                        print("dfffffffffffffffffffffffffffffffffffffffffffffffffffff");
+                        Fluttertoast.showToast(msg: e.errormodel.errorMsg,backgroundColor: Colors.red);
                       }
-
                     } else {
                       setState(() {
                         error = true;
