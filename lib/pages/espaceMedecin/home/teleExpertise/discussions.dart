@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:e_esg/api/end_points.dart';
+import 'package:e_esg/pages/espaceMedecin/home/teleExpertise/InvitationInfos.dart';
 import 'package:e_esg/pages/espaceMedecin/home/teleExpertise/plus_infos.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart' as intl;
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../LoginSignUp/Cardi.dart';
 
@@ -48,7 +50,6 @@ class _DiscussionsState extends State<Discussions> {
         uniqueIds.add(invitation["discussionId"]);
         SharedPreferences prefs = await SharedPreferences.getInstance();
         String? token = prefs.getString('tokenDoc');
-        print(invitation["id"]);
         final get = await api.get(EndPoints.GetDiscussionViaId + "/${invitation["discussionId"]}", headers: {
           "Authorization": "$token"
         });
@@ -57,8 +58,8 @@ class _DiscussionsState extends State<Discussions> {
     }
     setState(() {
       discussion = newDiscussion;
+      discussion.reversed;
     });
-    print(discussion);
   }
 
   Widget buildSegmentedControlItem(String text) {
@@ -159,9 +160,33 @@ class _DiscussionsState extends State<Discussions> {
                   final item = discussion[index];
                   return GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        CupertinoPageRoute(builder: (context) => PlusInfos()),
+                      showBarModalBottomSheet(
+                        context: context,
+                        builder: (context) {
+                          return Invitationinfos(
+                              titre: item["titre"],
+                              // motif: item["motif"],
+                              prenomPatient: item["prenomPatient"],
+                              nomPatient: item["nomPatient"],
+                              sexe: item["sexe"],
+                              age: item["age"],
+                              motifDeTeleExpertise: item["motifDeTeleExpertise"],
+                              antecedentsMedicaux: item["antecedentsMedicaux"],
+                              antecedentsChirurgicaux: item["antecedentsChirurgicaux"],
+                              habitude: item["habitudes"],
+                              descriptionDesHabitudes: item["descriptionDesHabitudes"],
+                              antecedentsFamiliaux: item["antecedentsFamiliaux"],
+                              descriptionEtatClinique: item["descriptionEtatClinique"],
+                              commentaireFichiers: item["commentaireFichiers"],
+                              genre: item["genre"],
+                              type: item["type"],
+                              date: item["date"],
+                              heure: item["heure"],
+                              status: item["status"],
+                              fichiersAtaches: item["fichiersAtaches"],
+                              specialitesDemandees: item["specialitesDemandees"]);
+
+                        },
                       );
                     },
                     child: Container(
@@ -284,7 +309,11 @@ class _DiscussionsState extends State<Discussions> {
                                     ),
                                   ),
                                 ),
-                                onPressed: () {},
+                                onPressed: () async {
+                                  SharedPreferences prefs = await SharedPreferences.getInstance();
+                                  String? token = prefs.getString('tokenDoc');
+                                  api.put("/invitation/${invitations[index]["id"]}/decline", headers: {"Authorization": "$token"});
+                                },
                               ),
                               CupertinoButton(
                                 child: Container(
@@ -302,7 +331,11 @@ class _DiscussionsState extends State<Discussions> {
                                     ),
                                   ),
                                 ),
-                                onPressed: () {},
+                                onPressed: () async {
+                                  SharedPreferences prefs = await SharedPreferences.getInstance();
+                                  String? token = prefs.getString('tokenDoc');
+                                  api.put("/invitation/${invitations[index]["id"]}/accept", headers: {"Authorization": "$token"});
+                                },
                               ),
                             ],
                           ),
@@ -314,13 +347,13 @@ class _DiscussionsState extends State<Discussions> {
                 : Column(
                   children: [
                     GestureDetector(
-                                  onTap: () {
+                      onTap: () {
                     Navigator.push(
                       context,
                       CupertinoPageRoute(builder: (context) => PlusInfos()),
                     );
-                                  },
-                                  child: Container(
+                    },
+                      child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
                     decoration: BoxDecoration(
                       color: Cardi.isDarkMode.value ? const Color(0xe5212125) : const Color(0xfffbfbfd),
@@ -354,8 +387,8 @@ class _DiscussionsState extends State<Discussions> {
                         const Icon(CupertinoIcons.chevron_right),
                       ],
                     ),
-                                  ),
-                                ),
+                      ),
+                    ),
                   ],
                 ),
           ),

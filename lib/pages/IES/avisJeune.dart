@@ -1,11 +1,6 @@
 import 'dart:core';
-import 'dart:core';
-import 'dart:core';
-
 import 'package:flutter/material.dart';
 import 'package:searchfield/searchfield.dart';
-
-import '../../Widgets/custom_sliver_app_bar.dart';
 import '../../Widgets/text_field.dart';
 import '../espacejeune/SideBar/Settings.dart';
 class Avisjeune extends StatefulWidget {
@@ -127,10 +122,8 @@ class _AvisjeuneState extends State<Avisjeune> {
   }
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
 
-    double iconButtonSize = screenWidth * 0.10;
     double sectionPadding = screenWidth * 0.04;
     double titleFontSize = screenWidth * 0.06;
     return Scaffold(backgroundColor: SettingsYong.isDarkMode.value ? Color(0xff141218) : Color(0xffF5F5F6),

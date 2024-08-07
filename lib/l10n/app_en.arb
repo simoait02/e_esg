@@ -342,5 +342,8 @@
   "toastEdit": "Successfully edited",
   "typeDiscussion": "Discussion type",
   "search_for_doctor": "Search for doctor",
-  "search_for_name": "Search for name"
+  "search_for_name": "Search for name",
+  "descHabitude": "Description of Habits",
+  "commentaireFichiers":"comment Files"
+
 }

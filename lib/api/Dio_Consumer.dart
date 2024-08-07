@@ -71,4 +71,19 @@ class DioConsumer extends ApiComsumer {
       handleDioException(e);
     }
   }
+
+  @override
+  put(String path, {Object? data, Map<String, dynamic>? queryParameters, Map<String, dynamic>? headers}) async {
+    try {
+      final response = await dio.put(
+        path,
+        data: data,
+        queryParameters: queryParameters,
+        options: Options(headers: headers),
+      );
+      return response.data;
+    } on DioException catch (e) {
+      handleDioException(e);
+    }
+  }
 }

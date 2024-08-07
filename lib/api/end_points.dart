@@ -19,6 +19,7 @@ class EndPoints{
   static String CreateDiscussion="/discussion";
   static String GetInvitation="/invitation/all";
   static String GetDiscussionViaId="/discussion";
+  static String GetAllDiscussion="/discussion/all";
 
 
 }

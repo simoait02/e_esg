@@ -12,7 +12,6 @@ class VoteDialog extends StatefulWidget {
 
 class _VoteDialogState extends State<VoteDialog> {
   int _value = 0;
-  TextEditingController _textEditingController = TextEditingController();
 
   List<String> options = [
     "QU’EST-CE QUE LA TOXICOMANIE ?",
@@ -68,9 +67,9 @@ class _VoteDialogState extends State<VoteDialog> {
                               _value = value!;
                             });
                           },
-                          fillColor: MaterialStateProperty.resolveWith<Color?>(
-                                (Set<MaterialState> states) {
-                              if (states.contains(MaterialState.selected)) {
+                          fillColor: WidgetStateProperty.resolveWith<Color?>(
+                                (Set<WidgetState> states) {
+                              if (states.contains(WidgetState.selected)) {
                                 return Color(0xff00D3C7);
                               }
                               return null;

@@ -5,10 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:e_esg/Data/allergiAlimentaire_list.dart';
-import 'package:e_esg/Data/allergieMedicam_list.dart';
-import 'package:e_esg/Data/allergieEnvi_list.dart';
-
 class Docmedical03 extends StatefulWidget {
   const Docmedical03({super.key});
 
@@ -52,7 +48,6 @@ class _Docmedical03State extends State<Docmedical03> {
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context);
-    double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

@@ -342,5 +342,7 @@
   "toastEdit": "Modification réussie",
   "typeDiscussion": "Type de discussion",
   "search_for_doctor": "Rechercher un médecin",
-  "search_for_name": "Rechercher par nom"
+  "search_for_name": "Rechercher par nom",
+  "descHabitude": "description Des Habitudes",
+  "commentaireFichiers":"commentaire Fichiers"
 }

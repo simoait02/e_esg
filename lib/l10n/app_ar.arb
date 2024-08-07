@@ -342,6 +342,8 @@
   "toastEdit": "تم التعديل بنجاح",
   "typeDiscussion": "نوع المناقشة",
   "search_for_doctor": "ابحث عن طبيب",
-  "search_for_name": "ابحث عن الاسم"
+  "search_for_name": "ابحث عن الاسم",
+  "descHabitude": "وصف العادات",
+  "commentaireFichiers":"التعليق على الملفات"
 
 }

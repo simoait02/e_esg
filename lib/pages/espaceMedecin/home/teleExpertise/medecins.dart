@@ -211,13 +211,12 @@ class _MedecinsState extends State<Medecins> {
                   ),
                   child: ListTile(
                     leading: Icon(CupertinoIcons.person),
-                    title: Text(item["nom"] + " " + item["prenom"]),
+                    title: Text(item["nom"] + " " + item["prenom"],style: GoogleFonts.aBeeZee(),),
                     subtitle: Text(item["specialite"]==""?"Generaliste":item["specialite"]),
-                    subtitleTextStyle: GoogleFonts.poppins(
-                      fontSize: 10,
+                    subtitleTextStyle: GoogleFonts.abel(
                       color: Cardi.isDarkMode.value
-                          ? Colors.white38
-                          : Colors.black38,
+                          ? CupertinoColors.white.withOpacity(0.5)
+                          : CupertinoColors.black.withOpacity(0.5),
                     ),
                     trailing: IconButton(
                       onPressed: () {},

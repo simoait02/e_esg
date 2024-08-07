@@ -41,13 +41,13 @@ class _AccounttypeState extends State<Accounttype> {
     bool darkMode = WidgetsBinding.instance.platformDispatcher.platformBrightness == Brightness.dark;
 
     return Scaffold(
-        backgroundColor: darkMode ? Color(0xff1a1a1e) : Color(0xffF5F5F6),
+        backgroundColor: darkMode ? const Color(0xff1a1a1e) : const Color(0xffF5F5F6),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: height * 0.05),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               height: height * 0.2,
               width: width,
               child: AutoSizeText(
@@ -73,12 +73,12 @@ class _AccounttypeState extends State<Accounttype> {
               child: Container(
                 height: height * 0.18,
                 width: width,
-                margin: EdgeInsets.symmetric(horizontal: 20),
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                margin: const EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 decoration: BoxDecoration(
-                  color: isJeune ? Color(0xff2F38A5) :!darkMode ? Colors.white : Colors.grey.shade900,
+                  color: isJeune ? const Color(0xff2F38A5) :!darkMode ? Colors.white : Colors.grey.shade900,
                   borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color:darkMode? Color(0xff9196CC):Color(0xffEAEBF6)),
+                  border: Border.all(color:darkMode? const Color(0xff9196CC):const Color(0xffEAEBF6)),
                 ),
                 child: Stack(
                   children: [
@@ -98,7 +98,7 @@ class _AccounttypeState extends State<Accounttype> {
                           AppLocalizations.of(context)!.jeune,
                           maxLines: 1,
                           style: GoogleFonts.aBeeZee(
-                            textStyle: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                            textStyle: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                             color:!darkMode?const Color(0xff141218) : Colors.white,
                           ),
                         ),
@@ -120,12 +120,12 @@ class _AccounttypeState extends State<Accounttype> {
               child: Container(
                 height: height * 0.18,
                 width: width,
-                margin: EdgeInsets.symmetric(horizontal: 20),
-                padding: EdgeInsets.symmetric(vertical: 10),
+                margin: const EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(vertical: 10),
                 decoration: BoxDecoration(
-                  color: isDoctor ? Color(0xff2F38A5) : !darkMode ? Colors.white : Colors.grey.shade900,
+                  color: isDoctor ? const Color(0xff2F38A5) : !darkMode ? Colors.white : Colors.grey.shade900,
                   borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: darkMode? Color(0xff9196CC):Color(0xffEAEBF6)),
+                  border: Border.all(color: darkMode? const Color(0xff9196CC):const Color(0xffEAEBF6)),
                 ),
                 child: Stack(
                   children: [
@@ -145,7 +145,7 @@ class _AccounttypeState extends State<Accounttype> {
                           AppLocalizations.of(context)!.medecin,
                           maxLines: 1,
                           style: GoogleFonts.aBeeZee(
-                            textStyle: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                            textStyle: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                             color:!darkMode?const Color(0xff141218) : Colors.white,
                           ),
                         ),
@@ -167,12 +167,12 @@ class _AccounttypeState extends State<Accounttype> {
               child: Container(
                 height: height * 0.18,
                 width: width,
-                margin: EdgeInsets.symmetric(horizontal: 20),
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                margin: const EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 decoration: BoxDecoration(
-                  color: isInfermier ?Color(0xff2F38A5) : !darkMode ? Colors.white : Colors.grey.shade900,
+                  color: isInfermier ?const Color(0xff2F38A5) : !darkMode ? Colors.white : Colors.grey.shade900,
                   borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: darkMode? Color(0xff9196CC):Color(0xffEAEBF6)),
+                  border: Border.all(color: darkMode? const Color(0xff9196CC):const Color(0xffEAEBF6)),
                 ),
                 child: Stack(
                   children: [
@@ -192,7 +192,7 @@ class _AccounttypeState extends State<Accounttype> {
                           AppLocalizations.of(context)!.infirmier,
                           maxLines: 1,
                           style: GoogleFonts.aBeeZee(
-                            textStyle: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                            textStyle: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                             color:!darkMode?const Color(0xff141218) : Colors.white,
                           ),
                         ),
@@ -218,7 +218,7 @@ class _AccounttypeState extends State<Accounttype> {
                   alignment: Alignment.center,
                   child: AutoSizeText(
                     AppLocalizations.of(context)!.suivant,
-                    style: TextStyle(fontSize: 26, color: Colors.white),
+                    style: const TextStyle(fontSize: 26, color: Colors.white),
                   ),
                 ),
                 onPressed: () {

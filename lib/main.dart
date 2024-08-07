@@ -1,20 +1,9 @@
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:chiclet/chiclet.dart';
-import 'package:e_esg/AccountType.dart';
-import 'package:e_esg/Widgets/NavigationBarDoctor.dart';
-import 'package:e_esg/Widgets/pulse_animation.dart';
 import 'package:e_esg/e_esj.dart';
-import 'package:e_esg/main.dart';
-import 'package:e_esg/pages/espacejeune/DossierMedical/DocMedical.dart';
-import 'package:e_esg/pages/espacejeune/DossierMedical/docMedical01.dart';
-import 'package:e_esg/pages/espacejeune/SideBar/SidebarController.dart';
-import 'package:e_esg/pages/espacejeune/dossierMedical.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'ChoosLanguage.dart';
 
 void main() {
   runApp(const MyApp());

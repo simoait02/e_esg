@@ -26,7 +26,6 @@ class _EEsjState extends State<EEsj> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
     bool darkMode = WidgetsBinding.instance.platformDispatcher.platformBrightness == Brightness.dark;
     return Scaffold(
       backgroundColor: darkMode?const Color(0xff141218) : Color(0xffF5F5F6),

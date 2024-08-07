@@ -1,8 +1,5 @@
-import 'dart:async';
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sensors/sensors.dart';
 import 'Acceuil.dart';
 import 'gamescreen.dart';
 

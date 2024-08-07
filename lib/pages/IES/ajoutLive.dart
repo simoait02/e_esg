@@ -18,7 +18,6 @@ class Ajoutlive extends StatefulWidget {
 
 class _AjoutliveState extends State<Ajoutlive> {
   double turns = 0.0;
-  Doctor? _selecteddoctor;
 
 
 
