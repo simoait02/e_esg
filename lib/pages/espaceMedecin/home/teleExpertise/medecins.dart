@@ -212,6 +212,13 @@ class _MedecinsState extends State<Medecins> {
                   child: ListTile(
                     leading: Icon(CupertinoIcons.person),
                     title: Text(item["nom"] + " " + item["prenom"]),
+                    subtitle: Text(item["specialite"]==""?"Generaliste":item["specialite"]),
+                    subtitleTextStyle: GoogleFonts.poppins(
+                      fontSize: 10,
+                      color: Cardi.isDarkMode.value
+                          ? Colors.white38
+                          : Colors.black38,
+                    ),
                     trailing: IconButton(
                       onPressed: () {},
                       icon: Container(

@@ -109,7 +109,8 @@ class _Creatediscussion03State extends State<Creatediscussion03> {
     setState(() {
       print("yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
       filteredDoctors = doctorList.where((doctor) {
-        return doctor["nom"].toLowerCase().contains(query) &&
+        return doctor["nom"].toLowerCase().contains(query) ||
+            doctor["prenom"].toLowerCase().contains(query) &&
             !selectedDoctorsId.contains(doctor["id"]);
       }).toList();
     });
@@ -743,7 +744,7 @@ class _Creatediscussion03State extends State<Creatediscussion03> {
                   itemCount: filteredDoctors.length,
                   itemBuilder: (context, index) {
                     return ListTile(
-                      title: Text(filteredDoctors[index]["nom"]),
+                      title: Text(filteredDoctors[index]["nom"]+" "+filteredDoctors[index]["prenom"]),
                       leading:Text("id:${filteredDoctors[index]["id"].toString()}") ,
                       onTap: () {
                         handleDoctorSelection(filteredDoctors[index]["nom"],filteredDoctors[index]["id"]);
