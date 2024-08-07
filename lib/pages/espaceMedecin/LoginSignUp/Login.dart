@@ -191,7 +191,8 @@ class _LoginState extends State<Login> {
                       data:{
                         "username": _identifierController.text,
                         "password": _passwordController.text
-                      },                          headers: {}
+                      },
+                        headers: {}
 
                     );
                     userDoc=SigninModeldoc.fromJson(response);
@@ -199,8 +200,8 @@ class _LoginState extends State<Login> {
                     prefs.setString('tokenDoc', "Bearer ${userDoc!.token}");
                     final decodedToken= JwtDecoder.decode(userDoc!.token);
                     prefs.setInt('IdDoc', decodedToken["claims"]["id"]);
-                    // int? id= prefs.getInt("IdDoc");
-                    // print(id);
+                    int? id= prefs.getInt("IdDoc");
+                    print(id);
                     Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(builder: (context)=>NavbarDoc()),

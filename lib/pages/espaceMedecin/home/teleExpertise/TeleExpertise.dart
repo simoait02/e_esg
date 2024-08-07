@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:e_esg/api/end_points.dart';
+import 'package:e_esg/pages/espaceInfermier/home/teleExpertise/discussions.dart';
 import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
 import 'package:e_esg/Widgets/MesDemandesNotifications.dart';
 import 'package:e_esg/pages/espaceMedecin/home/teleExpertise/chat.dart';
@@ -35,7 +36,7 @@ class _TeleExpertiseState extends State<TeleExpertise> {
   String language = 'en';
   int id = 0;
   late List myDiscussions = [];
-
+  late List myInvitedDiscussions = [];
   @override
   void initState() {
     super.initState();
@@ -52,13 +53,45 @@ class _TeleExpertiseState extends State<TeleExpertise> {
   }
 
   Future<void> loadData() async {
-    List discussions = await GetDiscussion();
+    List discussions = await GetDiscussion(selctedDate);
+    List invitedDiscussions=await getInvitedDiscussion(selctedDate);
     setState(() {
       myDiscussions = discussions;
+      myInvitedDiscussions=invitedDiscussions;
     });
   }
 
-  Future<List> GetDiscussion() async {
+
+  Future<List> getInvitedDiscussion(String date) async {
+    List discussions = [];
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int id = prefs.getInt("IdDoc")!;
+    String? token = prefs.getString('tokenDoc');
+    final response = await api.get(EndPoints.GetInvitation, headers: {
+      "Authorization": "$token"
+    });
+
+    // Debug print the response
+    print("getInvitedDiscussion response: $response");
+
+    for (dynamic invitation in response) {
+      print("***********************************************************************************************************");
+      print(invitation["medecinInvite"]["id"]);
+      if (invitation["medecinInvite"]["id"] == id) {
+        final get = await api.get(EndPoints.GetDiscussionViaId + "/${invitation["discussionId"]}", headers: {
+          "Authorization": "$token"
+        });
+        if(intl.DateFormat('yyyy-MM-dd').format(DateTime.parse(get["date"]))==date){
+          print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+          print(get);
+          discussions.add(get);
+        }
+      }
+    }
+    return discussions;
+  }
+//intl.DateFormat('yyyy-MM-dd').format(DateTime.parse(item["date"]))
+  Future<List> GetDiscussion(String date) async {
     List discussions = [];
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int id = prefs.getInt("IdDoc")!;
@@ -66,14 +99,21 @@ class _TeleExpertiseState extends State<TeleExpertise> {
     final response = await api.get(EndPoints.GetAllDiscussion, headers: {
       "Authorization": "$token"
     });
+
+    // Debug print the response
+    print("GetDiscussion response: $response");
+
     for (dynamic discussion in response) {
+      // Ensure comparison is between same types
       if (discussion["medcinResponsable"]["id"] == id) {
-        discussions = response;
+        if(intl.DateFormat('yyyy-MM-dd').format(DateTime.parse(discussion["date"]))==date){
+          discussions.add(discussion);
+        }
       }
     }
     return discussions;
   }
-
+  String selctedDate=intl.DateFormat('yyyy-MM-dd').format(DateTime.now()).toString();
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -84,6 +124,7 @@ class _TeleExpertiseState extends State<TeleExpertise> {
       child: CustomScrollView(
         slivers: [
           SliverAppBar(
+            surfaceTintColor: Colors.transparent,
             automaticallyImplyLeading: true,
             floating: true,
             snap: true,
@@ -119,7 +160,9 @@ class _TeleExpertiseState extends State<TeleExpertise> {
                         context,
                         CupertinoPageRoute(
                             builder: (context) =>
-                                MesDemandesNotifications()));
+                                MesDemandesNotifications()
+                        )
+                    );
                   },
                   icon: SizedBox(
                     width: 30,
@@ -210,7 +253,10 @@ class _TeleExpertiseState extends State<TeleExpertise> {
                   height: 123,
                   width: 105,
                   onDateChange: (value) {
-                    print(value);
+                    setState(() {
+                      selctedDate=intl.DateFormat('yyyy-MM-dd').format(value).toString();
+                    });
+                    loadData();
                   },
                   calendarType: CalendarType.gregorianDate,
                   initialSelectedDate: DateTime.now(),
@@ -251,114 +297,123 @@ class _TeleExpertiseState extends State<TeleExpertise> {
                     ),
                   ),
                 ),
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 10),
+                myDiscussions.isEmpty
+                    ? Container(
                   width: width,
-                  height: 160,
                   alignment: Alignment.center,
+                  height: 200,
                   decoration: BoxDecoration(
-                      border: Border.all(
-                        color: !Cardi.isDarkMode.value
-                            ? CupertinoColors.black.withOpacity(0.5)
-                            : CupertinoColors.white.withOpacity(0.5),
-                      ),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: myDiscussions.isEmpty
-                      ? Text(
-                    appLocalizations.emptyDisc,
-                    style: GoogleFonts.poppins(
-                      textStyle: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500,
-                        color: Cardi.isDarkMode.value
-                            ? Colors.white.withOpacity(0.5)
-                            : Colors.black.withOpacity(0.5),
-                      ),
-                    ),
-                  )
-                      : ListView.builder(
+                      border: Border.all(color: Cardi.isDarkMode.value?Colors.white.withOpacity(0.5):Colors.black.withOpacity(0.5)),
+                      borderRadius: BorderRadius.circular(10)
+                  ),
+                  margin: const EdgeInsets.symmetric(horizontal: 5),
+                        child: Text(
+                          appLocalizations.emptyDisc,
+                          style: GoogleFonts.poppins(
+                            textStyle: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                            color: Cardi.isDarkMode.value
+                                ? Colors.white.withOpacity(0.5)
+                                : Colors.black.withOpacity(0.5),
+                            ),
+                          ),
+                        ),
+                    )
+                    : SizedBox(
+                  height: 200,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
                     itemCount: myDiscussions.length,
                     itemBuilder: (context, index) {
                       final item = myDiscussions[index];
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ListTile(
-                            leading: const CircleAvatar(
-                                child: Icon(CupertinoIcons.person)),
-                            title: Text(
-                              item["medcinResponsable"]["nom"] +
-                                  " " +
-                                  item["medcinResponsable"]["prenom"],
-                              style: GoogleFonts.aBeeZee(),
-                            ),
-                            subtitle: Text(
-                              item["medcinResponsable"]["specialite"],
-                              style: GoogleFonts.abel(),
-                            ),
-                          ),
-                          Container(
-                            padding:
-                            const EdgeInsets.symmetric(horizontal: 10),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  flex: 1,
-                                  child: Text(
-                                    "${appLocalizations.motifDiscussion}:",
-                                    style: GoogleFonts.aBeeZee(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                                Expanded(
-                                    flex: 2,
-                                    child: Text(
-                                        item["motifDeTeleExpertise"])),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Container(
-                            padding:
-                            const EdgeInsets.symmetric(horizontal: 10),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  flex: 1,
-                                  child: Text(
-                                    appLocalizations.startAt,
-                                    style: GoogleFonts.aBeeZee(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                                Expanded(
-                                    flex: 2,
-                                    child: Text(item["heure"])),
-                              ],
-                            ),
-                          ),
-                          CupertinoButton(
-                              child: Container(
-                                width: width,
-                                alignment: Alignment.center,
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 5),
-                                decoration: BoxDecoration(
-                                    color: const Color(0xff2e37a4),
-                                    borderRadius:
-                                    BorderRadius.circular(10)),
-                                child: Text(
-                                  appLocalizations.start,
-                                  style: GoogleFonts.aBeeZee(
-                                      color: Colors.white),
-                                ),
+                      return Container(
+                        width: width * 0.8,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Cardi.isDarkMode.value?Colors.white.withOpacity(0.5):Colors.black.withOpacity(0.5)),
+                          borderRadius: BorderRadius.circular(10)
+                        ),
+                        margin: const EdgeInsets.symmetric(horizontal: 5),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ListTile(
+                              leading: const CircleAvatar(
+                                  child: Icon(CupertinoIcons.person)),
+                              title: Text(
+                                item["medcinResponsable"]["nom"] +
+                                    " " +
+                                    item["medcinResponsable"]["prenom"],
+                                style: GoogleFonts.aBeeZee(),
                               ),
-                              onPressed: () {}),
-                        ],
+                              subtitle: Text(
+                                item["medcinResponsable"]["specialite"],
+                                style: GoogleFonts.abel(),
+                              ),
+                            ),
+                            Container(
+                              padding:
+                              const EdgeInsets.symmetric(horizontal: 10),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: Text(
+                                      "${appLocalizations.motifDiscussion}:",
+                                      style: GoogleFonts.aBeeZee(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  Expanded(
+                                      flex: 2,
+                                      child: Text(
+                                          item["motifDeTeleExpertise"])),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Container(
+                              padding:
+                              const EdgeInsets.symmetric(horizontal: 10),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: Text(
+                                      appLocalizations.startAt,
+                                      style: GoogleFonts.aBeeZee(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  Expanded(
+                                      flex: 2,
+                                      child: Text(item["heure"])),
+                                ],
+                              ),
+                            ),
+                            CupertinoButton(
+                                child: Container(
+                                  width: width,
+                                  alignment: Alignment.center,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 5),
+                                  decoration: BoxDecoration(
+                                      color: const Color(0xff2e37a4),
+                                      borderRadius:
+                                      BorderRadius.circular(10)),
+                                  child: Text(
+                                    appLocalizations.start,
+                                    style: GoogleFonts.aBeeZee(
+                                        color: Colors.white),
+                                  ),
+                                ),
+                                onPressed: () {}),
+                          ],
+                        ),
                       );
                     },
                   ),
@@ -374,6 +429,127 @@ class _TeleExpertiseState extends State<TeleExpertise> {
                           fontSize: 20,
                           fontWeight: FontWeight.bold),
                     ),
+                  ),
+                ),
+                myInvitedDiscussions.isEmpty
+                    ? Container(
+                  width: width,
+                  alignment: Alignment.center,
+                  height: 200,
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Cardi.isDarkMode.value?Colors.white.withOpacity(0.5):Colors.black.withOpacity(0.5)),
+                      borderRadius: BorderRadius.circular(10)
+                  ),
+                  margin: const EdgeInsets.symmetric(horizontal: 5),
+                  child: Text(
+                    appLocalizations.emptyDisc,
+                    style: GoogleFonts.poppins(
+                      textStyle: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                        color: Cardi.isDarkMode.value
+                            ? Colors.white.withOpacity(0.5)
+                            : Colors.black.withOpacity(0.5),
+                      ),
+                    ),
+                  ),
+                )
+                    : SizedBox(
+                  height: 200,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: myInvitedDiscussions.length,
+                    itemBuilder: (context, index) {
+                      final item = myInvitedDiscussions[index];
+                      return Container(
+                        width: width * 0.8,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Cardi.isDarkMode.value?Colors.white.withOpacity(0.5):Colors.black.withOpacity(0.5)),
+                            borderRadius: BorderRadius.circular(10)
+                        ),
+                        margin: const EdgeInsets.symmetric(horizontal: 5),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ListTile(
+                              leading: const CircleAvatar(
+                                  child: Icon(CupertinoIcons.person)),
+                              title: Text(
+                                item["medcinResponsable"]["nom"] +
+                                    " " +
+                                    item["medcinResponsable"]["prenom"],
+                                style: GoogleFonts.aBeeZee(),
+                              ),
+                              subtitle: Text(
+                                item["medcinResponsable"]["specialite"],
+                                style: GoogleFonts.abel(),
+                              ),
+                            ),
+                            Container(
+                              padding:
+                              const EdgeInsets.symmetric(horizontal: 10),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: Text(
+                                      "${appLocalizations.motifDiscussion}:",
+                                      style: GoogleFonts.aBeeZee(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  Expanded(
+                                      flex: 2,
+                                      child: Text(
+                                          item["motifDeTeleExpertise"])),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Container(
+                              padding:
+                              const EdgeInsets.symmetric(horizontal: 10),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: Text(
+                                      appLocalizations.startAt,
+                                      style: GoogleFonts.aBeeZee(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  Expanded(
+                                      flex: 2,
+                                      child: Text(item["heure"])),
+                                ],
+                              ),
+                            ),
+                            CupertinoButton(
+                                child: Container(
+                                  width: width,
+                                  alignment: Alignment.center,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 5),
+                                  decoration: BoxDecoration(
+                                      color: const Color(0xff2e37a4),
+                                      borderRadius:
+                                      BorderRadius.circular(10)),
+                                  child: Text(
+                                    appLocalizations.rejoindre,
+                                    style: GoogleFonts.aBeeZee(
+                                        color: Colors.white),
+                                  ),
+                                ),
+                                onPressed: () {}),
+                          ],
+                        ),
+                      );
+                    },
                   ),
                 ),
               ],
