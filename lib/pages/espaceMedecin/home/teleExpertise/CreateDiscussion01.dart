@@ -26,11 +26,14 @@ class _CreatediscussionState extends State<Creatediscussion> {
   final TextEditingController etatCliniqueController = TextEditingController();
   final TextEditingController titleDiscussionController = TextEditingController();
   final TextEditingController motifDiscussionController = TextEditingController();
-  static final TextEditingController ageController = TextEditingController();
+  final TextEditingController ageController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
+    if(age!=0){
+      ageController.text=age.toString();
+    }
     nomController.text=nomPatient;
     prenomController.text=prenomPatient;
     surgicalHistoryController.text=antecedentsChirurgicaux;
@@ -94,7 +97,7 @@ class _CreatediscussionState extends State<Creatediscussion> {
     "Sport",
     "Tabac",
     "Alcool",
-    "Temps d'ecran"
+    "Temps d'écran"
   ];
 
   void showPicker(BuildContext context, List<String> items, String? selectedItem, ValueChanged<String?> onSelected) {

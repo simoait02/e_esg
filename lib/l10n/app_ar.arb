@@ -339,5 +339,9 @@
   "errorEtatClinique": "الحالة السريرية لا يمكن أن تكون فارغة",
   "errorTitleDiscussion": "عنوان المناقشة لا يمكن أن يكون فارغًا",
   "errorMotifDiscussion": "سبب المناقشة لا يمكن أن يكون فارغًا",
-  "toastEdit": "تم التعديل بنجاح"
+  "toastEdit": "تم التعديل بنجاح",
+  "typeDiscussion": "نوع المناقشة",
+  "search_for_doctor": "ابحث عن طبيب",
+  "search_for_name": "ابحث عن الاسم"
+
 }

@@ -339,5 +339,8 @@
   "errorEtatClinique": "L'état clinique ne peut pas être vide",
   "errorTitleDiscussion": "Le titre de la discussion ne peut pas être vide",
   "errorMotifDiscussion": "Le motif de la discussion ne peut pas être vide",
-  "toastEdit": "Modification réussie"
+  "toastEdit": "Modification réussie",
+  "typeDiscussion": "Type de discussion",
+  "search_for_doctor": "Rechercher un médecin",
+  "search_for_name": "Rechercher par nom"
 }

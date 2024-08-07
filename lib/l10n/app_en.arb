@@ -339,5 +339,8 @@
   "errorEtatClinique": "Clinical state cannot be empty",
   "errorTitleDiscussion": "Discussion title cannot be empty",
   "errorMotifDiscussion": "Discussion reason cannot be empty",
-  "toastEdit": "Successfully edited"
+  "toastEdit": "Successfully edited",
+  "typeDiscussion": "Discussion type",
+  "search_for_doctor": "Search for doctor",
+  "search_for_name": "Search for name"
 }

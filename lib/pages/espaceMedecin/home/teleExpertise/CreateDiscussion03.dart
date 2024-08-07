@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:e_esg/api/end_points.dart';
-import 'package:e_esg/models/doctor.dart';
 import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -33,10 +32,10 @@ class _Creatediscussion03State extends State<Creatediscussion03> {
     "Radiology",
     "Surgery",
   ];
-
+  List<String> consomation=["CHAT","APPEL_VIDEO"];
   List filteredDoctors = [];
   List<String> filteredSpecialties = [];
-  List<String> selectedDoctors = [];
+  static List<String> selectedDoctors = [];
   List<int> selectedDoctorsId = [];
   List<String> selectedSpecialties = [];
   TextEditingController searchController = TextEditingController();
@@ -66,6 +65,7 @@ class _Creatediscussion03State extends State<Creatediscussion03> {
 
         List medecins =response;
         doctorList=medecins;
+        doctorList = doctorList.toSet().toList();
         print("****************$doctorList");
         return medecins;}
       catch (e) {
@@ -76,6 +76,17 @@ class _Creatediscussion03State extends State<Creatediscussion03> {
   }
   @override
   void initState() {
+
+    selectedSpecialties=specialitesDemandees;
+    selectedDoctorsId=medecinsInvitesIds;
+    selectedDoctorsId = selectedDoctorsId.toSet().toList();
+    if(date.isNotEmpty){
+    label= date;
+    }
+    if(date.isNotEmpty){
+      label1=heure;
+    }
+
     super.initState();
     fetchDoctors();
     filteredDoctors = doctorList;
@@ -128,7 +139,7 @@ class _Creatediscussion03State extends State<Creatediscussion03> {
   void updateDate(DateTime newDate) {
     setState(() {
       selectedDateTime = newDate;
-      label = DateFormat.yMMMMd().format(selectedDateTime);
+      label =DateFormat('yyyy-MM-dd').format(selectedDateTime).toString();
     });
   }
 
@@ -176,7 +187,7 @@ class _Creatediscussion03State extends State<Creatediscussion03> {
       filterSpecialties();
     });
   }
-
+  static int selectedConsomation = -1;
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -528,13 +539,12 @@ class _Creatediscussion03State extends State<Creatediscussion03> {
                                   style: TextStyle(color: Colors.blue),
                                 ),
                                 onPressed: () {
-                                  if ((tempSelectedTime.hour >= 9 && tempSelectedTime.hour < 12) &&
-                                      (tempSelectedTime.minute == 0 || tempSelectedTime.minute == 30)) {
+                                  if ((tempSelectedTime.hour >= 9 && tempSelectedTime.hour < 12)) {
                                     updateTime(tempSelectedTime);
                                     Navigator.pop(context);
                                   } else {
                                     Fluttertoast.showToast(
-                                      msg: "Please select a time between 9:00 AM and 12:00 PM with minutes 00 or 30.",
+                                      msg: "Please select a time between 9:00 AM and 12:00 PM.",
                                       toastLength: Toast.LENGTH_SHORT,
                                       gravity: ToastGravity.BOTTOM,
                                       timeInSecForIosWeb: 1,
@@ -602,6 +612,56 @@ class _Creatediscussion03State extends State<Creatediscussion03> {
                 ),
               ),
             ),
+            const SizedBox(height: 20,),
+            Container(
+              height: height * 0.07,
+              width: width,
+              padding: EdgeInsets.symmetric(horizontal: 8),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Cardi.isDarkMode.value
+                      ? CupertinoColors.white.withOpacity(0.5)
+                      : CupertinoColors.black.withOpacity(0.5),
+                ),
+                borderRadius: BorderRadius.circular(10)
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  AutoSizeText(
+                    appLocalizations.typeDiscussion,
+                    style: const TextStyle(fontSize: 14),
+                  ),
+                  Wrap(
+                    spacing: 5,
+                    runSpacing: 0,
+                    children: List<Widget>.generate(consomation.length, (int index) {
+                      return ChoiceChip(
+                        checkmarkColor: Colors.greenAccent,
+                        backgroundColor: Cardi.isDarkMode.value ? const Color(0xff141218) : Colors.white,
+                        selectedColor: const Color(0xff5c00ff),
+                        label: AutoSizeText(
+                          consomation[index],
+                          style: GoogleFonts.aBeeZee(
+                            fontSize: 10,
+                            color: selectedConsomation == index
+                                ? Colors.white
+                                : Cardi.isDarkMode.value ? CupertinoColors.inactiveGray : Colors.black,
+                          ),
+                        ),
+                        selected: selectedConsomation == index,
+                        onSelected: (bool selected) {
+                          setState(() {
+                            selectedConsomation = selected ? index : -1;
+                          });
+                        },
+                      );
+                    }),
+                  ),
+                ],
+              ),
+            ),
             const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -644,9 +704,16 @@ class _Creatediscussion03State extends State<Creatediscussion03> {
                       ),
                     ),
                     onPressed: () {
+                      if(selectedConsomation==-1){
+                        return;
+                      }
+
+                      specialitesDemandees=selectedSpecialties;
+                      type=consomation[selectedConsomation];
                       genre=discType == 0?"PRIVEE":"OUVERTE";
                       date=DateFormat('yyyy-MM-dd').format(selectedDateTime).toString();
                       heure=DateFormat.Hm().format(selectedTime);
+                      medecinsInvitesIds=selectedDoctorsId;
                       specialtiesList=selectedSpecialties;
                       AddMeeting.setProgress(context, 1);
                       AddMeeting.setIndex(context, 3);

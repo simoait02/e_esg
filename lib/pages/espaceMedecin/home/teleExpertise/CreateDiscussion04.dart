@@ -176,20 +176,42 @@ class _Creatediscussion04State extends State<Creatediscussion04> {
                       "descriptionEtatClinique": descriptionEtatClinique,
                       "commentaireFichiers": "string",
                       "genre": genre.toUpperCase(),
-                      "type": "CHAT",
+                      "type": type,
                       "date": date,
                       "heure": heure,
                       "fichiersAtaches": [],
                       "medecinsInvitesIds": medecinsInvitesIds,
-                      "specialitesDemandees": [
-                        "string"
-                      ],
-                      "medcinResponsableId": 1
+                      "specialitesDemandees": specialitesDemandees,
+                      "medcinResponsableId": prefs.getInt("IdDoc")
                     },
                     headers: {
                     "Authorization": "$token",
                   },
                   );
+                   titre="";
+                   motif="";
+                   prenomPatient="";
+                   nomPatient="";
+                   sexe="";
+                   age=0;
+                   motifDeTeleExpertise="";
+                   antecedentsMedicaux=[];
+                   antecedentsChirurgicaux="";
+                   habitude=[];
+                   descriptionDesHabitudes="";
+                   antecedentsFamiliaux=[];
+                   descriptionEtatClinique="";
+                   commentaireFichiers="";
+                   genre="";
+                   type="";
+                   date="";
+                   heure="";
+                   duree=0;
+                   status="";
+                   fichiersAtaches=[];
+                   medecinsInvitesIds=[];
+                   specialitesDemandees=[];
+                   medcinResponsableId=0;
                   Navigator.of(context).pop();
                 },
               ),

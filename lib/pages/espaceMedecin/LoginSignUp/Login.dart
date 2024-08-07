@@ -198,7 +198,9 @@ class _LoginState extends State<Login> {
                     SharedPreferences prefs = await SharedPreferences.getInstance();
                     prefs.setString('tokenDoc', "Bearer ${userDoc!.token}");
                     final decodedToken= JwtDecoder.decode(userDoc!.token);
-                    print(decodedToken);
+                    prefs.setInt('IdDoc', decodedToken["claims"]["id"]);
+                    // int? id= prefs.getInt("IdDoc");
+                    // print(id);
                     Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(builder: (context)=>NavbarDoc()),
