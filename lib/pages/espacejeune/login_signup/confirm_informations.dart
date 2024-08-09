@@ -161,12 +161,14 @@ class _ConfirmInformationsState extends State<ConfirmInformations> {
                             "numTel": CardiJeune.numteleController.text,
                             "motDePasse": CardiJeune.passwordController.text
                           },
+                          "age":CardiJeune.age,
                           "sexe": CardiJeune.value==2?"MASCULIN":"FEMININ",
                           "dateNaissance": CardiJeune.birthDay,
                           "scolarise": true,
-                          "cin": CardiJeune.cinController.text,
-                          "niveauEtudeActuel": "SUPERIEUR",
-                          "cne": CardiJeune.cneController.text
+                          if(CardiJeune.age>=16)"cin": CardiJeune.cinController.text,
+                          "niveauEtudeActuel": convertToUpperCase(CardiJeune.studActu),
+                          if(CardiJeune.studActu == 'Primaire')"codeMassare":CardiJeune.codemassarController.text
+                          else "cne": CardiJeune.cneController.text
                         },
                         headers: {},
                       );
@@ -227,12 +229,13 @@ class _ConfirmInformationsState extends State<ConfirmInformations> {
                             "numTel": CardiJeune.numteleController.text,
                             "motDePasse": CardiJeune.passwordController.text
                           },
+                          "age":CardiJeune.age,
                           "sexe": CardiJeune.value==2?"MASCULIN":"FEMININ",
                           "dateNaissance": CardiJeune.birthDay,
                           "scolarise": false,
-                          "cin": CardiJeune.cinController.text,
-                          "niveauEtudeActuel": "SUPERIEUR",
-                          "cne": CardiJeune.cneController.text
+                          if(CardiJeune.age>=16)"cin": CardiJeune.cinController.text,
+                          "derniereNiveauEtudes": convertToUpperCase(CardiJeune.lastStud),
+                          "enActivite": CardiJeune.stateActu=='En activité'
                         },
                         headers: {},
                       );
