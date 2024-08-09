@@ -125,6 +125,7 @@ class _NavigationbarproState extends State<Navigationbarpro> {
           debugShowCheckedModeBanner: false,
           theme: isDarkMode ? ThemeData.dark() : ThemeData.light(),
           home: Scaffold(
+            backgroundColor: Colors.white,
             body: Stack(
               children: [
                 selected[_selectedItem],
