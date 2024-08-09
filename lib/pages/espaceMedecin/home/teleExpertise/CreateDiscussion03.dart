@@ -400,8 +400,8 @@ class _Creatediscussion03State extends State<Creatediscussion03> {
                       width: width,
                       height: height * 0.35,
                       color: Cardi.isDarkMode.value
-                          ? CupertinoColors.black.withOpacity(0.8)
-                          : CupertinoColors.white.withOpacity(0.8),
+                          ? CupertinoColors.black
+                          : CupertinoColors.white,
                       child: Column(
                         children: [
                           Row(
@@ -518,8 +518,8 @@ class _Creatediscussion03State extends State<Creatediscussion03> {
                       width: width,
                       height: height * 0.35,
                       color: Cardi.isDarkMode.value
-                          ? CupertinoColors.black.withOpacity(0.8)
-                          : CupertinoColors.white.withOpacity(0.8),
+                          ? CupertinoColors.black
+                          : CupertinoColors.white,
                       child: Column(
                         children: [
                           Row(

@@ -61,10 +61,10 @@ class _CardiJeuneState extends State<CardiJeune> {
   Future<void> _loadPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      CardiJeune.isDarkMode.value = prefs.getBool('isDarkMode') ?? (MediaQuery.of(context).platformBrightness == Brightness.dark);
-      SettingsYong.isSystemSettings = prefs.getBool('isSystemSettings') ?? true;
-      SettingsYong.isDark = prefs.getBool('isDark') ?? false;
-      SettingsYong.isLight = prefs.getBool('isLight') ?? false;
+      CardiJeune.isDarkMode.value = prefs.getBool('isDarkModeYong') ?? (MediaQuery.of(context).platformBrightness == Brightness.dark);
+      SettingsYong.isSystemSettings = prefs.getBool('isSystemSettingsYong') ?? true;
+      SettingsYong.isDark = prefs.getBool('isDarkYong') ?? false;
+      SettingsYong.isLight = prefs.getBool('isLightYong') ?? false;
     });
   }
 

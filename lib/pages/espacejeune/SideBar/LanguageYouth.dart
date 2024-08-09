@@ -1,9 +1,12 @@
 import 'package:e_esg/Widgets/NavigationBarDoctor.dart';
 import 'package:e_esg/Widgets/NavigationBarJeune.dart';
+import 'package:e_esg/pages/espacejeune/login_signup/Cardi.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'Settings.dart';
 import 'SidebarController.dart';
 
 class Languageyouth extends StatefulWidget {
@@ -57,8 +60,12 @@ class _LanguageyouthState extends State<Languageyouth> {
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
     return Scaffold(
+      backgroundColor: SettingsYong.isDarkMode.value ? const Color(0xff181a1b) : Colors.white,
       appBar: AppBar(
-        title: Text(appLocalizations.language),
+        backgroundColor: SettingsYong.isDarkMode.value ? const Color(0xff181a1b) : Colors.white,
+        title: Text(appLocalizations.language,style: GoogleFonts.aBeeZee(
+            color: SettingsYong.isDarkMode.value?Colors.white:Colors.black
+        ),),
       ),
       body: ListView.builder(
         itemCount: 3,
@@ -80,6 +87,9 @@ class _LanguageyouthState extends State<Languageyouth> {
             ),
             title: Text(
               index == 0 ? "Arabe" : index == 1 ? "Francais" : "Anglais",
+              style: GoogleFonts.aBeeZee(
+                color: SettingsYong.isDarkMode.value?Colors.white:Colors.black
+              ),
             ),
             trailing: _selectedIndex == index
                 ? Icon(Icons.check, color: Colors.green)

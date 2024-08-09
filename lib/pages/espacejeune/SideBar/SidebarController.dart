@@ -29,7 +29,7 @@ class _SideBarControllerState extends State<SideBarController> with SingleTicker
   void initState() {
     _animationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 200),
     )..addListener(() {
       setState(() {});
     });
@@ -164,7 +164,7 @@ class _SideBarControllerState extends State<SideBarController> with SingleTicker
         body :Stack(
             children: [
               AnimatedPositioned(
-                duration: Duration(milliseconds: 200),
+                duration: const Duration(milliseconds: 200),
                 curve: Curves.fastOutSlowIn,
                 width: width * 0.75,
                 left: isSideBarClosed ? -width * 0.75 : 0,
@@ -186,10 +186,8 @@ class _SideBarControllerState extends State<SideBarController> with SingleTicker
                     child: ClipRRect(
                       borderRadius: isSideBarClosed ? BorderRadius.zero : BorderRadius.circular(24),
                       child: Container(
-                        color: isDarkMode ? Color(0xff141218) : Colors.white,
-                        child: SafeArea(
-                          child: _getSelectedWidget(),
-                        ),
+                        color: isDarkMode ? const Color(0xff141218) : Colors.white,
+                        child: _getSelectedWidget(),
                       ),
                     ),
                   ),

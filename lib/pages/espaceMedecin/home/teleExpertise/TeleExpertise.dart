@@ -402,7 +402,18 @@ class _TeleExpertiseState extends State<TeleExpertise> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 10, vertical: 5),
                                   decoration: BoxDecoration(
-                                      color: const Color(0xff2e37a4),
+                                      color:  DateTime.now().isAfter(
+                                              DateTime(DateTime.now().year,
+                                              DateTime.now().month, 
+                                              DateTime.now().day,
+                                              int.parse( item["heure"]!.split(':')[0]), 
+                                              int.parse(item["heure"]!.split(':')[1]))) && DateTime(DateTime.now().year,
+                                          DateTime.now().month,
+                                          DateTime.now().day,
+                                          int.parse( item["heure"]!.split(':')[0]),
+                                          int.parse(item["heure"]!.split(':')[1])+30).isAfter(DateTime.now())
+                                          && DateTime.parse(item["date"])==DateTime.now()
+                                          ? const Color(0xff2e37a4):CupertinoColors.inactiveGray,
                                       borderRadius:
                                       BorderRadius.circular(10)),
                                   child: Text(

@@ -129,6 +129,7 @@ class _NavbarYouthState extends State<NavbarYouth> with TickerProviderStateMixin
           debugShowCheckedModeBanner: false,
           theme: isDarkMode ? ThemeData.dark() : ThemeData.light(),
           home: Scaffold(
+            backgroundColor: Colors.white,
             body: Stack(
               children: [
                 GestureDetector(
