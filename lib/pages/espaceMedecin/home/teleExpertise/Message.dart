@@ -5,7 +5,10 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../LoginSignUp/Cardi.dart';
 
 class Message extends StatefulWidget {
-  const Message({super.key});
+  final String name;
+  final CircleAvatar profile;
+  final String speciality;
+  const Message({super.key,required this.name,required this.profile,required this.speciality});
 
   @override
   State<Message> createState() => _MessageState();
@@ -48,22 +51,16 @@ class _MessageState extends State<Message> {
                 icon: const Icon(CupertinoIcons.chevron_back),
               ),
               title: ListTile(
-                leading: const Hero(
+                leading:  Hero(
                   tag: "profile",
-                  child: CircleAvatar(
-                    radius: 25,
-                    child: Icon(
-                      CupertinoIcons.person,
-                      size: 40,
-                    ),
-                  ),
+                  child: widget.profile
                 ),
                 title: Hero(
                   tag: "name",
                   child: Material(
                     type: MaterialType.transparency,
                     child: Text(
-                      "Doctor Il Dottore",
+                      widget.name,
                       style: GoogleFonts.aBeeZee(),
                     ),
                   ),
@@ -73,7 +70,7 @@ class _MessageState extends State<Message> {
                   child: Material(
                     type: MaterialType.transparency,
                     child: Text(
-                      "Specialite",
+                      widget.speciality,
                       style: GoogleFonts.abel(
                         color: Cardi.isDarkMode.value
                             ? CupertinoColors.white.withOpacity(0.5)

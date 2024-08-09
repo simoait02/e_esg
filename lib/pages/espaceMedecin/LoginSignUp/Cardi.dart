@@ -119,6 +119,9 @@ class _CardiState extends State<Cardi> {
         onBackTapped: (newQ, newTop) {
           updateContainerSize(newQ, newTop);
           navigateToScreen(2);
+        }, onConfirmTapped: (newQ, newTop) {
+          updateContainerSize(newQ, newTop);
+          navigateToScreen(0);
         },
       ),
       Resetpassword(

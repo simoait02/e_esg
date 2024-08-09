@@ -1,3 +1,4 @@
+import 'ActivitiesInformations.dart';
 import 'new_password.dart';
 import 'reset_pasword.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -10,7 +11,6 @@ import 'package:flutter/services.dart';
 
 import 'Login.dart';
 import 'SignUp.dart';
-import 'Activitiesinformations.dart';
 import 'Password.dart';
 
 class CardiJeune extends StatefulWidget {
@@ -217,8 +217,8 @@ class _CardiJeuneState extends State<CardiJeune> {
             width: width * 0.9,
             height: height * CardiJeune.q,
             decoration: BoxDecoration(
-              color: CardiJeune.isDarkMode.value ? Color(0xff27272d) : Colors.white,
-              border: Border.all(color: Color(0xFF2E37A4)),
+              color: CardiJeune.isDarkMode.value ? const Color(0xff27272d) : Colors.white,
+              border: Border.all(color: const Color(0xFF2E37A4)),
               borderRadius: BorderRadius.circular(20),
             ),
             margin: EdgeInsets.only(

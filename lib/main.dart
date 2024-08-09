@@ -1,3 +1,4 @@
+import 'package:e_esg/Widgets/NavigationBarDoctor.dart';
 import 'package:e_esg/e_esj.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +44,7 @@ class _MyAppState extends State<MyApp> {
         Locale('en')
       ],
       debugShowCheckedModeBanner: false,
-      home:const EEsj(),
+      home:const NavbarDoc(),
     );
   }
 }

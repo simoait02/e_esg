@@ -1,5 +1,6 @@
 import 'package:e_esg/api/end_points.dart';
 import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
+import 'package:e_esg/pages/espaceMedecin/home/teleExpertise/Message.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -131,10 +132,10 @@ class _MedecinsState extends State<Medecins> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-              margin: EdgeInsets.symmetric(horizontal: 20),
+              margin: const EdgeInsets.symmetric(horizontal: 20),
               child: buildLabel(appLocalizations.search_for_doctor)),
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 5),
+            margin: const EdgeInsets.symmetric(horizontal: 5),
             padding: const EdgeInsets.symmetric(horizontal: 10),
             height: height * 0.055,
             decoration: BoxDecoration(
@@ -210,16 +211,58 @@ class _MedecinsState extends State<Medecins> {
                     ),
                   ),
                   child: ListTile(
-                    leading: Icon(CupertinoIcons.person),
-                    title: Text(item["nom"] + " " + item["prenom"],style: GoogleFonts.aBeeZee(),),
-                    subtitle: Text(item["specialite"]==""?"Generaliste":item["specialite"]),
+                    leading: const Hero(
+                      tag: "profile",
+                      child: CircleAvatar(
+                        radius: 20,
+                        child: Icon(
+                          CupertinoIcons.person,
+                          size: 30,
+                        ),
+                      ),
+                    ),
+                    title: Hero(
+                      tag: "name",
+                        child: Material(
+                            type: MaterialType.transparency,
+                            child: Text(item["nom"] + " " + item["prenom"],style: GoogleFonts.aBeeZee(),
+                            )
+                        )
+                    ),
+                    subtitle: Hero(
+                        tag: "subName",
+                        child: Material(
+                            type: MaterialType.transparency,
+                            child: Text(item["specialite"]==""?"Generaliste":item["specialite"],
+                              style: GoogleFonts.abel(
+                                color: Cardi.isDarkMode.value
+                                    ? CupertinoColors.white.withOpacity(0.5)
+                                    : CupertinoColors.black.withOpacity(0.5),
+                              ),
+                            )
+                        )
+                    ),
                     subtitleTextStyle: GoogleFonts.abel(
                       color: Cardi.isDarkMode.value
                           ? CupertinoColors.white.withOpacity(0.5)
                           : CupertinoColors.black.withOpacity(0.5),
                     ),
                     trailing: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            (context),MaterialPageRoute(builder: (context)=>Message(
+                              name: item["nom"] + " " + item["prenom"],
+                              profile: const CircleAvatar(
+                                radius: 25,
+                                child: Icon(
+                                  CupertinoIcons.person,
+                                size: 40,
+                            ),
+                          ),
+                          speciality: item["specialite"]==""?"Generaliste":item["specialite"],
+                        ))
+                        );
+                      },
                       icon: Container(
                         height: 30,
                         width: 30,

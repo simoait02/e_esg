@@ -17,8 +17,9 @@ import '../../IES/statistiques.dart';
 
 class Password extends StatefulWidget {
   final Function(double, double) onBackTapped;
+  final Function(double, double) onConfirmTapped;
 
-  Password({super.key, required this.onBackTapped});
+  Password({super.key, required this.onBackTapped,required this.onConfirmTapped});
 
   @override
   State<Password> createState() => _PasswordState();
@@ -121,7 +122,7 @@ class _PasswordState extends State<Password> {
             ),
           ),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -135,12 +136,12 @@ class _PasswordState extends State<Password> {
                 ),
                 Container(
                   height: 51,
-                  padding: EdgeInsets.only(left: 15),
+                  padding: const EdgeInsets.only(left: 15),
                   decoration: BoxDecoration(
                     border: Border.all(
                       color: _isFocused
                           ? (validatePassword(passwordController.text) ? Colors.green : Colors.red)
-                          : (Cardi.isDarkMode.value ? CupertinoColors.white.withOpacity(0.5) : Color(0xFFEAEBF6)),
+                          : (Cardi.isDarkMode.value ? CupertinoColors.white.withOpacity(0.5) : const Color(0xFFEAEBF6)),
                       width: 2.0,
                     ),
                     borderRadius: BorderRadius.circular(10),
@@ -156,7 +157,7 @@ class _PasswordState extends State<Password> {
                           focusNode: _focusNode,
                           autofocus: false,
                           obscureText: !passwordvisible,
-                          cursorColor: Color(0xFF2E37A4),
+                          cursorColor: const Color(0xFF2E37A4),
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.transparent, width: 0),
                           ),
@@ -180,8 +181,8 @@ class _PasswordState extends State<Password> {
                   ),
                 ),
                 if (!validatePassword(passwordController.text) && passwordController.text.isNotEmpty)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 5.0),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 5.0),
                     child: Text(
                       'Password must be at least 6 characters long and include at least one digit.',
                       style: TextStyle(color: Colors.red, fontSize: 12),
@@ -197,9 +198,9 @@ class _PasswordState extends State<Password> {
               children: [
                 SvgPicture.asset(
                   "assets/images/warning.svg",
-                  color: Color(0xff59E2DB),
+                  color: const Color(0xff59E2DB),
                 ),
-                Expanded(
+                const Expanded(
                   child: Text(
                     "The password should be at least 6 characters long and contain at least one numerical character.",
                     style: TextStyle(fontSize: 10, color: Color(0xff9999A3)),
@@ -208,9 +209,9 @@ class _PasswordState extends State<Password> {
               ],
             ),
           ),
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -224,14 +225,14 @@ class _PasswordState extends State<Password> {
                 ),
                 Container(
                   height: 51,
-                  padding: EdgeInsets.only(left: 15),
+                  padding: const EdgeInsets.only(left: 15),
                   decoration: BoxDecoration(
                     border: Border.all(
                       color: error
                           ? Colors.red
                           : Cardi.isDarkMode.value
-                          ? (_isFocused2 ? Color(0xFF2E37A4) : CupertinoColors.white.withOpacity(0.5))
-                          : (_isFocused2 ? Color(0xFF2E37A4) : Color(0xFFEAEBF6)),
+                          ? (_isFocused2 ? const Color(0xFF2E37A4) : CupertinoColors.white.withOpacity(0.5))
+                          : (_isFocused2 ? const Color(0xFF2E37A4) : const Color(0xFFEAEBF6)),
                       width: 2.0,
                     ),
                     borderRadius: BorderRadius.circular(10),
@@ -247,7 +248,7 @@ class _PasswordState extends State<Password> {
                           focusNode: _focusNode2,
                           autofocus: false,
                           obscureText: !passwordvisible2,
-                          cursorColor: Color(0xFF2E37A4),
+                          cursorColor: const Color(0xFF2E37A4),
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.transparent, width: 0),
                           ),
@@ -282,12 +283,12 @@ class _PasswordState extends State<Password> {
                   height: height * 0.06,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(40),
-                    border: Border.all(color: Color(0xff4E57CD)),
+                    border: Border.all(color: const Color(0xff4E57CD)),
                   ),
                   alignment: Alignment.center,
                   child: Text(
                     appLocalizations.precedent,
-                    style: TextStyle(color: Color(0xff4E57CD), fontSize: 20),
+                    style: const TextStyle(color: Color(0xff4E57CD), fontSize: 20),
                   ),
                 ),
                 onPressed: () {
@@ -319,10 +320,7 @@ class _PasswordState extends State<Password> {
                           headers: {},
                         );
                         Fluttertoast.showToast(msg: "success",backgroundColor: Colors.greenAccent,textColor: Colors.black);
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(builder: (context)=>NavbarDoc()),
-                              (Route<dynamic> route) => false,);
+                        widget.onConfirmTapped(0.55, 0.25);
                       } on ServerException catch (e) {
                         print("dfffffffffffffffffffffffffffffffffffffffffffffffffffff");
                         Fluttertoast.showToast(msg: e.errormodel.errorMsg,backgroundColor: Colors.red);
@@ -344,7 +342,7 @@ class _PasswordState extends State<Password> {
                 child: Container(
                   width: width * 0.4,
                   height: height * 0.06,
-                  padding: EdgeInsets.all(4),
+                  padding: const EdgeInsets.all(4),
                   decoration: BoxDecoration(
                     gradient: const LinearGradient(
                       colors: [Color(0xff4E57CD), Color(0xff0c40a4)],
@@ -354,7 +352,7 @@ class _PasswordState extends State<Password> {
                   alignment: Alignment.center,
                   child: AutoSizeText(
                     appLocalizations.createAcc,
-                    style: TextStyle(color: Colors.white, fontSize: 17),
+                    style: const TextStyle(color: Colors.white, fontSize: 17),
                   ),
                 ),
               ),
