@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:path_provider/path_provider.dart';
@@ -33,7 +32,6 @@ class Testpsy5State extends State<Testpsy5> {
   @override
   void initState() {
     super.initState();
-      String currentDate = DateTime.now().toString(); 
       String formattedDate = DateFormat('dd/MM/yyyy HH:mm').format(DateTime.now());
       infos = {
         "Identifiant": "01", 

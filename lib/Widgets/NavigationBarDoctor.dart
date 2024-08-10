@@ -1,6 +1,5 @@
 import 'package:e_esg/pages/IES/espace_professionnel.dart';
 import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
-import 'package:e_esg/pages/espaceMedecin/home/IES.dart';
 import 'package:e_esg/pages/espaceMedecin/home/MesPatients/MesPatients.dart';
 import 'package:e_esg/pages/espaceMedecin/home/Profile/Profile.dart';
 import 'package:e_esg/pages/espaceMedecin/home/Profile/Settings.dart';

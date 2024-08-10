@@ -12,6 +12,7 @@ abstract class ApiComsumer{
   patch(  String path,{
     Object? data,
     Map<String,dynamic>?queryParameters,
+    required Map<String, dynamic> headers,
   });
   put(  String path,{
     Object? data,

@@ -44,12 +44,13 @@ class DioConsumer extends ApiComsumer {
 
 
   @override
-  patch(String path, {Object? data, Map<String, dynamic>? queryParameters}) async {
+  patch(String path, {Object? data, Map<String, dynamic>? queryParameters,required Map<String, dynamic> headers}) async {
     try {
       final response = await dio.patch(
         path,
         data: data,
         queryParameters: queryParameters,
+        options: Options(headers: headers),
       );
       return response.data;
     } on DioException catch (e) {

@@ -8,7 +8,7 @@ class Bottommodalsheet extends StatefulWidget {
   final double width;
   final bool isDarkMode;
   final String parametre;
-  final Function(String, String) updateInfo;
+  final Function updateInfo;
 
   const Bottommodalsheet({
     super.key,
@@ -44,8 +44,6 @@ class _BottommodalsheetState extends State<Bottommodalsheet> {
         break;
       case "numTele":
         _controller.text = "";
-        break;
-      case "password":
         break;
     }
   }
@@ -151,17 +149,8 @@ class _BottommodalsheetState extends State<Bottommodalsheet> {
         return _buildInputField(appLocalizations!.prenom, "entrez votre Prénom", false, _controller, false);
       case "email":
         return _buildInputField(appLocalizations!.email, "entrez votre nouveau email", false, _controller, false);
-      case "numTele":
-        return _buildInputField(appLocalizations!.tele, "entrez votre nouveau téléphone", false, _controller, false);
-      case "password":
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildInputField(appLocalizations!.password, "entrez votre mot de passe actuelle", true, _controller, obscurePassword),
-            const SizedBox(height: 20),
-            _buildInputField(appLocalizations.confirmPass, "Confirmer mot de passe", true, _controllerPassword, obscureCoPassword),
-          ],
-        );
+      case "about":
+        return _buildInputField(appLocalizations!.tele, "entrez votre nouveau about", false, _controller, false);
       default:
         return Container();
     }
@@ -185,7 +174,7 @@ class _BottommodalsheetState extends State<Bottommodalsheet> {
               CupertinoButton(
                 child: Text(appLocalizations.done, style: TextStyle(color: Colors.blue)),
                 onPressed: () {
-                  widget.updateInfo(widget.parametre, _controller.text);
+                  widget.updateInfo(_controller.text);
                   Navigator.pop(context);
                 },
               ),

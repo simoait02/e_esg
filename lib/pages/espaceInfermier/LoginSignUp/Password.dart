@@ -1,9 +1,6 @@
-import 'dart:convert';
-import 'package:e_esg/Widgets/NavigationBarPro.dart';
 import 'package:e_esg/api/end_points.dart';
 import 'package:e_esg/api/errors/Exceptions.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:http/http.dart' as http;
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:e_esg/Widgets/NavigationBarDoctor.dart';
@@ -298,7 +295,7 @@ class _PasswordState extends State<Password> {
                   if (passwordController.text == copasswordController.text) {
                     if (validatePassword(passwordController.text)) {
                       try {
-                        final response =await api.post(
+                        await api.post(
                           EndPoints.RegisterInfermier,
                           data:{
                             "cin": CardiInf.cinController.text,

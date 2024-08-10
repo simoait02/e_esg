@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:e_esg/Data/live_list.dart';
-import 'package:e_esg/pages/IES/statistiques.dart';
 import 'package:flutter/material.dart';
 
 import '../../Widgets/custom_sliver_app_bar.dart';
@@ -27,7 +26,6 @@ class _EspaceProfessionnelState extends State<EspaceProfessionnel> {
   int numberOfPages2 = (yourLives.length + 5) ~/ 6;
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     sectionPadding = screenWidth*0.04;
     titleFontSize = screenWidth*0.035;

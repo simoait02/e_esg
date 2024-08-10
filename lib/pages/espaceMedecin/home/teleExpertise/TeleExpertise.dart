@@ -1,7 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:e_esg/api/end_points.dart';
-import 'package:e_esg/pages/espaceInfermier/home/teleExpertise/discussions.dart';
 import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
 import 'package:e_esg/Widgets/MesDemandesNotifications.dart';
 import 'package:e_esg/pages/espaceMedecin/home/teleExpertise/chat.dart';
@@ -72,18 +71,13 @@ class _TeleExpertiseState extends State<TeleExpertise> {
     });
 
     // Debug print the response
-    print("getInvitedDiscussion response: $response");
 
     for (dynamic invitation in response) {
-      print("***********************************************************************************************************");
-      print(invitation["medecinInvite"]["id"]);
       if (invitation["medecinInvite"]["id"] == id) {
         final get = await api.get(EndPoints.GetDiscussionViaId + "/${invitation["discussionId"]}", headers: {
           "Authorization": "$token"
         });
         if(intl.DateFormat('yyyy-MM-dd').format(DateTime.parse(get["date"]))==date){
-          print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-          print(get);
           discussions.add(get);
         }
       }
@@ -101,7 +95,6 @@ class _TeleExpertiseState extends State<TeleExpertise> {
     });
 
     // Debug print the response
-    print("GetDiscussion response: $response");
 
     for (dynamic discussion in response) {
       // Ensure comparison is between same types
@@ -191,7 +184,6 @@ class _TeleExpertiseState extends State<TeleExpertise> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  margin: const EdgeInsets.only(left: 10),
                   padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -203,7 +195,7 @@ class _TeleExpertiseState extends State<TeleExpertise> {
                             intl.DateFormat.yMMMMd().format(DateTime.now()),
                             style: GoogleFonts.aBeeZee(
                                 textStyle: TextStyle(
-                                    fontSize: 24,
+                                    fontSize: 23,
                                     color: Cardi.isDarkMode.value
                                         ? const Color(0x9395a6ce)
                                         : const Color(0x5e0e1462),
@@ -552,7 +544,18 @@ class _TeleExpertiseState extends State<TeleExpertise> {
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 10, vertical: 5),
                                     decoration: BoxDecoration(
-                                        color: const Color(0xff2e37a4),
+                                        color:  DateTime.now().isAfter(
+                                            DateTime(DateTime.now().year,
+                                                DateTime.now().month,
+                                                DateTime.now().day,
+                                                int.parse( item["heure"]!.split(':')[0]),
+                                                int.parse(item["heure"]!.split(':')[1]))) && DateTime(DateTime.now().year,
+                                            DateTime.now().month,
+                                            DateTime.now().day,
+                                            int.parse( item["heure"]!.split(':')[0]),
+                                            int.parse(item["heure"]!.split(':')[1])+30).isAfter(DateTime.now())
+                                            && DateTime.parse(item["date"])==DateTime.now()
+                                            ? const Color(0xff2e37a4):CupertinoColors.inactiveGray,
                                         borderRadius:
                                         BorderRadius.circular(10)),
                                     child: Text(

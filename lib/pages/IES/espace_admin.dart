@@ -1,13 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:e_esg/pages/IES/lives.dart';
-import 'package:e_esg/pages/IES/statistiques.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:marqueer/marqueer.dart';
 import '../../Data/live_list.dart';
 import '../../Widgets/custom_sliver_app_bar.dart';
 import '../../models/live.dart';
-import 'ajoutLive.dart';
 import 'calendrier.dart';
 import 'live_informations_page.dart';
 
@@ -28,7 +26,6 @@ class _EspaceAdminState extends State<EspaceAdmin> {
   Widget build(BuildContext context) {
     var brightness = MediaQuery.of(context).platformBrightness;
     bool isDarkMode = brightness == Brightness.dark;
-    final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     sectionPadding = screenWidth*0.04;
     titleFontSize = screenWidth*0.035;

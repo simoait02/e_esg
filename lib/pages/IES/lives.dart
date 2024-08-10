@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:e_esg/Data/live_list.dart';
-import 'package:e_esg/Widgets/custom_sliver_app_bar.dart';
 import 'package:e_esg/Widgets/search.dart';
 import 'package:e_esg/models/live.dart';
 import '../espacejeune/SideBar/Settings.dart';

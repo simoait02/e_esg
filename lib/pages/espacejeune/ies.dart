@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../Data/live_list.dart';
 import '../../Widgets/ajout_proposition_dialog.dart';
-import '../../Widgets/custom_sliver_app_bar.dart';
 import '../../models/live.dart';
 import '../IES/live_informations_page.dart';
 import '../IES/lives.dart';

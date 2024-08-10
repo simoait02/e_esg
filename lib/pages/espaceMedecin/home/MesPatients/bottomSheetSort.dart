@@ -300,7 +300,7 @@ class _SortAndFilterState extends State<SortAndFilter> {
               ),
               child: Column(
                 children: [
-                  _buildFilterOption(appLocalizations!.sort,
+                  _buildFilterOption(appLocalizations.sort,
                     "assets/images/sorting.png",
                     "Trier par",
                     IconButton(
@@ -350,7 +350,7 @@ class _SortAndFilterState extends State<SortAndFilter> {
                   if (tri)
                     Column(
                       children: [
-                        _buildsortOption(appLocalizations!.dateConsultation,"Date de consultation", consultation_sort_up, () {
+                        _buildsortOption(appLocalizations.dateConsultation,"Date de consultation", consultation_sort_up, () {
                           setState(() {
                             consultation_sort_up = !consultation_sort_up;
                             if (tri_par == "Date de consultation") sort_up = consultation_sort_up;
@@ -399,7 +399,7 @@ class _SortAndFilterState extends State<SortAndFilter> {
                   if (selectsexe)
                     Column(
                       children: [
-                        _buildsexeFilter(appLocalizations!.tout,"Tout"),
+                        _buildsexeFilter(appLocalizations.tout,"Tout"),
                         _buildsexeFilter(appLocalizations.male,"Homme"),
                         _buildsexeFilter(appLocalizations.female,"Femme"),
                       ],

@@ -1,6 +1,5 @@
-import 'package:e_esg/Widgets/NavigationBarDoctor.dart';
 import 'package:e_esg/Widgets/NavigationBarJeune.dart';
-import 'package:e_esg/pages/espacejeune/login_signup/Cardi.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -62,6 +61,13 @@ class _LanguageyouthState extends State<Languageyouth> {
     return Scaffold(
       backgroundColor: SettingsYong.isDarkMode.value ? const Color(0xff181a1b) : Colors.white,
       appBar: AppBar(
+        leading:  IconButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: Icon(CupertinoIcons.back,color: !SettingsYong.isDarkMode.value ? const Color(0xff181a1b) : Colors.white,),
+
+        ),
         backgroundColor: SettingsYong.isDarkMode.value ? const Color(0xff181a1b) : Colors.white,
         title: Text(appLocalizations.language,style: GoogleFonts.aBeeZee(
             color: SettingsYong.isDarkMode.value?Colors.white:Colors.black

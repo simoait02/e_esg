@@ -1,15 +1,12 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:e_esg/pages/IES/avisJeune.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:marqueer/marqueer.dart';
 
 import '../../Data/live_list.dart';
 import '../../Widgets/ajout_proposition_dialog.dart';
-import '../../Widgets/custom_sliver_app_bar.dart';
 import '../../models/live.dart';
 import '../espacejeune/SideBar/Settings.dart';
-import 'ajoutLive.dart';
 import 'live_informations_page.dart';
 import 'lives.dart';
  class EspaceJeune extends StatefulWidget {

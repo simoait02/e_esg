@@ -6,7 +6,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../../../Data/doctor_list.dart';
 
 class Creatediscussion03 extends StatefulWidget {
   const Creatediscussion03({super.key});

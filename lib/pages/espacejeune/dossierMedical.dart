@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:e_esg/pages/espacejeune/SideBar/Settings.dart';
@@ -10,7 +9,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../api/end_points.dart';
 import '../../api/errors/Exceptions.dart';
-import 'login_signup/Cardi.dart';
 
 class Dossiermedical extends StatefulWidget {
   const Dossiermedical({super.key});

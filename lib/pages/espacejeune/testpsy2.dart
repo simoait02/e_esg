@@ -5,7 +5,6 @@ import 'Estime de Soi.dart';
 import 'Anxiété.dart';
 import 'Humeur.dart';
 import 'Sommeil.dart';
-import 'testpsy4.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Testpsy2 extends StatefulWidget {

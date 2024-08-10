@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
 import 'package:e_esg/pages/espaceMedecin/home/teleExpertise/CreateDiscussion01.dart';
 import 'package:e_esg/pages/espaceMedecin/home/teleExpertise/CreateDiscussion02.dart';

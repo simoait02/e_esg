@@ -1,4 +1,3 @@
-import 'package:e_esg/Widgets/NavigationBarJeune.dart';
 import 'package:flutter/material.dart';
 import 'SideBar/SidebarController.dart';
 import 'dossierMedical.dart';
