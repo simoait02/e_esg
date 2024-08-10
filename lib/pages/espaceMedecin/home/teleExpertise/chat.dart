@@ -63,15 +63,24 @@ class _ChatState extends State<Chat> {
                       Navigator.push(
                         context,
                         CupertinoPageRoute(builder: (context) => Message(
-                          name: "Doctor Il Dottore",
-                          profile: CircleAvatar(
-                            radius: 25,
-                            child: Icon(
-                              CupertinoIcons.person,
-                              size: 40,
-                            ),
-                          ),
-                          speciality: "Specialite",)),
+                          name:{
+                            "tag":"name",
+                            "widget":"Doctor Il Dottore"
+                          } ,
+                          profile:{
+                            "tag":"profile",
+                            "widget":CircleAvatar(
+                              radius: 25,
+                              child: Icon(
+                                CupertinoIcons.person,
+                                size: 40,
+                              ),
+                            )
+                          },
+                          speciality:{
+                            "tag":"subName",
+                            "widget":"Specialite"
+                          }  ,)),
                       );
                     },
                     child: ListTile(

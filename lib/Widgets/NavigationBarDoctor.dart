@@ -17,6 +17,8 @@ class NavbarDoc extends StatefulWidget {
     _NavbarDocState? state = context.findAncestorStateOfType<_NavbarDocState>();
     state!.changeLanguage(newLocale);
   }
+
+
   @override
   State<NavbarDoc> createState() => _NavbarDocState();
 }

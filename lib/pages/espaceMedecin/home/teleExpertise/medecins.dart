@@ -59,7 +59,6 @@ class _MedecinsState extends State<Medecins> {
       filtredList = doctorList;
     });
   }
-
   Future<List> getMedecinsViaNom() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('tokenDoc');
@@ -211,8 +210,8 @@ class _MedecinsState extends State<Medecins> {
                     ),
                   ),
                   child: ListTile(
-                    leading: const Hero(
-                      tag: "profile",
+                    leading:  Hero(
+                      tag: "profile$index",
                       child: CircleAvatar(
                         radius: 20,
                         child: Icon(
@@ -222,7 +221,7 @@ class _MedecinsState extends State<Medecins> {
                       ),
                     ),
                     title: Hero(
-                      tag: "name",
+                      tag: "name$index",
                         child: Material(
                             type: MaterialType.transparency,
                             child: Text(item["nom"] + " " + item["prenom"],style: GoogleFonts.aBeeZee(),
@@ -230,7 +229,7 @@ class _MedecinsState extends State<Medecins> {
                         )
                     ),
                     subtitle: Hero(
-                        tag: "subName",
+                        tag: "subName$index",
                         child: Material(
                             type: MaterialType.transparency,
                             child: Text(item["specialite"]==""?"Generaliste":item["specialite"],
@@ -251,15 +250,24 @@ class _MedecinsState extends State<Medecins> {
                       onPressed: () {
                         Navigator.push(
                             (context),MaterialPageRoute(builder: (context)=>Message(
-                              name: item["nom"] + " " + item["prenom"],
-                              profile: const CircleAvatar(
-                                radius: 25,
-                                child: Icon(
-                                  CupertinoIcons.person,
-                                size: 40,
-                            ),
-                          ),
-                          speciality: item["specialite"]==""?"Generaliste":item["specialite"],
+                              name:{
+                                "tag":"name$index",
+                                "widget":item["nom"] + " " + item["prenom"]
+                              },
+                              profile:  {
+                                "tag":"profile$index",
+                                "widget":const CircleAvatar(
+                                  radius: 25,
+                                  child: Icon(
+                                    CupertinoIcons.person,
+                                    size: 40,
+                                  ),
+                                ),
+                              } ,
+                          speciality:{
+                                "tag":"subName$index",
+                                "widget":item["specialite"]==""?"Generaliste":item["specialite"]
+                          } ,
                         ))
                         );
                       },
