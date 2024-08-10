@@ -95,8 +95,6 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context);
-    bool isDarkMode = Cardi.isDarkMode.value;
-
     return ValueListenableBuilder<bool>(
       valueListenable: Cardi.isDarkMode,
       builder: (context, isDarkMode, child) {
@@ -104,7 +102,7 @@ class _ProfileState extends State<Profile> {
           backgroundColor: isDarkMode ? const Color(0xff141218) : Colors.white,
           appBar: AppBar(
             surfaceTintColor: Colors.transparent,
-            backgroundColor: isDarkMode ? const Color(0xff181a1b) : Colors.white,
+            backgroundColor: isDarkMode ? const Color(0xff141218) : Colors.white,
             title: AutoSizeText(
               appLocalizations!.profile,
               textAlign: TextAlign.center,
