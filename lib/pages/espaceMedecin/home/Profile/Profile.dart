@@ -56,13 +56,14 @@ class _ProfileState extends State<Profile> {
     initMyInfos();
   }
 
+
   Widget buildInfoRow(String label, String value, bool isDarkMode) {
     return Column(
       children: [
         Row(
           children: [
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.3,
+            Expanded(
+              flex: 1,
               child: Text(
                 label,
                 style: GoogleFonts.poppins(
@@ -72,10 +73,11 @@ class _ProfileState extends State<Profile> {
               ),
             ),
             Expanded(
+              flex: 2,
               child: Text(
                 value,
                 style: GoogleFonts.poppins(
-                  fontSize: 16,
+                  fontSize: 14,
                   fontWeight: FontWeight.w400,
                   color: isDarkMode ? Colors.white38 : Colors.black38,
                 ),
@@ -118,7 +120,15 @@ class _ProfileState extends State<Profile> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    CupertinoPageRoute(builder: (context) => const Settings()),
+                    CupertinoPageRoute(builder: (context) => Settings(
+                      callBack: () async {
+                        Map<String, dynamic> infos = await getInfos();
+                        setState(() {
+                          myInfos = infos;
+                          isLoading = false;
+                        });
+                      },
+                    )),
                   );
                 },
                 icon: const Icon(CupertinoIcons.settings, size: 28),

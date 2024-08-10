@@ -14,7 +14,8 @@ class Settings extends StatefulWidget {
   static bool isSystemSettings = true;
   static bool isDark = false;
   static bool isLight = false;
-  const Settings({super.key});
+  final Function callBack;
+  const Settings({super.key,required this.callBack});
 
   @override
   State<Settings> createState() => _SettingsState();
@@ -47,7 +48,11 @@ class _SettingsState extends State<Settings> {
     prefs.setBool('isLight', Settings.isLight);
     prefs.setBool('isDarkMode', Cardi.isDarkMode.value);
   }
-
+  @override
+  void dispose() {
+    super.dispose();
+    widget.callBack();
+  }
   @override
   Widget build(BuildContext context) {
     Settings.isSystemSettings? Cardi.isDarkMode.value=(MediaQuery.of(context).platformBrightness == Brightness.dark):Settings.isDark?Settings.isDark:Settings.isLight;
@@ -86,7 +91,7 @@ class _SettingsState extends State<Settings> {
             Navigator.pop(context);
           },
           child: Text(
-            "Done",
+            appLocalizations.done,
             style: GoogleFonts.roboto(
               textStyle: const TextStyle(
                 color: CupertinoColors.activeBlue,
