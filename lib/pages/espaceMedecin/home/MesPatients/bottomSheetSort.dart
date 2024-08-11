@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../Data/maladie_list.dart';
 import '../../../../models/patient.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -10,28 +11,46 @@ class SortAndFilter extends StatefulWidget {
   final double height;
   final double width;
   final bool isDarkMode;
-  final List<Patient> foundedpatients;
 
-  SortAndFilter({required this.height, required this.isDarkMode, required this.width, required this.foundedpatients});
+  SortAndFilter({required this.height, required this.isDarkMode, required this.width});
 
   @override
   _SortAndFilterState createState() => _SortAndFilterState();
 }
 
 class _SortAndFilterState extends State<SortAndFilter> {
-  bool consultation_sort_up = true;
+  //bool consultation_sort_up = true;
   bool nom_sort_up = true;
   bool prenom_sort_up = true;
   bool age_sort_up = true;
-  String tri_par = "Date de consultation";
+  String tri_par = "Nom";//Date de consultation
   String sexe = "Tout";
   String maladie = "Tout";
   bool tri = false;
   bool sort_up = true;
   bool selectsexe = false;
   bool selectmaladie = false;
-  bool sort =false;
   Set<String> selectedMaladies = {"Tout"};
+  @override
+  void initState() {
+    super.initState();
+    _loadPreferences();
+  }
+
+  Future<void> _loadPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      tri_par = prefs.getString('tri') ?? "Nom";
+      sexe = prefs.getString('sexe') ?? "Tout";
+      sort_up = prefs.getBool('sort') ?? true;
+      if (tri_par == "Nom") nom_sort_up = sort_up;
+      else if (tri_par == "Prenom") prenom_sort_up = sort_up;
+      else if (tri_par == "Age") age_sort_up = sort_up;
+      selectedMaladies = prefs.getStringList('selectedMaladies')?.toSet() ?? {"Tout"};
+      maladie = selectedMaladies.contains("Tout") ? "Tout" : selectedMaladies.join(", ");
+    });
+  }
+
 
   Widget _buildFilterOption(String label,String iconimage, String title, IconButton down, String desc, IconButton? sort) {
     return Container(
@@ -261,7 +280,7 @@ class _SortAndFilterState extends State<SortAndFilter> {
                       fontFamily: "Poppins",
                     ),
                   ),
-                  onPressed: () => Navigator.pop(context),
+                  onPressed: () => Navigator.pop(context,null),
                 ),
                 CupertinoButton(
                   child: Text(
@@ -272,20 +291,21 @@ class _SortAndFilterState extends State<SortAndFilter> {
                       fontFamily: "Poppins",
                     ),
                   ),
-                  onPressed: () {
+                  onPressed: () async {
                     setState(() {
-                      if (tri_par == "Date de consultation") sort_up = consultation_sort_up;
-                      else if (tri_par == "Nom") sort_up = nom_sort_up;
+                      //if (tri_par == "Date de consultation") sort_up = consultation_sort_up;
+                      if (tri_par == "Nom") sort_up = nom_sort_up;
                       else if (tri_par == "Prenom") sort_up = prenom_sort_up;
                       else if (tri_par == "Age") sort_up = age_sort_up;
                     });
+                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                    prefs.setString('tri', tri_par);
+                    print("SexeSexeSexeSexeSexeSexeSexeSexeSexeSexeSexeSexeSexeSexeSexeSexeSexeSexeSexeSexe: $sexe");
+                    prefs.setString('sexe', sexe);
+                    prefs.setBool('sort', sort_up);
+                    prefs.setStringList('selectedMaladies', selectedMaladies.toList());
 
-                    Navigator.pop(context, {
-                      'tri_par': tri_par,
-                      'sexe': sexe,
-                      'selectedMaladies': selectedMaladies.toList(),
-                      'sort_up': sort_up,
-                    });
+                    Navigator.pop(context, true);
                   },
 
 
@@ -321,10 +341,11 @@ class _SortAndFilterState extends State<SortAndFilter> {
                     IconButton(
                       onPressed: () {
                         setState(() {
-                          if (tri_par == "Date de consultation") {
-                            consultation_sort_up = !consultation_sort_up;
-                            sort_up = consultation_sort_up;
-                          } else if (tri_par == "Nom") {
+                          // if (tri_par == "Date de consultation") {
+                          //   consultation_sort_up = !consultation_sort_up;
+                          //   sort_up = consultation_sort_up;
+                          // }
+                          if (tri_par == "Nom") {
                             nom_sort_up = !nom_sort_up;
                             sort_up = nom_sort_up;
                           } else if (tri_par == "Prenom") {
@@ -350,12 +371,12 @@ class _SortAndFilterState extends State<SortAndFilter> {
                   if (tri)
                     Column(
                       children: [
-                        _buildsortOption(appLocalizations.dateConsultation,"Date de consultation", consultation_sort_up, () {
-                          setState(() {
-                            consultation_sort_up = !consultation_sort_up;
-                            if (tri_par == "Date de consultation") sort_up = consultation_sort_up;
-                          });
-                        }),
+                        // _buildsortOption(appLocalizations.dateConsultation,"Date de consultation", consultation_sort_up, () {
+                        //   setState(() {
+                        //     consultation_sort_up = !consultation_sort_up;
+                        //     if (tri_par == "Date de consultation") sort_up = consultation_sort_up;
+                        //   });
+                        // }),
                         _buildsortOption(appLocalizations.nom,"Nom", nom_sort_up, () {
                           setState(() {
                             nom_sort_up = !nom_sort_up;

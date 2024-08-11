@@ -1,4 +1,5 @@
 import 'package:e_esg/e_esj.dart';
+import 'package:e_esg/pages/espacejeune/DossierMedical/DocMedical.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

@@ -8,8 +8,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../Widgets/search.dart';
+import '../../../../api/end_points.dart';
 import '../../../../models/patient.dart';
+//import '../../../../models/patient.dart';
 
 class Mespatients extends StatefulWidget {
   const Mespatients({super.key});
@@ -19,94 +22,149 @@ class Mespatients extends StatefulWidget {
 }
 
 class _MespatientsState extends State<Mespatients> {
-  List<Patient> _foundedpatients = List.from(patients)..sort((a, b) => b.consultation_date.compareTo(a.consultation_date));
-  String tri_par = "Date de consultation";
+  List<dynamic> _foundedpatients = ["looooooooooo"];
+  String tri_par = "Nom";//Date de consultation
   String sexe = "Tout";
   List<String> selectedMaladies = ["Tout"];
   bool sort_up = true;
-  List<Patient> _searchedpatients = [];
+  List<dynamic> _searchedpatients = [];
+  bool isLoading = true;
+  String endpoint="";
+
+  String convertToUpperCase(String word) {
+    Map<String, String> specialCases = {
+      "Femme" : "FEMININ",
+      "Homme": "MASCULIN",
+    };
+    return specialCases[word] ?? word.toUpperCase();
+  }
   @override
   void initState() {
-    _foundedpatients = List.from(patients)..sort((a, b) => b.consultation_date.compareTo(a.consultation_date));
-    _searchedpatients = _foundedpatients;
+
+    //_foundedpatients = List.from(patients)..sort((a, b) => b.consultation_date.compareTo(a.consultation_date));
+    _initializeData();
     super.initState();
   }
+  Future<void> _initializeData() async {
+    // Ensure preferences are loaded before proceeding
+    await _loadPreferences();
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
-    if (args != null) {
-      tri_par = args['tri_par'] ?? "Date de consultation";
-      sexe = args['sexe'] ?? "Tout";
-      selectedMaladies = List<String>.from(args['selectedMaladies'] ?? ["Tout"]);
-      sort_up = args['sort_up'] ?? true;
-      sortAndFilterPatients();
+    print("Sexe after loading preferencesSexe after loading preferencesSexe after loading preferencesSexe after loading preferences: $selectedMaladies");
+    await initMyPatients();
+    print("ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff$_foundedpatients");
+    sortAndFilterPatients();
+  }
+
+  Future<List<dynamic>> getPatients() async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? token = prefs.getString('tokenDoc');
+      endpoint;
+      switch (tri_par) {
+        case "Nom":
+          endpoint = EndPoints.GetPatientsByNom;
+          break;
+        case "Prenom":
+          endpoint = EndPoints.GetPatientsByPrenom;
+          break;
+        case "Age":
+          endpoint = EndPoints.GetPatientsByAge;
+          break;
+        default:
+          endpoint = EndPoints.GetPatientsByAge;
+          break;
+      }
+
+      final response = await api.get(
+        endpoint,
+        headers: {
+          "Authorization": "$token",
+        },
+      );
+      return response;
+    } catch (e) {
+      print(e);
+      return [];
     }
   }
+  Future<void> initMyPatients() async {
+    List<dynamic> patients = await getPatients();
+    setState(() {
+      _foundedpatients = patients;
+      print("jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj$_foundedpatients");
+      _searchedpatients = _foundedpatients;
+      isLoading = false;
+    });
+  }
+  Future<void> _loadPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      tri_par = prefs.getString('tri') ?? "Nom";
+      sexe = prefs.getString('sexe') ?? "Tout";
+      print("SexeSexeSexeSexeSexeSexeSexeSexeSexeSexeSexeSexeSexeSexeSexeSexeSexeSexe: $sexe");
+      sort_up = prefs.getBool('sort') ?? true;
+      selectedMaladies = prefs.getStringList('selectedMaladies') ?? ["Tout"];
+    });
+  }
+
+  //@override
+  // void didChangeDependencies() {
+  //   super.didChangeDependencies();
+  //   final args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+  //   if (args != null) {
+  //     setState(() {
+  //       tri_par = args['tri_par'] ?? "Nom";//"Date de consultation";
+  //       sexe = args['sexe'] ?? "Tout";
+  //       selectedMaladies = List<String>.from(args['selectedMaladies'] ?? ["Tout"]);
+  //       sort_up = args['sort_up'] ?? true;
+  //     });
+  //     initMyPatients();
+  //     sortAndFilterPatients();
+  //   }
+  // }
 
   void sortAndFilterPatients() {
     setState(() {
-      _foundedpatients = List.from(patients)..sort((a, b) => b.consultation_date.compareTo(a.consultation_date));
-
+      //_foundedpatients = List.from(patients)..sort((a, b) => b.consultation_date.compareTo(a.consultation_date));
+      print("sexein the sortingsexein the sortingsexein the sortingsexein the sortingsexein the sorting::      ${convertToUpperCase(sexe)}");
       if (sexe != "Tout") {
-        _foundedpatients = _foundedpatients.where((patient) => patient.sexe == sexe).toList();
+        print("list before sortinglist before sortinglist before sorting$_foundedpatients");
+        _foundedpatients = _foundedpatients.where((patient) => patient['sexe'] == convertToUpperCase(sexe)).toList();
+        print("list after sortinglist after sortinglist after sorting$_foundedpatients");
       }
-      if (!selectedMaladies.contains("Tout")) {
-        _foundedpatients = _foundedpatients.where((patient) =>
-            selectedMaladies.any((maladie) => patient.maladies.contains(maladie))
-        ).toList();
-      }
-      _foundedpatients.sort((a, b) {
-        int result;
-        switch (tri_par) {
-          case "Nom":
-            result = a.nom.compareTo(b.nom);
-            break;
-          case "Prenom":
-            result = a.prenom.compareTo(b.prenom);
-            break;
-          case "Age":
-            result = a.age.compareTo(b.age);
-            break;
-          case "Date de consultation":
-          default:
-            result = a.consultation_date.compareTo(b.consultation_date);
-            break;
-        }
-        return sort_up ? result : -result;
-      });
-      _searchedpatients= _foundedpatients;
+      // if (!selectedMaladies.contains("Tout")) {
+      //   _foundedpatients = _foundedpatients.where((patient) =>
+      //       selectedMaladies.any((maladie) => patient['dossierMedial']['antecedentsPersonnels']['maladies'].contains(maladie))
+      //   ).toList();
+      // }
+      // _foundedpatients.sort((a, b) {
+      //   int result;
+      //   switch (tri_par) {
+      //     case "Nom":
+      //       result = a.nom.compareTo(b.nom);
+      //       break;
+      //     case "Prenom":
+      //       result = a.prenom.compareTo(b.prenom);
+      //       break;
+      //     case "Age":
+      //       result = a.age.compareTo(b.age);
+      //       break;
+      //     case "Date de consultation":
+      //     default:
+      //       result = a.consultation_date.compareTo(b.consultation_date);
+      //       break;
+      //   }
+      //   return sort_up ? result : -result;
+      // });
+      _searchedpatients= sort_up ?_foundedpatients: _foundedpatients.reversed.toList();
     });
   }
   void onSearch(String search) {
     setState(() {
       _searchedpatients= _foundedpatients.where((patient) {
-        return patient.nom.toLowerCase().contains(search.toLowerCase())||patient.prenom.toLowerCase().contains(search.toLowerCase());
+        return patient["infoUser"]['nom'].toLowerCase().contains(search.toLowerCase())||patient["infoUser"]['prenom'].toLowerCase().contains(search.toLowerCase());
       }).toList();
     });
-  }
-
-  Widget buildPatient({required String text, required bool isDarkMode, required double width}) {
-    return Container(
-      margin: const EdgeInsets.only(left: 10),
-      padding: const EdgeInsets.all(3),
-      alignment: Alignment.center,
-      width: width,
-      decoration: BoxDecoration(
-        color: isDarkMode ? const Color(0xff181a1b) : Colors.white,
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: const Color(0xff00d3c7)),
-      ),
-      child: AutoSizeText(
-        text,
-        textAlign: TextAlign.center,
-        style: const TextStyle(
-          fontSize: 15,
-          fontFamily: "Poppins",
-        ),
-      ),
-    );
   }
 
   @override
@@ -141,9 +199,11 @@ class _MespatientsState extends State<Mespatients> {
                         ),),
                         const Spacer(),
                         IconButton(
-                          onPressed: (){
+                          onPressed: () async {
+                            SharedPreferences prefs = await SharedPreferences.getInstance();
                             setState(() {
                               sort_up=!sort_up;
+                              prefs.setBool('sort', sort_up);
                               _searchedpatients = _searchedpatients.reversed.toList();
                             });
                           },
@@ -157,22 +217,24 @@ class _MespatientsState extends State<Mespatients> {
                           highlightColor: Colors.transparent,
                           splashColor: Colors.transparent,),
                         IconButton(
-                            onPressed: () async {
-                              final result = await showBarModalBottomSheet(
-                                  context: context, builder: (BuildContext context) {
-                                return SortAndFilter(height: height * 0.5, isDarkMode: Cardi.isDarkMode.value, width: width, foundedpatients: _foundedpatients,);
+                          onPressed: () async {
+                            final result = await showBarModalBottomSheet(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return SortAndFilter(
+                                  height: height * 0.5,
+                                  isDarkMode: Cardi.isDarkMode.value,
+                                  width: width,
+                                );
+                              },
+                            );
+                            if (result != null) {
+                              setState(() {
+                                isLoading=true;
+                                _initializeData();
                               });
-
-                              if (result != null) {
-                                setState(() {
-                                  tri_par = result['tri_par'];
-                                  sexe = result['sexe'];
-                                  selectedMaladies = List<String>.from(result['selectedMaladies']);
-                                  sort_up = result['sort_up'];
-                                  sortAndFilterPatients();
-                                });
-                              }
-                            },
+                            }
+                          },
                             icon: const Icon(Icons.sort_rounded))
                       ],
                     ),
@@ -186,11 +248,28 @@ class _MespatientsState extends State<Mespatients> {
                 ),
               ),
             ),
-            SliverList(delegate: SliverChildBuilderDelegate(
-                  (context, index) {
-                return patientComponent(patient: _searchedpatients[index]);
-              },
-              childCount: _searchedpatients.length,)),
+          if (isLoading)
+        const SliverToBoxAdapter(
+    child: Center(child: CupertinoActivityIndicator()),
+    )
+    else if (_searchedpatients.isEmpty)
+    const SliverToBoxAdapter(
+    child: Center(
+    child: Text(
+    "No Data",
+    style: TextStyle(fontSize: 18),
+    ),
+    ),
+    )
+    else
+    SliverList(
+    delegate: SliverChildBuilderDelegate(
+    (context, index) {
+    return patientComponent(patient: _searchedpatients[index]);
+    },
+    childCount: _searchedpatients.length,
+    ),
+    ),
             const SliverToBoxAdapter(
               child: SizedBox(height: 100,),
             )
@@ -200,7 +279,7 @@ class _MespatientsState extends State<Mespatients> {
     );
   }
 
-  Widget patientComponent({required Patient patient}) {
+  Widget patientComponent({required dynamic patient}) {
     double width = MediaQuery.of(context).size.width;
     return Directionality(
       textDirection: TextDirection.ltr,
@@ -223,7 +302,7 @@ class _MespatientsState extends State<Mespatients> {
                     child: Image.asset("assets/images/patient.png", fit: BoxFit.fill,),
                   ),
                 ),
-                Text(patient.nom + " " + patient.prenom,
+                Text(patient['infoUser']["nom"] + " " + patient['infoUser']['prenom'],
                   style: GoogleFonts.aBeeZee(
                       textStyle: const TextStyle(
                         fontWeight: FontWeight.w300,

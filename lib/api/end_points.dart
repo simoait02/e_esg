@@ -4,7 +4,7 @@ import 'Dio_Consumer.dart';
 import 'api_Comsumer.dart';
 
 class EndPoints{
-  static String baseUrl="http://192.168.1.2:8080";
+  static String baseUrl="http://192.168.1.13:8080";
   static String LoginMedecin="/auth/login/medecins";
   static String RegisterMedecin="/register/medecins";
   static String ForgotPass="/password/forgot";
@@ -20,6 +20,9 @@ class EndPoints{
   static String GetInvitation="/invitation/all";
   static String GetDiscussionViaId="/discussion";
   static String GetAllDiscussion="/discussion/all";
+  static String GetPatientsByPrenom="/jeunes/order-by-prenom";
+  static String GetPatientsByNom="/jeunes/order-by-nom";
+  static String GetPatientsByAge="/jeunes/order-by-age-asc";
 
 
 }
