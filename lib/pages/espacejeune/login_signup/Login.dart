@@ -247,6 +247,7 @@ class _LoginState extends State<Login> {
                         print(decodedToken);
                         SharedPreferences prefs = await SharedPreferences.getInstance();
                         prefs.setString('token', "Bearer ${userJeune!.token}");
+                        prefs.setInt('idYong', decodedToken["claims"]["id"]);
                         bool isFirstAuth= decodedToken["claims"]["isFirstAuth"];
                         isFirstAuth? Navigator.pushAndRemoveUntil(
                           context,

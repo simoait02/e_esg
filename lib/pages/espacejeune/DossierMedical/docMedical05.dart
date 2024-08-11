@@ -1,7 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:e_esg/api/end_points.dart';
+import 'package:e_esg/pages/espacejeune/DossierMedical/data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../SideBar/SidebarController.dart';
 import 'DocMedical.dart';
 
@@ -153,8 +156,44 @@ class _Docmedical05State extends State<Docmedical05> {
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
               ),
-              onPressed: () {
+              onPressed: () async {
+                SharedPreferences prefs=await SharedPreferences.getInstance();
+                int? id=prefs.getInt("idYong");
+                String? token=prefs.getString("token");
                 if(boxCheck){
+                  await api.post(
+                      "${EndPoints.GetJeuneViaId}$id/antecedentsPersonnels",
+                      headers: {"Authorization": "$token",},
+                      data:{
+                        "maladies": maladie,
+                        "utiliseMedicaments": utiliseMedicament,
+                        "medicaments": [
+                          typeMedicaments
+                        ],
+                        "chirurgicaux": chirurgicaux,
+                        "operationsChirurgicales": operationsChirurgicales,
+                        "habitudes": habitudes,
+                        "cigarettesParJour": cigarettesParJour,
+                        "consommationAlcool": consomationAlcohol,
+                        "tempsEcran": tempsEcran,
+                      }
+                      );
+                  await api.post(
+                    "${EndPoints.GetJeuneViaId}$id/antecedentsFamiliaux",
+                    headers: {"Authorization": "$token",},
+                    data: {
+                      "maladiesFamiliales": maladiesFamiliales,
+                      "typeAntFam": typeAntFam,
+                      "autre": autre
+                    }
+                  );
+                  api.patch(""
+                      "${EndPoints.GetJeuneViaId}$id",
+                    headers:{"Authorization": "$token",},
+                    data: {
+                    "isFirstAuth":false
+                    }
+                  );
                   Navigator.pushAndRemoveUntil(
                     context,
                     CupertinoPageRoute(builder: (context) => SideBarController()),

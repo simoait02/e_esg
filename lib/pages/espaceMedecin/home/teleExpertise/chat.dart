@@ -62,14 +62,14 @@ class _ChatState extends State<Chat> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        CupertinoPageRoute(builder: (context) => Message(
+                        CupertinoPageRoute(builder: (context) => const Message(
                           name:{
                             "tag":"name",
                             "widget":"Doctor Il Dottore"
                           } ,
                           profile:{
                             "tag":"profile",
-                            "widget":CircleAvatar(
+                            "widget":const CircleAvatar(
                               radius: 25,
                               child: Icon(
                                 CupertinoIcons.person,
@@ -84,9 +84,9 @@ class _ChatState extends State<Chat> {
                       );
                     },
                     child: ListTile(
-                      leading: Hero(
+                      leading: const Hero(
                         tag: "profile",
-                        child: const CircleAvatar(
+                        child: CircleAvatar(
                           radius: 25,
                           child: Icon(
                             CupertinoIcons.person,

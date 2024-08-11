@@ -1,2 +1,12 @@
-List<String> chronique=[];
+List<String> maladie=[];
 String typeMedicaments="";
+bool utiliseMedicament=false;
+bool chirurgicaux=false;
+Map<String,dynamic> operationsChirurgicales={};
+List<String> habitudes=[];
+int cigarettesParJour=0;
+String consomationAlcohol="";
+String tempsEcran="";
+List<String>maladiesFamiliales=[];
+String typeAntFam="";
+String autre="";

@@ -1,8 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:e_esg/pages/espacejeune/DossierMedical/DocMedical.dart';
+import 'package:e_esg/pages/espacejeune/DossierMedical/data.dart';
 import 'package:e_esg/pages/espacejeune/login_signup/Cardi.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -13,22 +15,22 @@ class Docmedical02 extends StatefulWidget {
   State<Docmedical02> createState() => _Docmedical02State();
 }
 
+ final TextEditingController operationTypeController = TextEditingController();
+ final TextEditingController operationYearController = TextEditingController();
+ final TextEditingController nbCigarController = TextEditingController();
+ final FocusNode nbCigarFocusNode = FocusNode();
+ final FocusNode operationTypeFocusNode = FocusNode();
+ final FocusNode operationYearFocusNode = FocusNode();
+
 class _Docmedical02State extends State<Docmedical02> {
   List<String> conditions1 = ["Oui", "Non"];
-  int selectedConditionIndex = -1;
+  static int selectedConditionIndex = -1;
 
-  // Controllers and focus nodes for the text fields
-  TextEditingController operationTypeController = TextEditingController();
-  TextEditingController operationYearController = TextEditingController();
-  TextEditingController nbCigarController = TextEditingController();
-  FocusNode nbCigarFocusNode = FocusNode();
-  FocusNode operationTypeFocusNode = FocusNode();
-  FocusNode operationYearFocusNode = FocusNode();
   bool hasOperationTypeFocus = false;
   bool hasOperationYearFocus = false;
   bool hasnbCigarFocus = false;
 
-  bool error = false; // To show error state if needed
+  bool error = false;
 
   @override
   void initState() {
@@ -68,18 +70,11 @@ class _Docmedical02State extends State<Docmedical02> {
     "Temps d'ecran"
   ];
   static List<bool> selectedConditions = [false, false, false, false];
-  @override
-  void dispose() {
-    operationTypeController.dispose();
-    operationYearController.dispose();
-    operationTypeFocusNode.dispose();
-    operationYearFocusNode.dispose();
-    super.dispose();
-  }
+
+  static bool c1 = false;
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     final appLocalizations = AppLocalizations.of(context);
 
@@ -141,9 +136,14 @@ class _Docmedical02State extends State<Docmedical02> {
                   setState(() {
                     selectedConditionIndex = selected ? index : -1;
                     if (!selected) {
+                      chirurgicaux=false;
+                      c1=false;
                       operationTypeController.clear();
                       operationYearController.clear();
+                      return;
                     }
+                    chirurgicaux=selectedConditionIndex==0?true:false;
+                    c1=true;
                   });
                 },
               );
@@ -297,12 +297,12 @@ class _Docmedical02State extends State<Docmedical02> {
               onSelected: (bool selected) {
                 setState(() {
                   selectedConditions[index] = selected;
-                  // if (selected) {
-                  //   chronique.add(conditions[index]);
-                  // } else {
-                  //   chronique.remove(conditions[index]);
-                  // }
-                  // print(chronique); // For debugging purposes
+                  if (selected) {
+                    habitudes.add(conditions[index]);
+                  } else {
+                    habitudes.remove(conditions[index]);
+                  }
+                  print(habitudes); // For debugging purposes
                 });
               },
             );
@@ -325,7 +325,7 @@ class _Docmedical02State extends State<Docmedical02> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 10),
+                  margin: const EdgeInsets.only(top: 10),
                   height: 50,
                   child: CupertinoTextField(
                     controller: nbCigarController,
@@ -357,7 +357,6 @@ class _Docmedical02State extends State<Docmedical02> {
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     onTapOutside: (event) {
                       setState(() {
-                        operationTypeFocusNode.unfocus();
                       });
                     },
                   ),
@@ -406,10 +405,8 @@ class _Docmedical02State extends State<Docmedical02> {
                       onSelected: (bool selected) {
                         setState(() {
                           selectedConsomation = selected ? index : -1;
-                          if (!selected) {
-                            operationTypeController.clear();
-                            operationYearController.clear();
-                          }
+                          consomationAlcohol=consomation[index];
+                          print(consomationAlcohol);
                         });
                       },
                     );
@@ -457,10 +454,8 @@ class _Docmedical02State extends State<Docmedical02> {
                     onSelected: (bool selected) {
                       setState(() {
                         selectedTemp = selected ? index : -1;
-                        if (!selected) {
-                          operationTypeController.clear();
-                          operationYearController.clear();
-                        }
+                        tempsEcran=temps[index];
+                        print(tempsEcran);
                       });
                     },
                   );
@@ -476,7 +471,7 @@ class _Docmedical02State extends State<Docmedical02> {
             Expanded(
               child: CupertinoButton(
                 child: Container(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(40),
                     border: Border.all(color: const Color(0xff4E57CD)),
@@ -511,6 +506,49 @@ class _Docmedical02State extends State<Docmedical02> {
                   ),
                 ),
                 onPressed: () {
+                  if(!c1){
+                    Fluttertoast.showToast(msg: "Souffrez-vous de maladies chirurgicaux");
+                    return;
+                  }
+                  if((operationTypeController.text.isEmpty||operationYearController.text.isEmpty)&& selectedConditionIndex==0){
+                    Fluttertoast.showToast(msg: "entrez le type et l'annee de l'operation");
+                    return;
+                  }
+                  if(selectedConditions[1]&& nbCigarController.text.isEmpty){
+                    Fluttertoast.showToast(msg: "entrez le nombre de cigarettes");
+                    return;
+                  }
+                  if(selectedConsomation==-1&&selectedConditions[2]){
+                    Fluttertoast.showToast(msg: "choisir une consomation");
+                    return;
+                  }
+                  if(selectedTemp==-1&&selectedConditions[3]){
+                    Fluttertoast.showToast(msg: "choisir une estimation de temps");
+                    return;
+                  }
+                  if(selectedConditions[1]){
+                    try{
+                      cigarettesParJour=int.parse(nbCigarController.text);
+
+                    }catch(e){
+                      Fluttertoast.showToast(msg: "entrez le nombre de cigarettes correct");
+                      return;
+                    }
+                  }
+                  if(selectedConditionIndex==0){
+                    try{
+                      operationsChirurgicales={
+                        "typeOperation":operationTypeController.text,
+                        "anneeOperation":int.parse(operationYearController.text)
+                      };
+                    }catch(e){
+                      Fluttertoast.showToast(msg: "entrez l'annee de l'operation correct");
+                      return;
+                    }
+                  }
+
+
+                  print(operationsChirurgicales);
                   DocMedical.setProgress(context, 0.5);
                   DocMedical.setIndex(context, 2);
                 },
