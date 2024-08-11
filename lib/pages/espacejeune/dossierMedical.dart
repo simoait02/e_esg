@@ -4,7 +4,6 @@ import 'package:e_esg/pages/espacejeune/SideBar/Settings.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../api/end_points.dart';
@@ -20,21 +19,6 @@ class Dossiermedical extends StatefulWidget {
 class DossiermedicalState extends State<Dossiermedical> {
   int selectedIndex = 0;
   Map<String, String> infos = {};
-
-  void fillInfos(BuildContext context) {
-    final appLocalizations = AppLocalizations.of(context);
-    infos = {
-      appLocalizations!.nom: "",
-      appLocalizations.prenom: "",
-      appLocalizations.sex: "",
-      appLocalizations.birthDay: "",
-      appLocalizations.email: "",
-      appLocalizations.tele: "",
-      appLocalizations.antecedentsMedicaux: "De 10/07/2023 a 24/07/2024 \n -hépatique \n -fievre",
-      appLocalizations.antecedentsChirurgicaux: "Oui",
-      appLocalizations.antecedentsFamiliaux: "tttt",
-    };
-  }
 
   _loadPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -52,76 +36,49 @@ class DossiermedicalState extends State<Dossiermedical> {
     _loadPreferences();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      setState(() {
-        fillInfos(context);
-      });
+      _fetchData();
     });
-    _fetchData();
   }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    fillInfos(context);
-    _fetchData();
-  }
+  Map<String, String> data = {};
+  Map<String, String> subdata = {};
 
   Future<void> _fetchData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
-    final appLocalizations = AppLocalizations.of(context);
-    if (token != null) {
-      print("Token: $token");
-      Map<String, dynamic> decodedToken;
-      try {
-        decodedToken = JwtDecoder.decode(token);
-        print("Decoded Token: $decodedToken");
-      } catch (e) {
-        print("Token decoding error: $e");
-        Fluttertoast.showToast(msg: "Invalid token", backgroundColor: Colors.red);
-        return;
-      }
-      if (decodedToken.containsKey('claims') && decodedToken['claims'].containsKey('id')) {
-        try {
-          final get = await api.get(
-            EndPoints.GetJeuneViaId + decodedToken['claims']['id'].toString(),
-            headers: {
-              "Authorization": token
-            },
-          );
+    int? id = prefs.getInt("idYong");
+    try {
+      final get = await api.get(
+        "${EndPoints.GetJeuneViaId}$id",
+        headers: {
+          "Authorization": token
+        },
+      );
 
-          setState(() {
-            infos[appLocalizations!.nom] = get["nom"];
-            infos[appLocalizations.prenom] = get["prenom"];
-            infos[appLocalizations.sex] = get["sexe"];
-            infos[appLocalizations.birthDay] = get["dateNaissance"];
-            infos[appLocalizations.email] = get["mail"];
-            infos[appLocalizations.tele] = get["numTele"];
-            if (get['age'] >= 16) {
-              infos.addEntries([MapEntry("CIN", get["cin"] ?? "")]);
-            }
-            if (!get.containsKey("enActivite")) {
-              infos.addEntries([MapEntry("Niveau d'études actuel", get["niveauEtudesActuel"])]);
-              if (get['codeMASSAR'] != null) {
-                infos.addEntries([MapEntry("Code massar", get['codeMASSAR'])]);
-              } else {
-                infos.addEntries([MapEntry("Cne", get['cne'] ?? "")]);
-              }
-            } else {
-              infos.addEntries([MapEntry("Dernier niveau d'études", get["dernierNiveauEtudes"])]);
-              infos.addEntries([MapEntry("En activité", get["enActivite"] ? "OUI" : "NON")]);
-            }
-          });
-        } on ServerException catch (e) {
-          Fluttertoast.showToast(msg: e.errormodel.errorMsg, backgroundColor: Colors.red);
+      setState(() {
+        data["nom"] = get["nom"];
+        data["prenom"] = get["prenom"];
+        data["sex"] = get["sexe"];
+        data["birthDay"] = get["dateNaissance"];
+        data["email"] = get["mail"];
+        data["tele"] = get["numTele"];
+        if (get['age'] >= 16) {
+          data["CIN"] = get["cin"] ?? "";
         }
-      } else {
-        print("Invalid token structure");
-        Fluttertoast.showToast(msg: "Invalid token structure", backgroundColor: Colors.red);
-      }
-    } else {
-      print("Token is null");
-      Fluttertoast.showToast(msg: "Token is null", backgroundColor: Colors.red);
+        if (!get.containsKey("enActivite")) {
+          data["Niveau d'études actuel"] = get["niveauEtudesActuel"];
+          if (get['codeMASSAR'] != null) {
+            data["Code massar"] = get['codeMASSAR'];
+          } else {
+            data["Cne"] = get['cne'] ?? "";
+          }
+        } else {
+          data["Dernier niveau d'études"] = get["dernierNiveauEtudes"];
+          data["En activité"] = get["enActivite"] ? "OUI" : "NON";
+        }
+      });
+    } on ServerException catch (e) {
+      Fluttertoast.showToast(msg: e.errormodel.errorMsg, backgroundColor: Colors.red);
     }
   }
 
@@ -129,6 +86,23 @@ class DossiermedicalState extends State<Dossiermedical> {
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
     var screenWidth = MediaQuery.of(context).size.width;
+    final appLocalizations = AppLocalizations.of(context);
+
+    infos = {
+      appLocalizations!.nom: data["nom"] ?? "",
+      appLocalizations.prenom: data["prenom"] ?? "",
+      appLocalizations.sex: data["sex"] ?? "",
+      appLocalizations.birthDay: data["birthDay"] ?? "",
+      appLocalizations.email: data["email"] ?? "",
+      appLocalizations.tele: data["tele"] ?? "",
+    };
+
+    if (data.containsKey("CIN")) infos["CIN"] = data["CIN"]!;
+    if (data.containsKey("Niveau d'études actuel")) infos["Niveau d'études actuel"] = data["Niveau d'études actuel"]!;
+    if (data.containsKey("Code massar")) infos["Code massar"] = data["Code massar"]!;
+    if (data.containsKey("Cne")) infos["CNE"] = data["Cne"]!;
+    if (data.containsKey("Dernier niveau d'études")) infos["Dernier niveau d'études"] = data["Dernier niveau d'études"]!;
+    if (data.containsKey("En activité")) infos["En activité"] = data["En activité"]!;
 
     return Scaffold(
       backgroundColor: SettingsYong.isDarkMode.value ? const Color(0xff141218) : const Color(0xffF5F5F6),
@@ -139,7 +113,7 @@ class DossiermedicalState extends State<Dossiermedical> {
             children: [
               const SizedBox(height: 40,),
               Container(
-                width: screenWidth * 1,
+                width: screenWidth,
                 padding: EdgeInsets.all(screenWidth * 0.04),
                 child: Column(
                   children: [
@@ -187,9 +161,9 @@ class DossiermedicalState extends State<Dossiermedical> {
                                   textAlign: TextAlign.left,
                                   style: GoogleFonts.aBeeZee(
                                     textStyle: TextStyle(
-                                        fontWeight: FontWeight.normal,
-                                        fontSize: 14,
-                                        color: SettingsYong.isDarkMode.value ? Colors.white.withOpacity(0.5) : Colors.black.withOpacity(0.5)
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 14,
+                                      color: SettingsYong.isDarkMode.value ? Colors.white.withOpacity(0.5) : Colors.black.withOpacity(0.5),
                                     ),
                                   ),
                                 ),
@@ -202,7 +176,7 @@ class DossiermedicalState extends State<Dossiermedical> {
                   ],
                 ),
               ),
-              const SizedBox(height: 100,)
+              const SizedBox(height: 100,),
             ],
           ),
         ),
