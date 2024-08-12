@@ -68,7 +68,7 @@ class _VoirdossiermedicalState extends State<Voirdossiermedical> {
                       },
                       child: CircleAvatar(
                         radius: width * 0.15,
-                        backgroundImage: const AssetImage('assets/images/boy.png'),
+                        backgroundImage: const AssetImage("assets/images/patient.png"),
                       ),
                     ),
                     SizedBox(height: height * 0.04),
