@@ -41,7 +41,6 @@ class DossiermedicalState extends State<Dossiermedical> {
   }
 
   Map<String, String> data = {};
-  Map<String, String> subdata = {};
 
   Future<void> _fetchData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

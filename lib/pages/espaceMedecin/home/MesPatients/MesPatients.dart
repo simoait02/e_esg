@@ -2,6 +2,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:e_esg/Data/patient_list.dart';
 import 'package:e_esg/Widgets/custom_sliver_app_bar.dart';
 import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
+import 'package:e_esg/pages/espaceMedecin/home/MesPatients/AjoutConsultation.dart';
+import 'package:e_esg/pages/espaceMedecin/home/MesPatients/VoirDossierMedical.dart';
 import 'package:e_esg/pages/espaceMedecin/home/MesPatients/bottomSheetSort.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +24,7 @@ class Mespatients extends StatefulWidget {
 }
 
 class _MespatientsState extends State<Mespatients> {
-  List<dynamic> _foundedpatients = ["looooooooooo"];
+  List<dynamic> _foundedpatients = [];
   String tri_par = "Nom";//Date de consultation
   String sexe = "Tout";
   List<String> selectedMaladies = ["Tout"];
@@ -48,10 +50,7 @@ class _MespatientsState extends State<Mespatients> {
   Future<void> _initializeData() async {
     // Ensure preferences are loaded before proceeding
     await _loadPreferences();
-
-    print("Sexe after loading preferencesSexe after loading preferencesSexe after loading preferencesSexe after loading preferences: $selectedMaladies");
     await initMyPatients();
-    print("ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff$_foundedpatients");
     sortAndFilterPatients();
   }
 
@@ -91,7 +90,6 @@ class _MespatientsState extends State<Mespatients> {
     List<dynamic> patients = await getPatients();
     setState(() {
       _foundedpatients = patients;
-      print("jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj$_foundedpatients");
       _searchedpatients = _foundedpatients;
       isLoading = false;
     });
@@ -126,16 +124,15 @@ class _MespatientsState extends State<Mespatients> {
   void sortAndFilterPatients() {
     setState(() {
       //_foundedpatients = List.from(patients)..sort((a, b) => b.consultation_date.compareTo(a.consultation_date));
-      print("sexein the sortingsexein the sortingsexein the sortingsexein the sortingsexein the sorting::      ${convertToUpperCase(sexe)}");
+      _foundedpatients.removeWhere((patient) => patient['dossierMedial']==null);
       if (sexe != "Tout") {
-        print("list before sortinglist before sortinglist before sorting$_foundedpatients");
         _foundedpatients = _foundedpatients.where((patient) => patient['sexe'] == convertToUpperCase(sexe)).toList();
-        print("list after sortinglist after sortinglist after sorting$_foundedpatients");
       }
-      // if (!selectedMaladies.contains("Tout")) {
-      //   _foundedpatients = _foundedpatients.where((patient) =>
-      //       selectedMaladies.any((maladie) => patient['dossierMedial']['antecedentsPersonnels']['maladies'].contains(maladie))
-      //   ).toList();
+      if (!selectedMaladies.contains("Tout")) {
+        _foundedpatients = _foundedpatients.where((patient) =>
+            selectedMaladies.any((maladie) => patient['dossierMedial']['antecedentsPersonnels'][0]['maladies'].contains(maladie))
+        ).toList();
+      }
       // }
       // _foundedpatients.sort((a, b) {
       //   int result;
@@ -316,7 +313,15 @@ class _MespatientsState extends State<Mespatients> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 CupertinoButton(
-                  onPressed: () {  },
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Voirdossiermedical(),
+                        settings: RouteSettings(arguments: patient),
+                      ),
+                    );
+                  },
                   child: Container(
                     width: width*0.4,
                     padding: const EdgeInsets.symmetric(vertical:7,horizontal: 5),
@@ -338,7 +343,15 @@ class _MespatientsState extends State<Mespatients> {
                   ),
                 ),
                 CupertinoButton(
-                  onPressed: () { },
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Ajoutconsultation(),
+                        settings: RouteSettings(arguments: patient),
+                      ),
+                    );
+                  },
                   child: Container(
                     width: width*0.4,
                     padding: const EdgeInsets.symmetric(vertical:7,horizontal: 5),

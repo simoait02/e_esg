@@ -1,4 +1,5 @@
 import 'dart:core';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:searchfield/searchfield.dart';
 import '../../Widgets/text_field.dart';
@@ -138,7 +139,7 @@ class _AvisjeuneState extends State<Avisjeune> {
                 children: [
                   SizedBox(height: 40),
                   Center(
-                    child: Text(
+                    child: AutoSizeText(
                       "Ce que vous pensez du Live...",
                       style: TextStyle(
                         fontFamily: "Poppins",

@@ -23,6 +23,7 @@ class EndPoints{
   static String GetPatientsByPrenom="/jeunes/order-by-prenom";
   static String GetPatientsByNom="/jeunes/order-by-nom";
   static String GetPatientsByAge="/jeunes/order-by-age-asc";
+  static String PostConsultation="/consultations";
 
 
 }
