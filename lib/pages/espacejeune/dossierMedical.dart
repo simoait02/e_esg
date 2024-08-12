@@ -1,4 +1,3 @@
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:e_esg/pages/espacejeune/SideBar/Settings.dart';
 import 'package:flutter/material.dart';
