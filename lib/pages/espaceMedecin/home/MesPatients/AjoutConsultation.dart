@@ -700,10 +700,10 @@ class _AjoutconsultationState extends State<Ajoutconsultation> {
                                       "ordonnance":OrdonnanceController.text,
                                     },
                                     headers: {
-                                      "Authorization": "Bearer $token",
+                                      "Authorization": "$token",
                                     }
                                   );
-                                  Navigator.pop(context);
+                                  // Navigator.pop(context);
                                 } on ServerException catch (e) {
                                   print("dfffffffffffffffffffffffffffffffffffffffffffffffffffff");
                                   Fluttertoast.showToast(msg: e.errormodel.errorMsg,backgroundColor: Colors.red);
