@@ -14,8 +14,9 @@ import 'Cardi.dart';
 
 class Password extends StatefulWidget {
   final Function(double, double) onBackTapped;
+  final Function(double, double) onConfirmTapped;
 
-  Password({super.key, required this.onBackTapped});
+  Password({super.key, required this.onBackTapped,required this.onConfirmTapped});
 
   @override
   State<Password> createState() => _PasswordState();
@@ -311,10 +312,7 @@ class _PasswordState extends State<Password> {
                             headers: {}
                         );
                         Fluttertoast.showToast(msg: "success",backgroundColor: Colors.greenAccent,textColor: Colors.black);
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(builder: (context)=>NavbarDoc()),
-                              (Route<dynamic> route) => false,);
+                        widget.onConfirmTapped(0.55, 0.25);
                       } on ServerException catch (e) {
                         print("dfffffffffffffffffffffffffffffffffffffffffffffffffffff");
                         Fluttertoast.showToast(msg: e.errormodel.errorMsg,backgroundColor: Colors.red);
