@@ -193,7 +193,7 @@ class _LoginState extends State<Login> {
                       SharedPreferences prefs = await SharedPreferences.getInstance();
                       prefs.setString('tokenInf', "Bearer ${userInf!.token}");
                       final decodedToken= JwtDecoder.decode(userInf!.token);
-                      prefs.setInt('Idinf', decodedToken["claims"]["id"]);
+                      prefs.setInt('IdInf', decodedToken["claims"]["id"]);
                       prefs.setBool('isDoc', false);
                       print(decodedToken);
                       Navigator.pushAndRemoveUntil(

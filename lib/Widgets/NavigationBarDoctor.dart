@@ -27,7 +27,7 @@ class _NavbarDocState extends State<NavbarDoc> {
   List<dynamic> selected = [
     const Mespatients(),
     const Newteleexpertise(),
-     EspaceProfessionnel(darkMode:Cardi.isDarkMode.value),
+    const EspaceProfessionnel(),
     const Chatbot(),
     const Profile(),
   ];

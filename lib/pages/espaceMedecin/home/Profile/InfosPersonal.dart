@@ -20,13 +20,16 @@ class Infospersonal extends StatefulWidget {
 
 class _InfospersonalState extends State<Infospersonal> {
   Map<String, dynamic> myInfos = {};
+  bool isDoc=true;
 
   Future<Map<String, dynamic>> getInfos() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? token = prefs.getString('tokenDoc');
-    int? id = prefs.getInt("IdDoc");
+    bool isDoc=prefs.getBool("isDoc")!;
+    this.isDoc=isDoc;
+    String? token =isDoc? prefs.getString('tokenDoc'):prefs.getString('tokenInf');
+    int? id =isDoc? prefs.getInt("IdDoc"):prefs.getInt("IdInf");
     final response = await api.get(
-      "${EndPoints.GetAllMedecins}/$id",
+      "${isDoc?EndPoints.GetAllMedecins:EndPoints.GetInfermierviaId}/$id",
       headers: {
         "Authorization": "$token",
       },
@@ -131,33 +134,37 @@ class _InfospersonalState extends State<Infospersonal> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: height * 0.05,),
-            GestureDetector(
-                onTap: () {
-                  showBarModalBottomSheet(
-                      context: context, builder: (BuildContext context) {
-                    return Bottommodalsheet(
-                      height: height * 0.5,
-                      isDarkMode: Cardi.isDarkMode.value,
-                      width: width,
-                      parametre: "about",
-                      updateInfo: (value) async {
-                        SharedPreferences prefs = await SharedPreferences.getInstance();
-                        String? token = prefs.getString('tokenDoc');
-                        int? id = prefs.getInt("IdDoc");
-                        await api.patch("${EndPoints.GetAllMedecins}/$id",
-                          data:{
-                            "about":value
-                          },
-                          headers: {
-                            "Authorization": "$token",
-                          },);
-                        initMyInfos();
-                        Profile.setLocale(context);
-                      },
-                    );
-                  });
-                },
-                child: BuildWidgets(height, width, appLocalizations.aboutMe, myInfos["about"]??"", "edit", true)),
+            Visibility(
+              visible: isDoc,
+              child: GestureDetector(
+                  onTap: () {
+                    showBarModalBottomSheet(
+                        context: context, builder: (BuildContext context) {
+                      return Bottommodalsheet(
+                        height: height * 0.5,
+                        isDarkMode: Cardi.isDarkMode.value,
+                        width: width,
+                        parametre: "about",
+                        updateInfo: (value) async {
+                          SharedPreferences prefs = await SharedPreferences.getInstance();
+                          bool isDoc=prefs.getBool("isDoc")!;
+                          String? token =isDoc? prefs.getString('tokenDoc'):prefs.getString('tokenInf');
+                          int? id =isDoc? prefs.getInt("IdDoc"):prefs.getInt("IdInf");
+                          await api.patch("${isDoc?EndPoints.GetAllMedecins:EndPoints.GetInfermierviaId}/$id",
+                            data:{
+                              "about":value
+                            },
+                            headers: {
+                              "Authorization": "$token",
+                            },);
+                          initMyInfos();
+                          Profile.setLocale(context);
+                        },
+                      );
+                    });
+                  },
+                  child: BuildWidgets(height, width, appLocalizations.aboutMe, myInfos["about"]??"", "edit", true)),
+            ),
             SizedBox(height: height * 0.02,),
             GestureDetector(
                 onTap: () {
@@ -170,9 +177,10 @@ class _InfospersonalState extends State<Infospersonal> {
                       parametre: "Nom",
                       updateInfo: (value) async {
                         SharedPreferences prefs = await SharedPreferences.getInstance();
-                        String? token = prefs.getString('tokenDoc');
-                        int? id = prefs.getInt("IdDoc");
-                        await api.patch("${EndPoints.GetAllMedecins}/$id",
+                        bool isDoc=prefs.getBool("isDoc")!;
+                        String? token =isDoc? prefs.getString('tokenDoc'):prefs.getString('tokenInf');
+                        int? id =isDoc? prefs.getInt("IdDoc"):prefs.getInt("IdInf");
+                        await api.patch("${isDoc?EndPoints.GetAllMedecins:EndPoints.GetInfermierviaId}/$id",
                           data:{
                           "nom":value
                           },
@@ -198,9 +206,10 @@ class _InfospersonalState extends State<Infospersonal> {
                       parametre: "Prénom",
                       updateInfo: (value) async {
                         SharedPreferences prefs = await SharedPreferences.getInstance();
-                        String? token = prefs.getString('tokenDoc');
-                        int? id = prefs.getInt("IdDoc");
-                        await api.patch("${EndPoints.GetAllMedecins}/$id",
+                        bool isDoc=prefs.getBool("isDoc")!;
+                        String? token =isDoc? prefs.getString('tokenDoc'):prefs.getString('tokenInf');
+                        int? id =isDoc? prefs.getInt("IdDoc"):prefs.getInt("IdInf");
+                        await api.patch("${isDoc?EndPoints.GetAllMedecins:EndPoints.GetInfermierviaId}/$id",
                           data:{
                             "prenom":value
                           },
@@ -220,10 +229,18 @@ class _InfospersonalState extends State<Infospersonal> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                BuildWidgets(height, width * 0.4, "INPE", myInfos["inpe"]??"", "edit", false),
-                BuildWidgets(height, width * 0.4, "PPR", myInfos["ppr"]??"", "edit", false),
+                Expanded(
+                  child: BuildWidgets(height, width, "INPE", myInfos["inpe"] ?? "", "edit", false),
+                ),
+                if (isDoc)
+                  SizedBox(width: width * 0.04),
+                if (isDoc)
+                  Flexible(
+                    child: BuildWidgets(height, width, "PPR", myInfos["ppr"] ?? "", "edit", false),
+                  ),
               ],
             ),
+
             SizedBox(height: height * 0.02,),
             GestureDetector(
                 onTap: () {
@@ -236,9 +253,10 @@ class _InfospersonalState extends State<Infospersonal> {
                       parametre: "email",
                       updateInfo: (value) async {
                         SharedPreferences prefs = await SharedPreferences.getInstance();
-                        String? token = prefs.getString('tokenDoc');
-                        int? id = prefs.getInt("IdDoc");
-                        await api.patch("${EndPoints.GetAllMedecins}/$id",
+                        bool isDoc=prefs.getBool("isDoc")!;
+                        String? token =isDoc? prefs.getString('tokenDoc'):prefs.getString('tokenInf');
+                        int? id =isDoc? prefs.getInt("IdDoc"):prefs.getInt("IdInf");
+                        await api.patch("${isDoc?EndPoints.GetAllMedecins:EndPoints.GetInfermierviaId}/$id",
                           data:{
                             "mail":value
                           },

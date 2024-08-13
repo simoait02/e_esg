@@ -8,8 +8,7 @@ import '../../Widgets/custom_sliver_app_bar.dart';
 import '../../models/live.dart';
 import '../espaceMedecin/LoginSignUp/Cardi.dart';
 class EspaceProfessionnel extends StatefulWidget {
-  final bool darkMode;
-  const EspaceProfessionnel({super.key ,required this.darkMode});
+  const EspaceProfessionnel({super.key});
 
   @override
   State<EspaceProfessionnel> createState() => _EspaceProfessionnelState();
@@ -32,7 +31,7 @@ class _EspaceProfessionnelState extends State<EspaceProfessionnel> {
     titleFontSize = screenWidth*0.035;
     iconFontSize = screenWidth*0.055;
     return Scaffold(
-      backgroundColor: widget.darkMode ? const Color(0xff141218) : Colors.white,
+      backgroundColor: Cardi.isDarkMode.value ? const Color(0xff141218) : Colors.white,
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
@@ -69,7 +68,7 @@ class _EspaceProfessionnelState extends State<EspaceProfessionnel> {
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Icon(Icons.lightbulb_outline,color: widget.darkMode?Colors.black54:Colors.white,),
+                                Icon(Icons.lightbulb_outline,color: Cardi.isDarkMode.value?Colors.black54:Colors.white,),
                                 Expanded(
                                   child: RichText(
                                     textAlign: TextAlign.center,
@@ -114,7 +113,7 @@ class _EspaceProfessionnelState extends State<EspaceProfessionnel> {
                     SizedBox(height: 20,),
                     Container(
                       decoration: BoxDecoration(
-                        color:widget.darkMode?const Color(0x3fc8d3f7): Colors.white,
+                        color:Cardi.isDarkMode.value?const Color(0x3fc8d3f7): Colors.white,
                         borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
                       ),
                       padding: EdgeInsets.all(10),
@@ -170,7 +169,7 @@ class _EspaceProfessionnelState extends State<EspaceProfessionnel> {
                     child: Container(
                       padding: EdgeInsets.symmetric(vertical: 10,horizontal: 15),
                       decoration: BoxDecoration(
-                        color: widget.darkMode?const Color(0x3fc8d3f7):Colors.white,
+                        color: Cardi.isDarkMode.value?const Color(0x3fc8d3f7):Colors.white,
                         borderRadius: BorderRadius.vertical(bottom: Radius.circular(10))
                       ),
                       child:Center(
@@ -201,7 +200,7 @@ class _EspaceProfessionnelState extends State<EspaceProfessionnel> {
                         SizedBox(height: 20,),
                         Container(
                           decoration: BoxDecoration(
-                            color: widget.darkMode?const Color(0x3fc8d3f7):Colors.white,
+                            color: Cardi.isDarkMode.value?const Color(0x3fc8d3f7):Colors.white,
                             borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
                           ),
                           padding: EdgeInsets.all(10),
@@ -259,7 +258,7 @@ class _EspaceProfessionnelState extends State<EspaceProfessionnel> {
                     child: Container(
                       padding: EdgeInsets.symmetric(vertical: 10,horizontal: 15),
                       decoration: BoxDecoration(
-                          color: widget.darkMode?const Color(0x3fc8d3f7):Colors.white,
+                          color: Cardi.isDarkMode.value?const Color(0x3fc8d3f7):Colors.white,
                           borderRadius: BorderRadius.vertical(bottom: Radius.circular(10))
                       ),
                       child:Center(
@@ -287,7 +286,7 @@ class _EspaceProfessionnelState extends State<EspaceProfessionnel> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal:sectionPadding),
       child: Container(
-        color:widget.darkMode?const Color(0x3fc8d3f7): Colors.white,
+        color:Cardi.isDarkMode.value?const Color(0x3fc8d3f7): Colors.white,
         padding: EdgeInsets.symmetric(horizontal: 10),
         child: Column(
           children: [
@@ -306,7 +305,7 @@ class _EspaceProfessionnelState extends State<EspaceProfessionnel> {
                       live.subject,
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
-                        color:widget.darkMode?Color(0xffE6E6FF): Color(0xff2E37A4),
+                        color:Cardi.isDarkMode.value?Color(0xffE6E6FF): Color(0xff2E37A4),
                       ),
                     ),
                   ),

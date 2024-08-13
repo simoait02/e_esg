@@ -32,7 +32,8 @@ class _DiscussionsState extends State<Discussions> {
 
   Future<void> getInvitation() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? token = prefs.getString('tokenDoc');
+    bool isDoc=prefs.getBool("isDoc")!;
+    String? token =isDoc? prefs.getString('tokenDoc'):prefs.getString('tokenInf');
     final get = await api.get(EndPoints.GetInvitation, headers: {
       "Authorization": "$token"
     });
@@ -49,7 +50,8 @@ class _DiscussionsState extends State<Discussions> {
       if (!uniqueIds.contains(invitation["discussionId"])) {
         uniqueIds.add(invitation["discussionId"]);
         SharedPreferences prefs = await SharedPreferences.getInstance();
-        String? token = prefs.getString('tokenDoc');
+        bool isDoc=prefs.getBool("isDoc")!;
+        String? token =isDoc? prefs.getString('tokenDoc'):prefs.getString('tokenInf');
         final get = await api.get(EndPoints.GetDiscussionViaId + "/${invitation["discussionId"]}", headers: {
           "Authorization": "$token"
         });

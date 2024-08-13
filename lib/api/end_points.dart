@@ -24,7 +24,7 @@ class EndPoints{
   static String GetPatientsByNom="/jeunes/order-by-nom";
   static String GetPatientsByAge="/jeunes/order-by-age-asc";
   static String PostConsultation="/consultations";
-
+  static String GetInfermierviaId="/professionnels";
 
 }
 class ApiKey{
