@@ -57,7 +57,8 @@ class _MespatientsState extends State<Mespatients> {
   Future<List<dynamic>> getPatients() async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      String? token = prefs.getString('tokenDoc');
+      bool isDoc=prefs.getBool("isDoc")!;
+      String? token = isDoc? prefs.getString('tokenDoc'):prefs.getString('tokenInf');
       endpoint;
       switch (tri_par) {
         case "Nom":
