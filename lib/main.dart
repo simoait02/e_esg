@@ -4,11 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:e_esg/pages/espacejeune/DossierMedical/DocMedical.dart';
-import 'package:e_esg/pages/espacejeune/SideBar/SidebarController.dart';
-import 'package:e_esg/Widgets/NavigationBarDoctor.dart';
-import 'package:e_esg/pages/IES/espace_admin.dart';
-
 
 void main() {
   runApp(const MyApp());
@@ -48,7 +43,7 @@ class _MyAppState extends State<MyApp> {
         Locale('en')
       ],
       debugShowCheckedModeBanner: false,
-      home:const EspaceAdmin(),
+      home:const EEsj(),
     );
   }
 }
