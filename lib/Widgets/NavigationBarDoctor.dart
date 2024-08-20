@@ -1,5 +1,6 @@
 import 'package:e_esg/pages/IES/espace_professionnel.dart';
 import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
+import 'package:e_esg/pages/espaceMedecin/home/IES.dart';
 import 'package:e_esg/pages/espaceMedecin/home/MesPatients/MesPatients.dart';
 import 'package:e_esg/pages/espaceMedecin/home/Profile/Profile.dart';
 import 'package:e_esg/pages/espaceMedecin/home/Profile/Settings.dart';
@@ -8,8 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import '../pages/espaceMedecin/home/chatbot.dart';
+import '../pages/espaceMedecin/home/Chatbot.dart';
+import 'package:e_esg/models/doctor.dart';
 
 class NavbarDoc extends StatefulWidget {
   const NavbarDoc({super.key});
@@ -17,17 +18,16 @@ class NavbarDoc extends StatefulWidget {
     _NavbarDocState? state = context.findAncestorStateOfType<_NavbarDocState>();
     state!.changeLanguage(newLocale);
   }
-
-
   @override
   State<NavbarDoc> createState() => _NavbarDocState();
 }
 
 class _NavbarDocState extends State<NavbarDoc> {
+  final Doctor doctor = Doctor("Dr. Smith", "Cardiologist");
   List<dynamic> selected = [
     const Mespatients(),
     const Newteleexpertise(),
-    const EspaceProfessionnel(),
+    EspaceProfessionnel(doctor: Doctor("Dr. Smith", "Cardiologist")),
     const Chatbot(),
     const Profile(),
   ];

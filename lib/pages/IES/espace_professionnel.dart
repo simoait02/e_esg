@@ -1,31 +1,53 @@
 import 'dart:math';
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:e_esg/Data/live_list.dart';
+import 'package:e_esg/pages/IES/statistiques.dart';
 import 'package:flutter/material.dart';
-
 import '../../Widgets/custom_sliver_app_bar.dart';
 import '../../models/live.dart';
 import '../espaceMedecin/LoginSignUp/Cardi.dart';
+import '../../models/doctor.dart';
+import '../../api/api_Comsumer.dart';
+import '../../api/Dio_Consumer.dart';
+import 'package:dio/dio.dart';
 class EspaceProfessionnel extends StatefulWidget {
-  const EspaceProfessionnel({super.key});
+  final Doctor doctor; 
+  const EspaceProfessionnel({super.key, required this.doctor});
 
   @override
   State<EspaceProfessionnel> createState() => _EspaceProfessionnelState();
 }
 
 class _EspaceProfessionnelState extends State<EspaceProfessionnel> {
+  late LiveList _liveList;
+  List<Live> _thisWeekLives = [];
+  List<Live> _yourLives = [];
+  List<Live> _allLives = [];
+
+  @override
+  void initState() {
+    super.initState();
+    final ApiComsumer apiConsumer = DioConsumer(dio: Dio());
+    _liveList = LiveList(apiConsumer: apiConsumer);
+    _fetchData();
+  }
+
+  Future<void> _fetchData() async {
+    await _liveList.fetchLiveData();
+    setState(() {
+      _thisWeekLives = _liveList.thisWeekLives;
+      _yourLives = _liveList.getLivesByDoctor(widget.doctor);
+      _allLives = _liveList.getLives();
+    });
+  }
   double sectionPadding=0;
   double titleFontSize =0;
   double iconFontSize =0;
-  int pagenumber=1;
   int index1=6;
-  int numberOfPages = (yourLives.length + 5) ~/ 6;
-  int pagenumber2=1;
   int index2=6;
-  int numberOfPages2 = (yourLives.length + 5) ~/ 6;
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     sectionPadding = screenWidth*0.04;
     titleFontSize = screenWidth*0.035;
@@ -36,7 +58,7 @@ class _EspaceProfessionnelState extends State<EspaceProfessionnel> {
         child: CustomScrollView(
           slivers: [
             CustomSliverAppBar(
-                name: "Liam Michael",
+                name: "Simo",
                 role: "Docteur",
                 imagePath: 'assets/images/boy.png'),
             SliverToBoxAdapter(
@@ -147,7 +169,6 @@ class _EspaceProfessionnelState extends State<EspaceProfessionnel> {
                         ],
                       ),
                     )
-
                   ],
                 ),
               ),
@@ -156,9 +177,9 @@ class _EspaceProfessionnelState extends State<EspaceProfessionnel> {
               delegate: SliverChildBuilderDelegate(
                     (context, index) {
                   int itemIndex = index;
-                  return liveComponent(live: yourLives[itemIndex]);
+                  return liveComponent(live:  _yourLives[itemIndex]);
                 },
-                childCount: min(index1, yourLives.length),
+                childCount: min(index1,  _yourLives.length),
               ),
             ),
             SliverToBoxAdapter(
@@ -173,7 +194,7 @@ class _EspaceProfessionnelState extends State<EspaceProfessionnel> {
                         borderRadius: BorderRadius.vertical(bottom: Radius.circular(10))
                       ),
                       child:Center(
-                          child: (index1 < yourLives.length)?GestureDetector(
+                          child: (index1 <  _yourLives.length)?GestureDetector(
                             onTap: ()=>setState(() {
                               index1+=6;
                             }),
@@ -245,9 +266,9 @@ class _EspaceProfessionnelState extends State<EspaceProfessionnel> {
               delegate: SliverChildBuilderDelegate(
                     (context,index) {
                   int itemIndex=index;
-                  return liveComponent(live: yourLives[itemIndex]);
+                  return liveComponent(live:  _yourLives[itemIndex]);
                 },
-                childCount:min(index2, yourLives.length),
+                childCount:min(index2,  _yourLives.length),
               ),
             ),
             SliverToBoxAdapter(
@@ -262,7 +283,7 @@ class _EspaceProfessionnelState extends State<EspaceProfessionnel> {
                           borderRadius: BorderRadius.vertical(bottom: Radius.circular(10))
                       ),
                       child:Center(
-                        child: (index2 < yourLives.length)?GestureDetector(
+                        child: (index2 <  _yourLives.length)?GestureDetector(
                           onTap: ()=>setState(() {
                             index2+=6;
                           }),

@@ -1,13 +1,18 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:e_esg/pages/IES/lives.dart';
+import 'package:e_esg/pages/IES/statistiques.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:marqueer/marqueer.dart';
 import '../../Data/live_list.dart';
 import '../../Widgets/custom_sliver_app_bar.dart';
 import '../../models/live.dart';
+import 'ajoutLive.dart';
 import 'calendrier.dart';
 import 'live_informations_page.dart';
+import 'package:dio/dio.dart';
+import '../../api/api_Comsumer.dart';
+import '../../api/Dio_Consumer.dart';
 
 class EspaceAdmin extends StatefulWidget {
   const EspaceAdmin({super.key});
@@ -17,15 +22,45 @@ class EspaceAdmin extends StatefulWidget {
 }
 
 class _EspaceAdminState extends State<EspaceAdmin> {
+  late LiveList liveList;
+  late List<Live> thisWeekLives;
+  late List<Live> allLives;
+  bool isLoading = true;
   double sectionPadding=0;
   double titleFontSize =0;
   double iconFontSize =0;
 
 
   @override
+  void initState() {
+    super.initState();
+    final ApiComsumer apiConsumer = DioConsumer(dio: Dio());
+    liveList = LiveList(apiConsumer: apiConsumer);
+    fetchLives();
+  }
+
+  Future<void> fetchLives() async {
+    try {
+      await liveList.fetchLiveData();
+      setState(() {
+        thisWeekLives = liveList.thisWeekLives;
+        allLives = liveList.allLives;
+        isLoading = false;
+      });
+    } catch (e) {
+      // Handle error
+      print('Error fetching lives: $e');
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     var brightness = MediaQuery.of(context).platformBrightness;
     bool isDarkMode = brightness == Brightness.dark;
+    final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     sectionPadding = screenWidth*0.04;
     titleFontSize = screenWidth*0.035;

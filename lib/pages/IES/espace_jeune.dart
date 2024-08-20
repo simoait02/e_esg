@@ -1,12 +1,17 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:e_esg/pages/IES/avisJeune.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:marqueer/marqueer.dart';
-
+import '../../api/api_Comsumer.dart';
+import '../../api/Dio_Consumer.dart';
 import '../../Data/live_list.dart';
 import '../../Widgets/ajout_proposition_dialog.dart';
+import '../../Widgets/custom_sliver_app_bar.dart';
 import '../../models/live.dart';
 import '../espacejeune/SideBar/Settings.dart';
+import 'package:dio/dio.dart';
+import 'ajoutLive.dart';
 import 'live_informations_page.dart';
 import 'lives.dart';
  class EspaceJeune extends StatefulWidget {
@@ -17,12 +22,22 @@ import 'lives.dart';
  }
 
  class _EspaceJeuneState extends State<EspaceJeune> {
+   late LiveList _liveList;
+   late Future<void> _fetchDataFuture;
    double sectionPadding=0;
    double titleFontSize =0;
    double iconFontSize =0;
-   void addNewProposition(String subject) {
 
-   }
+  @override
+  void initState() {
+    super.initState();
+    final ApiComsumer apiConsumer = DioConsumer(dio: Dio());
+    _liveList = LiveList(apiConsumer: apiConsumer);
+    _fetchDataFuture = _liveList.fetchLiveData();
+  }
+  void addNewProposition(String subject) {
+
+  }
    @override
    Widget build(BuildContext context) {
      final screenWidth = MediaQuery.of(context).size.width;
@@ -105,9 +120,9 @@ import 'lives.dart';
                            height: 270,
                            child: ListView.builder(
                              scrollDirection: Axis.horizontal,
-                             itemCount: thisWeekLives.length,
+                             itemCount:  _liveList.thisWeekLives.length,
                              itemBuilder: (context, index) {
-                               return liveComponent(live: thisWeekLives[index], context: context);
+                               return liveComponent(live:  _liveList.thisWeekLives[index], context: context);
                              },
                            ),
                          ),
@@ -124,9 +139,9 @@ import 'lives.dart';
                            height: 270,
                            child: ListView.builder(
                              scrollDirection: Axis.horizontal,
-                             itemCount:allLives.length,
+                             itemCount:_liveList.allLives.length,
                              itemBuilder: (context, index1) {
-                               return liveComponent2(live: allLives[index1]);
+                               return liveComponent2(live: _liveList.allLives[index1]);
                              },
                            ),
                          ),

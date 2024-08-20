@@ -5,21 +5,48 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:e_esg/Widgets/custom_sliver_app_bar.dart';
 import 'package:e_esg/Data/live_list.dart';
 import 'package:e_esg/models/live.dart';
-import 'lives.dart'; // Import the live_list.dart file
+import 'lives.dart'; 
+import '../../models/doctor.dart';
+import '../../api/api_Comsumer.dart';
+import '../../api/Dio_Consumer.dart';
+import 'package:dio/dio.dart';
 
 class IesDoctor extends StatefulWidget {
-  const IesDoctor({super.key});
+  final Doctor doctor; 
+  const IesDoctor({super.key, required this.doctor});
 
   @override
   State<IesDoctor> createState() => _IesDoctorState();
 }
 
 class _IesDoctorState extends State<IesDoctor> {
+  late LiveList _liveList;
+  List<Live> _thisWeekLives = [];
+  List<Live> _yourLives = [];
+  List<Live> _allLives = [];
   double sectionPadding = 0;
   double iconButtonSize = 0;
   double titleFontSize = 0;
   double width=0;
   double height=0;
+
+
+  @override
+  void initState() {
+    super.initState();
+    final ApiComsumer apiConsumer = DioConsumer(dio: Dio());
+    _liveList = LiveList(apiConsumer: apiConsumer);
+    _fetchData();
+  }
+
+  Future<void> _fetchData() async {
+    await _liveList.fetchLiveData();
+    setState(() {
+      _thisWeekLives = _liveList.thisWeekLives;
+      _yourLives = _liveList.getLivesByDoctor(widget.doctor);
+      _allLives = _liveList.getLives();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +66,7 @@ class _IesDoctorState extends State<IesDoctor> {
         child: CustomScrollView(
           slivers: [
             CustomSliverAppBar(
-              name: "Simo",
+              name: widget.doctor.name,
               role: "docteur",
               imagePath: 'assets/images/boy.png',
             ),
@@ -62,9 +89,9 @@ class _IesDoctorState extends State<IesDoctor> {
                       height: 300,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: thisWeekLives.length,
+                        itemCount: _thisWeekLives.length,
                         itemBuilder: (context, index) {
-                          return liveComponent(live: thisWeekLives[index]);
+                          return liveComponent(live: _thisWeekLives[index]);
                         },
                       ),
                     ),
@@ -81,7 +108,7 @@ class _IesDoctorState extends State<IesDoctor> {
                         Spacer(),
                         IconButton(
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>YourLives()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>YourLives(doctor: widget.doctor)));
                           },
                           icon: Container(
                             width: iconButtonSize - 3,
@@ -96,9 +123,9 @@ class _IesDoctorState extends State<IesDoctor> {
                       height: 300,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: yourLives.length,
+                        itemCount: _yourLives.length,
                         itemBuilder: (context, index) {
-                          return liveComponent(live: yourLives[index]);
+                          return liveComponent(live: _yourLives[index]);
                         },
                       ),
                     ),
@@ -130,9 +157,9 @@ class _IesDoctorState extends State<IesDoctor> {
                       height: 300,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: allLives.length,
+                        itemCount: _allLives.length,
                         itemBuilder: (context, index) {
-                          return liveComponent(live: allLives[index]);
+                          return liveComponent(live: _allLives[index]);
                         },
                       ),
                     ),

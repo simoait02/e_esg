@@ -5,12 +5,15 @@ import 'package:e_esg/pages/IES/statistiques.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:flutter/cupertino.dart';
-
 import 'package:e_esg/Data/live_list.dart';
 import 'package:e_esg/models/live.dart';
 import 'live_informations_page.dart';
+import 'package:dio/dio.dart';
+import '../../api/api_Comsumer.dart';
+import '../../api/Dio_Consumer.dart';
 
 class Calendrier extends StatefulWidget {
+
   const Calendrier({Key? key}) : super(key: key);
 
   @override
@@ -18,16 +21,30 @@ class Calendrier extends StatefulWidget {
 }
 
 class CalendrierState extends State<Calendrier> {
+  late final LiveList liveList;
   late CalendarView _view;
   final CalendarController _calendarController = CalendarController();
+  late LiveDataSource _dataSource = LiveDataSource([]);
 
   @override
   void initState() {
     super.initState();
+    liveList = LiveList(apiConsumer: DioConsumer(dio: Dio()));
     _view = CalendarView.month;
     _calendarController.view = _view;
+    _loadLiveData();
   }
 
+  Future<void> _loadLiveData() async {
+    try {
+      await liveList.fetchLiveData();
+      setState(() {
+        _dataSource = LiveDataSource(liveList.getLives());
+      });
+    } catch (e) {
+      print('Erreur lors du chargement des données: $e');
+    }
+  }
   void selectView(CalendarView view) {
     setState(() {
       _view = view;
@@ -77,9 +94,6 @@ class CalendrierState extends State<Calendrier> {
       ),
     );
   }
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -222,7 +236,7 @@ class CalendrierState extends State<Calendrier> {
                                   controller: _calendarController,
                                   view: _view,
                                   firstDayOfWeek: 1,
-                                  dataSource: LiveDataSource(getLives()),
+                                  dataSource: _dataSource,
                                   onTap: _view == CalendarView.month?_onCalendarTapped:null,
                                   todayHighlightColor: Color(0xFF2E37A4),
                                   headerStyle: CalendarHeaderStyle(
@@ -378,14 +392,21 @@ class CalendrierState extends State<Calendrier> {
     );
   }
 }
-List<Live> getLives() {
-  List<Live> lives = <Live>[];
-  lives.addAll([live1,live2,live3]);
-  return lives;
-}
 
 class LiveDataSource extends CalendarDataSource {
   LiveDataSource(List<Live> source) {
     appointments = source;
   }
+
+  @override
+  DateTime getStartTime(int index) => appointments![index].startDate;
+
+  @override
+  DateTime getEndTime(int index) => appointments![index].endDate;
+
+  @override
+  String getSubject(int index) => appointments![index].subject;
+
+  @override
+  Color getColor(int index) => appointments![index].color;
 }

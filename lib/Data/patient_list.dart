@@ -2,6 +2,25 @@ import 'package:e_esg/Data/doctor_list.dart';
 import 'package:e_esg/Data/live_list.dart';
 import 'package:e_esg/models/patient.dart';
 
+
+DateTime date1 = DateTime(2024, 1, 10);
+DateTime date2 = DateTime(2023, 12, 20);
+DateTime date3 = DateTime(2024, 2, 14);
+DateTime date4 = DateTime(2023, 11, 30);
+DateTime date5 = DateTime(2024, 3, 5);
+DateTime date6 = DateTime(2023, 7, 25);
+DateTime date7 = DateTime(2024, 8, 12);
+DateTime date8 = DateTime(2023, 10, 18);
+DateTime date9 = DateTime(2024, 4, 22);
+DateTime date10 = DateTime(2023, 9, 17);
+DateTime date11 = DateTime(2024, 5, 7);
+DateTime date12 = DateTime(2023, 6, 29);
+DateTime date13 = DateTime(2024, 1, 25);
+DateTime date14 = DateTime(2023, 3, 19);
+DateTime date15 = DateTime(2024, 7, 15);
+DateTime date16 = DateTime(2023, 2, 9);
+DateTime date17 = DateTime(2024, 12, 1);
+
 Patient patient1=Patient("0","Sergio","Ramos","Homme",16,date1,["Fièvre"],[doctor1]);
 Patient patient2=Patient("1","Chaimae","Bouti","Femme",21,date2,["Anaplasmosis","Anaplasmosis","Lupus erythemateux sytematique","oedeme","rhumotoide"],[doctor2]);
 Patient patient3=Patient("2","Imane","Sehmoudi","Femme",14,date3,["rhumotoide"],[doctor1,doctor8]);

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-
+import '../../api/api_Comsumer.dart';
+import '../../api/Dio_Consumer.dart';
+import 'package:dio/dio.dart';
 import 'package:e_esg/Data/live_list.dart';
+import 'package:e_esg/Widgets/custom_sliver_app_bar.dart';
 import 'package:e_esg/Widgets/search.dart';
 import 'package:e_esg/models/live.dart';
 import '../espacejeune/SideBar/Settings.dart';
@@ -13,7 +16,8 @@ class Lives extends StatefulWidget {
 }
 
 class _LivesState extends State<Lives> {
-
+  late LiveList _liveList;
+  late Future<void> _fetchDataFuture;
   List<Live> _foundedLives = [];
   double sectionPadding = 16.0;
   double titleFontSize = 20.0;
@@ -21,12 +25,15 @@ class _LivesState extends State<Lives> {
   @override
   void initState() {
     super.initState();
-    _foundedLives = allLives; 
+    final ApiComsumer apiConsumer = DioConsumer(dio: Dio());
+    _liveList = LiveList(apiConsumer: apiConsumer);
+    _fetchDataFuture = _liveList.fetchLiveData();
+    _foundedLives = _liveList.allLives; 
   }
 
   void onSearch(String search) {
     setState(() {
-      _foundedLives = allLives.where((live) {
+      _foundedLives =  _liveList.allLives.where((live) {
         return live.subject.toLowerCase().contains(search.toLowerCase());
       }).toList();
     });

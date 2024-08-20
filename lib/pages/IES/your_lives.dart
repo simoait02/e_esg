@@ -1,31 +1,47 @@
+import 'package:e_esg/pages/espaceMedecin/LoginSignUp/Cardi.dart';
 import 'package:flutter/material.dart';
 import 'package:e_esg/Widgets/custom_sliver_app_bar.dart';
 import 'package:e_esg/Widgets/search.dart';
-import 'package:e_esg/Data/live_list.dart'; // Import your data source
+import 'package:e_esg/Data/live_list.dart'; 
 import 'package:e_esg/models/live.dart';
 import 'live_informations_page.dart';
+import 'package:e_esg/models/doctor.dart'; 
+import '../../api/api_Comsumer.dart';
+import '../../api/Dio_Consumer.dart';
+import 'package:dio/dio.dart';
 
 class YourLives extends StatefulWidget {
-  const YourLives({super.key});
+  final Doctor doctor;
+  const YourLives({super.key, required this.doctor});
 
   @override
   State<YourLives> createState() => _YourLivesState();
 }
 
 class _YourLivesState extends State<YourLives> {
+  late LiveList _liveList;
   List<Live> _foundedLives = [];
-  double sectionPadding = 16.0; // Example padding value
-  double titleFontSize = 20.0; // Example font size value
+  double sectionPadding = 16.0; 
+  double titleFontSize = 20.0; 
 
   @override
   void initState() {
     super.initState();
-    _foundedLives = yourLives; // Initialize with your initial data
+    final ApiComsumer apiConsumer = DioConsumer(dio: Dio());
+    _liveList = LiveList(apiConsumer: apiConsumer);
+    _fetchData();
+  }
+
+  Future<void> _fetchData() async {
+    await _liveList.fetchLiveData();
+    setState(() {
+      _foundedLives = _liveList.getLivesByDoctor(widget.doctor); 
+    });
   }
 
   void onSearch(String search) {
     setState(() {
-      _foundedLives = yourLives.where((live) {
+      _foundedLives = _liveList.getLivesByDoctor(widget.doctor).where((live) {
         return live.subject.toLowerCase().contains(search.toLowerCase());
       }).toList();
     });

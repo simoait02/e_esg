@@ -1,6 +1,7 @@
 import 'package:e_esg/pages/IES/espace_jeune.dart';
 import 'package:e_esg/pages/espacejeune/SideBar/Settings.dart';
 import 'package:e_esg/pages/espacejeune/dossierMedical.dart';
+import 'package:e_esg/pages/espacejeune/ies.dart';
 import 'package:e_esg/pages/espacejeune/testpsy1.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:e_esg/pages/espacejeune/SideBar/Settings.dart';
 
 class NavbarYouth extends StatefulWidget {
   final bool isSideBarClosed;
@@ -129,7 +131,6 @@ class _NavbarYouthState extends State<NavbarYouth> with TickerProviderStateMixin
           debugShowCheckedModeBanner: false,
           theme: isDarkMode ? ThemeData.dark() : ThemeData.light(),
           home: Scaffold(
-            backgroundColor: Colors.white,
             body: Stack(
               children: [
                 GestureDetector(
