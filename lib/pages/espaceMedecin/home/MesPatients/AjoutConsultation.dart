@@ -94,10 +94,10 @@ class _AjoutconsultationState extends State<Ajoutconsultation> {
                     Center(
                       child: AutoSizeText("Ajouter une consultation",
                         style: TextStyle(
-                        fontFamily: "Poppins",
-                        fontWeight: FontWeight.w700,
-                        fontSize: titleFontSize,
-                      ),),
+                          fontFamily: "Poppins",
+                          fontWeight: FontWeight.w700,
+                          fontSize: titleFontSize,
+                        ),),
                     ),
                     SizedBox(height: 50),
                     Container(
@@ -670,40 +670,40 @@ class _AjoutconsultationState extends State<Ajoutconsultation> {
                                   int? id = prefs.getInt("IdDoc");
                                   print(patient["dossierMedial"]["antecedentsPersonnels"][0]["type"]);
                                   await api.post(
-                                    "/$id/${EndPoints.PostConsultation}",
-                                    data: {
-                                      "date": "${label}T$label1",
-                                      "motif": motifConsultationController.text,
-                                      "antecedentPersonnel": {
-                                        "type": patient["dossierMedial"]["antecedentsPersonnels"][0]["type"],
-                                        "specification": patient["dossierMedial"]["antecedentsPersonnels"][0]["specification"],
-                                        "specificationAutre": patient["dossierMedial"]["antecedentsPersonnels"][0]["specificationAutre"],
-                                        "nombreAnnee":patient["dossierMedial"]["antecedentsPersonnels"][0]["nombreAnnee"]
+                                      "/$id/${EndPoints.PostConsultation}",
+                                      data: {
+                                        "date": "${label}T$label1",
+                                        "motif": motifConsultationController.text,
+                                        "antecedentPersonnel": {
+                                          "type": patient["dossierMedial"]["antecedentsPersonnels"][0]["type"],
+                                          "specification": patient["dossierMedial"]["antecedentsPersonnels"][0]["specification"],
+                                          "specificationAutre": patient["dossierMedial"]["antecedentsPersonnels"][0]["specificationAutre"],
+                                          "nombreAnnee":patient["dossierMedial"]["antecedentsPersonnels"][0]["nombreAnnee"]
+                                        },
+                                        "antecedentFamilial": {
+                                          "typeAntFam": patient["dossierMedial"]["antecedentsFamiliaux"][0]["typeAntFam"],
+                                          "autre": patient["dossierMedial"]["antecedentsFamiliaux"][0]["autre"]
+                                        },
+                                        "examenMedical": {
+                                          "typeExamen":TypeExamenController.text,
+                                          "specificationExamen": SpecificationExamenController.text,
+                                          "autreSpecification": AutreSpecificationController.text
+                                        },
+                                        "historiqueClinique": HistoriqueClinicController.text,
+                                        "examenClinique": ExamenClinicController.text,
+                                        "Diagnostic": DiagnosticController.text,
+                                        "Ordonnance": OrdonnanceController.text,
+                                        "jeuneId":patient["id"],
+                                        "medecinId": id,
+                                        "dossierMedicalId": patient["dossierMedial"]['id'],
+                                        "diagnostic":DiagnosticController.text,
+                                        "ordonnance":OrdonnanceController.text,
                                       },
-                                      "antecedentFamilial": {
-                                        "typeAntFam": patient["dossierMedial"]["antecedentsFamiliaux"][0]["typeAntFam"],
-                                        "autre": patient["dossierMedial"]["antecedentsFamiliaux"][0]["autre"]
-                                      },
-                                      "examenMedical": {
-                                        "typeExamen":TypeExamenController.text,
-                                        "specificationExamen": SpecificationExamenController.text,
-                                        "autreSpecification": AutreSpecificationController.text
-                                      },
-                                      "historiqueClinique": HistoriqueClinicController.text,
-                                      "examenClinique": ExamenClinicController.text,
-                                      "Diagnostic": DiagnosticController.text,
-                                      "Ordonnance": OrdonnanceController.text,
-                                      "jeuneId":patient["id"],
-                                      "medecinId": id,
-                                      "dossierMedicalId": patient["dossierMedial"]['id'],
-                                      "diagnostic":DiagnosticController.text,
-                                      "ordonnance":OrdonnanceController.text,
-                                    },
-                                    headers: {
-                                      "Authorization": "Bearer $token",
-                                    }
+                                      headers: {
+                                        "Authorization": "$token",
+                                      }
                                   );
-                                  Navigator.pop(context);
+                                  // Navigator.pop(context);
                                 } on ServerException catch (e) {
                                   print("dfffffffffffffffffffffffffffffffffffffffffffffffffffff");
                                   Fluttertoast.showToast(msg: e.errormodel.errorMsg,backgroundColor: Colors.red);
