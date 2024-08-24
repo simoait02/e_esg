@@ -4,6 +4,7 @@ import 'package:e_esg/pages/espacejeune/SideBar/Settings.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../api/end_points.dart';
@@ -58,9 +59,15 @@ class DossiermedicalState extends State<Dossiermedical> {
         data["nom"] = get["nom"];
         data["prenom"] = get["prenom"];
         data["sex"] = get["sexe"];
-        data["birthDay"] = get["dateNaissance"];
+
+        // Convert timestamp to date string
+        int timestamp = get["dateNaissance"];
+        DateTime birthDate = DateTime.fromMillisecondsSinceEpoch(timestamp);
+        data["birthDay"] = DateFormat('yyyy-MM-dd').format(birthDate);
+
         data["email"] = get["mail"];
         data["tele"] = get["numTele"];
+
         if (get['age'] >= 16) {
           data["CIN"] = get["cin"] ?? "";
         }
