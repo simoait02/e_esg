@@ -700,7 +700,7 @@ class _AjoutconsultationState extends State<Ajoutconsultation> {
                                       "ordonnance":OrdonnanceController.text,
                                     },
                                     headers: {
-                                      "Authorization": token,
+                                      "Authorization": "Bearer $token",
                                     }
                                   );
                                   Navigator.pop(context);
