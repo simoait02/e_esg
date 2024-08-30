@@ -73,8 +73,6 @@ class _VoirdossiermedicalState extends State<Voirdossiermedical> {
     double height = MediaQuery.of(context).size.height;
     final appLocalizations = AppLocalizations.of(context)!;
 
-    double sectionPadding = width * 0.03;
-    double titleFontSize = width * 0.06;
     bool isArabic(BuildContext context) {
       return Localizations.localeOf(context).languageCode == 'ar';
     }
@@ -117,7 +115,7 @@ class _VoirdossiermedicalState extends State<Voirdossiermedical> {
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Container(
+                              SizedBox(
                                 width: width * 0.3,
                                 child: AutoSizeText(
                                   maxLines: 2,

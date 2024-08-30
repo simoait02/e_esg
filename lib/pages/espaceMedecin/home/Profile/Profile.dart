@@ -22,15 +22,17 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   Map<String, dynamic> myInfos = {};
   bool isLoading = true;
-
+  bool isDoc=true;
   Future<Map<String, dynamic>> getInfos() async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      String? token = prefs.getString('tokenDoc');
-      int? id = prefs.getInt("IdDoc");
+      bool isDoc=prefs.getBool("isDoc")!;
+      this.isDoc=isDoc;
+      String? token =isDoc? prefs.getString('tokenDoc'):prefs.getString('tokenInf');
+      int? id =isDoc? prefs.getInt("IdDoc"):prefs.getInt("IdInf");
 
       final response = await api.get(
-        "${EndPoints.GetAllMedecins}/$id",
+        "${isDoc?EndPoints.GetAllMedecins:EndPoints.GetInfermierviaId}/$id",
         headers: {
           "Authorization": "$token",
         },
@@ -174,22 +176,25 @@ class _ProfileState extends State<Profile> {
                             color: const Color(0xff0ee58d)
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 20),
-                        child: AutoSizeText(
-                          myInfos["about"] ?? "n/a",
-                          style: GoogleFonts.ubuntu(
-                            fontSize: 14,
+                      Visibility(
+                        visible: isDoc,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 20),
+                          child: AutoSizeText(
+                            myInfos["about"] ?? "n/a",
+                            style: GoogleFonts.ubuntu(
+                              fontSize: 14,
+                            ),
                           ),
                         ),
                       ),
                       buildInfoRow(appLocalizations.nom, myInfos["nom"] ?? "", isDarkMode),
                       buildInfoRow(appLocalizations.prenom, myInfos["prenom"] ?? "", isDarkMode),
-                      buildInfoRow(appLocalizations.stateDoc.split("?")[0], myInfos["estMedcinESJ"] == null ? "" : myInfos["estMedcinESJ"] ? "oui" : "non", isDarkMode),
-                      buildInfoRow(appLocalizations.speciality, myInfos["specialite"] ?? "", isDarkMode),
+                      Visibility(visible:isDoc,child:  buildInfoRow(appLocalizations.stateDoc.split("?")[0], myInfos["estMedcinESJ"] == null ? "" : myInfos["estMedcinESJ"] ? "oui" : "non", isDarkMode)),
+                      Visibility(visible: isDoc,child: buildInfoRow(appLocalizations.speciality, myInfos["specialite"] ?? "", isDarkMode)),
                       buildInfoRow("CIN", myInfos["cin"] ?? "", isDarkMode),
                       buildInfoRow("INPE", myInfos["inpe"] ?? "", isDarkMode),
-                      buildInfoRow("ppr", myInfos["ppr"] ?? "", isDarkMode),
+                      Visibility(visible: isDoc,child: buildInfoRow("ppr", myInfos["ppr"] ?? "", isDarkMode)),
                       buildInfoRow(appLocalizations.email, myInfos["mail"] ?? "", isDarkMode),
                     ],
                   ),

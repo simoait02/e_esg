@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'Cardi.dart';
 
 class Login extends StatefulWidget {
@@ -152,7 +153,8 @@ class _LoginState extends State<Login> {
             alignment: Alignment.center,
             child: CupertinoButton(
                 child: Container(
-                    width: width * 0.3,
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                    width: width * 0.35,
                     height: height*0.05,
                     decoration: BoxDecoration(
                         gradient: const LinearGradient(
@@ -188,11 +190,15 @@ class _LoginState extends State<Login> {
                         }, headers: {},
                       );
                       userInf=SininModelinf.fromJson(response);
+                      SharedPreferences prefs = await SharedPreferences.getInstance();
+                      prefs.setString('tokenInf', "Bearer ${userInf!.token}");
                       final decodedToken= JwtDecoder.decode(userInf!.token);
+                      prefs.setInt('IdInf', decodedToken["claims"]["id"]);
+                      prefs.setBool('isDoc', false);
                       print(decodedToken);
                       Navigator.pushAndRemoveUntil(
                         context,
-                        MaterialPageRoute(builder: (context)=>NavbarDoc()),
+                        MaterialPageRoute(builder: (context)=>const NavbarDoc()),
                             (Route<dynamic> route) => false,);
                     } on ServerException catch (e) {
                       print("dfffffffffffffffffffffffffffffffffffffffffffffffffffff");

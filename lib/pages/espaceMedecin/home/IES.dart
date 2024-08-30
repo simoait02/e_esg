@@ -8,18 +8,46 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:e_esg/Widgets/custom_sliver_app_bar.dart';
 import 'package:e_esg/Data/live_list.dart';
 import 'package:e_esg/models/live.dart';
+import 'package:e_esg/models/doctor.dart';
+import 'package:e_esg/api/api_Comsumer.dart';
+import 'package:e_esg/api/Dio_Consumer.dart';
+import 'package:dio/dio.dart';
+
 
 class Ies extends StatefulWidget {
-  const Ies({super.key});
+  final Doctor doctor; 
+  const Ies({super.key ,required this.doctor});
 
   @override
   State<Ies> createState() => _IesState();
 }
 
 class _IesState extends State<Ies> {
+  late LiveList _liveList;
+  List<Live> _thisWeekLives = [];
+  List<Live> _yourLives = [];
+  List<Live> _allLives = [];
   double sectionPadding = 0;
   double iconButtonSize = 0;
   double titleFontSize = 0;
+
+
+  @override
+  void initState() {
+    super.initState();
+    final ApiComsumer apiConsumer = DioConsumer(dio: Dio());
+    _liveList = LiveList(apiConsumer: apiConsumer);
+    _fetchData();
+  }
+
+  Future<void> _fetchData() async {
+    await _liveList.fetchLiveData();
+    setState(() {
+      _thisWeekLives = _liveList.thisWeekLives;
+      _yourLives = _liveList.getLivesByDoctor(widget.doctor);
+      _allLives = _liveList.getLives();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +63,7 @@ class _IesState extends State<Ies> {
         child: CustomScrollView(
           slivers: [
             CustomSliverAppBar(
-              name: "Simo",
+              name:  widget.doctor.name,
               role: "Docteur",
               imagePath: 'assets/images/boy.png',
             ),
@@ -61,9 +89,9 @@ class _IesState extends State<Ies> {
                       height: 290,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: thisWeekLives.length,
+                        itemCount:  _thisWeekLives.length,
                         itemBuilder: (context, index) {
-                          return liveComponent(live: thisWeekLives[index],isDarkMode: Cardi.isDarkMode.value);
+                          return liveComponent(live:  _thisWeekLives[index],isDarkMode: Cardi.isDarkMode.value);
                         },
                       ),
                     ),
@@ -86,7 +114,7 @@ class _IesState extends State<Ies> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => YourLives()));
+                                    builder: (context) => YourLives(doctor: widget.doctor)));
                           },
                           icon: Container(
                             width: iconButtonSize - 3,
@@ -102,9 +130,9 @@ class _IesState extends State<Ies> {
                       height: 290,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: yourLives.length,
+                        itemCount:_yourLives.length,
                         itemBuilder: (context, index) {
-                          return liveComponent(live: yourLives[index],isDarkMode: Cardi.isDarkMode.value);
+                          return liveComponent(live: _yourLives[index],isDarkMode: Cardi.isDarkMode.value);
                         },
                       ),
                     ),
@@ -143,9 +171,9 @@ class _IesState extends State<Ies> {
                       height: 290,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: allLives.length,
+                        itemCount: _allLives.length,
                         itemBuilder: (context, index) {
-                          return liveComponent(live: allLives[index],isDarkMode: Cardi.isDarkMode.value);
+                          return liveComponent(live: _allLives[index],isDarkMode: Cardi.isDarkMode.value);
                         },
                       ),
                     ),

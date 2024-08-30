@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:e_esg/api/end_points.dart';
+import 'package:dio/dio.dart';
 
 class AddPropositionDialog extends StatefulWidget {
 
@@ -34,9 +36,29 @@ class _AddPropositionDialogState extends State<AddPropositionDialog> {
     super.dispose();
   }
 
+
+  Future<void> _sendProposition(String proposition) async {
+    try {
+      final response = await Dio().post(
+        '${EndPoints.baseUrl}${EndPoints.AddSuggestedTheme(1)}', 
+        data: {'suggestion': proposition},
+      );
+
+      if (response.statusCode == 200) {
+        print('Proposition added successfully');
+      } else {
+        print('Failed to add proposition: ${response.statusMessage}');
+      }
+    } catch (e) {
+      print('Error adding proposition: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+    double iconButtonSize = screenWidth * 0.10;
+    double sectionPadding = screenWidth * 0.04;
     double titleFontSize = screenWidth * 0.06 -6;
     return SimpleDialog(
       title: Center(
@@ -104,6 +126,7 @@ class _AddPropositionDialogState extends State<AddPropositionDialog> {
                 String subject = _textEditingController.text.trim();
                 if (subject.isNotEmpty) {
                   widget.onConfirm(subject);
+                  _sendProposition(subject);
                 }
                 Navigator.of(context).pop();
               },

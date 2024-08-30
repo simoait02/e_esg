@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:searchfield/searchfield.dart';
 import '../../Widgets/text_field.dart';
 import '../espacejeune/SideBar/Settings.dart';
+import '../../api/api_Comsumer.dart';
+import '../../api/Dio_Consumer.dart';
+import 'package:dio/dio.dart';
 class Avisjeune extends StatefulWidget {
   const Avisjeune({super.key});
 
@@ -121,6 +124,49 @@ class _AvisjeuneState extends State<Avisjeune> {
     _focusNode3.dispose();
     super.dispose();
   }
+
+  Future<void> _submitFeedback() async {
+    final evaluation = _searchController.text;
+    final recommendation = _searchController1.text;
+    final subject = _textEditingController.text;
+
+    if (evaluation.isEmpty || recommendation.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Veuillez remplir tous les champs"))
+      );
+      return;
+    }
+
+    final dio = Dio();
+
+    const apiUrl = 'http://192.168.1.2:8080/streams/1/opinions';
+
+    try {
+      final response = await dio.post(apiUrl, data: {
+        'evaluation': evaluation,
+        'recommendation': recommendation,
+        'subject': subject,
+      });
+
+      if (response.statusCode == 200) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Merci pour votre avis!"))
+        );
+        _searchController.clear();
+        _searchController1.clear();
+        _textEditingController.clear();
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Erreur lors de l'envoi de l'avis"))
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Erreur: $e"))
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -450,7 +496,9 @@ class _AvisjeuneState extends State<Avisjeune> {
                         ),
                         SizedBox(width: 20,),
                         ElevatedButton(
-                          onPressed: (){},
+                          onPressed: (){
+                            _submitFeedback();
+                          },
                           child: Text(
                             "Soumettre",
                             style:TextStyle(

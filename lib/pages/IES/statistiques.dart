@@ -36,6 +36,7 @@ class _StatistiquesState extends State<Statistiques> {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
 
     iconButtonSize = screenWidth * 0.06;

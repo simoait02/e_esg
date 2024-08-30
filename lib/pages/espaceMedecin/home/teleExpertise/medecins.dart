@@ -61,8 +61,9 @@ class _MedecinsState extends State<Medecins> {
   }
   Future<List> getMedecinsViaNom() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? token = prefs.getString('tokenDoc');
-      final response = await api.get(
+    bool isDoc=prefs.getBool("isDoc")!;
+    String? token =isDoc? prefs.getString('tokenDoc'):prefs.getString('tokenInf');
+    final response = await api.get(
         EndPoints.GetAllMedecins,
         headers: {
           "Authorization": "$token",

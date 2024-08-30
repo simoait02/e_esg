@@ -49,7 +49,8 @@ class _TeleExpertiseState extends State<TeleExpertise> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       language = prefs.getString("language") ?? 'en';
-      id = prefs.getInt("IdDoc")!;
+      bool isDoc=prefs.getBool("isDoc")!;
+      id =isDoc? prefs.getInt("IdDoc")!:prefs.getInt("IdInf")!;
     });
   }
 
@@ -66,8 +67,9 @@ class _TeleExpertiseState extends State<TeleExpertise> {
   Future<List> getInvitedDiscussion(String date) async {
     List discussions = [];
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    int id = prefs.getInt("IdDoc")!;
-    String? token = prefs.getString('tokenDoc');
+    bool isDoc=prefs.getBool("isDoc")!;
+    id =isDoc? prefs.getInt("IdDoc")!:prefs.getInt("IdInf")!;
+    String? token =isDoc? prefs.getString('tokenDoc'):prefs.getString('tokenInf');
     final response = await api.get(EndPoints.GetInvitation, headers: {
       "Authorization": "$token"
     });
@@ -90,8 +92,9 @@ class _TeleExpertiseState extends State<TeleExpertise> {
   Future<List> GetDiscussion(String date) async {
     List discussions = [];
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    int id = prefs.getInt("IdDoc")!;
-    String? token = prefs.getString('tokenDoc');
+    bool isDoc=prefs.getBool("isDoc")!;
+    id =isDoc? prefs.getInt("IdDoc")!:prefs.getInt("IdInf")!;
+    String? token =isDoc? prefs.getString('tokenDoc'):prefs.getString('tokenInf');
     final response = await api.get(EndPoints.GetAllDiscussion, headers: {
       "Authorization": "$token"
     });

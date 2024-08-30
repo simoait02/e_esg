@@ -158,7 +158,8 @@ class _Creatediscussion04State extends State<Creatediscussion04> {
                 ),
                 onPressed: () async {
                   SharedPreferences prefs = await SharedPreferences.getInstance();
-                  String? token = prefs.getString('tokenDoc');
+                  bool isDoc=prefs.getBool("isDoc")!;
+                  String? token =isDoc? prefs.getString('tokenDoc'):prefs.getString('tokenInf');
                   await api.post(
                     EndPoints.CreateDiscussion,
                     data: {

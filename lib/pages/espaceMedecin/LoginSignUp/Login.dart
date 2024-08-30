@@ -201,6 +201,8 @@ class _LoginState extends State<Login> {
                     final decodedToken= JwtDecoder.decode(userDoc!.token);
                     prefs.setInt('IdDoc', decodedToken["claims"]["id"]);
                     int? id= prefs.getInt("IdDoc");
+                    prefs.setBool('isDoc', true);
+
                     print(id);
                     Navigator.pushAndRemoveUntil(
                       context,

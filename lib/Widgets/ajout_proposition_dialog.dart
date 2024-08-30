@@ -39,6 +39,8 @@ class _AddPropositionDialogState extends State<AddPropositionDialog> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+    double iconButtonSize = screenWidth * 0.10;
+    double sectionPadding = screenWidth * 0.04;
     double titleFontSize = screenWidth * 0.06 -6;
     return SimpleDialog(
       title: Center(
@@ -123,3 +125,4 @@ class _AddPropositionDialogState extends State<AddPropositionDialog> {
     );
   }
 }
+

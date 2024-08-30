@@ -4,11 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../Data/live_list.dart';
 import '../../Widgets/ajout_proposition_dialog.dart';
+import '../../Widgets/custom_sliver_app_bar.dart';
 import '../../models/live.dart';
 import '../IES/live_informations_page.dart';
 import '../IES/lives.dart';
 import '../IES/statistiques.dart';
 import 'SideBar/Settings.dart';
+import 'package:dio/dio.dart';
+import 'package:e_esg/api/api_Comsumer.dart';
+import 'package:e_esg/api/Dio_Consumer.dart';
 
 class Ies extends  StatefulWidget {
   const Ies({super.key});
@@ -18,8 +22,19 @@ class Ies extends  StatefulWidget {
    IesState createState() => IesState();
 }
 class IesState extends State<Ies> {
+  late LiveList _liveList;
+  late Future<void> _fetchDataFuture;
   double width=0;
   double height=0;
+
+  @override
+  void initState() {
+    super.initState();
+    final ApiComsumer apiConsumer = DioConsumer(dio: Dio());
+    _liveList = LiveList(apiConsumer: apiConsumer);
+    _fetchDataFuture = _liveList.fetchLiveData();
+  }
+
   void addNewProposition(String subject) {
 
   }
@@ -57,9 +72,9 @@ class IesState extends State<Ies> {
               height: 300,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: thisWeekLives.length,
+                itemCount: _liveList.thisWeekLives.length,
                 itemBuilder: (context, index) {
-                  return liveComponent(live: thisWeekLives[index],isDarkMode: SettingsYong.isDarkMode.value);
+                  return liveComponent(live: _liveList.thisWeekLives[index],isDarkMode: SettingsYong.isDarkMode.value);
                 },
               ),
             ),
@@ -94,9 +109,9 @@ class IesState extends State<Ies> {
               height: 300,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: allLives.length,
+                itemCount: _liveList.allLives.length,
                 itemBuilder: (context, index) {
-                  return liveComponent(live: allLives[index],isDarkMode: SettingsYong.isDarkMode.value);
+                  return liveComponent(live: _liveList.allLives[index],isDarkMode: SettingsYong.isDarkMode.value);
                 },
               ),
             ),
@@ -324,4 +339,5 @@ class SuggestionBox extends StatelessWidget {
     );
   }
 }
+
 

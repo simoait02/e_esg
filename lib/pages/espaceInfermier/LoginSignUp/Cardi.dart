@@ -69,7 +69,10 @@ class _CardiInfState extends State<CardiInf> {
         onBackTapped: (newQ, newTop) {
           updateContainerSize(newQ, newTop);
           navigateTo(1);
-        },
+        },onConfirmTapped: (newQ, newTop) {
+        updateContainerSize(newQ, newTop);
+        navigateTo(0);
+      },
       ),
       NewPassword(
         onBackTapped: (newQ, newTop) {
