@@ -62,12 +62,12 @@ class _Creatediscussion03State extends State<Creatediscussion03> {
         },
       );
 
-        List medecins =response;
-        doctorList=medecins;
-        doctorList = doctorList.toSet().toList();
-        print("****************$doctorList");
-        return medecins;}
-      catch (e) {
+      List medecins =response;
+      doctorList=medecins;
+      doctorList = doctorList.toSet().toList();
+      print("****************$doctorList");
+      return medecins;}
+    catch (e) {
       // Handle any exceptions during the API call
       print('Error fetching medecins: $e');
       return [];
@@ -80,7 +80,7 @@ class _Creatediscussion03State extends State<Creatediscussion03> {
     selectedDoctorsId=medecinsInvitesIds;
     selectedDoctorsId = selectedDoctorsId.toSet().toList();
     if(date.isNotEmpty){
-    label= date;
+      label= date;
     }
     if(date.isNotEmpty){
       label1=heure;
@@ -110,7 +110,7 @@ class _Creatediscussion03State extends State<Creatediscussion03> {
       filteredDoctors = doctorList.where((doctor) {
         return doctor["nom"].toLowerCase().contains(query) ||
             doctor["prenom"].toLowerCase().contains(query) &&
-            !selectedDoctorsId.contains(doctor["id"]);
+                !selectedDoctorsId.contains(doctor["id"]);
       }).toList();
     });
   }
@@ -618,12 +618,12 @@ class _Creatediscussion03State extends State<Creatediscussion03> {
               width: width,
               padding: EdgeInsets.symmetric(horizontal: 8),
               decoration: BoxDecoration(
-                border: Border.all(
-                  color: Cardi.isDarkMode.value
-                      ? CupertinoColors.white.withOpacity(0.5)
-                      : CupertinoColors.black.withOpacity(0.5),
-                ),
-                borderRadius: BorderRadius.circular(10)
+                  border: Border.all(
+                    color: Cardi.isDarkMode.value
+                        ? CupertinoColors.white.withOpacity(0.5)
+                        : CupertinoColors.black.withOpacity(0.5),
+                  ),
+                  borderRadius: BorderRadius.circular(10)
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
