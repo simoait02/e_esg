@@ -217,7 +217,7 @@ class _TeleExpertiseState extends State<TeleExpertise> {
                       CupertinoButton(
                         child: Container(
                           height: 40,
-                          width: width * 0.4,
+                          width: width * 0.38,
                           alignment: Alignment.center,
                           padding: const EdgeInsets.symmetric(
                               vertical: 5, horizontal: 10),
