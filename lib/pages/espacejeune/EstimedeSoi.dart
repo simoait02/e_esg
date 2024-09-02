@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../Widgets/custom_sliver_app_bar.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'SideBar/Settings.dart';
 import 'testpsy4.dart';
 
 class EstimedeSoi extends StatefulWidget {
@@ -109,8 +110,6 @@ class EstimedeSoiState extends State<EstimedeSoi> {
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
     var screenWidth = MediaQuery.of(context).size.width;
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
     final appLocalizations = AppLocalizations.of(context)!;
 
      if (questions.isEmpty) {
@@ -131,14 +130,9 @@ class EstimedeSoiState extends State<EstimedeSoi> {
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor:
-          isDarkMode ? Color(0xff141218) : Color.fromARGB(255, 240, 235, 235),
+      SettingsYong.isDarkMode.value ? Color(0xff141218) : Color(0xffF5F5F6),
       body: CustomScrollView(
         slivers: [
-          CustomSliverAppBar(
-            name: "Simo",
-            role: "Jeune",
-            imagePath: 'assets/images/boy.png',
-          ),
           SliverToBoxAdapter(
             child: Padding(
               padding: EdgeInsets.all(screenWidth * 0.05),
@@ -147,10 +141,11 @@ class EstimedeSoiState extends State<EstimedeSoi> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
+                      margin: EdgeInsets.only(top: 50),
                       width: screenWidth * 0.9,
                       padding: EdgeInsets.all(screenWidth * 0.05),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: SettingsYong.isDarkMode.value ? Colors.white.withOpacity(0.5) : Colors.black.withOpacity(0.5),
                         borderRadius:
                             BorderRadius.circular(screenWidth * 0.04),
                       ),
@@ -170,7 +165,7 @@ class EstimedeSoiState extends State<EstimedeSoi> {
                       width: screenWidth * 0.9,
                       padding: EdgeInsets.all(screenWidth * 0.05),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: SettingsYong.isDarkMode.value ? Colors.white.withOpacity(0.5) : Colors.black.withOpacity(0.5),
                         borderRadius:
                             BorderRadius.circular(screenWidth * 0.04),
                       ),

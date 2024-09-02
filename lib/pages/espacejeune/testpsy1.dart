@@ -2,7 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'SideBar/Settings.dart';
 import 'testpsy2.dart';
-import '../../Widgets/custom_sliver_app_bar.dart';  
+import '../../Widgets/custom_sliver_app_bar.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Testpsy1 extends StatefulWidget {
@@ -18,6 +18,7 @@ class Testpsy1State extends State<Testpsy1> {
     var screenHeight = MediaQuery.of(context).size.height;
     var screenWidth = MediaQuery.of(context).size.width;
     final appLocalizations = AppLocalizations.of(context)!;
+
     return Scaffold(
       backgroundColor: SettingsYong.isDarkMode.value ? Color(0xff141218) : Color(0xffF5F5F6),
       body: SafeArea(
@@ -30,7 +31,7 @@ class Testpsy1State extends State<Testpsy1> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(height: 40,),
+                      SizedBox(height: 40),
                       Container(
                         width: screenWidth * 0.9,
                         padding: EdgeInsets.all(screenWidth * 0.05),
@@ -75,7 +76,7 @@ class Testpsy1State extends State<Testpsy1> {
                             ),
                             SizedBox(height: screenHeight * 0.01),
                             Center(
-                              child:Text(
+                              child: Text(
                                 appLocalizations.bienEtreDescription,
                                 style: TextStyle(
                                   fontSize: 10,
@@ -86,8 +87,8 @@ class Testpsy1State extends State<Testpsy1> {
                             Text(
                               appLocalizations.commencezMaintenant,
                               style: TextStyle(
-                                  fontSize: 10,
-                                ),
+                                fontSize: 10,
+                              ),
                             ),
                           ],
                         ),
@@ -120,17 +121,12 @@ class Testpsy1State extends State<Testpsy1> {
                             ),
                             SizedBox(height: screenHeight * 0.02),
                             PsychologicalTestButton(
-                              buttonText: appLocalizations.estimeDeSoi, 
+                              buttonText: appLocalizations.estimeDeSoi,
                               questionText: appLocalizations.estimeDeSoiQuestion,
-                              title: appLocalizations.estimeDeSoiTitle,
                               description: appLocalizations.estimeDeSoiDescription,
                               imagePath: 'assets/images/estime_de_soi.png',
                               context: context,
-                              route: Testpsy2(
-                                title: appLocalizations.estimeDeSoiTitle,
-                                description: appLocalizations.estimeDeSoiDescription,
-                                imagePath: 'assets/images/estime_de_soi.png',
-                              ),
+                              index: 0,
                             ),
                             SizedBox(height: screenHeight * 0.02),
                             Divider(
@@ -141,15 +137,10 @@ class Testpsy1State extends State<Testpsy1> {
                             PsychologicalTestButton(
                               buttonText: appLocalizations.paix,
                               questionText: appLocalizations.paixQuestion,
-                              title: appLocalizations.paixTitle,
                               description: appLocalizations.paixDescription,
                               imagePath: 'assets/images/paix_interieure.jpg',
                               context: context,
-                              route: Testpsy2(
-                                title: appLocalizations.paixTitle,
-                                description: appLocalizations.paixDescription,
-                                imagePath: 'assets/images/paix_interieure.jpg',
-                              ),
+                              index: 1,
                             ),
                             SizedBox(height: screenHeight * 0.02),
                             Divider(
@@ -160,15 +151,10 @@ class Testpsy1State extends State<Testpsy1> {
                             PsychologicalTestButton(
                               buttonText: appLocalizations.humeur,
                               questionText: appLocalizations.humeurQuestion,
-                              title: appLocalizations.humeurTitle,
                               description: appLocalizations.humeurDescription,
                               imagePath: 'assets/images/humeur_vitalite.jpg',
                               context: context,
-                              route: Testpsy2(
-                                title: appLocalizations.humeurTitle,
-                                description:appLocalizations.humeurDescription,
-                                imagePath: 'assets/images/humeur_vitalite.jpg',
-                              ),
+                              index: 2,
                             ),
                             SizedBox(height: screenHeight * 0.02),
                             Divider(
@@ -179,20 +165,15 @@ class Testpsy1State extends State<Testpsy1> {
                             PsychologicalTestButton(
                               buttonText: appLocalizations.sommeil,
                               questionText: appLocalizations.sommeilQuestion,
-                              title: appLocalizations.sommeilTitle,
-                              description:  appLocalizations.sommeilDescription,
+                              description: appLocalizations.sommeilDescription,
                               imagePath: 'assets/images/sommeil.jpg',
                               context: context,
-                              route: Testpsy2(
-                                title: appLocalizations.sommeilTitle,
-                                description: appLocalizations.sommeilDescription,
-                                imagePath: 'assets/images/sommeil.jpg',
-                              ),
+                              index: 3,
                             ),
                           ],
                         ),
                       ),
-                      SizedBox(height: screenHeight*0.1,)
+                      SizedBox(height: screenHeight * 0.1),
                     ],
                   ),
                 ),
@@ -208,11 +189,10 @@ class Testpsy1State extends State<Testpsy1> {
 Widget PsychologicalTestButton({
   required String buttonText,
   required String questionText,
-  required String title,
   required String description,
   required String imagePath,
   required BuildContext context,
-  required Widget route,
+  required int index,
 }) {
   var screenWidth = MediaQuery.of(context).size.width;
   return GestureDetector(
@@ -225,18 +205,18 @@ Widget PsychologicalTestButton({
             width: screenWidth * 0.2,
             decoration: BoxDecoration(
               border: Border.all(
-                color: Color.fromARGB(255, 255, 255, 255), 
-                width: 2, 
+                color: Color.fromARGB(255, 255, 255, 255),
+                width: 2,
               ),
-              borderRadius: BorderRadius.circular(5), 
+              borderRadius: BorderRadius.circular(5),
             ),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(5), 
+              borderRadius: BorderRadius.circular(5),
               child: Image.asset(
-                imagePath, 
+                imagePath,
                 height: screenWidth * 0.2,
                 width: screenWidth * 0.2,
-                fit: BoxFit.cover, 
+                fit: BoxFit.cover,
               ),
             ),
           ),
@@ -250,17 +230,22 @@ Widget PsychologicalTestButton({
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => route,
+                        builder: (context) => Testpsy2(
+                          index: index,
+                          description: description,
+                          imagePath: imagePath,
+                        ),
                       ),
                     );
                   },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(Color.fromARGB(255, 175, 182, 231)),
                     foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                    padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.symmetric(vertical: 8, horizontal: 12)),
+                    padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                        EdgeInsets.symmetric(vertical: 8, horizontal: 12)),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10), 
+                        borderRadius: BorderRadius.circular(10),
                       ),
                     ),
                   ),

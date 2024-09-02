@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../Widgets/custom_sliver_app_bar.dart';
+import 'SideBar/Settings.dart';
 import 'testpsy4.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -94,8 +95,6 @@ class HumeurState extends State<Humeur> {
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
     var screenWidth = MediaQuery.of(context).size.width;
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
     final appLocalizations = AppLocalizations.of(context)!;
 
 
@@ -123,14 +122,10 @@ class HumeurState extends State<Humeur> {
 
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: isDarkMode ? Color(0xff141218) : Color.fromARGB(255, 240, 235, 235),
+      backgroundColor: SettingsYong.isDarkMode.value ? const Color(0xff141218) : const Color(0xffF5F5F6),
+
       body: CustomScrollView(
         slivers: [
-          CustomSliverAppBar(
-            name: "Simo",
-            role: "Jeune",
-            imagePath: 'assets/images/boy.png',
-          ),
           SliverToBoxAdapter(
             child: Padding(
               padding: EdgeInsets.all(screenWidth * 0.05),
@@ -139,10 +134,11 @@ class HumeurState extends State<Humeur> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
+                      margin: EdgeInsets.only(top: 50),
                       width: screenWidth * 0.9,
                       padding: EdgeInsets.all(screenWidth * 0.05),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: SettingsYong.isDarkMode.value ? Colors.white.withOpacity(0.5) : Colors.black.withOpacity(0.5),
                         borderRadius: BorderRadius.circular(screenWidth * 0.04),
                       ),
                       child: Center(
@@ -161,7 +157,7 @@ class HumeurState extends State<Humeur> {
                       width: screenWidth * 0.9,
                       padding: EdgeInsets.all(screenWidth * 0.05),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: SettingsYong.isDarkMode.value ? Colors.white.withOpacity(0.5) : Colors.black.withOpacity(0.5),
                         borderRadius: BorderRadius.circular(screenWidth * 0.04),
                       ),
                       child: Column(

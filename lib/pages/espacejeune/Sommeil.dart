@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../Widgets/custom_sliver_app_bar.dart';
+import 'SideBar/Settings.dart';
 import 'testpsy4.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -165,22 +166,16 @@ class SommeilState extends State<Sommeil> {
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
     var screenWidth = MediaQuery.of(context).size.width;
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
 
     var currentTest = tests[currentTestIndex];
     var parts = currentTest['parts'];
 
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: isDarkMode ? Color(0xff141218) : Color.fromARGB(255, 240, 235, 235),
+      backgroundColor:SettingsYong.isDarkMode.value ? Color(0xff141218) : Color(0xffF5F5F6),
       body: CustomScrollView(
         slivers: [
-          CustomSliverAppBar(
-            name: "Simo",
-            role: "Jeune",
-            imagePath: 'assets/images/boy.png',
-          ),
+
           SliverToBoxAdapter(
             child: Padding(
               padding: EdgeInsets.all(screenWidth * 0.05),
@@ -189,10 +184,11 @@ class SommeilState extends State<Sommeil> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
+                      margin: EdgeInsets.only(top: 50),
                       width: screenWidth * 0.9,
                       padding: EdgeInsets.all(screenWidth * 0.05),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: !SettingsYong.isDarkMode.value ? Colors.black.withOpacity(0.5) : Colors.white.withOpacity(0.5),
                         borderRadius: BorderRadius.circular(screenWidth * 0.04),
                       ),
                       child: Center(
@@ -211,7 +207,7 @@ class SommeilState extends State<Sommeil> {
                       width: screenWidth * 0.9,
                       padding: EdgeInsets.all(screenWidth * 0.05),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: !SettingsYong.isDarkMode.value ? Colors.black.withOpacity(0.5) : Colors.white.withOpacity(0.5),
                         borderRadius: BorderRadius.circular(screenWidth * 0.04),
                       ),
                       child: Column(
@@ -220,35 +216,35 @@ class SommeilState extends State<Sommeil> {
                           Row(
                             children: [
                               GestureDetector(
-      onTap: previousTest,
-      child: Row(
-        children: [
-          Image.asset(
-            "assets/images/fleche.png",
-            width: screenWidth * 0.025,
-            height: screenWidth * 0.025,
-          ),
-          SizedBox(width: screenWidth * 0.01),
-          Text(
-            "Précédent",
-            style: TextStyle(
-              fontSize: screenWidth * 0.039,
-              color: Color.fromARGB(255, 4, 79, 140),
-            ),
-          ),
-        ],
-      ),
-    ),
-    SizedBox(width: screenWidth * 0.48),
-    Text(
-      '${currentTestIndex + 1}/${tests.length}',
-      style: TextStyle(
-        fontSize: screenWidth * 0.03,
-        color: Color.fromARGB(255, 4, 79, 140),
-      ),
-    ),
-  ],
-),
+                            onTap: previousTest,
+                            child: Row(
+                              children: [
+                                Image.asset(
+                                  "assets/images/fleche.png",
+                                  width: screenWidth * 0.025,
+                                  height: screenWidth * 0.025,
+                                ),
+                                SizedBox(width: screenWidth * 0.01),
+                                Text(
+                                  "Précédent",
+                                  style: TextStyle(
+                                    fontSize: screenWidth * 0.039,
+                                    color: Color.fromARGB(255, 4, 79, 140),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(width: screenWidth * 0.48),
+                          Text(
+                            '${currentTestIndex + 1}/${tests.length}',
+                            style: TextStyle(
+                              fontSize: screenWidth * 0.03,
+                              color: Color.fromARGB(255, 4, 79, 140),
+                            ),
+                          ),
+                        ],
+                      ),
                           SizedBox(height: screenHeight * 0.03),
                           Text(
                             currentTest['title'],
