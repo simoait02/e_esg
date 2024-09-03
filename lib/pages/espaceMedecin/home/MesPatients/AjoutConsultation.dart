@@ -648,7 +648,7 @@ class _AjoutconsultationState extends State<Ajoutconsultation> {
                                 else if(HistoriqueClinicController.text.isEmpty) errorText="priere de specifier l'historique clinique";
                                 else if(ExamenClinicController.text.isEmpty) errorText="priere de specifier l'examen clinique";
                                 else if(DiagnosticController.text.isEmpty) {errorText="priere de specifier le diagnostique";
-                                print("${DiagnosticController.text}");}
+                                }
                                 else if(OrdonnanceController.text.isEmpty) errorText="priere de specifier l'ordonnance";
                               });
                               if(errorText!="") {Fluttertoast.showToast(
@@ -668,22 +668,21 @@ class _AjoutconsultationState extends State<Ajoutconsultation> {
                                   SharedPreferences prefs = await SharedPreferences.getInstance();
                                   String? token = prefs.getString('tokenDoc');
                                   int? id = prefs.getInt("IdDoc");
-                                  print(patient["dossierMedial"]["antecedentsPersonnels"][0]["type"]);
                                   await api.post(
                                     "/$id/${EndPoints.PostConsultation}",
                                     data: {
                                       "date": "${label}T$label1",
                                       "motif": motifConsultationController.text,
-                                      "antecedentPersonnel": {
+                                      "antecedentPersonnel": patient["dossierMedial"]["antecedentsPersonnels"].isNotEmpty ? {
                                         "type": patient["dossierMedial"]["antecedentsPersonnels"][0]["type"],
                                         "specification": patient["dossierMedial"]["antecedentsPersonnels"][0]["specification"],
                                         "specificationAutre": patient["dossierMedial"]["antecedentsPersonnels"][0]["specificationAutre"],
-                                        "nombreAnnee":patient["dossierMedial"]["antecedentsPersonnels"][0]["nombreAnnee"]
-                                      },
-                                      "antecedentFamilial": {
+                                        "nombreAnnee": patient["dossierMedial"]["antecedentsPersonnels"][0]["nombreAnnee"]
+                                      } : {},
+                                      "antecedentFamilial": patient["dossierMedial"]["antecedentsFamiliaux"].isNotEmpty ? {
                                         "typeAntFam": patient["dossierMedial"]["antecedentsFamiliaux"][0]["typeAntFam"],
                                         "autre": patient["dossierMedial"]["antecedentsFamiliaux"][0]["autre"]
-                                      },
+                                      } : {},
                                       "examenMedical": {
                                         "typeExamen":TypeExamenController.text,
                                         "specificationExamen": SpecificationExamenController.text,
@@ -705,7 +704,6 @@ class _AjoutconsultationState extends State<Ajoutconsultation> {
                                   );
                                   // Navigator.pop(context);
                                 } on ServerException catch (e) {
-                                  print("dfffffffffffffffffffffffffffffffffffffffffffffffffffff");
                                   Fluttertoast.showToast(msg: e.errormodel.errorMsg,backgroundColor: Colors.red);
                                 }
                               }
@@ -724,5 +722,3 @@ class _AjoutconsultationState extends State<Ajoutconsultation> {
     );
   }
 }
-
-    

@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 import '../../LoginSignUp/Cardi.dart';
 class Voirdossiermedical extends StatefulWidget {
@@ -21,7 +22,7 @@ class _VoirdossiermedicalState extends State<Voirdossiermedical> {
       "Nom": patient["infoUser"]["nom"],
       "Prenom": patient["infoUser"]["prenom"],
       "sexe": patient["sexe"],
-      "dateNaissance": patient["dateNaissance"],
+      "dateNaissance": DateFormat('yyyy-MM-dd').format(DateTime.fromMillisecondsSinceEpoch(patient["dateNaissance"]).toLocal()).toString(),
       "age": patient["age"].toString(),
       "Maladies Familiales": (patient["dossierMedial"]["antecedentsFamiliaux"][0]["maladiesFamiliales"].length==0)?"Aucun":patient["dossierMedial"]["antecedentsFamiliaux"][0]["maladiesFamiliales"].join("\n"),
       if(patient["dossierMedial"]["antecedentsFamiliaux"][0]["typeAntFam"]!="")"type d'antecedents familiaux": patient["dossierMedial"]["antecedentsFamiliaux"][0]["typeAntFam"],

@@ -25,30 +25,29 @@ class Mespatients extends StatefulWidget {
 
 class _MespatientsState extends State<Mespatients> {
   List<dynamic> _foundedpatients = [];
-  String tri_par = "Nom";//Date de consultation
+  String tri_par = "Nom";
   String sexe = "Tout";
   List<String> selectedMaladies = ["Tout"];
   bool sort_up = true;
   List<dynamic> _searchedpatients = [];
   bool isLoading = true;
-  String endpoint="";
+  String endpoint = "";
 
   String convertToUpperCase(String word) {
     Map<String, String> specialCases = {
-      "Femme" : "FEMININ",
+      "Femme": "FEMININ",
       "Homme": "MASCULIN",
     };
     return specialCases[word] ?? word.toUpperCase();
   }
+
   @override
   void initState() {
-
-    //_foundedpatients = List.from(patients)..sort((a, b) => b.consultation_date.compareTo(a.consultation_date));
     _initializeData();
     super.initState();
   }
+
   Future<void> _initializeData() async {
-    // Ensure preferences are loaded before proceeding
     await _loadPreferences();
     await initMyPatients();
     sortAndFilterPatients();
@@ -57,9 +56,9 @@ class _MespatientsState extends State<Mespatients> {
   Future<List<dynamic>> getPatients() async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      bool isDoc=prefs.getBool("isDoc")!;
-      String? token = isDoc? prefs.getString('tokenDoc'):prefs.getString('tokenInf');
-      endpoint;
+      bool isDoc = prefs.getBool("isDoc")!;
+      String? token = isDoc ? prefs.getString('tokenDoc') : prefs.getString('tokenInf');
+
       switch (tri_par) {
         case "Nom":
           endpoint = EndPoints.GetPatientsByNom;
@@ -76,7 +75,7 @@ class _MespatientsState extends State<Mespatients> {
       }
 
       final response = await api.get(
-        endpoint,
+        EndPoints.GetAllJeune,
         headers: {
           "Authorization": "$token",
         },
@@ -87,6 +86,25 @@ class _MespatientsState extends State<Mespatients> {
       return [];
     }
   }
+
+  void sortByNom(List<dynamic> users, {bool ascending = true}) {
+    users.sort((a, b) => ascending
+        ? a['infoUser']['nom'].compareTo(b['infoUser']['nom'])
+        : b['infoUser']['nom'].compareTo(a['infoUser']['nom']));
+  }
+
+  void sortByPrenom(List<dynamic> users, {bool ascending = true}) {
+    users.sort((a, b) => ascending
+        ? a['infoUser']['prenom'].compareTo(b['infoUser']['prenom'])
+        : b['infoUser']['prenom'].compareTo(a['infoUser']['prenom']));
+  }
+
+  void sortByAge(List<dynamic> users, {bool ascending = true}) {
+    users.sort((a, b) => ascending
+        ? a['infoUser']['age'].compareTo(b['infoUser']['age'])
+        : b['infoUser']['age'].compareTo(a['infoUser']['age']));
+  }
+
   Future<void> initMyPatients() async {
     List<dynamic> patients = await getPatients();
     setState(() {
@@ -95,72 +113,63 @@ class _MespatientsState extends State<Mespatients> {
       isLoading = false;
     });
   }
+
   Future<void> _loadPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       tri_par = prefs.getString('tri') ?? "Nom";
       sexe = prefs.getString('sexe') ?? "Tout";
-      print("SexeSexeSexeSexeSexeSexeSexeSexeSexeSexeSexeSexeSexeSexeSexeSexeSexeSexe: $sexe");
       sort_up = prefs.getBool('sort') ?? true;
       selectedMaladies = prefs.getStringList('selectedMaladies') ?? ["Tout"];
     });
   }
 
-  //@override
-  // void didChangeDependencies() {
-  //   super.didChangeDependencies();
-  //   final args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
-  //   if (args != null) {
-  //     setState(() {
-  //       tri_par = args['tri_par'] ?? "Nom";//"Date de consultation";
-  //       sexe = args['sexe'] ?? "Tout";
-  //       selectedMaladies = List<String>.from(args['selectedMaladies'] ?? ["Tout"]);
-  //       sort_up = args['sort_up'] ?? true;
-  //     });
-  //     initMyPatients();
-  //     sortAndFilterPatients();
-  //   }
-  // }
-
   void sortAndFilterPatients() {
     setState(() {
-      //_foundedpatients = List.from(patients)..sort((a, b) => b.consultation_date.compareTo(a.consultation_date));
-      _foundedpatients.removeWhere((patient) => patient['dossierMedial']==null);
+      _foundedpatients.removeWhere((patient) => patient['dossierMedial'] == null);
+
       if (sexe != "Tout") {
-        _foundedpatients = _foundedpatients.where((patient) => patient['sexe'] == convertToUpperCase(sexe)).toList();
+        _foundedpatients = _foundedpatients
+            .where((patient) => patient['sexe'] == convertToUpperCase(sexe))
+            .toList();
       }
+
       if (!selectedMaladies.contains("Tout")) {
-        _foundedpatients = _foundedpatients.where((patient) =>
-            selectedMaladies.any((maladie) => patient['dossierMedial']['antecedentsPersonnels'][0]['maladies'].contains(maladie))
-        ).toList();
+        _foundedpatients = _foundedpatients
+            .where((patient) => selectedMaladies.any((maladie) =>
+            patient['dossierMedial']['antecedentsPersonnels'][0]['maladies']
+                .contains(maladie)))
+            .toList();
       }
-      // }
-      // _foundedpatients.sort((a, b) {
-      //   int result;
-      //   switch (tri_par) {
-      //     case "Nom":
-      //       result = a.nom.compareTo(b.nom);
-      //       break;
-      //     case "Prenom":
-      //       result = a.prenom.compareTo(b.prenom);
-      //       break;
-      //     case "Age":
-      //       result = a.age.compareTo(b.age);
-      //       break;
-      //     case "Date de consultation":
-      //     default:
-      //       result = a.consultation_date.compareTo(b.consultation_date);
-      //       break;
-      //   }
-      //   return sort_up ? result : -result;
-      // });
-      _searchedpatients= sort_up ?_foundedpatients: _foundedpatients.reversed.toList();
+
+      switch (tri_par) {
+        case "Nom":
+          sortByNom(_foundedpatients, ascending: sort_up);
+          break;
+        case "Prenom":
+          sortByPrenom(_foundedpatients, ascending: sort_up);
+          break;
+        case "Age":
+          sortByAge(_foundedpatients, ascending: sort_up);
+          break;
+        default:
+          sortByNom(_foundedpatients, ascending: sort_up);
+          break;
+      }
+
+      _searchedpatients = sort_up ? _foundedpatients : _foundedpatients.reversed.toList();
     });
   }
+
   void onSearch(String search) {
     setState(() {
-      _searchedpatients= _foundedpatients.where((patient) {
-        return patient["infoUser"]['nom'].toLowerCase().contains(search.toLowerCase())||patient["infoUser"]['prenom'].toLowerCase().contains(search.toLowerCase());
+      _searchedpatients = _foundedpatients.where((patient) {
+        return patient["infoUser"]['nom']
+            .toLowerCase()
+            .contains(search.toLowerCase()) ||
+            patient["infoUser"]['prenom']
+                .toLowerCase()
+                .contains(search.toLowerCase());
       }).toList();
     });
   }
@@ -175,10 +184,6 @@ class _MespatientsState extends State<Mespatients> {
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            Directionality(
-              textDirection: TextDirection.ltr,
-                child: CustomSliverAppBar(role: "Docteur", name: "simo", imagePath: "assets/images/boy.png",)
-            ),
             SliverToBoxAdapter(
               child: Container(
                 margin: const EdgeInsets.only(top: 10),
@@ -248,26 +253,26 @@ class _MespatientsState extends State<Mespatients> {
             ),
           if (isLoading)
         const SliverToBoxAdapter(
-    child: Center(child: CupertinoActivityIndicator()),
-    )
-    else if (_searchedpatients.isEmpty)
-    const SliverToBoxAdapter(
-    child: Center(
-    child: Text(
-    "No Data",
-    style: TextStyle(fontSize: 18),
-    ),
-    ),
-    )
-    else
-    SliverList(
-    delegate: SliverChildBuilderDelegate(
-    (context, index) {
-    return patientComponent(patient: _searchedpatients[index]);
-    },
-    childCount: _searchedpatients.length,
-    ),
-    ),
+              child: Center(child: CupertinoActivityIndicator()),
+              )
+              else if (_searchedpatients.isEmpty)
+              const SliverToBoxAdapter(
+              child: Center(
+              child: Text(
+              "No Data",
+              style: TextStyle(fontSize: 18),
+              ),
+              ),
+              )
+              else
+              SliverList(
+              delegate: SliverChildBuilderDelegate(
+              (context, index) {
+              return patientComponent(patient: _searchedpatients[index]);
+              },
+              childCount: _searchedpatients.length,
+              ),
+              ),
             const SliverToBoxAdapter(
               child: SizedBox(height: 100,),
             )
@@ -290,9 +295,9 @@ class _MespatientsState extends State<Mespatients> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                Container(
+            ListTile(
+
+                leading:Container(
                   margin: const EdgeInsets.all(10),
                   height: 40,
                   width: 40,
@@ -300,15 +305,23 @@ class _MespatientsState extends State<Mespatients> {
                     child: Image.asset("assets/images/patient.png", fit: BoxFit.fill,),
                   ),
                 ),
-                Text(patient['infoUser']["nom"] + " " + patient['infoUser']['prenom'],
+                title:  Text(patient['infoUser']["nom"] + " " + patient['infoUser']['prenom'],
                   style: GoogleFonts.aBeeZee(
                       textStyle: const TextStyle(
                         fontWeight: FontWeight.w300,
                         fontSize: 20,
                       )
                   ),
-                )
-              ],
+                ),
+              subtitle:Text( "${AppLocalizations.of(context)!.agePatient}: ${patient['age']}",
+                style: GoogleFonts.aBeeZee(
+                    textStyle: const TextStyle(
+                      fontWeight: FontWeight.w300,
+                      fontSize: 15,
+                    )
+                ),
+              ),
+
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -318,7 +331,7 @@ class _MespatientsState extends State<Mespatients> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Voirdossiermedical(),
+                        builder: (context) => const Voirdossiermedical(),
                         settings: RouteSettings(arguments: patient),
                       ),
                     );
@@ -348,7 +361,7 @@ class _MespatientsState extends State<Mespatients> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Ajoutconsultation(),
+                        builder: (context) => const Ajoutconsultation(),
                         settings: RouteSettings(arguments: patient),
                       ),
                     );
