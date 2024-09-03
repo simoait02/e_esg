@@ -145,7 +145,7 @@ class EstimedeSoiState extends State<EstimedeSoi> {
                       width: screenWidth * 0.9,
                       padding: EdgeInsets.all(screenWidth * 0.05),
                       decoration: BoxDecoration(
-                        color: SettingsYong.isDarkMode.value ? Colors.white.withOpacity(0.5) : Colors.black.withOpacity(0.5),
+                        color: SettingsYong.isDarkMode.value ? Colors.white.withOpacity(0.5) : Colors.white,
                         borderRadius:
                             BorderRadius.circular(screenWidth * 0.04),
                       ),
@@ -165,7 +165,7 @@ class EstimedeSoiState extends State<EstimedeSoi> {
                       width: screenWidth * 0.9,
                       padding: EdgeInsets.all(screenWidth * 0.05),
                       decoration: BoxDecoration(
-                        color: SettingsYong.isDarkMode.value ? Colors.white.withOpacity(0.5) : Colors.black.withOpacity(0.5),
+                        color: SettingsYong.isDarkMode.value ? Colors.white.withOpacity(0.5) : Colors.white,
                         borderRadius:
                             BorderRadius.circular(screenWidth * 0.04),
                       ),

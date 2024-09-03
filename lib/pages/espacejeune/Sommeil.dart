@@ -188,7 +188,7 @@ class SommeilState extends State<Sommeil> {
                       width: screenWidth * 0.9,
                       padding: EdgeInsets.all(screenWidth * 0.05),
                       decoration: BoxDecoration(
-                        color: !SettingsYong.isDarkMode.value ? Colors.black.withOpacity(0.5) : Colors.white.withOpacity(0.5),
+                        color: !SettingsYong.isDarkMode.value ? Colors.white : Colors.white.withOpacity(0.5),
                         borderRadius: BorderRadius.circular(screenWidth * 0.04),
                       ),
                       child: Center(
@@ -207,7 +207,7 @@ class SommeilState extends State<Sommeil> {
                       width: screenWidth * 0.9,
                       padding: EdgeInsets.all(screenWidth * 0.05),
                       decoration: BoxDecoration(
-                        color: !SettingsYong.isDarkMode.value ? Colors.black.withOpacity(0.5) : Colors.white.withOpacity(0.5),
+                        color: !SettingsYong.isDarkMode.value ? Colors.white : Colors.white.withOpacity(0.5),
                         borderRadius: BorderRadius.circular(screenWidth * 0.04),
                       ),
                       child: Column(
