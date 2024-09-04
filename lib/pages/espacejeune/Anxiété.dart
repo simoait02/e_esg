@@ -36,7 +36,7 @@ class AnxieteState extends State<Anxiete> {
 
     if (score < 8) {
       return appLocalizations.interpretation_low;
-    } else if (score >= 8 && score < 10) {
+    } else if (score >= 8 && score <= 10) {
       return appLocalizations.interpretation_moderate;
     } else {
       return appLocalizations.interpretation_high;

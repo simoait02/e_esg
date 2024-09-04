@@ -44,10 +44,8 @@ class EstimedeSoiState extends State<EstimedeSoi> {
   }
 
   String interpretScore(int score) {
-    if (score < 25) {
+    if (score < 31) {
       return AppLocalizations.of(context)!.lowSelfEsteemMessage;
-    } else if (score >= 25 && score < 31) {
-      return AppLocalizations.of(context)!.mediumLowSelfEsteemMessage;
     } else if (score >= 31 && score < 34) {
       return AppLocalizations.of(context)!.mediumHighSelfEsteemMessage;
     } else if (score >= 34 && score <= 39) {

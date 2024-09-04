@@ -35,7 +35,7 @@ class HumeurState extends State<Humeur> {
     final appLocalizations = AppLocalizations.of(context)!;
     if (score < 8) {
       return  appLocalizations.resultGoodMood;
-    } else if (score >= 8 && score < 10) {
+    } else if (score >= 8 && score <= 10) {
       return appLocalizations.resultModerateMood;
     } else {
       return appLocalizations.resultConcernedMood;
