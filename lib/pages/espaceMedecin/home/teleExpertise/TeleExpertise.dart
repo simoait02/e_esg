@@ -200,7 +200,7 @@ class _TeleExpertiseState extends State<TeleExpertise> {
                             intl.DateFormat.yMMMMd().format(DateTime.now()),
                             style: GoogleFonts.aBeeZee(
                                 textStyle: TextStyle(
-                                    fontSize: 23,
+                                    fontSize: 20,
                                     color: Cardi.isDarkMode.value
                                         ? const Color(0x9395a6ce)
                                         : const Color(0x5e0e1462),

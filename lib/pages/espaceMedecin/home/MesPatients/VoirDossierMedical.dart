@@ -14,35 +14,6 @@ class Voirdossiermedical extends StatefulWidget {
 
 class _VoirdossiermedicalState extends State<Voirdossiermedical> {
   int selectedIndex = 0;
-  String buildConsultationInfos(List<Map<String,dynamic>> l){
-    String s="";
-    for(int i=0;i<l.length;i++){
-      s+="date:${l[i]['date']}\nmotif:${l[i]['motif']}\n";
-    }
-    return s;
-  }
-  RichText convertStringToRichText(String s){
-    List<TextSpan> spans=[];
-    List<String> lines=s.split("\n");
-    for(String line in lines){
-      if(line.startsWith("date:")){
-        spans.add(TextSpan(
-          text: line+"\n",
-          style: TextStyle(fontWeight:FontWeight.bold,)));
-      }
-      else{
-        spans.add(TextSpan(
-            text: line+"\n",
-            style: TextStyle(fontWeight:FontWeight.normal)));
-      }
-    }
-    return RichText(text: TextSpan(
-      children: spans,
-      style: TextStyle(fontSize: 14,
-        color: Cardi.isDarkMode.value ? Colors.white.withOpacity(0.5) : Colors.black.withOpacity(0.5),)
-    )
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,25 +22,79 @@ class _VoirdossiermedicalState extends State<Voirdossiermedical> {
       "Nom": patient["infoUser"]["nom"],
       "Prenom": patient["infoUser"]["prenom"],
       "sexe": patient["sexe"],
-      "dateNaissance": DateFormat('yyyy-MM-dd').format(DateTime.fromMillisecondsSinceEpoch(patient["dateNaissance"]).toLocal()).toString(),
+      "dateNaissance": DateFormat('yyyy-MM-dd').format(DateTime.fromMillisecondsSinceEpoch(patient["dateNaissance"])),
       "age": patient["age"].toString(),
-      "Maladies Familiales": (patient["dossierMedial"]["antecedentsFamiliaux"][0]["maladiesFamiliales"].length==0)?"Aucun":patient["dossierMedial"]["antecedentsFamiliaux"][0]["maladiesFamiliales"].join("\n"),
-      if(patient["dossierMedial"]["antecedentsFamiliaux"][0]["typeAntFam"]!="")"type d'antecedents familiaux": patient["dossierMedial"]["antecedentsFamiliaux"][0]["typeAntFam"],
-      if(patient["dossierMedial"]["antecedentsFamiliaux"][0]['autre']!="")"autre antecedents familiaux": patient["dossierMedial"]["antecedentsFamiliaux"][0]['autre'],
-      "maladies": (patient["dossierMedial"]["antecedentsPersonnels"][0]["maladies"].length==0)?"Aucun":patient["dossierMedial"]["antecedentsPersonnels"][0]["maladies"].join("\n"),
-      if(patient["dossierMedial"]["antecedentsPersonnels"][0]["utiliseMedicaments"]) "Medicaments": patient["dossierMedial"]["antecedentsPersonnels"][0]["medicaments"].join("\n"),
-      if(patient["dossierMedial"]["antecedentsPersonnels"][0]["chirurgicaux"]) "Operations Chirurgicales": patient["dossierMedial"]["antecedentsPersonnels"][0]["operationsChirurgicales"],
-      "Habitudes": (patient["dossierMedial"]["antecedentsPersonnels"][0]["habitudes"].length==0)?"Aucune":patient["dossierMedial"]["antecedentsPersonnels"][0]["habitudes"].join("\n"),
-      if(patient["dossierMedial"]["antecedentsPersonnels"][0]["cigarettesParJour"]!=0)"Cigarettes par jour": patient["dossierMedial"]["antecedentsPersonnels"][0]["cigarettesParJour"].toString(),
-      if(patient["dossierMedial"]["antecedentsPersonnels"][0]["consommationAlcool"]!=null||patient["dossierMedial"]["antecedentsPersonnels"][0]["consommationAlcool"]!="") "Consommation d'alcool":  patient["dossierMedial"]["antecedentsPersonnels"][0]["consommationAlcool"],
-      if(patient["dossierMedial"]["antecedentsPersonnels"][0]["tempsEcran"]!=""||patient["dossierMedial"]["antecedentsPersonnels"][0]["tempsEcran"]!=null) "Temps passé devant l'ecran": patient["dossierMedial"]["antecedentsPersonnels"][0]["tempsEcran"],
-      if(patient["dossierMedial"]["antecedentsPersonnels"][0]["dureeFumee"]!=null||patient["dossierMedial"]["antecedentsPersonnels"][0]["dureeFumee"]!="") "dureeFumee": patient["dossierMedial"]["antecedentsPersonnels"][0]["dureeFumee"],
-      if(patient["dossierMedial"]["antecedentsPersonnels"][0]["type"]!=null||patient["dossierMedial"]["antecedentsPersonnels"][0]["type"]!='')"type": patient["dossierMedial"]["antecedentsPersonnels"][0]["type"],
-      if(patient["dossierMedial"]["antecedentsPersonnels"][0]["specification"]!=null||patient["dossierMedial"]["antecedentsPersonnels"][0]["specification"]!='')"specification": patient["dossierMedial"]["antecedentsPersonnels"][0]["specification"],
-      if(patient["dossierMedial"]["antecedentsPersonnels"][0]["specificationAutre"]!=null||patient["dossierMedial"]["antecedentsPersonnels"][0]["specificationAutre"]!='')"specificationAutre": patient["dossierMedial"]["antecedentsPersonnels"][0]["specificationAutre"],
-      if(patient["dossierMedial"]["antecedentsPersonnels"][0]["nombreAnnee "]!=null||patient["dossierMedial"]["antecedentsPersonnels"][0]["nombreAnnee "]!='')"nombreAnnee": patient["dossierMedial"]["antecedentsPersonnels"][0]["nombreAnnee "].toString(),
-      if(patient["dossierMedial"]["historiqueConsultations"].length!=0)"Historique de consultation":buildConsultationInfos(patient["dossierMedial"]["historiqueConsultations"])
+
+      // Check if 'antecedentsFamiliaux' list is not empty before accessing its first element
+      "Maladies Familiales": (patient["dossierMedial"]["antecedentsFamiliaux"].isEmpty ||
+          patient["dossierMedial"]["antecedentsFamiliaux"][0]["maladiesFamiliales"].isEmpty)
+          ? "Aucun"
+          : patient["dossierMedial"]["antecedentsFamiliaux"][0]["maladiesFamiliales"].join("\n"),
+
+      // Conditionally add family medical history if available
+      if (patient["dossierMedial"]["antecedentsFamiliaux"].isNotEmpty &&
+          patient["dossierMedial"]["antecedentsFamiliaux"][0]["typeAntFam"] != "")
+        "type d'antecedents familiaux": patient["dossierMedial"]["antecedentsFamiliaux"][0]["typeAntFam"],
+
+      if (patient["dossierMedial"]["antecedentsFamiliaux"].isNotEmpty &&
+          patient["dossierMedial"]["antecedentsFamiliaux"][0]['autre'] != "")
+        "autre antecedents familiaux": patient["dossierMedial"]["antecedentsFamiliaux"][0]['autre'],
+
+      // Check if 'antecedentsPersonnels' list is not empty before accessing its first element
+      "maladies": (patient["dossierMedial"]["antecedentsPersonnels"].isEmpty ||
+          patient["dossierMedial"]["antecedentsPersonnels"][0]["maladies"].isEmpty)
+          ? "Aucun"
+          : patient["dossierMedial"]["antecedentsPersonnels"][0]["maladies"].join("\n"),
+
+      if (patient["dossierMedial"]["antecedentsPersonnels"].isNotEmpty &&
+          patient["dossierMedial"]["antecedentsPersonnels"][0]["utiliseMedicaments"])
+        "Medicaments": patient["dossierMedial"]["antecedentsPersonnels"][0]["medicaments"].join("\n"),
+
+      if (patient["dossierMedial"]["antecedentsPersonnels"].isNotEmpty &&
+          patient["dossierMedial"]["antecedentsPersonnels"][0]["chirurgicaux"])
+        "Operations Chirurgicales": patient["dossierMedial"]["antecedentsPersonnels"][0]["operationsChirurgicales"],
+
+      "Habitudes": (patient["dossierMedial"]["antecedentsPersonnels"].isEmpty ||
+          patient["dossierMedial"]["antecedentsPersonnels"][0]["habitudes"].isEmpty)
+          ? "Aucune"
+          : patient["dossierMedial"]["antecedentsPersonnels"][0]["habitudes"].join("\n"),
+
+      if (patient["dossierMedial"]["antecedentsPersonnels"].isNotEmpty &&
+          patient["dossierMedial"]["antecedentsPersonnels"][0]["cigarettesParJour"] != 0)
+        "Cigarettes par jour": patient["dossierMedial"]["antecedentsPersonnels"][0]["cigarettesParJour"].toString(),
+
+      if (patient["dossierMedial"]["antecedentsPersonnels"].isNotEmpty &&
+          patient["dossierMedial"]["antecedentsPersonnels"][0]["consommationAlcool"] != null)
+        "Consommation d'alcool": patient["dossierMedial"]["antecedentsPersonnels"][0]["consommationAlcool"],
+
+      if (patient["dossierMedial"]["antecedentsPersonnels"].isNotEmpty &&
+          patient["dossierMedial"]["antecedentsPersonnels"][0]["tempsEcran"] != "")
+        "Temps passé devant l'ecran": patient["dossierMedial"]["antecedentsPersonnels"][0]["tempsEcran"],
+
+      if (patient["dossierMedial"]["antecedentsPersonnels"].isNotEmpty &&
+          patient["dossierMedial"]["antecedentsPersonnels"][0]["dureeFumee"] != null)
+        "dureeFumee": patient["dossierMedial"]["antecedentsPersonnels"][0]["dureeFumee"],
+
+      if (patient["dossierMedial"]["antecedentsPersonnels"].isNotEmpty &&
+          patient["dossierMedial"]["antecedentsPersonnels"][0]["type"] != null)
+        "type": patient["dossierMedial"]["antecedentsPersonnels"][0]["type"],
+
+      if (patient["dossierMedial"]["antecedentsPersonnels"].isNotEmpty &&
+          patient["dossierMedial"]["antecedentsPersonnels"][0]["specification"] != null)
+        "specification": patient["dossierMedial"]["antecedentsPersonnels"][0]["specification"],
+
+      if (patient["dossierMedial"]["antecedentsPersonnels"].isNotEmpty &&
+          patient["dossierMedial"]["antecedentsPersonnels"][0]["specificationAutre"] != null)
+        "specificationAutre": patient["dossierMedial"]["antecedentsPersonnels"][0]["specificationAutre"],
+
+      if (patient["dossierMedial"]["antecedentsPersonnels"].isNotEmpty &&
+          patient["dossierMedial"]["antecedentsPersonnels"][0]["nombreAnnee "] != null)
+        "nombreAnnee": patient["dossierMedial"]["antecedentsPersonnels"][0]["nombreAnnee "].toString(),
+
+      if (patient["dossierMedial"]["historiqueConsultations"].isNotEmpty)
+        "Historique de consultation": patient["dossierMedial"]["historiqueConsultations"].join("\n")
     };
+
     final width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     final appLocalizations = AppLocalizations.of(context)!;
@@ -122,14 +147,13 @@ class _VoirdossiermedicalState extends State<Voirdossiermedical> {
                                   maxLines: 2,
                                   "$key ",
                                   style: GoogleFonts.aBeeZee(
-                                    textStyle: const TextStyle(fontWeight: FontWeight.w500, fontSize: 17),
+                                    textStyle: const TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
                                   ),
                                 ),
                               ),
                               SizedBox(width: width * 0.05,),
-                              Container(
-                                alignment: Alignment.center,
-                                child:(key!="Historique de consultation")? Text(
+                              Expanded(
+                                child: Text(
                                   value,
                                   textAlign: TextAlign.left,
                                   style: GoogleFonts.aBeeZee(
@@ -139,7 +163,7 @@ class _VoirdossiermedicalState extends State<Voirdossiermedical> {
                                       color: Cardi.isDarkMode.value ? Colors.white.withOpacity(0.5) : Colors.black.withOpacity(0.5),
                                     ),
                                   ),
-                                ):convertStringToRichText(value),
+                                ),
                               ),
                             ],
                           ),
