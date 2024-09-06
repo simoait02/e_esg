@@ -34,7 +34,7 @@ class _Creatediscussion03State extends State<Creatediscussion03> {
   List<String> consomation=["CHAT","APPEL_VIDEO"];
   List filteredDoctors = [];
   List<String> filteredSpecialties = [];
-  static List<String> selectedDoctors = [];
+  List<String> selectedDoctors = [];
   List<int> selectedDoctorsId = [];
   List<String> selectedSpecialties = [];
   TextEditingController searchController = TextEditingController();

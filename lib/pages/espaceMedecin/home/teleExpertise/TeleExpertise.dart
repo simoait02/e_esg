@@ -81,7 +81,7 @@ class _TeleExpertiseState extends State<TeleExpertise> {
         final get = await api.get(EndPoints.GetDiscussionViaId + "/${invitation["discussionId"]}", headers: {
           "Authorization": "$token"
         });
-        if(intl.DateFormat('yyyy-MM-dd').format(DateTime.parse(get["date"]))==date){
+        if(intl.DateFormat('yyyy-MM-dd').format(DateTime.fromMillisecondsSinceEpoch(get["date"]))==date){
           discussions.add(get);
         }
       }
@@ -104,7 +104,7 @@ class _TeleExpertiseState extends State<TeleExpertise> {
     for (dynamic discussion in response) {
       // Ensure comparison is between same types
       if (discussion["medcinResponsable"]["id"] == id) {
-        if(intl.DateFormat('yyyy-MM-dd').format(DateTime.parse(discussion["date"]))==date){
+        if(intl.DateFormat('yyyy-MM-dd').format(DateTime.fromMillisecondsSinceEpoch(discussion["date"]))==date){
           discussions.add(discussion);
         }
       }
@@ -217,7 +217,7 @@ class _TeleExpertiseState extends State<TeleExpertise> {
                       CupertinoButton(
                         child: Container(
                           height: 40,
-                          width: width * 0.4,
+                          width: width * 0.38,
                           alignment: Alignment.center,
                           padding: const EdgeInsets.symmetric(
                               vertical: 5, horizontal: 10),
@@ -336,7 +336,7 @@ class _TeleExpertiseState extends State<TeleExpertise> {
                                     DateTime.now().day,
                                     int.parse( item["heure"]!.split(':')[0]),
                                     int.parse(item["heure"]!.split(':')[1])+30).isAfter(DateTime.now())
-                                    && DateTime.parse(item["date"])==DateTime.now();
+                                    && DateTime.fromMillisecondsSinceEpoch(item["date"])==DateTime.now();
                                 return Container(
                                   width: width * 0.8,
                                   decoration: BoxDecoration(
@@ -517,7 +517,7 @@ class _TeleExpertiseState extends State<TeleExpertise> {
                                   DateTime.now().day,
                                   int.parse( item["heure"]!.split(':')[0]),
                                   int.parse(item["heure"]!.split(':')[1])+30).isAfter(DateTime.now())
-                                  && DateTime.parse(item["date"])==DateTime.now();
+                                  && DateTime.fromMillisecondsSinceEpoch(item["date"])==DateTime.now();
                               return Container(
                                 width: width * 0.8,
                                 decoration: BoxDecoration(

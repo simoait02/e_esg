@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../Widgets/custom_sliver_app_bar.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'SideBar/Settings.dart';
 import 'testpsy4.dart';
 
 class Anxiete extends StatefulWidget {
@@ -35,7 +36,7 @@ class AnxieteState extends State<Anxiete> {
 
     if (score < 8) {
       return appLocalizations.interpretation_low;
-    } else if (score >= 8 && score < 10) {
+    } else if (score >= 8 && score <= 10) {
       return appLocalizations.interpretation_moderate;
     } else {
       return appLocalizations.interpretation_high;
@@ -67,7 +68,7 @@ class AnxieteState extends State<Anxiete> {
           backgroundColor: Colors.green,
         ),
       );
-      Future.delayed(Duration(seconds: 2), () {
+      Future.delayed(const Duration(seconds: 2), () {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
@@ -95,8 +96,6 @@ class AnxieteState extends State<Anxiete> {
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
     var screenWidth = MediaQuery.of(context).size.width;
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
     final appLocalizations = AppLocalizations.of(context)!;
 
     if (questions.isEmpty) {
@@ -159,14 +158,9 @@ class AnxieteState extends State<Anxiete> {
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor:
-          isDarkMode ? Color(0xff141218) : Color.fromARGB(255, 240, 235, 235),
+      SettingsYong.isDarkMode.value ? const Color(0xff141218) : const Color(0xffF5F5F6),
       body: CustomScrollView(
         slivers: [
-          CustomSliverAppBar(
-            name: "Simo",
-            role: "Jeune",
-            imagePath: 'assets/images/boy.png',
-          ),
           SliverToBoxAdapter(
             child: Padding(
               padding: EdgeInsets.all(screenWidth * 0.05),
@@ -175,10 +169,11 @@ class AnxieteState extends State<Anxiete> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
+                      margin: EdgeInsets.only(top: 50),
                       width: screenWidth * 0.9,
                       padding: EdgeInsets.all(screenWidth * 0.05),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color:  SettingsYong.isDarkMode.value ? Colors.white.withOpacity(0.5) : Colors.white,
                         borderRadius: BorderRadius.circular(screenWidth * 0.04),
                       ),
                       child: Center(
@@ -197,7 +192,7 @@ class AnxieteState extends State<Anxiete> {
                       width: screenWidth * 0.9,
                       padding: EdgeInsets.all(screenWidth * 0.05),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: SettingsYong.isDarkMode.value ? Colors.white.withOpacity(0.5) : Colors.white,
                         borderRadius: BorderRadius.circular(screenWidth * 0.04),
                       ),
                       child: Column(
@@ -217,7 +212,7 @@ class AnxieteState extends State<Anxiete> {
                                   appLocalizations.previous_button,
                                   style: TextStyle(
                                     fontSize: screenWidth * 0.039,
-                                    color: Color.fromARGB(255, 4, 79, 140),
+                                    color: const Color.fromARGB(255, 4, 79, 140),
                                   ),
                                 ),
                                 SizedBox(width: screenWidth * 0.48),
@@ -225,7 +220,7 @@ class AnxieteState extends State<Anxiete> {
                                   '${currentQuestionIndex + 1}/7',
                                   style: TextStyle(
                                     fontSize: screenWidth * 0.03,
-                                    color: Color.fromARGB(255, 4, 79, 140),
+                                    color: const Color.fromARGB(255, 4, 79, 140),
                                   ),
                                 ),
                               ],
@@ -265,7 +260,7 @@ class AnxieteState extends State<Anxiete> {
                                     decoration: BoxDecoration(
                                       color: isHovered[index]
                                           ? Colors.blue
-                                          : Color.fromARGB(255, 4, 79, 140),
+                                          : const Color.fromARGB(255, 4, 79, 140),
                                       borderRadius: BorderRadius.circular(
                                           screenWidth * 0.02),
                                     ),

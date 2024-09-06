@@ -27,11 +27,6 @@ class Testpsy4State extends State<Testpsy4> {
       backgroundColor: SettingsYong.isDarkMode.value ? Color(0xff141218) : Color(0xffF5F5F6),
       body: CustomScrollView(
         slivers: [
-          CustomSliverAppBar(
-            name: "Simo",
-            role: "Jeune",
-            imagePath: 'assets/images/boy.png',
-          ),
           SliverToBoxAdapter(
             child: Padding(
               padding: EdgeInsets.all(screenWidth * 0.05),
@@ -41,6 +36,7 @@ class Testpsy4State extends State<Testpsy4> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
+                        margin: EdgeInsets.only(top: 50),
                         width: screenWidth * 0.9,
                         padding: EdgeInsets.all(screenWidth * 0.05),
                         decoration: BoxDecoration(

@@ -33,7 +33,7 @@ class _EEsjState extends State<EEsj> {
         alignment: Alignment.center,
         child:Container(
           width:width*0.8,
-            child: Image.asset('assets/images/logo_eesj.png')) ,
+            child: Image.asset('assets/images/logo_eesj1.png')) ,
       ),
     );
   }

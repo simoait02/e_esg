@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import '../../Widgets/custom_sliver_app_bar.dart';
 import 'SideBar/Settings.dart';
-import 'Estime de Soi.dart';
+import 'EstimedeSoi.dart';
 import 'Anxiété.dart';
 import 'Humeur.dart';
 import 'Sommeil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Testpsy2 extends StatefulWidget {
-  final String title;
+  final int index;
   final String description;
   final String imagePath;
 
   const Testpsy2({
     Key? key,
-    required this.title,
+    required this.index,
     required this.description,
     required this.imagePath,
   }) : super(key: key);
@@ -26,22 +26,15 @@ class Testpsy2 extends StatefulWidget {
 class Testpsy2State extends State<Testpsy2> {
   bool isHovered = false;
 
-  void _navigateBasedOnTitle() {
-    final appLocalizations = AppLocalizations.of(context)!;
-    Widget destination;
-    switch (widget.title) {
-      case "Évaluation de l'Estime de soi" || "تقييم تقدير الذات" || "Self-Esteem Evaluation":
-        destination = EstimedeSoi();
-        break;
-      case "Évaluation de la Paix Intérieure" || "تقييم السلام الداخلي" || "Inner Peace Assessment":
-        destination = Anxiete();
-        break;
-      case "Evaluation de l'Humeur et de la Vitalité" || "تقييم المزاج والحيوية" || "Mood and Vitality Assessment":
-        destination = Humeur();
-        break;
-      default:
-        destination = Sommeil();
-    }
+  void _navigateBasedOnIndex() {
+    final destinations = [
+      EstimedeSoi(),
+      Anxiete(),
+      Humeur(),
+      Sommeil(), // Add other destinations as needed
+    ];
+
+    Widget destination = destinations[widget.index];
     Navigator.push(context, MaterialPageRoute(builder: (context) => destination));
   }
 
@@ -55,11 +48,6 @@ class Testpsy2State extends State<Testpsy2> {
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            CustomSliverAppBar(
-              name: "Simo",
-              role: "Jeune",
-              imagePath: 'assets/images/boy.png',
-            ),
             SliverFillRemaining(
               hasScrollBody: false,
               child: Padding(
@@ -78,7 +66,7 @@ class Testpsy2State extends State<Testpsy2> {
                         ),
                         child: Center(
                           child: Text(
-                            widget.title,
+                            AppLocalizations.of(context)!.commencerLeTest, // Assuming this is the title or related text
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
@@ -129,7 +117,7 @@ class Testpsy2State extends State<Testpsy2> {
                                 });
                               },
                               child: GestureDetector(
-                                onTap: _navigateBasedOnTitle,
+                                onTap: _navigateBasedOnIndex,
                                 child: AnimatedContainer(
                                   duration: Duration(milliseconds: 200),
                                   padding: EdgeInsets.symmetric(
@@ -167,4 +155,3 @@ class Testpsy2State extends State<Testpsy2> {
     );
   }
 }
-
