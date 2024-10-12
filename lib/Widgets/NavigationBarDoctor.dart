@@ -4,12 +4,12 @@ import 'package:e_esg/pages/espaceMedecin/home/IES.dart';
 import 'package:e_esg/pages/espaceMedecin/home/MesPatients/MesPatients.dart';
 import 'package:e_esg/pages/espaceMedecin/home/Profile/Profile.dart';
 import 'package:e_esg/pages/espaceMedecin/home/Profile/Settings.dart';
+import 'package:e_esg/pages/espaceMedecin/home/chatbot.dart';
 import 'package:e_esg/pages/espaceMedecin/home/teleExpertise/newTeleExpertise.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../pages/espaceMedecin/home/Chatbot.dart';
 import 'package:e_esg/models/doctor.dart';
 
 class NavbarDoc extends StatefulWidget {
