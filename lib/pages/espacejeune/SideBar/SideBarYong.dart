@@ -240,43 +240,6 @@ class _SidebarYongState extends State<SidebarYong> {
                       color: Colors.white24,
                     ),
                   ),
-                  Stack(
-                    children: [
-                      AnimatedPositioned(
-                        duration: const Duration(milliseconds: 300),
-                        height: 56,
-                        width: widget.selectedItem == 4 ? width * 0.75 : 0,
-                        child: Container(
-                          decoration: const BoxDecoration(
-                            color: Color(0xFF6792FF),
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                          ),
-                        ),
-                      ),
-                      ListTile(
-                        onTap: () {
-                          widget.onItemSelected(4);
-                        },
-                        leading: SizedBox(
-                          height: 30,
-                          width: 30,
-                          child: SvgPicture.asset(
-                            "assets/images/logout.svg",
-                            color: Colors.purple.shade100,
-                          ),
-                        ),
-                        title: Text(
-                          appLocalizations.logOut,
-                          style: GoogleFonts.poppins(
-                            textStyle: const TextStyle(
-                              fontSize: 18,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
                 ],
               ),
             ],

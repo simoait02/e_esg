@@ -42,7 +42,7 @@ class _ChatState extends State<Chat> {
             ),
             const Spacer(),
             Container(
-              height: height * 0.87,
+              height: height * 0.8,
               width: width,
               decoration: const BoxDecoration(
                 color: Color(0x1a2e37a4),

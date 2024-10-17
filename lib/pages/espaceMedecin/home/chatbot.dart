@@ -37,6 +37,7 @@ class _ChatbotState extends State<Chatbot> {
   }
 
   void _sendMessage(String text) async {
+    controller.clear();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool isDoc = prefs.getBool("isDoc")!;
     String? token = isDoc ? prefs.getString('tokenDoc') : prefs.getString('tokenInf');
@@ -44,7 +45,7 @@ class _ChatbotState extends State<Chatbot> {
       messages.add("You: $text");
     });
     final response = await api.post(
-      "http://10.5.24.134:5000/chatbot/ask",
+      "http://192.168.59.78:5000/chatbot/ask",
       data: {"message": text},
       headers: {
         "Authorization": "$token",
@@ -53,7 +54,6 @@ class _ChatbotState extends State<Chatbot> {
     setState(() {
       messages.add("Bot: ${response['response']}");
     });
-    controller.clear();
     _saveMessages();
   }
 

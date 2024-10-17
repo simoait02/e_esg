@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:e_esg/Widgets/NavigationBarJeune.dart';
 import 'package:e_esg/pages/espacejeune/SideBar/Settings.dart';
 import 'package:e_esg/pages/espacejeune/gamification/widgets/game_app.dart';
+import 'package:e_esg/pages/espacejeune/login_signup/Cardi.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
